@@ -1,68 +1,142 @@
 import { ArrowUpRight } from 'lucide-react'
 import type { Project } from '../data/projects'
 
+function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  )
+}
+
 interface ProjectCardProps {
   project: Project
   className?: string
 }
 
 export default function ProjectCard({ project, className = '' }: ProjectCardProps) {
+  const isFlagship = project.featured
+
   return (
     <article
-      className={`border border-border bg-surface hover:border-border-strong hover:bg-surface-hover transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${className}`}
+      className={`border bg-surface hover:bg-surface-hover transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${
+        isFlagship
+          ? 'border-border-strong shadow-xs'
+          : 'border-border'
+      } ${className}`}
     >
-      {/* ─── Top Metadata Header ─── */}
-      <div className="flex items-center justify-between border-b border-border px-5 py-3 text-xs font-mono text-muted bg-surface-subtle/50">
+      {/* ─── Card Header Metadata Bar ─── */}
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-5 sm:px-6 py-3 text-xs font-mono text-muted bg-surface-subtle/60">
         <div className="flex items-center gap-2.5">
-          <span className="text-foreground font-medium">#{project.index}</span>
+          <span className="text-foreground font-semibold">#{project.index}</span>
           <span className="text-border-strong" aria-hidden="true">|</span>
-          <span className="tracking-wider uppercase">{project.tagline}</span>
+          <span className="tracking-wider uppercase">{project.category}</span>
         </div>
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-foreground hover:text-secondary transition-colors"
-            aria-label={`View live project for ${project.title}`}
-          >
-            <span>LIVE</span>
-            <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-          </a>
-        )}
+
+        <div className="flex items-center gap-4">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-secondary hover:text-foreground transition-colors"
+              aria-label={`View GitHub source code for ${project.title}`}
+            >
+              <GithubIcon className="w-3.5 h-3.5" />
+              <span>SOURCE</span>
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-foreground font-medium hover:underline transition-all"
+              aria-label={`Visit live deployment for ${project.title}`}
+            >
+              <span>LIVE DEMO</span>
+              <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+            </a>
+          )}
+        </div>
       </div>
 
-      {/* ─── Main Content ─── */}
-      <div className="p-6 md:p-8 flex-1 flex flex-col justify-between">
+      {/* ─── Card Body ─── */}
+      <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight mb-3">
-            {project.title}
-          </h3>
+          {/* Title & Tagline */}
+          <div className="mb-4">
+            <h3 className={`font-semibold text-foreground tracking-tight ${
+              isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
+            }`}>
+              {project.title}
+            </h3>
+            <p className="font-mono text-xs text-muted mt-1 tracking-wide">
+              {project.tagline}
+            </p>
+          </div>
+
+          {/* Description */}
           <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
             {project.description}
           </p>
-        </div>
 
-        {/* ─── Technical Specifications Table / Grid ─── */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-5 border-t border-border mb-6">
-          {project.specs.map((spec, i) => (
-            <div key={i} className="flex flex-col gap-1">
-              <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
-                {spec.label}
-              </span>
-              <span className="font-mono text-xs text-foreground font-medium truncate">
-                {spec.value}
-              </span>
+          {/* ─── Flagship Enhanced Architecture Block ─── */}
+          {isFlagship && (
+            <div className="mb-6 p-4 sm:p-5 rounded-sm border border-border bg-page/50">
+              <div className="text-[11px] font-mono text-muted tracking-widest uppercase mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
+                <span>ARCHITECTURAL DECISIONS & IMPACT</span>
+              </div>
+              <ul className="space-y-2 text-xs sm:text-sm text-secondary font-mono leading-relaxed">
+                {project.keyDecisions.map((decision, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-muted select-none" aria-hidden="true">↳</span>
+                    <span>{decision}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-3 pt-3 border-t border-border flex items-baseline gap-2 text-xs font-mono">
+                <span className="text-muted uppercase">OUTCOME:</span>
+                <span className="text-foreground font-medium">{project.outcome}</span>
+              </div>
             </div>
-          ))}
+          )}
+
+          {/* ─── Non-Flagship Concise Specs ─── */}
+          {!isFlagship && (
+            <div className="mb-6 p-3.5 rounded-sm border border-border bg-page/40 text-xs font-mono space-y-1.5">
+              <div className="flex items-baseline gap-2">
+                <span className="text-muted uppercase tracking-wider">ROLE:</span>
+                <span className="text-foreground">{project.role}</span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-muted uppercase tracking-wider">OUTCOME:</span>
+                <span className="text-foreground">{project.outcome}</span>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* ─── Tech Stack Chips ─── */}
-        <div className="flex flex-wrap gap-2 pt-2">
-          {project.stack.map((tech) => (
+        {/* ─── Technology Stack Row ─── */}
+        <div className="pt-4 border-t border-border flex flex-wrap items-center gap-2">
+          <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-1">
+            STACK:
+          </span>
+          {project.technologies.map((tech) => (
             <span
               key={tech}
-              className="font-mono text-[11px] px-2.5 py-1 rounded-xs border border-border bg-surface-subtle text-secondary"
+              className="font-mono text-[11px] px-2.5 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary"
             >
               {tech}
             </span>

@@ -5,13 +5,13 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Work', href: '#work' },
-  { label: 'System', href: '#system' },
+  { label: 'Capabilities', href: '#capabilities' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ]
 
 export const AVAILABILITY_STATUS = {
   active: true,
-  label: 'AVAILABLE FOR Q2 / Q3',
+  label: 'AVAILABLE FOR SELECT PROJECTS',
   indicator: 'ONLINE',
 }

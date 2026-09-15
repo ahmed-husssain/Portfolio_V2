@@ -1,7 +1,8 @@
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/Navbar'
 import Hero from './sections/Hero'
-import ProjectPreview from './sections/ProjectPreview'
+import SelectedWork from './sections/SelectedWork'
+import Capabilities from './sections/Capabilities'
 import Container from './components/Container'
 
 export default function App() {
@@ -14,7 +15,8 @@ export default function App() {
         {/* ─── Main Content ─── */}
         <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
           <Hero />
-          <ProjectPreview />
+          <SelectedWork />
+          <Capabilities />
         </main>
 
         {/* ─── Foundation Phase Shell Footer ─── */}
@@ -23,7 +25,7 @@ export default function App() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
-                <span>PORTFOLIO V2 // PHASE 1: FOUNDATION</span>
+                <span>PORTFOLIO V2 // PHASE 2B: CAPABILITIES</span>
               </div>
               <p className="text-muted">
                 DESIGNED WITH MINIMALISM & PERFORMANCE IN MIND.
