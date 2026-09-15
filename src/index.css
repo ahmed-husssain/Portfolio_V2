@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  --color-page: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-surface-subtle: var(--bg-surface-subtle);
+
+  --color-foreground: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-muted: var(--text-muted);
+
+  --color-border: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-text: var(--accent-text);
+}
+
+:root {
+  --bg-page: #FFFFFF;
+  --bg-surface: #FAFAFA;
+  --bg-surface-hover: #F4F4F5;
+  --bg-surface-subtle: #F1F1F4;
+
+  --text-primary: #09090B;
+  --text-secondary: #52525B;
+  --text-muted: #71717A;
+
+  --border-subtle: #E4E4E7;
+  --border-strong: #D4D4D8;
+
+  --accent-bg: #09090B;
+  --accent-text: #FFFFFF;
+}
+
+.dark {
+  --bg-page: #000000;
+  --bg-surface: #0C0C0C;
+  --bg-surface-hover: #151515;
+  --bg-surface-subtle: #18181B;
+
+  --text-primary: #EDEDED;
+  --text-secondary: #A1A1AA;
+  --text-muted: #71717A;
+
+  --border-subtle: #222222;
+  --border-strong: #333333;
+
+  --accent-bg: #FFFFFF;
+  --accent-text: #000000;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--accent-text);
+}
+
+/* Accessible focus states */
+:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
