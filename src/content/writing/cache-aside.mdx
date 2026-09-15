@@ -1,0 +1,60 @@
+export const metadata = {
+  slug: 'cache-aside',
+  title: 'Understanding the Cache-Aside Pattern in Practice',
+  description:
+    'A field breakdown of read-through versus cache-aside data retrieval, cache invalidation strategies, and thundering herd mitigations in web systems.',
+  date: '2026-09-15',
+  tags: ['System Design', 'Caching', 'Databases'],
+  published: false,
+}
+
+# Understanding the Cache-Aside Pattern in Practice
+
+In high-read web applications, the database is often the primary latency bottleneck. While adding a caching layer such as Redis or Memcached is a standard architectural pattern, how an application interacts with that cache fundamentally dictates data consistency and failure modes.
+
+## The Cache-Aside Flow
+
+In the Cache-Aside (or Lazy Loading) pattern, the application code directly orchestrates both the cache and the primary database:
+
+1. **Read Request**: The application queries the cache first.
+2. **Cache Hit**: The cache returns the cached data immediately.
+3. **Cache Miss**: The application falls back to querying the database, writes the result back into the cache with a Time-To-Live (TTL), and returns the payload to the client.
+4. **Write Request**: The application updates the database and explicitly invalidates (deletes) the corresponding cache entry.
+
+```typescript
+async function getListingById(id: string): Promise<Listing> {
+  const cacheKey = `listing:${id}`
+  
+  // 1. Attempt cache lookup
+  const cached = await redis.get(cacheKey)
+  if (cached) {
+    return JSON.parse(cached)
+  }
+
+  // 2. Fallback to primary database query
+  const listing = await prisma.listing.findUnique({
+    where: { id },
+  })
+
+  if (!listing) {
+    throw new NotFoundError(`Listing ${id} does not exist`)
+  }
+
+  // 3. Populate cache with TTL (e.g., 1 hour)
+  await redis.set(cacheKey, JSON.stringify(listing), 'EX', 3600)
+  
+  return listing
+}
+```
+
+## Common Pitfalls & Mitigations
+
+### 1. The Thundering Herd Problem
+When a popular cache key expires during a traffic spike, dozens of concurrent requests experience a cache miss simultaneously. Every request attempts to query the database and repopulate the cache at once, potentially overloading the database.
+
+*Mitigation*: Implement mutex locks (single-flight pattern) or probabilistic early expiration (XFetch algorithm) to ensure only one worker repopulates the cache while others wait or serve slightly stale data.
+
+### 2. Cache Invalidation Race Conditions
+Updating the database and then writing new data directly to the cache can introduce race conditions under concurrent updates.
+
+*Mitigation*: Invalidate (delete) the cache key upon write rather than updating it. Let the next read cleanly repopulate the cache from the authoritative database transaction.
