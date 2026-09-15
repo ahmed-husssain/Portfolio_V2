@@ -88,7 +88,7 @@ export const PROJECTS: Project[] = [
       'Secure session cookies with bcryptjs password hashing for admin panel isolation',
     ],
     outcome:
-      'Achieved a 95+ Mobile Lighthouse score, seamless administrative property management, and sub-150ms query turnaround times.',
+      'Achieved a 95+ Mobile Lighthouse score, reliable administrative property workflows, and sub-150ms query turnaround times.',
   },
   {
     slug: 'careflow-connect',

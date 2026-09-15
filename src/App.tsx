@@ -14,6 +14,7 @@ const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
 const About = lazy(() => import('./pages/About'))
 const Writing = lazy(() => import('./pages/Writing'))
 const Contact = lazy(() => import('./pages/Contact'))
+const Review = lazy(() => import('./pages/Review'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 // Minimal, non-intrusive fallback matching Variant C
@@ -47,6 +48,7 @@ export default function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/writing" element={<Writing />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/review" element={<Review />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>

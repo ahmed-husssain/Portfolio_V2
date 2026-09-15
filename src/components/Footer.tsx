@@ -69,6 +69,13 @@ export default function Footer() {
                 <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
               </a>
             ))}
+            <Link
+              to="/review"
+              className="inline-flex items-center gap-1 text-xs font-mono text-muted hover:text-foreground transition-colors tracking-wider uppercase py-1 pt-2 mt-1 border-t border-border/40"
+            >
+              <span>SHARE FEEDBACK</span>
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
 

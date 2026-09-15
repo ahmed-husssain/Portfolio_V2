@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, ShieldCheck, Terminal, AlertCircle, Cpu } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, Terminal, AlertCircle, Cpu, ShieldCheck } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
@@ -58,9 +58,17 @@ export default function ProjectDetail() {
     )
   }
 
-  // Find next project for bottom navigation
+  // Data-driven next project navigation derived from collection order
   const currentIndex = PROJECTS.findIndex((p) => p.slug === slug)
   const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length]
+
+  const problem = caseStudy?.problem || project.problem
+  const solution = caseStudy?.solution || project.solution
+  const highlights = caseStudy?.highlights || project.highlights
+  const architecture = caseStudy?.architecture || project.architecture
+  const challenges = caseStudy?.challenges || project.challenges
+  const outcome = caseStudy?.outcome || project.outcome
+  const overview = caseStudy?.overview
 
   return (
     <article className="py-14 sm:py-20 md:py-28">
@@ -76,7 +84,7 @@ export default function ProjectDetail() {
           </Link>
         </div>
 
-        {/* Case Study Header */}
+        {/* ─── 1. Project Header ─── */}
         <header className="border-b border-border pb-10 sm:pb-14 mb-12 sm:mb-16">
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted uppercase tracking-wider mb-4">
             <div className="flex items-center gap-2">
@@ -86,7 +94,7 @@ export default function ProjectDetail() {
             </div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
-              <span>{project.status || 'COMPLETED'}</span>
+              <span>{project.status || 'PRODUCTION'}</span>
               {project.year && (
                 <>
                   <span>·</span>
@@ -104,7 +112,7 @@ export default function ProjectDetail() {
             {project.description}
           </p>
 
-          {/* Quick Spec & Links Bar */}
+          {/* Quick Spec Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 bg-surface border border-border rounded-sm text-xs font-mono mb-6">
             <div>
               <span className="text-muted block text-[10px] uppercase tracking-wider mb-1">ROLE</span>
@@ -124,7 +132,7 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          {/* External Action Links */}
+          {/* Quick Action Links */}
           <div className="flex flex-wrap items-center gap-3">
             {project.liveUrl && (
               <a
@@ -152,7 +160,7 @@ export default function ProjectDetail() {
           </div>
         </header>
 
-        {/* Project Visual Display Banner (if image available) */}
+        {/* Project Visual Display Banner (if image exists) */}
         {project.image && (
           <div className="mb-14 sm:mb-20">
             <div className="relative rounded-sm overflow-hidden border border-border bg-surface aspect-[16/9] sm:aspect-[21/9] max-h-[500px]">
@@ -169,173 +177,200 @@ export default function ProjectDetail() {
           </div>
         )}
 
-        {/* Structured Case Study Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Main Editorial Content Column */}
-          <div className="lg:col-span-8 space-y-12 sm:space-y-16">
-            {/* 01 // Problem */}
-            {(caseStudy?.problem || project.problem) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 01</span>
-                  <span className="uppercase tracking-wider">THE PROBLEM & CONTEXT</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Context & Requirements
-                </h2>
-                <p className="text-secondary text-sm sm:text-base leading-relaxed">
-                  {caseStudy?.problem || project.problem}
-                </p>
-              </section>
-            )}
-
-            {/* 02 // Solution */}
-            {(caseStudy?.solution || project.solution) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 02</span>
-                  <span className="uppercase tracking-wider">ENGINEERING SOLUTION</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Architectural Approach
-                </h2>
-                <p className="text-secondary text-sm sm:text-base leading-relaxed">
-                  {caseStudy?.solution || project.solution}
-                </p>
-              </section>
-            )}
-
-            {/* 03 // Key Highlights */}
-            {((caseStudy?.highlights && caseStudy.highlights.length > 0) ||
-              (project.highlights && project.highlights.length > 0)) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 03</span>
-                  <span className="uppercase tracking-wider">KEY DELIVERABLES & FEATURES</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Implementation Highlights
-                </h2>
-                <ul className="space-y-3 pt-2">
-                  {(caseStudy?.highlights || project.highlights || []).map((highlight, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                      <CheckCircle2 className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {/* 04 // Architecture & Data Decisions */}
-            {((caseStudy?.architecture && caseStudy.architecture.length > 0) ||
-              (project.architecture && project.architecture.length > 0)) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 04</span>
-                  <span className="uppercase tracking-wider">DATA FLOW & DESIGN CHOICES</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Architecture & Tradeoffs
-                </h2>
-                <ul className="space-y-3 pt-2">
-                  {(caseStudy?.architecture || project.architecture || []).map((arch, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                      <Cpu className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
-                      <span>{arch}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {/* 05 // Technical Challenges */}
-            {((caseStudy?.challenges && caseStudy.challenges.length > 0) ||
-              (project.challenges && project.challenges.length > 0)) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 05</span>
-                  <span className="uppercase tracking-wider">TECHNICAL CHALLENGES</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Hurdles & Mitigations
-                </h2>
-                <ul className="space-y-3 pt-2">
-                  {(caseStudy?.challenges || project.challenges || []).map((challenge, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                      <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
-                      <span>{challenge}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            {/* 06 // Measurable Outcome */}
-            {(caseStudy?.outcome || project.outcome) && (
-              <section className="space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                  <span className="text-foreground font-semibold">// 06</span>
-                  <span className="uppercase tracking-wider">MEASURABLE OUTCOMES</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Results & Current Status
-                </h2>
-                <div className="p-5 sm:p-6 bg-surface border border-border rounded-sm">
-                  <p className="text-foreground text-sm sm:text-base leading-relaxed font-medium">
-                    {caseStudy?.outcome || project.outcome}
-                  </p>
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Sidebar Column: Tech Specs & Meta */}
-          <div className="lg:col-span-4 space-y-8">
-            {/* Tech Stack Box */}
-            <div className="border border-border bg-surface rounded-sm p-6">
-              <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-5 border-b border-border">
-                <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="text-foreground font-semibold">TECHNOLOGY STACK</span>
+        {/* ─── Case Study Narrative Flow ─── */}
+        <div className="max-w-3xl mx-auto space-y-12 sm:space-y-16">
+          {/* ─── 2. Project Overview ─── */}
+          {overview && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// OVERVIEW</span>
+                <span className="uppercase tracking-wider">PROJECT INTENT & CONTEXT</span>
               </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Project Overview
+              </h2>
+              <p className="text-secondary text-sm sm:text-base leading-relaxed">
+                {overview}
+              </p>
+            </section>
+          )}
 
-              <div className="flex flex-wrap gap-2">
+          {/* ─── 3. Problem ─── */}
+          {problem && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 01</span>
+                <span className="uppercase tracking-wider">THE PROBLEM & CONTEXT</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                The Problem
+              </h2>
+              <p className="text-secondary text-sm sm:text-base leading-relaxed">
+                {problem}
+              </p>
+            </section>
+          )}
+
+          {/* ─── 4. What I Built / Solution ─── */}
+          {solution && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 02</span>
+                <span className="uppercase tracking-wider">WHAT I BUILT</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Engineering Solution
+              </h2>
+              <p className="text-secondary text-sm sm:text-base leading-relaxed">
+                {solution}
+              </p>
+            </section>
+          )}
+
+          {/* ─── 5. Key Highlights ─── */}
+          {highlights && highlights.length > 0 && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 03</span>
+                <span className="uppercase tracking-wider">KEY DELIVERABLES & FEATURES</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Key Highlights
+              </h2>
+              <ul className="space-y-3 pt-2">
+                {highlights.map((highlight, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
+                    <CheckCircle2 className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* ─── 6. Technical Architecture / Approach ─── */}
+          {architecture && architecture.length > 0 && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 04</span>
+                <span className="uppercase tracking-wider">DATA FLOW & DESIGN CHOICES</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Technical Architecture & Approach
+              </h2>
+              <ul className="space-y-3 pt-2">
+                {architecture.map((arch, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
+                    <Cpu className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <span>{arch}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* ─── 7. Challenges ─── */}
+          {challenges && challenges.length > 0 && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 05</span>
+                <span className="uppercase tracking-wider">TECHNICAL HURDLES</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Challenges & Mitigations
+              </h2>
+              <ul className="space-y-3 pt-2">
+                {challenges.map((challenge, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
+                    <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <span>{challenge}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* ─── 8. Outcome / Current Status ─── */}
+          {outcome && (
+            <section className="space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <span className="text-foreground font-semibold">// 06</span>
+                <span className="uppercase tracking-wider">RESULTS & CURRENT STATUS</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                Outcome & Status
+              </h2>
+              <div className="p-5 sm:p-6 bg-surface border border-border rounded-sm">
+                <p className="text-foreground text-sm sm:text-base leading-relaxed font-medium">
+                  {outcome}
+                </p>
+              </div>
+            </section>
+          )}
+
+          {/* ─── 9. Technology ─── */}
+          {project.technologies && project.technologies.length > 0 && (
+            <section className="space-y-4 pt-6 border-t border-border">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
+                <span className="text-foreground font-semibold uppercase">TECHNOLOGY STACK</span>
+              </div>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight">
+                Technologies Employed
+              </h2>
+              <div className="flex flex-wrap gap-2 pt-2">
                 {project.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 text-xs font-mono bg-page border border-border text-foreground rounded-sm"
+                    className="px-3 py-1 text-xs font-mono bg-surface border border-border text-foreground rounded-sm"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-            </div>
+            </section>
+          )}
 
-            {/* Engineering Highlights Summary */}
-            <div className="border border-border bg-surface rounded-sm p-6 text-xs font-mono">
-              <div className="flex items-center gap-2 text-muted uppercase tracking-wider pb-3 mb-4 border-b border-border">
+          {/* ─── 10. Links ─── */}
+          {(project.liveUrl || project.githubUrl) && (
+            <section className="space-y-4 pt-6 border-t border-border">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                 <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="text-foreground font-semibold">VERIFICATION STATUS</span>
+                <span className="text-foreground font-semibold uppercase">EXTERNAL VERIFICATION & ACCESS</span>
               </div>
-
-              <div className="space-y-3 text-secondary">
-                <div className="flex justify-between py-1 border-b border-border/60">
-                  <span className="text-muted">CODEBASE</span>
-                  <span className="text-foreground font-medium">AUDITED & TESTED</span>
-                </div>
-                <div className="flex justify-between py-1 border-b border-border/60">
-                  <span className="text-muted">DEPLOYMENT</span>
-                  <span className="text-foreground font-medium">PRODUCTION READY</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-muted">TYPE SYSTEM</span>
-                  <span className="text-foreground font-medium">STRICT TYPESCRIPT</span>
-                </div>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight">
+                Project Links
+              </h2>
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
+                  >
+                    <span>VISIT PRODUCTION SYSTEM</span>
+                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong transition-colors"
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                    <span>INSPECT REPOSITORY</span>
+                  </a>
+                )}
               </div>
-            </div>
+            </section>
+          )}
 
-            {/* Next Project Teaser */}
-            <div className="border border-border bg-surface rounded-sm p-6">
+          {/* ─── 11. Next Project Navigation ─── */}
+          <nav aria-label="Next Case Study" className="pt-10 border-t border-border">
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong transition-all">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-4 border-b border-border">
                 <Layers className="w-3.5 h-3.5" aria-hidden="true" />
                 <span className="text-foreground font-semibold">NEXT CASE STUDY</span>
@@ -344,22 +379,22 @@ export default function ProjectDetail() {
               <p className="text-xs font-mono text-muted uppercase mb-1">
                 {nextProject.category}
               </p>
-              <h3 className="text-base font-semibold text-foreground tracking-tight mb-3">
+              <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight mb-3">
                 {nextProject.title}
               </h3>
-              <p className="text-xs text-secondary leading-relaxed mb-4">
+              <p className="text-sm text-secondary leading-relaxed mb-6">
                 {nextProject.shortDescription}
               </p>
 
               <Link
                 to={`/work/${nextProject.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
               >
-                <span>VIEW CASE STUDY</span>
+                <span>READ NEXT CASE STUDY ({nextProject.title})</span>
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
-          </div>
+          </nav>
         </div>
       </Container>
     </article>
