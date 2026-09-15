@@ -1,17 +1,32 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 
-// Page Components
+// Critical Homepage kept in initial bundle
 import Home from './pages/Home'
-import Work from './pages/Work'
-import ProjectDetail from './pages/ProjectDetail'
-import About from './pages/About'
-import Writing from './pages/Writing'
-import Contact from './pages/Contact'
-import NotFound from './pages/NotFound'
+
+// Route-based code splitting via React.lazy
+const Work = lazy(() => import('./pages/Work'))
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
+const About = lazy(() => import('./pages/About'))
+const Writing = lazy(() => import('./pages/Writing'))
+const Contact = lazy(() => import('./pages/Contact'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+// Minimal, non-intrusive fallback matching Variant C
+function PageFallback() {
+  return (
+    <div className="min-h-[50vh] flex items-center justify-center">
+      <div className="flex items-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
+        <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" aria-hidden="true" />
+        <span>LOADING...</span>
+      </div>
+    </div>
+  )
+}
 
 export default function App() {
   return (
@@ -22,17 +37,19 @@ export default function App() {
           {/* ─── Fixed Header / Navbar ─── */}
           <Navbar />
 
-          {/* ─── Route Viewport ─── */}
+          {/* ─── Route Viewport with Code-Split Boundaries ─── */}
           <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/work" element={<Work />} />
-              <Route path="/work/:slug" element={<ProjectDetail />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/writing" element={<Writing />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <Suspense fallback={<PageFallback />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/work" element={<Work />} />
+                <Route path="/work/:slug" element={<ProjectDetail />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/writing" element={<Writing />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </main>
 
           {/* ─── Global Footer ─── */}

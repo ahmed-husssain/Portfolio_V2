@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, ShieldCheck, Terminal, A
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
+import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 // GitHub inline SVG icon
@@ -20,6 +21,7 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const project = PROJECTS.find((p) => p.slug === slug)
+  const caseStudy = slug ? CASE_STUDIES[slug] : undefined
 
   useDocumentTitle(
     project ? `${project.title} — Case Study | Ahmed` : 'Project Not Found // 404'
@@ -172,7 +174,7 @@ export default function ProjectDetail() {
           {/* Main Editorial Content Column */}
           <div className="lg:col-span-8 space-y-12 sm:space-y-16">
             {/* 01 // Problem */}
-            {project.problem && (
+            {(caseStudy?.problem || project.problem) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 01</span>
@@ -182,13 +184,13 @@ export default function ProjectDetail() {
                   Context & Requirements
                 </h2>
                 <p className="text-secondary text-sm sm:text-base leading-relaxed">
-                  {project.problem}
+                  {caseStudy?.problem || project.problem}
                 </p>
               </section>
             )}
 
             {/* 02 // Solution */}
-            {project.solution && (
+            {(caseStudy?.solution || project.solution) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 02</span>
@@ -198,13 +200,14 @@ export default function ProjectDetail() {
                   Architectural Approach
                 </h2>
                 <p className="text-secondary text-sm sm:text-base leading-relaxed">
-                  {project.solution}
+                  {caseStudy?.solution || project.solution}
                 </p>
               </section>
             )}
 
             {/* 03 // Key Highlights */}
-            {project.highlights && project.highlights.length > 0 && (
+            {((caseStudy?.highlights && caseStudy.highlights.length > 0) ||
+              (project.highlights && project.highlights.length > 0)) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 03</span>
@@ -214,7 +217,7 @@ export default function ProjectDetail() {
                   Implementation Highlights
                 </h2>
                 <ul className="space-y-3 pt-2">
-                  {project.highlights.map((highlight, i) => (
+                  {(caseStudy?.highlights || project.highlights || []).map((highlight, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
                       <CheckCircle2 className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
                       <span>{highlight}</span>
@@ -225,7 +228,8 @@ export default function ProjectDetail() {
             )}
 
             {/* 04 // Architecture & Data Decisions */}
-            {project.architecture && project.architecture.length > 0 && (
+            {((caseStudy?.architecture && caseStudy.architecture.length > 0) ||
+              (project.architecture && project.architecture.length > 0)) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 04</span>
@@ -235,7 +239,7 @@ export default function ProjectDetail() {
                   Architecture & Tradeoffs
                 </h2>
                 <ul className="space-y-3 pt-2">
-                  {project.architecture.map((arch, i) => (
+                  {(caseStudy?.architecture || project.architecture || []).map((arch, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
                       <Cpu className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
                       <span>{arch}</span>
@@ -246,7 +250,8 @@ export default function ProjectDetail() {
             )}
 
             {/* 05 // Technical Challenges */}
-            {project.challenges && project.challenges.length > 0 && (
+            {((caseStudy?.challenges && caseStudy.challenges.length > 0) ||
+              (project.challenges && project.challenges.length > 0)) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 05</span>
@@ -256,7 +261,7 @@ export default function ProjectDetail() {
                   Hurdles & Mitigations
                 </h2>
                 <ul className="space-y-3 pt-2">
-                  {project.challenges.map((challenge, i) => (
+                  {(caseStudy?.challenges || project.challenges || []).map((challenge, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
                       <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
                       <span>{challenge}</span>
@@ -267,7 +272,7 @@ export default function ProjectDetail() {
             )}
 
             {/* 06 // Measurable Outcome */}
-            {project.outcome && (
+            {(caseStudy?.outcome || project.outcome) && (
               <section className="space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                   <span className="text-foreground font-semibold">// 06</span>
@@ -278,7 +283,7 @@ export default function ProjectDetail() {
                 </h2>
                 <div className="p-5 sm:p-6 bg-surface border border-border rounded-sm">
                   <p className="text-foreground text-sm sm:text-base leading-relaxed font-medium">
-                    {project.outcome}
+                    {caseStudy?.outcome || project.outcome}
                   </p>
                 </div>
               </section>
