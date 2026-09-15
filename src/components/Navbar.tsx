@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
@@ -7,6 +8,7 @@ import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +29,7 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [mobileMenuOpen])
 
-  // Prevent scroll when mobile menu is open
+  // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -39,24 +41,29 @@ export default function Navbar() {
     }
   }, [mobileMenuOpen])
 
+  const isActiveRoute = (path: string) => {
+    if (path === '/') return location.pathname === '/'
+    return location.pathname.startsWith(path)
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 border-b ${
         scrolled
-          ? 'bg-page/90 backdrop-blur-md border-border'
-          : 'bg-page/70 backdrop-blur-sm border-border/60'
+          ? 'bg-[var(--bg-page)]/90 backdrop-blur-md border-border shadow-xs'
+          : 'bg-[var(--bg-page)]/70 backdrop-blur-sm border-border/60'
       }`}
     >
       <Container>
         <div className="flex items-center justify-between h-16">
-          {/* ─── Brand / Name ─── */}
+          {/* ─── Brand / Name Linking to Home ─── */}
           <div className="flex items-center gap-4">
-            <a
-              href="#"
+            <Link
+              to="/"
               className="text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
             >
               AHMED HUSSAIN
-            </a>
+            </Link>
             <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border text-[11px] font-mono text-muted">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
               <span>{AVAILABILITY_STATUS.label}</span>
@@ -65,18 +72,25 @@ export default function Navbar() {
 
           {/* ─── Desktop Nav Links & Controls ─── */}
           <nav
-            className="hidden md:flex items-center gap-8"
+            className="hidden md:flex items-center gap-7"
             aria-label="Main navigation"
           >
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-xs font-mono text-secondary hover:text-foreground tracking-wider uppercase transition-colors duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = isActiveRoute(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`text-xs font-mono tracking-wider uppercase transition-colors duration-150 py-1 border-b ${
+                    active
+                      ? 'text-foreground font-semibold border-foreground'
+                      : 'text-secondary hover:text-foreground border-transparent'
+                  } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none`}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
             <div className="pl-2 border-l border-border">
               <ThemeToggle />
             </div>
@@ -111,16 +125,22 @@ export default function Navbar() {
           aria-label="Mobile Navigation"
         >
           <nav className="flex flex-col gap-6 pt-4" aria-label="Mobile navigation links">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-mono text-foreground hover:text-secondary tracking-wider uppercase pb-4 border-b border-border transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const active = isActiveRoute(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-lg font-mono tracking-wider uppercase pb-4 border-b border-border transition-colors flex items-center justify-between ${
+                    active ? 'text-foreground font-semibold' : 'text-secondary hover:text-foreground'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {active && <span className="text-xs font-mono text-muted">// ACTIVE</span>}
+                </Link>
+              )
+            })}
           </nav>
 
           <div className="pt-6 border-t border-border flex items-center justify-between text-xs font-mono text-muted">
