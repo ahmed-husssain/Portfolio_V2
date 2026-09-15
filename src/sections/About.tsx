@@ -54,16 +54,16 @@ export default function About() {
             <div>
               {/* Lead Headline Statement */}
               <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-snug mb-6">
-                I build practical web applications across the stack, focusing on what happens under the hood as much as what appears on the screen.
+                I am a full-stack web developer focused on building practical digital products that solve real problems.
               </h3>
 
               {/* Narrative Paragraphs */}
               <div className="space-y-4 text-secondary text-sm sm:text-base leading-relaxed mb-8">
                 <p>
-                  My day-to-day work spans the complete application lifecycle—from architecting typed component interfaces in Next.js and React to structuring relational schemas in PostgreSQL and implementing secure server-side logic in Node or PHP.
+                  I enjoy working across the stack—from responsive interfaces and clean APIs to databases and authentication. When building software, I care about understanding how a system works under the hood rather than simply making the UI look correct.
                 </p>
                 <p>
-                  When building a feature or system, I focus on the architectural fundamentals: how data flows between client and server, how authentication and role-based permissions are enforced, and how maintainable the codebase will remain over time. I value clean code, fast page loads, and simplicity over speculative complexity.
+                  In every project, I think about how data is structured, how the API behaves, how authentication is enforced, and how the code can be maintained over time. I am particularly drawn to backend engineering, relational modeling, and building resilient web products that deliver measurable value.
                 </p>
               </div>
             </div>

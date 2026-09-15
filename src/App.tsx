@@ -4,6 +4,7 @@ import Hero from './sections/Hero'
 import SelectedWork from './sections/SelectedWork'
 import Capabilities from './sections/Capabilities'
 import About from './sections/About'
+import Reviews from './sections/Reviews'
 import Container from './components/Container'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <SelectedWork />
           <Capabilities />
           <About />
+          <Reviews />
         </main>
 
         {/* ─── Foundation Phase Shell Footer ─── */}
@@ -27,7 +29,7 @@ export default function App() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
-                <span>PORTFOLIO V2 // PHASE 2C: ABOUT</span>
+                <span>PORTFOLIO V2 // PHASE 2D: ABOUT & REVIEWS</span>
               </div>
               <p className="text-muted">
                 DESIGNED WITH MINIMALISM & PERFORMANCE IN MIND.
