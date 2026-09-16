@@ -7,89 +7,94 @@ export default function About() {
   useDocumentTitle('About — Ahmed | Full-Stack Web Developer')
 
   const metadata = [
-    { label: 'BASED IN', value: 'Karachi, Pakistan (PKT / UTC+5)' },
-    { label: 'DISCIPLINE', value: 'Full-Stack Web & API Development' },
-    { label: 'CORE STACK', value: 'React, Next.js, Node.js, PostgreSQL, TypeScript' },
-    { label: 'CORE INTERESTS', value: 'Backend Systems · Database Design · Performance' },
-    { label: 'AVAILABILITY', value: 'Available for Select Web & Product Engagements' },
+    { label: 'BASED IN', value: 'Karachi, Pakistan' },
+    { label: 'FOCUS', value: 'Full-Stack Development' },
+    { label: 'CORE STACK', value: 'Next.js, React, TypeScript, PostgreSQL, Prisma, Tailwind CSS' },
+    { label: 'INTERESTS', value: 'Backend · System Design · Performance' },
+    { label: 'AVAILABILITY', value: 'Open for Full-Stack Engineering Roles & Select Work' },
   ]
 
   const buildSteps = [
     {
       step: '01',
-      title: 'Understand the Problem & Constraints',
-      detail: 'Clarify the core user requirements, business objectives, and technical constraints before writing code.',
+      title: 'Understand the Requirements',
+      detail: 'Clarify core constraints, data volume, and user flows before writing any code.',
     },
     {
       step: '02',
-      title: 'Design Data Structures & API Contracts',
-      detail: 'Define relational models, database tables, and type-safe request/response payloads to create predictable boundaries.',
+      title: 'Design Data & Application Structure',
+      detail: 'Model relational schemas, database constraints, and typed API contracts upfront.',
     },
     {
       step: '03',
       title: 'Build Core Functionality',
-      detail: 'Implement the primary product workflow with clean, modular code rather than prematurely optimizing edge cases.',
+      detail: 'Implement the primary workflow with clean, modular code rather than prematurely optimizing edge cases.',
     },
     {
       step: '04',
-      title: 'Validate Inputs & Enforce Authorization',
-      detail: 'Ensure strict schema validation at API boundaries and enforce role-based access control to protect data integrity.',
+      title: 'Validate Inputs & Handle Failures',
+      detail: 'Implement strict schema validation at API boundaries and handle error states gracefully.',
     },
     {
       step: '05',
-      title: 'Test Critical Paths',
-      detail: 'Verify critical authentication, database queries, and user actions under realistic error conditions.',
+      title: 'Test Important Flows',
+      detail: 'Verify authentication guards, database queries, and key user actions under realistic conditions.',
     },
     {
       step: '06',
-      title: 'Optimize Performance & Maintainability',
-      detail: 'Audit client bundles, tune database indexing paths, and eliminate dead weight to ensure fast, reliable operation.',
+      title: 'Improve Performance Where It Matters',
+      detail: 'Audit client bundles, tune database indexing, and eliminate redundant network roundtrips.',
+    },
+    {
+      step: '07',
+      title: 'Deploy & Maintain the System',
+      detail: 'Configure automated builds, environment variables, and monitor operational health over time.',
     },
   ]
 
   const principles = [
     {
       index: '01',
-      title: 'SYSTEM-FIRST THINKING',
+      title: 'UNDERSTAND THE SYSTEM',
       detail:
-        'Prioritizing data modeling, schema consistency, and robust API contracts before building client interfaces. A reliable backend creates an intuitive, predictable frontend.',
+        'Understand how data, APIs, authentication, and application logic connect before changing them. A reliable backend creates a predictable, intuitive frontend.',
     },
     {
       index: '02',
-      title: 'PRAGMATIC TOOLING',
+      title: 'KEEP THINGS MAINTAINABLE',
       detail:
-        'Selecting proven, dependable technologies (Next.js, Node.js, SQL, TypeScript) that directly address project requirements without introducing needless complexity or unstable dependencies.',
+        'Prefer clear structures and predictable code over unnecessary abstraction. Writing strictly typed code that teammates can read and debug is far more valuable than clever one-liners.',
     },
     {
       index: '03',
-      title: 'MAINTAINABLE CODE',
+      title: 'BUILD FOR REAL USAGE',
       detail:
-        'Writing readable, strictly typed code with explicit boundaries that teammates can audit, debug, and build upon without tribal knowledge.',
+        'Think about validation, security, performance, and failure cases—not only whether the happy path works. Production software is defined by how gracefully it handles bad input and system errors.',
     },
     {
       index: '04',
-      title: 'PERFORMANCE AWARENESS',
+      title: 'IMPROVE CONTINUOUSLY',
       detail:
-        'Keeping client payloads minimal, optimizing query execution paths, and eliminating decorative runtime overhead to deliver snappy, accessible web experiences.',
+        'Treat projects as systems that can be measured, reviewed, and improved over time. Measure bottlenecks with real metrics before optimizing.',
     },
   ]
 
   const currentFocusAreas = [
     {
-      area: 'Backend Systems & API Design',
-      note: 'Structuring modular service boundaries, schema validation, and predictable error handling across RESTful APIs.',
+      area: 'Backend Engineering & API Design',
+      note: 'Currently deepening my understanding of modular service boundaries, schema validation, and resilient error handling across RESTful APIs.',
     },
     {
-      area: 'Database Architecture & Query Optimization',
-      note: 'Relational normalization, composite indexing strategies, and efficient transaction handling in PostgreSQL.',
+      area: 'Database Architecture & Indexing',
+      note: 'Currently deepening my understanding of relational normalization, composite indexing strategies, and query planning in PostgreSQL.',
     },
     {
-      area: 'Distributed Systems Concepts',
-      note: 'Studying cache-aside patterns, event-driven messaging, and eventual consistency tradeoffs in multi-service environments.',
+      area: 'Distributed Systems & Caching Concepts',
+      note: 'Currently studying cache-aside patterns, cache invalidation race conditions, and message queues in multi-service environments.',
     },
     {
-      area: 'Performance Profiling',
-      note: 'Minimizing client-side JavaScript execution, eliminating layout shifts, and keeping payload sizes strictly restrained.',
+      area: 'System Performance & Profiling',
+      note: 'Currently focusing on minimizing client-side JavaScript execution, eliminating layout shifts, and keeping payload sizes strictly restrained.',
     },
   ]
 
