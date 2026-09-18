@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import Container from '../components/Container'
 import Connect from '../components/Connect'
+import CustomDropdown from '../components/CustomDropdown'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { CONTACT_CONFIG } from '../data/contact'
 import {
@@ -136,23 +137,33 @@ export default function Contact() {
           {/* ─── Left Column: Contact Form ─── */}
           <div className="lg:col-span-7">
             <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 md:p-10">
-              <div className="flex items-center justify-between gap-4 pb-4 mb-6 border-b border-border text-xs font-mono text-muted">
-                <span className="text-foreground font-semibold uppercase tracking-wider">
-                  // PROJECT INQUIRY FORM
-                </span>
-                <span className="text-[11px] text-secondary">REQUIRED FIELDS MARKED *</span>
+              {/* Form Telemetry Header */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-border text-xs font-mono text-muted">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+                  <span className="text-foreground font-semibold uppercase tracking-wider">
+                    // PROJECT INQUIRY TRANSMISSION
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-[11px]">
+                  <span className="text-muted">ROUTE:</span>
+                  <span className="text-foreground font-semibold">DIRECT INBOX</span>
+                  <span className="text-border-strong" aria-hidden="true">|</span>
+                  <span className="text-muted">SLA:</span>
+                  <span className="text-foreground font-semibold">&lt; 24H</span>
+                </div>
               </div>
 
               {/* Form Guidance Microcopy */}
               <p className="text-secondary text-xs sm:text-sm leading-relaxed mb-8 bg-page border border-border rounded-sm p-4">
-                Tell me what you're building, what problem you're trying to solve, and where you are in the process.
+                Tell me what you're building, key technical requirements, and your target timeline. All inquiries route directly to Ahmed Hussain.
               </p>
 
               {/* General Submission Error Banner */}
               {generalError && (
                 <div
                   role="alert"
-                  className="p-4 mb-6 border border-border bg-page text-foreground text-xs sm:text-sm rounded-sm flex items-start gap-2.5"
+                  className="p-4 mb-6 border border-border bg-page text-foreground text-xs sm:text-sm rounded-sm flex items-start gap-2.5 animate-page-in"
                 >
                   <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-0.5" aria-hidden="true" />
                   <span>{generalError}</span>
@@ -162,41 +173,53 @@ export default function Contact() {
               {/* Submission Result / Success View */}
               {submissionResult ? (
                 <div className="py-6 space-y-6 animate-page-in">
-                  <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 border-b border-border">
-                    <ShieldCheck className="w-4 h-4 text-foreground" aria-hidden="true" />
-                    <span className="text-foreground font-semibold">
-                      {submissionResult.mode === 'delivered'
-                        ? 'TRANSMISSION CONFIRMED'
-                        : 'INQUIRY PREPARED (LOCAL MODE)'}
+                  <div className="flex items-center justify-between gap-3 text-xs font-mono text-muted uppercase tracking-wider pb-3 border-b border-border">
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-emerald-500" aria-hidden="true" />
+                      <span className="text-foreground font-semibold">
+                        {submissionResult.mode === 'delivered'
+                          ? 'TRANSMISSION CONFIRMED // DELIVERED'
+                          : 'INQUIRY PREPARED // CLIENT FALLBACK'}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-muted font-mono">
+                      [ {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} PKT ]
                     </span>
                   </div>
 
                   <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
                     {submissionResult.mode === 'delivered'
-                      ? 'Thank you for reaching out.'
+                      ? `Thank you for reaching out, ${formData.name.trim()}.`
                       : 'Inquiry details recorded.'}
                   </h2>
 
                   <p className="text-secondary text-sm sm:text-base leading-relaxed">
-                    {submissionResult.mode === 'delivered'
-                      ? 'I will review your project requirements and respond promptly.'
-                      : 'This portfolio currently operates in static mode without an external third-party email provider configured. To ensure your message arrives immediately, you can launch your email client with your prefilled inquiry below.'}
+                    {submissionResult.message}
                   </p>
+
+                  {/* Summary Record */}
+                  <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted space-y-1.5">
+                    <div><span className="text-secondary">SENDER:</span> {formData.name} &lt;{formData.email}&gt;</div>
+                    {formData.company && <div><span className="text-secondary">ORGANIZATION:</span> {formData.company}</div>}
+                    <div><span className="text-secondary">AREA OF FOCUS:</span> {formData.service}</div>
+                    <div><span className="text-secondary">TARGET SCOPE:</span> {formData.budget}</div>
+                    <div><span className="text-secondary">STATUS:</span> {submissionResult.mode === 'delivered' ? 'DELIVERED TO INBOX' : 'READY FOR MAIL CLIENT'}</div>
+                  </div>
 
                   <div className="pt-4 flex flex-wrap items-center gap-3">
                     {submissionResult.mailtoFallbackUrl && (
                       <a
                         href={submissionResult.mailtoFallbackUrl}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary transition-colors"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all"
                       >
                         <Send className="w-3.5 h-3.5" aria-hidden="true" />
-                        <span>OPEN IN MAIL CLIENT</span>
+                        <span>LAUNCH MAIL CLIENT</span>
                       </a>
                     )}
                     <button
                       type="button"
                       onClick={handleResetForm}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 border border-border bg-page text-foreground text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:border-border-strong transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 border border-border bg-page text-foreground text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:border-border-strong active:scale-[0.98] transition-all cursor-pointer"
                     >
                       <span>SEND ANOTHER MESSAGE</span>
                     </button>
@@ -241,12 +264,12 @@ export default function Contact() {
                         placeholder="e.g. Alex Morgan"
                         aria-invalid={errors.name ? 'true' : 'false'}
                         aria-describedby={errors.name ? 'name-error' : undefined}
-                        className={`w-full px-3.5 py-2.5 bg-page border text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50 ${
-                          errors.name ? 'border-foreground' : 'border-border'
+                        className={`w-full min-h-[44px] px-3.5 py-2.5 bg-page border text-base sm:text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-all duration-150 focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/20 disabled:opacity-50 ${
+                          errors.name ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                         }`}
                       />
                       {errors.name && (
-                        <p id="name-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary">
+                        <p id="name-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
                           {errors.name}
                         </p>
                       )}
@@ -272,12 +295,12 @@ export default function Contact() {
                         placeholder="e.g. alex@company.com"
                         aria-invalid={errors.email ? 'true' : 'false'}
                         aria-describedby={errors.email ? 'email-error' : undefined}
-                        className={`w-full px-3.5 py-2.5 bg-page border text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50 ${
-                          errors.email ? 'border-foreground' : 'border-border'
+                        className={`w-full min-h-[44px] px-3.5 py-2.5 bg-page border text-base sm:text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-all duration-150 focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/20 disabled:opacity-50 ${
+                          errors.email ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                         }`}
                       />
                       {errors.email && (
-                        <p id="email-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary">
+                        <p id="email-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
                           {errors.email}
                         </p>
                       )}
@@ -301,86 +324,67 @@ export default function Contact() {
                       value={formData.company || ''}
                       onChange={handleChange}
                       placeholder="e.g. TechCorp or Stealth Startup"
-                      className="w-full px-3.5 py-2.5 bg-page border border-border text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50"
+                      className="w-full min-h-[44px] px-3.5 py-2.5 bg-page border border-border hover:border-border-strong text-base sm:text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-all duration-150 focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/20 disabled:opacity-50"
                     />
                   </div>
 
-                  {/* Row 3: Service Area & Budget Bracket */}
+                  {/* Row 3: Custom Technical Dropdowns for Service Area & Budget Bracket */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {/* Service / Focus */}
-                    <div>
-                      <label
-                        htmlFor="service"
-                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                      >
-                        Area of Focus
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        disabled={submitting}
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-page border border-border text-xs sm:text-sm font-mono text-foreground rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50 cursor-pointer"
-                      >
-                        {CONTACT_CONFIG.services.map((item) => (
-                          <option key={item} value={item} className="bg-surface text-foreground">
-                            {item}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <CustomDropdown
+                      id="service-dropdown"
+                      label="Area of Focus"
+                      options={CONTACT_CONFIG.services}
+                      value={formData.service || CONTACT_CONFIG.services[0]}
+                      onChange={(val) => setFormData((prev) => ({ ...prev, service: val }))}
+                      disabled={submitting}
+                    />
 
-                    {/* Budget / Engagement Bracket */}
-                    <div>
-                      <label
-                        htmlFor="budget"
-                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                      >
-                        Target Scope / Budget
-                      </label>
-                      <select
-                        id="budget"
-                        name="budget"
-                        disabled={submitting}
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-page border border-border text-xs sm:text-sm font-mono text-foreground rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50 cursor-pointer"
-                      >
-                        {CONTACT_CONFIG.budgetRanges.map((range) => (
-                          <option key={range} value={range} className="bg-surface text-foreground">
-                            {range}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <CustomDropdown
+                      id="budget-dropdown"
+                      label="Target Scope / Budget"
+                      options={CONTACT_CONFIG.budgetRanges}
+                      value={formData.budget || CONTACT_CONFIG.budgetRanges[0]}
+                      onChange={(val) => setFormData((prev) => ({ ...prev, budget: val }))}
+                      disabled={submitting}
+                    />
                   </div>
 
                   {/* Row 4: Message / What do you need? */}
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                    >
-                      What do you need? *
-                    </label>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <label
+                        htmlFor="message"
+                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider"
+                      >
+                        What do you need? *
+                      </label>
+                      <span
+                        className={`text-[11px] font-mono transition-colors ${
+                          formData.message.trim().length >= 10 ? 'text-secondary' : 'text-muted'
+                        }`}
+                      >
+                        {formData.message.length} / 1500 chars
+                        {formData.message.trim().length >= 10 && ' · [ READY ]'}
+                      </span>
+                    </div>
                     <textarea
                       id="message"
                       name="message"
                       rows={5}
                       required
+                      maxLength={1500}
                       disabled={submitting}
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Describe what you are building, key technical challenges, or the scope of your project..."
                       aria-invalid={errors.message ? 'true' : 'false'}
                       aria-describedby={errors.message ? 'message-error' : undefined}
-                      className={`w-full px-3.5 py-2.5 bg-page border text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-colors focus:outline-none focus:border-foreground disabled:opacity-50 leading-relaxed resize-y ${
-                        errors.message ? 'border-foreground' : 'border-border'
+                      className={`w-full px-3.5 py-2.5 bg-page border text-base sm:text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-all duration-150 focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/20 disabled:opacity-50 leading-relaxed resize-y min-h-[120px] ${
+                        errors.message ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                       }`}
                     />
                     {errors.message && (
-                      <p id="message-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary">
+                      <p id="message-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
                         {errors.message}
                       </p>
                     )}
@@ -389,23 +393,23 @@ export default function Contact() {
                   {/* Submit Action */}
                   <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <p className="text-[11px] font-mono text-muted">
-                      No marketing newsletters or automated spam.
+                      Direct delivery · No third-party marketing lists.
                     </p>
 
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary transition-colors disabled:opacity-60 cursor-pointer"
+                      className="group w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all duration-150 disabled:opacity-60 cursor-pointer shadow-xs"
                     >
                       {submitting ? (
                         <>
                           <span className="w-3.5 h-3.5 border-2 border-page border-t-transparent rounded-full animate-spin" />
-                          <span>PROCESSING...</span>
+                          <span>TRANSMITTING TO INBOX...</span>
                         </>
                       ) : (
                         <>
-                          <span>SEND INQUIRY</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <span>TRANSMIT INQUIRY</span>
+                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
                         </>
                       )}
                     </button>

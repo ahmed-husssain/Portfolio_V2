@@ -107,54 +107,56 @@ export async function submitContactForm(payload: ContactFormPayload): Promise<Co
     throw new Error('Please correct the errors in the form before submitting.')
   }
 
-  // 3. Check for configured live backend endpoint
-  const endpointUrl = import.meta.env.VITE_CONTACT_API_URL
+  // 3. Dispatch to live email destination
+  // Uses custom VITE_CONTACT_API_URL if configured, otherwise dispatches directly to Ahmed's verified email via FormSubmit AJAX API
+  const endpointUrl =
+    import.meta.env.VITE_CONTACT_API_URL ||
+    `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_CONFIG.email)}`
 
-  if (endpointUrl && typeof endpointUrl === 'string') {
-    try {
-      const response = await fetch(endpointUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name: payload.name.trim(),
-          email: payload.email.trim(),
-          company: payload.company?.trim() || undefined,
-          service: payload.service || undefined,
-          budget: payload.budget || undefined,
-          message: payload.message.trim(),
-          timestamp: new Date().toISOString(),
-        }),
-      })
+  try {
+    const response = await fetch(endpointUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        name: payload.name.trim(),
+        email: payload.email.trim(),
+        _replyto: payload.email.trim(),
+        company: payload.company?.trim() || 'Not specified',
+        service: payload.service || 'Web Development',
+        budget: payload.budget || 'Not specified',
+        message: payload.message.trim(),
+        _subject: `[Portfolio Inquiry] ${payload.service || 'Web Development'} — ${payload.name.trim()}${
+          payload.company ? ` (${payload.company.trim()})` : ''
+        }`,
+        _template: 'table',
+        _captcha: 'false',
+        timestamp: new Date().toISOString(),
+      }),
+    })
 
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`)
-      }
-
-      return {
-        success: true,
-        mode: 'delivered',
-        message: 'Your inquiry has been transmitted successfully.',
-      }
-    } catch (err) {
-      console.error('Contact form submission error:', err)
-      throw new Error(
-        'Unable to send message via the remote server. Please reach out directly via email.'
-      )
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`)
     }
-  }
 
-  // 4. Fallback when no live backend endpoint is configured
-  // Simulates transmission latency and provides an honest state
-  await new Promise((resolve) => setTimeout(resolve, 500))
+    return {
+      success: true,
+      mode: 'delivered',
+      message: 'Your inquiry has been transmitted directly to Ahmed Hussain.',
+    }
+  } catch (err) {
+    console.warn('Direct API transmission issue, engaging mailto fallback:', err)
 
-  return {
-    success: true,
-    mode: 'local_unconnected',
-    message:
-      'Inquiry recorded. Since no external backend endpoint is connected yet, you can also launch your mail client with your prefilled message.',
-    mailtoFallbackUrl: generateMailtoUrl(payload),
+    // Graceful fallback: If an adblocker or network error prevented external AJAX dispatch,
+    // provide the prefilled mailto link so the user never loses their typed inquiry.
+    return {
+      success: true,
+      mode: 'local_unconnected',
+      message:
+        'Your inquiry is prepared. Network dispatch was interrupted by browser privacy settings or connection. You can send it directly with 1 click via your mail client below.',
+      mailtoFallbackUrl: generateMailtoUrl(payload),
+    }
   }
 }
