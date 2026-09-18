@@ -1,9 +1,12 @@
+import ScrambleText from './ScrambleText'
+
 interface SectionHeadingProps {
   index?: string
   title: string
   subtitle?: string
   meta?: string
   className?: string
+  scramble?: boolean
 }
 
 export default function SectionHeading({
@@ -12,6 +15,7 @@ export default function SectionHeading({
   subtitle,
   meta,
   className = '',
+  scramble = true,
 }: SectionHeadingProps) {
   return (
     <div className={`mb-12 md:mb-16 ${className}`}>
@@ -22,9 +26,17 @@ export default function SectionHeading({
               {index}
             </span>
           )}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-            {title}
-          </h2>
+          {scramble ? (
+            <ScrambleText
+              text={title}
+              as="h2"
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground"
+            />
+          ) : (
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+              {title}
+            </h2>
+          )}
         </div>
         {meta && (
           <span className="font-mono text-xs text-muted tracking-wider">
@@ -40,3 +52,4 @@ export default function SectionHeading({
     </div>
   )
 }
+

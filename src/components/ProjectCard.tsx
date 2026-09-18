@@ -20,6 +20,18 @@ function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   )
 }
 
+/** Shorten a category string to a compact label for the header bar */
+function shortCategory(cat: string): string {
+  // Strip common suffix words to keep it tight
+  return cat
+    .replace(/\s*\/\s*Full-Stack Web Application/i, '')
+    .replace(/\s*\/\s*Web Application/i, '')
+    .replace(/\s*\/\s*Mobile Application/i, '')
+    .replace(/Full-Stack\s*/i, '')
+    .trim()
+    .toUpperCase()
+}
+
 interface ProjectCardProps {
   project: Project
   className?: string
@@ -31,41 +43,41 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
   return (
     <article
-      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${
-        isFlagship ? 'border-border-strong shadow-xs' : 'border-border'
-      } ${className}`}
+      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${isFlagship ? 'border-border-strong shadow-xs' : 'border-border'
+        } ${className}`}
     >
-      {/* ─── Card Header Metadata Bar ─── */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-5 sm:px-6 py-3 text-xs font-mono text-muted bg-surface-subtle/60">
-        <div className="flex items-center gap-2.5">
+      {/* ─── Card Header Bar ─── */}
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 sm:px-6 py-2.5 text-[11px] font-mono bg-surface-subtle/60">
+        {/* Left: index + slug + category (compact) */}
+        <div className="flex items-center gap-2 min-w-0">
           {index !== undefined && (
-            <>
-              <span className="text-foreground font-semibold">#{index.toString().padStart(2, '0')}</span>
-              <span className="text-border-strong" aria-hidden="true">|</span>
-            </>
+            <span className="text-foreground font-bold shrink-0">
+              #{index.toString().padStart(2, '0')}
+            </span>
           )}
-          <span className="text-foreground font-semibold">/{project.slug}</span>
-          <span className="text-border-strong" aria-hidden="true">|</span>
-          <span className="tracking-wider uppercase">{project.category}</span>
-          {project.year && (
-            <>
-              <span className="text-border-strong hidden sm:inline" aria-hidden="true">|</span>
-              <span className="hidden sm:inline">{project.year}</span>
-            </>
-          )}
+          <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+          <span className="text-foreground font-semibold shrink-0 truncate">/{project.slug}</span>
+          <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+          <span className="text-muted tracking-wider uppercase truncate hidden xs:block sm:block">
+            {shortCategory(project.category)}
+          </span>
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Right: year + links */}
+        <div className="flex items-center gap-3 shrink-0">
+          {project.year && (
+            <span className="text-muted hidden sm:inline">{project.year}</span>
+          )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-secondary hover:text-foreground transition-colors"
-              aria-label={`View GitHub source code for ${project.title}`}
+              className="inline-flex items-center gap-1 text-muted hover:text-foreground transition-colors"
+              aria-label={`View source code for ${project.title}`}
             >
               <GithubIcon className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">SOURCE</span>
+              <span className="hidden sm:inline tracking-wider">SRC</span>
             </a>
           )}
           {project.liveUrl && (
@@ -73,96 +85,104 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-foreground font-medium hover:underline transition-all"
-              aria-label={`Visit live deployment for ${project.title}`}
+              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline transition-all"
+              aria-label={`Visit live site for ${project.title}`}
             >
               <span>LIVE</span>
-              <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+              <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
             </a>
           )}
         </div>
       </div>
 
       {/* ─── Card Body ─── */}
-      <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+      <div className="p-5 sm:p-7 flex-1 flex flex-col gap-5">
+
+        {/* ── Title + Short Description ── */}
         <div>
-          {/* Title Linking to Case Study */}
-          <div className="mb-3">
-            <Link
-              to={`/work/${project.slug}`}
-              className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
-            >
-              <h3
-                className={`font-semibold text-foreground tracking-tight group-hover/title:underline transition-all ${
-                  isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
+          <Link
+            to={`/work/${project.slug}`}
+            className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+          >
+            <h3
+              className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:underline transition-all ${isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
                 }`}
-              >
-                {project.title}
-              </h3>
-            </Link>
-            <p className="font-mono text-xs text-muted mt-1 tracking-wide">
-              {project.shortDescription}
-            </p>
-          </div>
-
-          {/* Detailed Narrative */}
-          <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-            {project.description}
+            >
+              {project.title}
+            </h3>
+          </Link>
+          <p className="font-mono text-xs text-muted mt-1.5 leading-relaxed">
+            {project.shortDescription}
           </p>
-
-          {/* ─── Highlights / Architectural Breakdown for Flagship Projects ─── */}
-          {isFlagship && project.architecture && project.architecture.length > 0 && (
-            <div className="mb-6 p-4 sm:p-5 rounded-sm border border-border bg-page/50">
-              <div className="text-[11px] font-mono text-muted tracking-widest uppercase mb-3 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
-                <span>ARCHITECTURAL HIGHLIGHTS</span>
-              </div>
-              <ul className="space-y-2 text-xs sm:text-sm text-secondary font-mono leading-relaxed">
-                {project.architecture.slice(0, 3).map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-muted select-none" aria-hidden="true">↳</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              {project.outcome && (
-                <div className="mt-3 pt-3 border-t border-border flex items-baseline gap-2 text-xs font-mono">
-                  <span className="text-muted uppercase">OUTCOME:</span>
-                  <span className="text-foreground font-medium">{project.outcome}</span>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* ─── Non-Flagship Concise Specs ─── */}
-          {!isFlagship && (project.role || project.outcome) && (
-            <div className="mb-6 p-3.5 rounded-sm border border-border bg-page/40 text-xs font-mono space-y-1.5">
-              {project.role && (
-                <div className="flex items-baseline gap-2">
-                  <span className="text-muted uppercase tracking-wider">ROLE:</span>
-                  <span className="text-foreground">{project.role}</span>
-                </div>
-              )}
-              {project.outcome && (
-                <div className="flex items-baseline gap-2">
-                  <span className="text-muted uppercase tracking-wider">OUTCOME:</span>
-                  <span className="text-foreground">{project.outcome}</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
-        {/* ─── Footer with Tech Chips & Case Study Link ─── */}
-        <div className="pt-4 border-t border-border flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-1">
+        {/* ── Description ── */}
+        <p className="text-secondary text-sm leading-relaxed">
+          {project.description}
+        </p>
+
+        {/* ── Flagship: Architecture Highlights ── */}
+        {isFlagship && project.architecture && project.architecture.length > 0 && (
+          <div className="rounded-sm border border-border bg-page/50 overflow-hidden">
+            {/* Section label */}
+            <div className="px-4 py-2 border-b border-border flex items-center gap-2 text-[10px] font-mono text-muted tracking-widest uppercase bg-surface-subtle/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0" aria-hidden="true" />
+              ARCHITECTURAL HIGHLIGHTS
+            </div>
+            {/* Architecture items — one per row, no wrapping surprises */}
+            <ul className="divide-y divide-border/50">
+              {project.architecture.slice(0, 3).map((item, i) => (
+                <li key={i} className="flex items-start gap-3 px-4 py-2.5">
+                  <span className="text-muted font-mono text-[11px] shrink-0 mt-px select-none pt-0.5">
+                    {String.fromCharCode(65 + i)}.
+                  </span>
+                  <span className="text-xs text-secondary font-mono leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+            {/* Outcome pill */}
+            {project.outcome && (
+              <div className="px-4 py-2.5 border-t border-border bg-surface-subtle/40 flex items-start gap-2.5">
+                <span className="text-[10px] font-mono text-muted uppercase tracking-widest shrink-0 pt-px">
+                  OUT:
+                </span>
+                <span className="text-xs text-foreground font-mono font-medium leading-relaxed">
+                  {project.outcome}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Non-Flagship: Role + Outcome row ── */}
+        {!isFlagship && (project.role || project.outcome) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-sm border border-border overflow-hidden text-xs font-mono bg-border">
+            {project.role && (
+              <div className="bg-page/60 px-4 py-3 space-y-0.5">
+                <span className="text-[10px] text-muted uppercase tracking-widest block">ROLE</span>
+                <span className="text-foreground font-medium leading-snug block">{project.role}</span>
+              </div>
+            )}
+            {project.outcome && (
+              <div className="bg-page/60 px-4 py-3 space-y-0.5">
+                <span className="text-[10px] text-muted uppercase tracking-widest block">OUTCOME</span>
+                <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── Footer: Stack chips + CTA ── */}
+        <div className="pt-1 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-auto">
+          {/* Tech chips */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5">
               STACK:
             </span>
             {project.technologies.slice(0, 5).map((tech) => (
               <span
                 key={tech}
-                className="font-mono text-[11px] px-2.5 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary"
+                className="font-mono text-[11px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
               >
                 {tech}
               </span>
@@ -174,13 +194,14 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )}
           </div>
 
+          {/* Case study link — placed to right bottom on mobile and desktop */}
           <Link
             to={`/work/${project.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-foreground hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline shrink-0 self-end sm:self-auto"
             aria-label={`Read case study for ${project.title}`}
           >
             <span>CASE STUDY</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
           </Link>
         </div>
       </div>

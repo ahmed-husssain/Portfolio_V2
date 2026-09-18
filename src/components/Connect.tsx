@@ -24,7 +24,7 @@ export default function Connect({ className = '', withContainer = true }: Connec
             aria-label="GitHub Profile (opens in new tab)"
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
-            <span className="tracking-wider">GITHUB</span>
+            <span className="tracking-wider kinetic-underline">GITHUB</span>
             <ArrowUpRight
               className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
               aria-hidden="true"
@@ -38,7 +38,7 @@ export default function Connect({ className = '', withContainer = true }: Connec
             aria-label="LinkedIn Profile (opens in new tab)"
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
-            <span className="tracking-wider">LINKEDIN</span>
+            <span className="tracking-wider kinetic-underline">LINKEDIN</span>
             <ArrowUpRight
               className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
               aria-hidden="true"
@@ -50,7 +50,7 @@ export default function Connect({ className = '', withContainer = true }: Connec
             aria-label={`Send an email to ${CONTACT_LINKS.email}`}
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
-            <span className="tracking-wider">EMAIL</span>
+            <span className="tracking-wider kinetic-underline">EMAIL</span>
             <ArrowUpRight
               className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
               aria-hidden="true"
@@ -62,7 +62,7 @@ export default function Connect({ className = '', withContainer = true }: Connec
             aria-label="Share feedback or submit a review"
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
-            <span className="tracking-wider">SHARE FEEDBACK</span>
+            <span className="tracking-wider kinetic-underline">SHARE FEEDBACK</span>
             <span
               className="text-muted text-sm font-semibold transition-transform duration-200 group-hover:scale-125 group-hover:text-foreground inline-block"
               aria-hidden="true"

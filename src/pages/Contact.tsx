@@ -123,7 +123,7 @@ export default function Contact() {
             <span>DIRECT DIALOGUE</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
             Let's build something useful.
           </h1>
 
@@ -138,14 +138,14 @@ export default function Contact() {
           <div className="lg:col-span-7">
             <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 md:p-10">
               {/* Form Telemetry Header */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-border text-xs font-mono text-muted">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
-                  <span className="text-foreground font-semibold uppercase tracking-wider">
-                    // PROJECT INQUIRY TRANSMISSION
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-border text-xs font-mono text-muted">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
+                  <span className="text-foreground font-semibold uppercase tracking-wider truncate">
+                    // PROJECT INQUIRY
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px]">
+                <div className="flex items-center gap-2 text-[11px] shrink-0">
                   <span className="text-muted">ROUTE:</span>
                   <span className="text-foreground font-semibold">DIRECT INBOX</span>
                   <span className="text-border-strong" aria-hidden="true">|</span>
@@ -436,20 +436,20 @@ export default function Contact() {
                 For detailed project briefs, architectural discussions, or full-time opportunities, email is always available.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <div className="flex items-center gap-2">
                 <a
                   href={`mailto:${CONTACT_CONFIG.email}`}
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
+                  className="flex-1 min-w-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary transition-colors overflow-hidden"
                 >
-                  <span>{CONTACT_CONFIG.email.toUpperCase()}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span className="truncate">{CONTACT_CONFIG.email.toUpperCase()}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                 </a>
 
                 <button
                   type="button"
                   onClick={handleCopyEmail}
                   title="Copy email address"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors"
+                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors"
                 >
                   {copiedEmail ? (
                     <>

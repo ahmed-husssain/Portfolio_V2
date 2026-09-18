@@ -110,7 +110,7 @@ export default function About() {
             <span>FULL-STACK WEB DEVELOPER</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
             Engineering software with system-first thinking and practical discipline.
           </h1>
 

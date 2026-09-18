@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowUpRight } from 'lucide-react'
+import { useMagneticHover } from '../hooks/useMagneticHover'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'link'
 type ButtonSize = 'sm' | 'md' | 'lg'
@@ -10,6 +11,8 @@ interface BaseButtonProps {
   icon?: boolean
   className?: string
   children: React.ReactNode
+  /** Affordance Theory — enables magnetic cursor gravity on this button */
+  magnetic?: boolean
 }
 
 type ButtonAsButton = BaseButtonProps &
@@ -31,8 +34,12 @@ export default function Button({
   className = '',
   children,
   href,
+  magnetic = false,
   ...props
 }: ButtonProps) {
+  // Concept 3 — Magnetic Cursor Gravity (Affordance Theory)
+  const magnetRef = useMagneticHover(0.28)
+
   const sizeStyles = {
     sm: 'px-3 py-1.5 text-xs',
     md: 'px-5 py-2.5 text-xs',
@@ -73,6 +80,7 @@ export default function Button({
     return (
       <a
         href={href}
+        ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLAnchorElement>) : undefined}
         className={`group ${combinedClasses}`}
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
@@ -83,6 +91,7 @@ export default function Button({
 
   return (
     <button
+      ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLButtonElement>) : undefined}
       className={`group ${combinedClasses}`}
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
@@ -90,3 +99,4 @@ export default function Button({
     </button>
   )
 }
+

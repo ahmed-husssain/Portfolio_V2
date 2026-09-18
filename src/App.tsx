@@ -4,6 +4,7 @@ import { ThemeProvider } from './lib/theme'
 import Navbar from './components/Navbar'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
+import ScrollProgress from './components/ScrollProgress'
 
 // Critical Homepage kept in initial bundle
 import Home from './pages/Home'
@@ -36,6 +37,9 @@ export default function App() {
       <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen bg-page text-foreground flex flex-col selection:bg-accent-bg selection:text-accent-text">
+          {/* ─── Ambient Scroll Progress Indicator (Flow Theory) ─── */}
+          <ScrollProgress />
+
           {/* ─── Fixed Header / Navbar ─── */}
           <Navbar />
 

@@ -14,7 +14,7 @@ export default function Hero() {
         </div>
 
         {/* ─── Main Headline ─── */}
-        <h1 className="text-[clamp(2.1rem,4.5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-8 max-w-[980px] animate-hero-in delay-60">
+        <h1 className="text-[clamp(1.75rem,5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-8 max-w-[980px] animate-hero-in delay-60">
           I build web applications, APIs, and backend systems that solve real problems.
         </h1>
 

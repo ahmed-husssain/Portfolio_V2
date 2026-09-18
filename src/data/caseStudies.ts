@@ -11,29 +11,37 @@ export interface CaseStudyData {
 export const CASE_STUDIES: Record<string, CaseStudyData> = {
   mockrithm: {
     overview:
-      'I built Mockrithm to give engineering candidates an interactive way to practice verbal technical interviews and receive structured, actionable critique without needing a human interviewer on standby.',
+      'Mockrithm is an enterprise-grade, full-stack AI career preparation platform that simulates realistic technical, behavioral, and system design interviews in real time. It unifies low-latency voice conversations, an embedded Monaco code sandbox, real-time competency tracking (STAR framework), an ATS resume tailoring engine, and a competitive ELO rating system into a cohesive, dark-themed SaaS experience.',
     problem:
-      'Job seekers preparing for competitive software engineering interviews often lack low-stakes, realistic environments to practice verbal communication and receive objective, immediate feedback on technical explanations.',
+      'Engineering job seekers face prohibitive mock interview costs ($100–$300/hour), high stakes and anxiety without a safe practice environment, fragmented tooling across disparate platforms (LeetCode, ATS checkers, speech coaches), and delayed feedback that misses critical contextual learning moments.',
     solution:
-      'I engineered an interactive voice simulator that pairs real-time conversational voice agents with resume parsing algorithms. The system conducts realistic back-and-forth technical interviews and outputs detailed scoring rubrics evaluating clarity, syntax, and conceptual depth.',
+      'I engineered an all-in-one AI career intelligence platform featuring sub-second voice conversations (Groq Whisper Turbo + Edge Neural TTS), live STAR methodology telemetry with filler word audits, an embedded Monaco Editor code sandbox for pair programming, instant ATS resume parsing with keyword gap analysis, and a chess-style ELO skill rating benchmark.',
     highlights: [
-      'Sub-second voice response latency for natural conversational pacing',
-      'Automated resume parsing and semantic alignment with target job descriptions',
-      'Structured rubric evaluation across conceptual understanding, syntax, and communication clarity',
-      'Authenticated candidate session history with review playback',
+      'Voice AI Interviewer: Dual-mode simulator (prompt generator & live room) with real-time speech-to-text and ultra-low latency voice responses',
+      'Live STAR Telemetry: Evaluates responses against role-tailored dimensions (Situation, Task, Action, Result, Metrics) with live checklists',
+      'Pacing & Articulation Audits: Monitors target speaking rate (120–150 WPM) and tracks vocal disfluencies (um, ah, basically, like)',
+      'Monaco Code Sandbox: In-browser code editor with syntax highlighting and live problem prompts for technical pair-programming rounds',
+      'ATS Resume Engine: 0–100 match scoring against job descriptions, missing skill detection, and real-time PDF generation',
+      'Competitive ELO System: Chess-style rating progression based on interview performance; benchmarks readiness against global peers',
+      'Gamified Learning Suite: Interactive Three.js/WebGL mini-games (CSS Frogger, Git simulator) with verifiable e-certificates',
+      'Telemetry & Admin Suite: Real-time API key health monitor, audit logs, Stripe revenue analytics, and dynamic blog CMS',
     ],
     architecture: [
-      'Next.js App Router for server-rendered page shells and fast client transitions',
-      'Bidirectional real-time voice streaming orchestrated via Vapi agent integration',
-      'Google AI SDK (Gemini) prompted with strict JSON schemas for deterministic scoring',
-      'Firestore document architecture with composite indexing for candidate interview history',
+      'Next.js 16 (Turbopack, App Router) and React 19 frontend with Framer Motion, GSAP, and Three.js/OGL visuals',
+      'Resilient multi-key load balancer (ApiKeyManager) pooling up to 50 API keys with dynamic rate-limit header parsing and exponential cooldowns',
+      'Hybrid zero-cost voice pipeline: client-side VAD → Groq Whisper Turbo transcription → LLM streaming → Microsoft Edge Neural TTS',
+      'Dual-engine LLM failover: Groq LLaMA 3.3-70B primary evaluation with automatic Google Gemini 2.5 Flash schema fallback via Zod',
+      'Clerk SDK authentication paired with Firebase Admin SDK (Cloud Firestore) for secure role-based access control',
+      'Complete Stripe monetization lifecycle covering subscription webhooks, Freemium, Premium, and Pro tier gating',
     ],
     challenges: [
-      'Managing vocal latency and user interruptions during bidirectional audio streaming',
-      'Ensuring AI evaluation consistency across diverse technical domains and difficulty tiers without hallucinated scoring',
+      'Resilient Multi-Key Load Balancing: High-volume LLM and STT calls quickly exhausted provider rate limits (429 errors); engineered a custom ApiKeyManager pooling up to 50 keys that parses response headers (x-ratelimit-remaining-*) and isolates rate-limited keys with exponential cooldowns',
+      'Hybrid Zero-Cost Voice Pipeline: Traditional conversational voice APIs incurred prohibitive per-minute costs; built a tiered architecture combining client-side VAD, Groq Whisper Turbo, LLM streaming, and Microsoft Edge Neural TTS with browser speech synthesis redundancy',
+      'Dual-Engine LLM Fallback Architecture: Strict JSON schema validation failures and token timeouts risked interrupting live speech evaluation; implemented primary evaluation on Groq LLaMA 3.3-70B with seamless failover to Google Gemini 2.5 Flash using Zod schemas',
+      'Mathematical ELO Rating Algorithm: Needed an objective, non-arbitrary progression metric for non-standardized interview performances; adapted chess ELO mathematics (calculateEloChange) to compute independent ratings for overall readiness, role specialization, and session difficulty',
     ],
     outcome:
-      'Delivered a responsive web application with sub-second audio turnarounds, persistent interview logs, and actionable feedback rubrics for active job seekers.',
+      'Achieved < 1.2s voice turnaround latency for near-human conversational pacing, 99.9% AI availability under peak loads via predictive multi-key rotation and dual-provider fallback, and a production-ready commercial architecture with end-to-end Stripe monetization.',
   },
   'amber-property-corner': {
     overview:
