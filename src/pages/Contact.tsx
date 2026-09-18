@@ -161,7 +161,7 @@ export default function Contact() {
 
               {/* Submission Result / Success View */}
               {submissionResult ? (
-                <div className="py-6 space-y-6">
+                <div className="py-6 space-y-6 animate-page-in">
                   <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 border-b border-border">
                     <ShieldCheck className="w-4 h-4 text-foreground" aria-hidden="true" />
                     <span className="text-foreground font-semibold">
@@ -204,7 +204,7 @@ export default function Contact() {
                 </div>
               ) : (
                 /* Active Form */
-                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6 animate-page-in">
                   {/* Honeypot Spam Trap (Hidden from sighted users and screen readers) */}
                   <div className="hidden" aria-hidden="true">
                     <label htmlFor="website">Website</label>

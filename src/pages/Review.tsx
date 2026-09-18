@@ -94,7 +94,7 @@ export default function Review() {
         {/* Form Container / Success State */}
         <div className="max-w-2xl">
           {isSubmitted ? (
-            <div className="border border-border bg-surface rounded-sm p-8 sm:p-12">
+            <div className="border border-border bg-surface rounded-sm p-8 sm:p-12 animate-page-in">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider mb-4">
                 <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
                 <span>SUBMISSION RECEIVED // PENDING APPROVAL</span>
@@ -147,7 +147,7 @@ export default function Review() {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8">
+            <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8 animate-page-in">
               {/* Editorial Privacy Note */}
               <div className="flex items-start gap-3 p-4 bg-surface border border-border rounded-sm text-xs font-mono text-secondary">
                 <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5" aria-hidden="true" />
