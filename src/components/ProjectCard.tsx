@@ -31,7 +31,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
   return (
     <article
-      className={`border bg-surface hover:bg-surface-hover transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${
+      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${
         isFlagship ? 'border-border-strong shadow-xs' : 'border-border'
       } ${className}`}
     >
@@ -180,7 +180,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             aria-label={`Read case study for ${project.title}`}
           >
             <span>CASE STUDY</span>
-            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </div>

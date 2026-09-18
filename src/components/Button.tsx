@@ -41,11 +41,11 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      'bg-accent-bg text-accent-text border border-transparent hover:opacity-90 active:scale-[0.99]',
+      'bg-accent-bg text-accent-text border border-transparent hover:opacity-90 active:scale-[0.98]',
     secondary:
-      'bg-surface text-foreground border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.99]',
+      'bg-surface text-foreground border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.98]',
     outline:
-      'bg-transparent text-foreground border border-border hover:border-border-strong hover:bg-surface active:scale-[0.99]',
+      'bg-transparent text-foreground border border-border hover:border-border-strong hover:bg-surface active:scale-[0.98]',
     link:
       'p-0 text-foreground underline-offset-4 hover:underline border-none bg-transparent',
   }

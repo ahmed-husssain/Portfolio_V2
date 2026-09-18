@@ -2,8 +2,8 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/Navbar'
-import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import PageTransition from './components/PageTransition'
 
 // Critical Homepage kept in initial bundle
 import Home from './pages/Home'
@@ -39,25 +39,24 @@ export default function App() {
           {/* ─── Fixed Header / Navbar ─── */}
           <Navbar />
 
-          {/* ─── Route Viewport with Code-Split Boundaries ─── */}
+          {/* ─── Route Viewport with Code-Split Boundaries & Subtle Transition ─── */}
           <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
             <Suspense fallback={<PageFallback />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/work" element={<Work />} />
-                <Route path="/work/:slug" element={<ProjectDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/writing" element={<Writing />} />
-                <Route path="/writing/:slug" element={<ArticleDetail />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/review" element={<Review />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <PageTransition>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/work" element={<Work />} />
+                  <Route path="/work/:slug" element={<ProjectDetail />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/writing" element={<Writing />} />
+                  <Route path="/writing/:slug" element={<ArticleDetail />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/review" element={<Review />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </PageTransition>
             </Suspense>
           </main>
-
-          {/* ─── Global Footer ─── */}
-          <Footer />
         </div>
       </BrowserRouter>
     </ThemeProvider>

@@ -81,11 +81,13 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`text-xs font-mono tracking-wider uppercase transition-colors duration-150 py-1 border-b ${
+                  className={`relative text-xs font-mono tracking-wider uppercase transition-colors duration-150 py-1.5 ${
                     active
-                      ? 'text-foreground font-semibold border-foreground'
-                      : 'text-secondary hover:text-foreground border-transparent'
-                  } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none`}
+                      ? 'text-foreground font-semibold'
+                      : 'text-secondary hover:text-foreground'
+                  } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-foreground after:transition-transform after:duration-150 ${
+                    active ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100 after:opacity-40'
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -104,7 +106,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-              className="p-2 rounded-sm border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
+              className="p-2 rounded-sm border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover active:scale-95 transition-all duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
             >
               {mobileMenuOpen ? (
                 <X className="w-5 h-5" aria-hidden="true" />
@@ -119,7 +121,7 @@ export default function Navbar() {
       {/* ─── Mobile Menu Drawer ─── */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-x-0 top-16 h-[calc(100vh-4rem)] bg-[var(--bg-page)] border-b border-border z-50 md:hidden flex flex-col justify-between p-6 sm:p-8 overflow-y-auto"
+          className="fixed inset-x-0 top-16 h-[calc(100vh-4rem)] bg-[var(--bg-page)] border-b border-border z-50 md:hidden flex flex-col justify-between p-6 sm:p-8 overflow-y-auto animate-page-in"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"

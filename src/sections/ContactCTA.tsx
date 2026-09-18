@@ -2,10 +2,12 @@ import { ArrowRight, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
+import Connect from '../components/Connect'
+import { CONTACT_CONFIG } from '../data/contact'
 
 export default function ContactCTA() {
   return (
-    <section id="contact" className="py-20 sm:py-28 md:py-36">
+    <section id="contact" className="pt-20 sm:pt-28 md:pt-36 pb-0">
       <Container>
         <SectionHeading
           index="// 06"
@@ -18,7 +20,7 @@ export default function ContactCTA() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-6">
               <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
-              <span>CURRENT STATUS: AVAILABLE FOR SELECT WORK</span>
+              <span>CURRENT STATUS: {CONTACT_CONFIG.availability.status}</span>
             </div>
 
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-tight mb-6">
@@ -31,11 +33,11 @@ export default function ContactCTA() {
 
             <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-border">
               <a
-                href="mailto:ahmedhussain.dev@gmail.com"
+                href={`mailto:${CONTACT_CONFIG.email}`}
                 className="inline-flex items-center gap-2.5 px-5 py-3 text-xs sm:text-sm font-mono font-semibold bg-foreground text-page hover:bg-secondary transition-colors rounded-sm"
               >
                 <Mail className="w-4 h-4" aria-hidden="true" />
-                <span>AHMEDHUSSAIN.DEV@GMAIL.COM</span>
+                <span>{CONTACT_CONFIG.email.toUpperCase()}</span>
               </a>
 
               <Link
@@ -48,6 +50,9 @@ export default function ContactCTA() {
             </div>
           </div>
         </div>
+
+        {/* Minimal Connect System */}
+        <Connect withContainer={false} className="mt-12 sm:mt-16" />
       </Container>
     </section>
   )

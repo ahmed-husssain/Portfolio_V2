@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, Calendar, Tag, ShieldCheck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
+import Reveal from '../components/Reveal'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
 
@@ -35,64 +36,65 @@ export default function Writing() {
         {/* Content Section: Either Published Articles OR Honest Editorial State */}
         {publishedArticles.length > 0 ? (
           <div className="space-y-6 sm:space-y-8 mb-16">
-            {publishedArticles.map((article) => (
-              <article
-                key={article.slug}
-                className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong transition-all duration-200 group"
-              >
-                <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted pb-3 mb-4 border-b border-border">
-                  <div className="flex items-center gap-2">
-                    <span className="text-foreground font-semibold">TECHNICAL ESSAY</span>
-                    <span>·</span>
-                    <span>VERIFIED</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-secondary">
-                    <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
-                    <time dateTime={article.date}>{article.date}</time>
-                  </div>
-                </div>
-
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight mb-3">
-                  <Link
-                    to={`/writing/${article.slug}`}
-                    className="hover:text-secondary transition-colors inline-flex items-center gap-2"
-                  >
-                    <span>{article.title}</span>
-                    <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 group-hover:translate-x-0" />
-                  </Link>
-                </h2>
-
-                <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-                  {article.description}
-                </p>
-
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Tag className="w-3 h-3 text-muted mr-1" aria-hidden="true" />
-                    {article.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 text-xs font-mono bg-page border border-border text-secondary rounded-sm"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+            {publishedArticles.map((article, index) => (
+              <Reveal key={article.slug} delay={index * 50}>
+                <article
+                  className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong transition-all duration-200 group"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted pb-3 mb-4 border-b border-border">
+                    <div className="flex items-center gap-2">
+                      <span className="text-foreground font-semibold">TECHNICAL ESSAY</span>
+                      <span>·</span>
+                      <span>VERIFIED</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-secondary">
+                      <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+                      <time dateTime={article.date}>{article.date}</time>
+                    </div>
                   </div>
 
-                  <Link
-                    to={`/writing/${article.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors"
-                  >
-                    <span>READ ESSAY</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              </article>
+                  <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight mb-3">
+                    <Link
+                      to={`/writing/${article.slug}`}
+                      className="hover:text-secondary transition-colors inline-flex items-center gap-2"
+                    >
+                      <span>{article.title}</span>
+                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 group-hover:translate-x-0" />
+                    </Link>
+                  </h2>
+
+                  <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
+                    {article.description}
+                  </p>
+
+                  <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Tag className="w-3 h-3 text-muted mr-1" aria-hidden="true" />
+                      {article.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 text-xs font-mono bg-page border border-border text-secondary rounded-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link
+                      to={`/writing/${article.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors"
+                    >
+                      <span>READ ESSAY</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
+                </article>
+              </Reveal>
             ))}
           </div>
         ) : (
           /* Honest Editorial Empty State */
-          <div className="space-y-8 mb-16">
+          <Reveal className="space-y-8 mb-16">
             <div className="border border-border bg-surface rounded-sm p-8 sm:p-12">
               <div className="max-w-2xl">
                 <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">
@@ -132,7 +134,7 @@ export default function Writing() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         )}
 
         {/* Bottom Contact Prompt */}

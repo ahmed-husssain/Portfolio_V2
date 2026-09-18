@@ -1,5 +1,6 @@
 import Container from '../components/Container'
 import ProjectCard from '../components/ProjectCard'
+import Reveal from '../components/Reveal'
 import { PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
@@ -29,7 +30,9 @@ export default function Work() {
         {/* Project List */}
         <div className="flex flex-col gap-12 sm:gap-16">
           {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index + 1} />
+            <Reveal key={project.slug} delay={index * 50}>
+              <ProjectCard project={project} index={index + 1} />
+            </Reveal>
           ))}
         </div>
       </Container>
