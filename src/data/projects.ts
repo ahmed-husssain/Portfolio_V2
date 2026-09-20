@@ -11,6 +11,7 @@ export interface Project {
   liveUrl?: string
   githubUrl?: string
   image?: string
+  gallery?: string[]
   role?: string
   problem?: string
   solution?: string
@@ -98,7 +99,7 @@ export const PROJECTS: Project[] = [
       'Achieved a 95+ Mobile Lighthouse score, reliable administrative property workflows, and sub-150ms query turnaround times.',
   },
   {
-    slug: 'careflow-connect',
+    slug: 'shifamanagement',
     title: 'ShifaManagement',
     category: 'Healthcare / Cross-Platform',
     shortDescription:
@@ -121,7 +122,14 @@ export const PROJECTS: Project[] = [
     year: '2024',
     role: 'Lead Cross-Platform & Systems Architect',
     githubUrl: 'https://github.com/ahmed-husssain',
-    image: '/projects/careflow-connect/cover.webp',
+    image: '/projects/shifamanagement/preview.png',
+    gallery: [
+      '/projects/shifamanagement/slide-1.png',
+      '/projects/shifamanagement/slide-2.png',
+      '/projects/shifamanagement/slide-3.png',
+      '/projects/shifamanagement/slide-4.png',
+      '/projects/shifamanagement/slide-5.png',
+    ],
     architecture: [
       'Feature-first Flutter architecture with Riverpod StreamProviders for sub-second Firestore synchronization',
       'Dual-mode staff provisioning using Cloud Functions v2 and isolated secondary FirebaseApp sandboxing',

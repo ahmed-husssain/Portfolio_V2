@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, Terminal, AlertCircle, Cpu, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, Terminal, AlertCircle, Cpu, ShieldCheck, ImageIcon } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
@@ -308,7 +308,55 @@ export default function ProjectDetail() {
             </section>
           )}
 
-          {/* ─── 9. Technology ─── */}
+          {/* ─── 9. Visual Architecture & Specification Gallery ─── */}
+          {project.gallery && project.gallery.length > 0 && (
+            <section className="space-y-6 pt-6 border-t border-border">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
+                <ImageIcon className="w-3.5 h-3.5" aria-hidden="true" />
+                <span className="text-foreground font-semibold uppercase">SYSTEM ARCHITECTURE & INTERFACE SPECIFICATION</span>
+              </div>
+              <div>
+                <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+                  Visual Architecture & System Specification
+                </h2>
+                <p className="text-secondary text-sm leading-relaxed mt-1">
+                  High-resolution architectural blueprints, automated clinical workflows, and live telemetry interfaces extracted from the system specification.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                {project.gallery.map((imgSrc, idx) => (
+                  <div
+                    key={idx}
+                    className="group rounded-sm overflow-hidden border border-border bg-surface hover:border-border-strong transition-all flex flex-col"
+                  >
+                    <div className="aspect-square w-full overflow-hidden bg-page flex items-center justify-center">
+                      <img
+                        src={imgSrc}
+                        alt={`${project.title} Architectural Specification Slide ${idx + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="p-3 border-t border-border/60 bg-surface flex items-center justify-between text-xs font-mono">
+                      <span className="text-muted text-[11px] uppercase tracking-wider">
+                        SPECIFICATION // SLIDE 0{idx + 1}
+                      </span>
+                      <span className="text-foreground font-medium text-[11px]">
+                        {idx === 0 && 'System 2.0 Dashboard'}
+                        {idx === 1 && '1-Click WhatsApp Dispatch'}
+                        {idx === 2 && 'Intelligent Care Alerts'}
+                        {idx === 3 && 'Atomic Soft-Delete & Audit'}
+                        {idx === 4 && 'Zero-Cost Spark Architecture'}
+                        {idx > 4 && `System Slide ${idx + 1}`}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* ─── 10. Technology ─── */}
           {project.technologies && project.technologies.length > 0 && (
             <section className="space-y-4 pt-6 border-t border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">

@@ -69,7 +69,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
     outcome:
       'Achieved a 95+ Mobile Lighthouse score, reliable administrative property workflows, and sub-150ms query turnaround times in production.',
   },
-  'careflow-connect': {
+  'shifamanagement': {
     overview:
       'ShifaManagement is an enterprise home healthcare management system engineered for clinical administrators, medical supervisors, and field staff managing decentralized home healthcare operations (including specialized nursing, elderly attendants, physiotherapy, and post-operative home ICU care) across mobile and desktop environments.',
     problem:
