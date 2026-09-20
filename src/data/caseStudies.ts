@@ -71,29 +71,36 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
   },
   'careflow-connect': {
     overview:
-      'I developed CareFlow Connect as a cross-platform mobile utility to help outpatient medical clinics coordinate daily schedules, manage patient intake, and prevent missed consultations.',
+      'ShifaManagement is an enterprise home healthcare management system engineered for clinical administrators, medical supervisors, and field staff managing decentralized home healthcare operations (including specialized nursing, elderly attendants, physiotherapy, and post-operative home ICU care) across mobile and desktop environments.',
     problem:
-      'Outpatient healthcare clinics experienced elevated missed appointment rates and administrative delays resulting from paper scheduling charts and disjointed staff communication.',
+      'Home healthcare introduces severe operational hurdles: calculating margins and dynamic per-diem service rates across fluctuating disciplines (physiotherapy, ICU nursing, attendants), 14-day recurring care plan renewal blindspots that cause patient care gaps, paper invoice delivery failure in remote home settings, and Firebase client SDK session resets when administrators provision new staff accounts.',
     solution:
-      'I engineered a cross-platform mobile application using Flutter and Riverpod state management connected to Firebase backend services for instantaneous schedule synchronization and automated push notifications.',
+      'I engineered a Feature-First Clean Architecture system built on Flutter and Dart paired with a dual-tier Firebase backend. The system features reactive Riverpod stream synchronization, dynamic service fee computation, an automated 14-day care renewal engine with normalized WhatsApp dispatch, off-thread vector PDF/300 DPI raster invoice generation, and session-preserving staff provisioning.',
     highlights: [
-      'Real-time schedule synchronization across multiple clinic devices',
-      'Automated push notifications for upcoming consultations and schedule updates',
-      'Granular data security rules segregating medical staff and patient views',
-      'Offline-tolerant appointment intake and record caching',
+      'Decentralized Clinical Intake: Captures diagnostic history, attending staff, and computes 30-day projected patient costs, staff payouts, and clinic margins via dynamic HealthcareServicesSelector',
+      'Automated 14-Day Renewal Pipeline: Multi-stream provider calculating rolling expiration horizons, categorizing follow-ups (expired, today, upcoming, scheduled), and generating localized WhatsApp dispatch links',
+      'Dual-Format Document Engine: Off-thread A4 vector PDF construction and high-resolution 300 DPI PNG rasterization for instant mobile messaging',
+      'Session-Preserving Staff Provisioning: Dual operating modes using Cloud Functions v2 on Blaze tiers and ephemeral secondary FirebaseApp sandboxing on Spark tiers to prevent administrator session drops',
+      'Real-Time Live Telemetry: Dashboard metrics tracking active patients, aggregate monthly billing, pending invoices, and regex-shortened activity audit feeds',
+      'Role-Enforced Shell Layout: GoRouter ShellRoute dynamically rendering administrative controls vs. staff-restricted patient and earnings views',
+      'Invariant Protection: Cloud Functions enforce immutable master accounts and a hard invariant preventing deletion or deactivation of the last remaining Admin',
     ],
     architecture: [
-      'Flutter framework delivering high-performance UI rendering on Android and iOS',
-      'Riverpod for robust, declarative, and easily testable state management',
-      'Firestore real-time listeners synchronizing consultation rosters with zero manual refresh',
-      'Firebase Cloud Messaging dispatching targeted push notifications based on appointment timestamps',
+      'Feature-first Flutter architecture built with Dart SDK ^3.12.0 and Riverpod v3.3.2 StreamProviders',
+      'GoRouter v17.3.0 ShellRoute layout managing role-based responsive navigation across mobile and desktop',
+      'Google Cloud Firestore data layer with atomic batch writes linking clinical records, /activities audit trails, and /system_metrics',
+      'Dual-tier administrative provisioning: Cloud Functions v2 (Node.js 18) with custom claims, backed by client-side secondary FirebaseApp sandboxing',
+      'Dual-path document pipeline using pdf v3.13.0 and printing v5.15.0 for asynchronous vector and 300 DPI raster generation',
+      'Regex-driven telephony normalization converting Pakistan phone formats (03xx to 923xx) for direct WhatsApp API deep linking',
     ],
     challenges: [
-      'Handling offline appointment logging with reliable background sync when connectivity resumes',
-      'Ensuring strict role-based access to patient medical histories according to clinic privacy protocols',
+      'Reactive Multi-Stream Expiration Pipeline: Reconciling disparate asynchronous sources (patient records, historical invoices, ad-hoc reminders) caused UI lag; engineered a unified StreamProvider that projects deterministic 14-day renewal horizons and normalizes regional phone numbers for zero-cost WhatsApp dispatch',
+      'Client-Side Document Vectorization & 300 DPI Rasterization: Multi-page graphical invoice layouts caused UI thread stutter on low-resource mobile clients; architected InvoiceExporter to assemble vector PDFs off-thread with automatic Firestore metadata fallbacks and two-stage Printing.raster image exportation',
+      'Session-Preserving Administrative Staff Provisioning: FirebaseAuth.createUser switches the active client session, locking out administrators on Spark plans; engineered an ephemeral secondary FirebaseApp container that creates credentials in isolation, paired with a forceLogoutToken server timestamp listener for instant deactivation propagation',
+      'Invariant Protection & Atomic Audit Logging: Admin deletions risked orphaning billing ledgers or locking clinics out; enforced backend active admin inventory checks and wrapped all clinical, financial, and metric writes inside atomic Firestore batch operations',
     ],
     outcome:
-      'Reduced consultation no-shows and provided clinic practitioners with immediate, synchronized access to daily rosters across multiple devices.',
+      'Delivered deterministic sub-second multi-device synchronization via Firestore streams, eliminated administrative session drops with isolated FirebaseApp sandboxing, ensured resilient offline operation with atomic batch transactions, and standardized regional telephony formatting for reliable WhatsApp renewal dispatch.',
   },
   'e-books': {
     overview:
