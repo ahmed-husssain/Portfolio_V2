@@ -136,7 +136,7 @@ export const PROJECTS: Project[] = [
     year: '2024',
     role: 'Backend & Web Developer',
     liveUrl: 'http://64.23.237.187/ebooks',
-    githubUrl: 'https://github.com/AhapraxAhmed/E-books',
+    githubUrl: 'https://github.com/ahmed-husssain/E-books',
     image: '/projects/e-books/cover.webp',
     outcome:
       'Successfully deployed an efficient, fast-loading digital library platform operating reliably with low server resource overhead.',
