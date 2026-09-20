@@ -121,7 +121,7 @@ export const PROJECTS: Project[] = [
     status: 'completed',
     year: '2024',
     role: 'Lead Cross-Platform & Systems Architect',
-    githubUrl: 'https://github.com/ahmed-husssain',
+    githubUrl: 'https://github.com/ahmed-husssain/ShifaMangementSystem',
     image: '/projects/shifamanagement/preview.png',
     gallery: [
       '/projects/shifamanagement/slide-1.png',
