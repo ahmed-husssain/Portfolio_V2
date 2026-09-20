@@ -86,7 +86,8 @@ export const PROJECTS: Project[] = [
     year: '2025',
     role: 'Full-Stack Developer & Database Architect',
     liveUrl: 'https://amberpropertycorner.com',
-    image: '/projects/amber-property-corner/cover.webp',
+    githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
+    image: '/projects/amber-property-corner/preview.png',
     architecture: [
       'Relational PostgreSQL schema with normalized property, agent, and inquiry models',
       'Prisma ORM handling type-safe database queries and automated schema migrations',
