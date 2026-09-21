@@ -10,7 +10,7 @@ export default function Capabilities() {
         <SectionHeading
           index="// 02"
           title="Capabilities"
-          subtitle="A practical breakdown of the technical domains, application stacks, and engineering disciplines I employ to build and deploy production software."
+          subtitle="A clear breakdown of the core technical domains, backend frameworks, and engineering tools I use to build production software."
           meta="[ 04 DOMAINS ]"
         />
 

@@ -4,35 +4,35 @@ import SectionHeading from '../components/SectionHeading'
 export default function About() {
   const metadata = [
     { label: 'LOCATION', value: 'Karachi, Pakistan (PKT / UTC+5)' },
-    { label: 'DISCIPLINE', value: 'Full-Stack Web & API Development' },
-    { label: 'CORE INTERESTS', value: 'Backend Systems · Database Design · Performance' },
-    { label: 'AVAILABILITY', value: 'Available for Select Web & Product Projects' },
+    { label: 'DISCIPLINE', value: 'Backend & Web Development (.NET)' },
+    { label: 'CORE STACK', value: 'C#, ASP.NET Core, SQL Server, MySQL, React' },
+    { label: 'KEY AWARD', value: 'Runner-Up – Aptech Vision 2025 (Mockrithm)' },
   ]
 
   const principles = [
     {
       index: '01',
-      title: 'SYSTEM-FIRST THINKING',
+      title: 'CLEAN ARCHITECTURE',
       detail:
-        'Prioritizing data integrity, schema consistency, and reliable API contracts before building client interfaces.',
+        'Keeping controllers lean, business logic modular, and data access cleanly separated.',
     },
     {
       index: '02',
-      title: 'PRAGMATIC TOOLING',
+      title: 'DATA INTEGRITY',
       detail:
-        'Selecting proven, dependable tools (Next.js, Node, SQL, TypeScript) that solve actual project requirements without unnecessary bloat.',
+        'Structuring relational database schemas and indexing carefully for fast, reliable queries.',
     },
     {
       index: '03',
-      title: 'MAINTAINABLE CODE',
+      title: 'SECURE AUTHENTICATION',
       detail:
-        'Writing readable, type-safe code with clear boundaries that teammates can easily audit, debug, and extend.',
+        'Enforcing OAuth 2.0 multi-provider authentication and role-based access control (RBAC).',
     },
     {
       index: '04',
-      title: 'PERFORMANCE AWARENESS',
+      title: 'PRAGMATIC CODE',
       detail:
-        'Keeping client payloads minimal, optimizing query execution paths, and eliminating decorative runtime overhead.',
+        'Writing straightforward, maintainable code with robust error handling instead of needless complexity.',
     },
   ]
 
@@ -43,7 +43,7 @@ export default function About() {
         <SectionHeading
           index="// 03"
           title="About"
-          subtitle="A grounded overview of my background, engineering philosophy, and how I approach building digital products."
+          subtitle="A grounded overview of my background, technical focus, and development principles."
           meta="[ BACKGROUND & FOCUS ]"
         />
 
@@ -54,16 +54,16 @@ export default function About() {
             <div>
               {/* Lead Headline Statement */}
               <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-snug mb-6">
-                I am a full-stack web developer focused on building practical digital products that solve real problems.
+                I am a backend-focused .NET developer building scalable web applications and reliable APIs.
               </h3>
 
               {/* Narrative Paragraphs */}
               <div className="space-y-4 text-secondary text-sm sm:text-base leading-relaxed mb-8">
                 <p>
-                  I enjoy working across the stack—from responsive interfaces and clean APIs to databases and authentication. When building software, I care about understanding how a system works under the hood rather than simply making the UI look correct.
+                  I build web applications with C#, ASP.NET Core MVC, Web API, Entity Framework Core, and SQL Server. I focus on clean architecture, relational database design, and secure authentication workflows like OAuth 2.0.
                 </p>
                 <p>
-                  In every project, I think about how data is structured, how the API behaves, how authentication is enforced, and how the code can be maintained over time. I am particularly drawn to backend engineering, relational modeling, and building resilient web products that deliver measurable value.
+                  When engineering software, I care about how data flows through the system, how queries perform under load, and how endpoints handle edge cases gracefully. My goal is always to deliver software that is reliable, easy to maintain, and fast.
                 </p>
               </div>
             </div>

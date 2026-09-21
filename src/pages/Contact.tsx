@@ -37,7 +37,7 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
 }
 
 export default function Contact() {
-  useDocumentTitle('Contact — Ahmed | Full-Stack Web Developer')
+  useDocumentTitle('Contact — Ahmed | Backend-Focused .NET Developer')
 
   const [formData, setFormData] = useState<ContactFormPayload>({
     name: '',
@@ -128,7 +128,7 @@ export default function Contact() {
           </h1>
 
           <p className="text-secondary text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
-            I collaborate with founders, engineering teams, and companies on web applications, backend APIs, relational database schemas, and performance optimizations. Feel free to reach out directly or use the inquiry form below.
+            I work on scalable backend APIs, relational database schemas, and modern web applications. Feel free to reach out directly by email or use the inquiry form below.
           </p>
         </header>
 

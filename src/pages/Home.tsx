@@ -9,7 +9,7 @@ import ContactCTA from '../sections/ContactCTA'
 import Reveal from '../components/Reveal'
 
 export default function Home() {
-  useDocumentTitle('Full-Stack Web Developer')
+  useDocumentTitle('Backend-Focused .NET Developer')
 
   return (
     <>

@@ -12,7 +12,7 @@ export default function ContactCTA() {
         <SectionHeading
           index="// 06"
           title="Contact"
-          subtitle="Open for select full-stack product contracts, backend engineering roles, and technical architecture consulting."
+          subtitle="Open for backend engineering roles, .NET development, and full-stack projects."
           meta="[ GET IN TOUCH ]"
         />
 
@@ -24,11 +24,11 @@ export default function ContactCTA() {
             </div>
 
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-tight mb-6">
-              Have a web application, API system, or technical product to build?
+              Have a web application, API system, or project to build?
             </h3>
 
             <p className="text-secondary text-sm sm:text-base leading-relaxed mb-8">
-              Whether you need to architect a new product from the database up, build a resilient full-stack application, or overhaul an existing system for better performance and maintainability, let's discuss your requirements.
+              Whether you need to build a scalable ASP.NET Core API, design a clean relational database schema, or engineer a reliable web application, let's discuss your goals.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-border">

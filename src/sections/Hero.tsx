@@ -8,7 +8,7 @@ export default function Hero() {
         {/* ─── Eyebrow ─── */}
         <div className="flex items-center gap-3 mb-6 sm:mb-8 animate-hero-in">
           <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-muted uppercase">
-            // FULL-STACK WEB DEVELOPER
+            // BACKEND-FOCUSED .NET DEVELOPER
           </span>
           <span className="h-px flex-1 max-w-[80px] bg-border-strong hidden sm:inline-block" aria-hidden="true" />
         </div>
@@ -20,7 +20,7 @@ export default function Hero() {
 
         {/* ─── Supporting Paragraph ─── */}
         <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[660px] leading-relaxed mb-10 sm:mb-12 animate-hero-in delay-120">
-          Working across the full stack—from modern TypeScript frontends to resilient database schemas and server logic. Focused on performance, maintainability, and clean architecture.
+          Hands-on experience building scalable applications using C#, ASP.NET Core MVC, Web API, EF Core, and SQL Server. Focused on clean architecture, query performance, and reliable software.
         </p>
 
         {/* ─── Primary & Secondary CTAs ─── */}
@@ -40,16 +40,16 @@ export default function Hero() {
               // 01. SPECIALIZATION
             </span>
             <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              Full-Stack Web & API Architecture
+              Backend & .NET Web Architecture
             </span>
           </div>
 
           <div className="flex flex-col gap-1.5">
             <span className="font-mono text-[11px] text-muted tracking-widest uppercase">
-              // 02. CORE TOOLING
+              // 02. CORE STACK
             </span>
             <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              Next.js, TypeScript, Node, SQL & NoSQL
+              C#, ASP.NET Core, SQL Server, React, Tailwind CSS
             </span>
           </div>
 
@@ -58,7 +58,7 @@ export default function Hero() {
               // 03. ENGINEERING FOCUS
             </span>
             <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              High Throughput, Zero Runtime Bloat
+              Clean Architecture, Idempotent APIs & Relational Schemas
             </span>
           </div>
         </div>

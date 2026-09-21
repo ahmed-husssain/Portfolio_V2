@@ -14,7 +14,7 @@ export default function SelectedWork() {
         <SectionHeading
           index="// 01"
           title="Selected Work"
-          subtitle="Production web applications, client platforms, and backend systems engineered with a focus on real-world utility, reliability, and clean architecture."
+          subtitle="Web applications, APIs, and platforms engineered with a focus on reliability, database performance, and clean architecture."
           meta={`[ ${featuredProjects.length.toString().padStart(2, '0')} FEATURED OF ${PROJECTS.length.toString().padStart(2, '0')} TOTAL ]`}
         />
 
@@ -27,7 +27,7 @@ export default function SelectedWork() {
         {/* View All Projects Link */}
         <div className="mt-14 pt-8 border-t border-border flex justify-between items-center flex-wrap gap-4">
           <p className="text-xs font-mono text-secondary">
-            SHOWING {featuredProjects.length} CURATED PROJECTS WITH FULL ARCHITECTURAL CASE STUDIES.
+            SHOWING {featuredProjects.length} FEATURED PROJECTS WITH CASE STUDIES.
           </p>
           <Link
             to="/work"

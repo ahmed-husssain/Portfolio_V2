@@ -5,7 +5,7 @@ import { PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 export default function Work() {
-  useDocumentTitle('Work — Ahmed | Full-Stack Web Developer')
+  useDocumentTitle('Work — Ahmed | Backend-Focused .NET Developer')
 
   return (
     <div className="py-16 sm:py-24 md:py-32">
@@ -19,11 +19,11 @@ export default function Work() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
-            Engineering Index & Case Studies
+            Projects & Case Studies
           </h1>
 
           <p className="text-secondary text-sm sm:text-base md:text-lg max-w-3xl leading-relaxed">
-            A comprehensive record of production web applications, multi-tenant platforms, and utility software I have designed, engineered, and shipped. Each case study documents the business problem, architectural design, technical hurdles, and actual outcomes.
+            A curated record of web applications, APIs, and backend systems I have designed and engineered. Each project highlights the problem, architecture, and practical outcomes.
           </p>
         </header>
 

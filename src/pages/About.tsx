@@ -1,101 +1,67 @@
-import { ArrowRight, ArrowUpRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 export default function About() {
-  useDocumentTitle('About — Ahmed | Full-Stack Web Developer')
+  useDocumentTitle('About — Ahmed | Backend-Focused .NET Developer')
 
   const metadata = [
     { label: 'BASED IN', value: 'Karachi, Pakistan' },
-    { label: 'FOCUS', value: 'Full-Stack Development' },
-    { label: 'CORE STACK', value: 'Next.js, React, TypeScript, PostgreSQL, Prisma, Tailwind CSS' },
-    { label: 'INTERESTS', value: 'Backend · System Design · Performance' },
-    { label: 'AVAILABILITY', value: 'Open for Full-Stack Engineering Roles & Select Work' },
+    { label: 'FOCUS', value: 'Backend & Web Development (.NET)' },
+    { label: 'CORE STACK', value: 'C#, ASP.NET Core, EF Core, SQL Server, MySQL, React, Tailwind CSS' },
+    { label: 'RECOGNITION', value: 'Runner-Up – Aptech Vision 2025 (Project: Mockrithm)' },
+    { label: 'AVAILABILITY', value: 'Open for Backend & Full-Stack Engineering Roles' },
   ]
 
   const buildSteps = [
     {
       step: '01',
-      title: 'Understand the Requirements',
+      title: 'Understand Requirements',
       detail: 'Clarify core constraints, data volume, and user flows before writing any code.',
     },
     {
       step: '02',
-      title: 'Design Data & Application Structure',
-      detail: 'Model relational schemas, database constraints, and typed API contracts upfront.',
+      title: 'Design Schema & APIs',
+      detail: 'Model relational database tables, foreign keys, indexing, and typed API endpoints.',
     },
     {
       step: '03',
-      title: 'Build Core Functionality',
-      detail: 'Implement the primary workflow with clean, modular code rather than prematurely optimizing edge cases.',
+      title: 'Build Modular Logic',
+      detail: 'Implement controllers, services, and business rules with clean separation of concerns.',
     },
     {
       step: '04',
-      title: 'Validate Inputs & Handle Failures',
-      detail: 'Implement strict schema validation at API boundaries and handle error states gracefully.',
-    },
-    {
-      step: '05',
-      title: 'Test Important Flows',
-      detail: 'Verify authentication guards, database queries, and key user actions under realistic conditions.',
-    },
-    {
-      step: '06',
-      title: 'Improve Performance Where It Matters',
-      detail: 'Audit client bundles, tune database indexing, and eliminate redundant network roundtrips.',
-    },
-    {
-      step: '07',
-      title: 'Deploy & Maintain the System',
-      detail: 'Configure automated builds, environment variables, and monitor operational health over time.',
+      title: 'Test, Optimize & Deploy',
+      detail: 'Validate endpoints, optimize query performance, and ensure production reliability.',
     },
   ]
 
   const principles = [
     {
       index: '01',
-      title: 'UNDERSTAND THE SYSTEM',
+      title: 'CLEAN ARCHITECTURE',
       detail:
-        'Understand how data, APIs, authentication, and application logic connect before changing them. A reliable backend creates a predictable, intuitive frontend.',
+        'Keeping controllers lean, business logic modular, and data access decoupled for easy maintenance.',
     },
     {
       index: '02',
-      title: 'KEEP THINGS MAINTAINABLE',
+      title: 'DATA INTEGRITY',
       detail:
-        'Prefer clear structures and predictable code over unnecessary abstraction. Writing strictly typed code that teammates can read and debug is far more valuable than clever one-liners.',
+        'Designing relational schemas with proper normalization, foreign keys, and indexing to ensure query speed.',
     },
     {
       index: '03',
-      title: 'BUILD FOR REAL USAGE',
+      title: 'SECURE BY DEFAULT',
       detail:
-        'Think about validation, security, performance, and failure cases—not only whether the happy path works. Production software is defined by how gracefully it handles bad input and system errors.',
+        'Implementing OAuth 2.0 multi-provider authentication and role-based access control (RBAC) securely.',
     },
     {
       index: '04',
-      title: 'IMPROVE CONTINUOUSLY',
+      title: 'PRAGMATIC DISCIPLINE',
       detail:
-        'Treat projects as systems that can be measured, reviewed, and improved over time. Measure bottlenecks with real metrics before optimizing.',
-    },
-  ]
-
-  const currentFocusAreas = [
-    {
-      area: 'Backend Engineering & API Design',
-      note: 'Currently deepening my understanding of modular service boundaries, schema validation, and resilient error handling across RESTful APIs.',
-    },
-    {
-      area: 'Database Architecture & Indexing',
-      note: 'Currently deepening my understanding of relational normalization, composite indexing strategies, and query planning in PostgreSQL.',
-    },
-    {
-      area: 'Distributed Systems & Caching Concepts',
-      note: 'Currently studying cache-aside patterns, cache invalidation race conditions, and message queues in multi-service environments.',
-    },
-    {
-      area: 'System Performance & Profiling',
-      note: 'Currently focusing on minimizing client-side JavaScript execution, eliminating layout shifts, and keeping payload sizes strictly restrained.',
+        'Writing readable, maintainable code with clear error handling instead of unnecessary complexity.',
     },
   ]
 
@@ -107,41 +73,37 @@ export default function About() {
           <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-3">
             <span className="text-foreground font-semibold">// ABOUT AHMED</span>
             <span>·</span>
-            <span>FULL-STACK WEB DEVELOPER</span>
+            <span>BACKEND-FOCUSED .NET DEVELOPER</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
-            Engineering software with system-first thinking and practical discipline.
+            Building scalable web applications and reliable APIs with clean architecture.
           </h1>
 
           <p className="text-secondary text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
-            I am a full-stack web developer focused on building real digital products, web applications, and backend systems. I work across frontend interfaces, APIs, relational databases, authentication, and deployment—aiming for software that is reliable, maintainable, and fast.
+            Backend-focused .NET Developer with hands-on experience building web applications using C#, ASP.NET Core MVC, Web API, Entity Framework Core, and SQL Server. I focus on clean architecture, query performance, and reliable database design.
           </p>
         </header>
 
-        {/* ─── 2. How I Think About Software ─── */}
+        {/* ─── 2. Perspective ─── */}
         <Reveal>
           <section className="mb-16 sm:mb-24">
             <div className="max-w-3xl space-y-6 text-secondary text-sm sm:text-base leading-relaxed">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                 <span className="text-foreground font-semibold">// PERSPECTIVE</span>
-                <span className="uppercase tracking-wider">HOW I THINK ABOUT SOFTWARE</span>
+                <span className="uppercase tracking-wider">HOW I BUILD SOFTWARE</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
-                Understanding the complete system, not just the surface.
+                Understanding the complete system under the hood.
               </h2>
 
               <p>
-                I do not treat the frontend, API, database, and authentication as isolated pieces. Instead, I focus on understanding how data moves through the entire system and how each technical decision affects reliability, performance, and long-term maintainability.
+                I build software with a focus on data integrity, clear domain boundaries, and predictable API behavior. Rather than only focusing on visual appearance, I prioritize understanding how data moves through the database, how endpoints respond under load, and how security is enforced.
               </p>
 
               <p>
-                When an interface behaves unexpectedly, the root cause is rarely just CSS or component state—it is often a mismatch between client expectations and database guarantees, an ambiguous API contract, or an unhandled edge case in data validation. By thinking about data integrity and schema consistency first, frontend code becomes simpler, more predictable, and much easier to debug.
-              </p>
-
-              <p>
-                In production projects like <strong className="text-foreground font-medium">Mockrithm</strong> (an AI-powered technical interview preparation system) and <strong className="text-foreground font-medium">Amber Property Corner</strong> (a multi-role real estate platform), my focus was on architecting reliable workflows where authentication, authorization, and data lookups behave predictably under load.
+                From architecting automated bidding engines and multi-provider OAuth 2.0 authentication in <strong className="text-foreground font-medium">Online Art Gallery</strong> to engineering <strong className="text-foreground font-medium">Mockrithm</strong> and <strong className="text-foreground font-medium">E-Books</strong>, I strive to write software that is dependable, readable, and easy to scale.
               </p>
 
               <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono">
@@ -149,7 +111,7 @@ export default function About() {
                   to="/work"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all"
                 >
-                  <span>EXPLORE CASE STUDIES</span>
+                  <span>EXPLORE PROJECTS</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
                 <a
@@ -166,7 +128,38 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 3. How I Build ─── */}
+        {/* ─── 3. Recognition & Award (Only Aptech Vision 2025 as requested) ─── */}
+        <Reveal>
+          <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
+            <div className="mb-8 max-w-2xl">
+              <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
+                <span className="text-foreground font-semibold">// RECOGNITION</span>
+                <span>·</span>
+                <span>KEY ACHIEVEMENT</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
+                Honors & Recognition
+              </h2>
+            </div>
+
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 max-w-2xl hover:border-border-strong transition-colors duration-200">
+              <div className="flex items-center gap-3 text-xs font-mono text-muted pb-3 mb-4 border-b border-border">
+                <Trophy className="w-4 h-4 text-emerald-500" aria-hidden="true" />
+                <span className="text-foreground font-semibold uppercase">AWARD</span>
+                <span>·</span>
+                <span>APTECH VISION 2025</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight mb-2">
+                Runner-Up – Aptech Vision 2025
+              </h3>
+              <p className="text-secondary text-xs sm:text-sm leading-relaxed">
+                Project: <strong className="text-foreground font-medium">Mockrithm</strong> — Awarded Runner-Up out of multiple competing software projects for developing an AI-driven interview preparation web platform designed to help students practice technical interviews.
+              </p>
+            </div>
+          </section>
+        </Reveal>
+
+        {/* ─── 4. How I Build ─── */}
         <Reveal>
           <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
             <div className="mb-10 sm:mb-12 max-w-2xl">
@@ -179,11 +172,11 @@ export default function About() {
                 How I Approach Building
               </h2>
               <p className="text-secondary text-sm sm:text-base mt-2 leading-relaxed">
-                A practical, disciplined sequence for turning requirements into maintainable software.
+                A practical sequence for turning requirements into maintainable, production-ready software.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {buildSteps.map((b) => (
                 <div
                   key={b.step}
@@ -206,14 +199,14 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 4. Engineering Principles ─── */}
+        {/* ─── 5. Engineering Principles ─── */}
         <Reveal>
           <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
             <div className="mb-10 sm:mb-12 max-w-2xl">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
                 <span className="text-foreground font-semibold">// PRINCIPLES</span>
                 <span>·</span>
-                <span>FOUR GUIDING PILLARS</span>
+                <span>CORE PILLARS</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
                 Core Engineering Principles
@@ -240,45 +233,6 @@ export default function About() {
                       {p.detail}
                     </p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        </Reveal>
-
-        {/* ─── 5. Current Focus ─── */}
-        <Reveal>
-          <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
-            <div className="mb-10 sm:mb-12 max-w-2xl">
-              <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
-                <span className="text-foreground font-semibold">// CONTINUOUS GROWTH</span>
-                <span>·</span>
-                <span>AREAS OF ACTIVE STUDY</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
-                Current Technical Focus
-              </h2>
-              <p className="text-secondary text-sm sm:text-base mt-2 leading-relaxed">
-                Topics and system concepts I am actively studying, implementing in side projects, and working to improve.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {currentFocusAreas.map((f) => (
-                <div
-                  key={f.area}
-                  className="border border-border bg-surface rounded-sm p-6 hover:border-border-strong transition-colors duration-200"
-                >
-                  <div className="flex items-center gap-2 text-xs font-mono text-muted pb-3 mb-3 border-b border-border">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-foreground" aria-hidden="true" />
-                    <span className="text-foreground font-semibold uppercase">FOCUS AREA</span>
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground tracking-tight mb-2">
-                    {f.area}
-                  </h3>
-                  <p className="text-secondary text-xs sm:text-sm leading-relaxed">
-                    {f.note}
-                  </p>
                 </div>
               ))}
             </div>
