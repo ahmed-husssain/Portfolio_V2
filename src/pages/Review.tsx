@@ -41,7 +41,16 @@ export default function Review() {
     setErrors({})
 
     try {
-      const result = await submitReview(formData)
+      const selectedProj = PROJECTS.find(
+        (p) =>
+          p.title.toLowerCase() === formData.project?.trim().toLowerCase() ||
+          p.slug === formData.project?.trim().toLowerCase()
+      )
+      const submissionData = {
+        ...formData,
+        projectSlug: selectedProj?.slug,
+      }
+      const result = await submitReview(submissionData)
 
       if (result.success) {
         setIsSubmitted(true)
@@ -117,11 +126,11 @@ export default function Review() {
 
               <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
                 <Link
-                  to="/"
+                  to="/#reviews"
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary transition-colors"
                 >
-                  <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-                  <span>RETURN TO HOMEPAGE</span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+                  <span>VIEW YOUR REVIEW ON HOMEPAGE</span>
                 </Link>
 
                 <button

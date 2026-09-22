@@ -7,6 +7,7 @@ export interface ReviewSubmissionInput {
   relationship: string
   review: string
   project?: string
+  projectSlug?: string
   verificationUrl?: string
   consentToPublish: boolean
   honeypot?: string // Hidden spam trap field
@@ -16,7 +17,10 @@ export interface ReviewSubmissionResult {
   success: boolean
   message: string
   errors?: Record<string, string>
+  submittedReview?: Review
 }
+
+const LOCAL_STORAGE_KEY = 'portfolio_user_reviews'
 
 /**
  * Validates the review submission against length, required fields, and spam checks.
@@ -90,20 +94,62 @@ export function validateReviewInput(input: ReviewSubmissionInput): Record<string
 }
 
 /**
- * Retrieves all approved reviews for public display.
- * Strict filter: only reviews with status === 'approved' are returned.
+ * Retrieves reviews saved locally in browser storage for instant visitor feedback.
  */
-export function getApprovedReviews(): Review[] {
-  return REVIEWS.filter((review) => review.status === 'approved')
+export function getLocalReviews(): Review[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (!raw) return []
+    return JSON.parse(raw) as Review[]
+  } catch {
+    return []
+  }
 }
 
 /**
- * Submits a new review through the extensible service layer.
- * 
- * Note: Since this is a static frontend portfolio without a persistent database,
- * this function performs strict client validation and simulates the network dispatch.
- * It is architected so an external submission provider (e.g., Formspree, Resend, or serverless endpoint)
- * can be plugged in here without altering any UI components.
+ * Saves a review to local storage for the current browser session.
+ */
+export function saveLocalReview(review: Review): void {
+  if (typeof window === 'undefined') return
+  try {
+    const existing = getLocalReviews()
+    // Avoid duplicate IDs
+    const updated = [review, ...existing.filter((r) => r.id !== review.id)]
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated))
+  } catch (err) {
+    console.warn('[ReviewService] Failed to persist review to localStorage', err)
+  }
+}
+
+/**
+ * Clears a specific local review from browser storage.
+ */
+export function deleteLocalReview(id: string): void {
+  if (typeof window === 'undefined') return
+  try {
+    const existing = getLocalReviews()
+    const updated = existing.filter((r) => r.id !== id)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated))
+  } catch {
+    // ignore
+  }
+}
+
+/**
+ * Retrieves all reviews for public display.
+ * Includes verified seed reviews and any reviews submitted in this browser session.
+ */
+export function getApprovedReviews(includeLocal = true): Review[] {
+  const verified = REVIEWS.filter((review) => review.status === 'approved')
+  if (!includeLocal) return verified
+
+  const local = getLocalReviews()
+  return [...local, ...verified]
+}
+
+/**
+ * Submits a new review through the service layer and saves it to local storage.
  */
 export async function submitReview(input: ReviewSubmissionInput): Promise<ReviewSubmissionResult> {
   const errors = validateReviewInput(input)
@@ -116,26 +162,42 @@ export async function submitReview(input: ReviewSubmissionInput): Promise<Review
     }
   }
 
-  // Simulate network dispatch latency
-  await new Promise((resolve) => setTimeout(resolve, 600))
+  // Simulate network latency
+  await new Promise((resolve) => setTimeout(resolve, 500))
+
+  const newReview: Review = {
+    id: `local-sub-${Date.now()}`,
+    name: input.name.trim(),
+    role: input.role?.trim(),
+    company: input.company?.trim(),
+    relationship: input.relationship.trim(),
+    project: input.project?.trim(),
+    projectSlug: input.projectSlug?.trim(),
+    verificationUrl: input.verificationUrl?.trim(),
+    verificationType: input.verificationUrl?.includes('linkedin')
+      ? 'linkedin'
+      : input.verificationUrl?.includes('github')
+        ? 'github'
+        : 'client',
+    deliverables: input.project ? [`Delivered: ${input.project}`] : undefined,
+    highlightMetric: 'Recent Visitor Submission',
+    review: input.review.trim(),
+    status: 'pending',
+    consentToPublish: input.consentToPublish,
+    createdAt: new Date().toISOString().split('T')[0],
+    isLocalSubmission: true,
+  }
+
+  saveLocalReview(newReview)
 
   if (import.meta.env.DEV) {
-    console.info('[ReviewService] Received review submission (pending moderation):', {
-      name: input.name.trim(),
-      role: input.role?.trim(),
-      company: input.company?.trim(),
-      relationship: input.relationship.trim(),
-      project: input.project?.trim(),
-      verificationUrl: input.verificationUrl?.trim(),
-      review: input.review.trim(),
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-    })
+    console.info('[ReviewService] Review persisted to local storage:', newReview)
   }
 
   return {
     success: true,
     message:
-      'Thank you for submitting your feedback! Your review has been received and will be reviewed by Ahmed before publication.',
+      'Thank you for submitting your feedback! Your review has been saved locally and queued for verification.',
+    submittedReview: newReview,
   }
 }
