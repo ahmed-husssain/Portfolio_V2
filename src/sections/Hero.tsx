@@ -6,22 +6,35 @@ export default function Hero() {
     <section className="pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-28 md:pb-36 border-b border-border">
       <Container>
         {/* ─── Eyebrow ─── */}
-        <div className="flex items-center gap-3 mb-6 sm:mb-8 animate-hero-in">
-          <span className="font-mono text-xs sm:text-sm tracking-[0.2em] text-muted uppercase">
-            // BACKEND-FOCUSED .NET DEVELOPER
+        <div className="flex items-center gap-2.5 font-mono text-xs sm:text-sm text-secondary mb-6 sm:mb-8 animate-hero-in">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="h-px flex-1 max-w-[80px] bg-border-strong hidden sm:inline-block" aria-hidden="true" />
+          <span className="text-foreground font-medium">Available for Roles</span>
+          <span className="text-border-strong">·</span>
+          <span>Karachi, Pakistan (Remote & On-site)</span>
         </div>
 
         {/* ─── Main Headline ─── */}
-        <h1 className="text-[clamp(1.75rem,5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-8 max-w-[980px] animate-hero-in delay-60">
-          Leveraging AI-augmented engineering and core software principles to build clean, industry-ready web applications and APIs.
+        <h1 className="text-[clamp(1.75rem,5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-6 sm:mb-8 max-w-[980px] animate-hero-in delay-60">
+          Hi, I'm Ahmed. I build .NET backends and full-stack web applications with modern AI workflows.
         </h1>
 
         {/* ─── Supporting Paragraph ─── */}
-        <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[660px] leading-relaxed mb-10 sm:mb-12 animate-hero-in delay-120">
-          Backend-focused developer specializing in C#, ASP.NET Core, and SQL Server. I use modern AI tools to accelerate architecture research, write cleaner tests, and ship industry-level web platforms with speed and precision.
+        <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[680px] leading-relaxed mb-6 sm:mb-8 animate-hero-in delay-120">
+          Specialized in C#, ASP.NET Core, and relational SQL Server databases. I pair solid backend fundamentals with AI coding tools to turn complex product requirements into clean, production-ready software.
         </p>
+
+        {/* ─── Proof Badge ─── */}
+        <div className="flex items-center mb-10 sm:mb-12 animate-hero-in delay-150">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border border-border bg-surface text-xs font-mono text-secondary">
+            <span className="text-amber-500">🏆</span>
+            <span className="text-foreground font-semibold">Runner-Up</span>
+            <span className="text-border-strong">·</span>
+            <span>Aptech Vision 2025 (Mockrithm)</span>
+          </div>
+        </div>
 
         {/* ─── Primary & Secondary CTAs ─── */}
         <div className="flex flex-wrap items-center gap-4 mb-16 sm:mb-20 animate-hero-in delay-180">
