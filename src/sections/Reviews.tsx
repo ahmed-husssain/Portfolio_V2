@@ -46,7 +46,7 @@ function VerificationBadge({ review }: { review: Review }) {
         href={review.verificationUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="hover:opacity-80 transition-opacity"
+        className="inline-block hover:opacity-85 active:scale-95 transition-[opacity,transform] duration-150 ease-out"
         aria-label={`Verify endorsement by ${review.name}`}
       >
         {content}
@@ -96,7 +96,7 @@ export default function Reviews() {
           {reviewsList.map((item, index) => (
             <article
               key={item.id}
-              className={`border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm p-6 sm:p-7 flex flex-col justify-between ${
+              className={`border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.995] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm p-6 sm:p-7 flex flex-col justify-between ${
                 item.isLocalSubmission ? 'border-amber-500/40 shadow-xs' : 'border-border'
               }`}
             >
@@ -112,7 +112,7 @@ export default function Reviews() {
                       <button
                         type="button"
                         onClick={() => handleDeleteLocal(item.id)}
-                        className="text-muted hover:text-red-500 transition-colors p-1"
+                        className="text-muted hover:text-red-500 active:scale-90 transition-[color,transform] duration-150 ease-out p-1"
                         title="Remove local preview"
                         aria-label="Remove local preview"
                       >
@@ -182,10 +182,10 @@ export default function Reviews() {
                   <div className="pt-2 border-t border-border/60 flex items-center justify-between">
                     <Link
                       to={`/work/${item.projectSlug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline group"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 transition-[transform,color] duration-150 ease-out group"
                     >
                       <span className="truncate max-w-[200px]">CASE STUDY: {item.project || item.projectSlug}</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 shrink-0" aria-hidden="true" />
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1 shrink-0" aria-hidden="true" />
                     </Link>
                   </div>
                 ) : item.project ? (
@@ -211,10 +211,10 @@ export default function Reviews() {
 
           <Link
             to="/review"
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary transition-colors shrink-0 shadow-xs"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-[background-color,transform,box-shadow] duration-150 ease-out shrink-0 shadow-xs active:shadow-none select-none"
           >
             <span>SUBMIT AN ENDORSEMENT</span>
-            <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </Container>

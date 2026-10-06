@@ -15,12 +15,12 @@ export default function Hero() {
 
         {/* ─── Main Headline ─── */}
         <h1 className="text-[clamp(1.75rem,5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-8 max-w-[980px] animate-hero-in delay-60">
-          I build web applications, APIs, and backend systems that solve real problems.
+          Leveraging AI-augmented engineering and core software principles to build clean, industry-ready web applications and APIs.
         </h1>
 
         {/* ─── Supporting Paragraph ─── */}
         <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[660px] leading-relaxed mb-10 sm:mb-12 animate-hero-in delay-120">
-          Hands-on experience building scalable applications using C#, ASP.NET Core MVC, Web API, EF Core, and SQL Server. Focused on clean architecture, query performance, and reliable software.
+          Backend-focused developer specializing in C#, ASP.NET Core, and SQL Server. I use modern AI tools to accelerate architecture research, write cleaner tests, and ship industry-level web platforms with speed and precision.
         </p>
 
         {/* ─── Primary & Secondary CTAs ─── */}

@@ -43,7 +43,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
   return (
     <article
-      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col ${isFlagship ? 'border-border-strong shadow-xs' : 'border-border'
+      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.995] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col ${isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
         } ${className}`}
     >
       {/* ─── Card Header Bar ─── */}
@@ -73,7 +73,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-muted hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-[color,transform] duration-150 ease-out"
               aria-label={`View source code for ${project.title}`}
             >
               <GithubIcon className="w-3.5 h-3.5" />
@@ -85,11 +85,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline transition-all"
+              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-95 transition-[color,transform] duration-150 ease-out"
               aria-label={`Visit live site for ${project.title}`}
             >
               <span>LIVE</span>
-              <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
+              <ArrowUpRight className="w-3 h-3 transition-transform duration-150 ease-out group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
             </a>
           )}
         </div>
@@ -197,11 +197,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           {/* Case study link — placed to right bottom on mobile and desktop */}
           <Link
             to={`/work/${project.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline shrink-0 self-end sm:self-auto"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 shrink-0 self-end sm:self-auto transition-[transform,color] duration-150 ease-out"
             aria-label={`Read case study for ${project.title}`}
           >
             <span>CASE STUDY</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </div>
