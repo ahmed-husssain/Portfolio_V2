@@ -4,6 +4,7 @@ import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
 import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
+import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
 
 // GitHub inline SVG icon
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -250,7 +251,7 @@ export default function ProjectDetail() {
 
           {/* ─── 6. Technical Architecture / Approach ─── */}
           {architecture && architecture.length > 0 && (
-            <section className="space-y-4">
+            <section className="space-y-6">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                 <span className="text-foreground font-semibold">// 04</span>
                 <span className="uppercase tracking-wider">DATA FLOW & DESIGN CHOICES</span>
@@ -258,6 +259,23 @@ export default function ProjectDetail() {
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
                 Technical Architecture & Approach
               </h2>
+
+              {/* Interactive Architecture Visualizer for Gallrex */}
+              {project.slug === 'online-art-gallery' && (
+                <div className="pt-2 mb-6">
+                  <div className="mb-3 flex items-center justify-between text-xs font-mono">
+                    <span className="text-foreground font-semibold flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      INTERACTIVE SYSTEM ARCHITECTURE & CONCURRENCY BENCH
+                    </span>
+                    <span className="text-muted text-[11px] hidden sm:inline">
+                      VERIFIABLE WITH .NET 8 REPOSITORY
+                    </span>
+                  </div>
+                  <ArchitectureVisualizer initialFlowId="auction-concurrency" />
+                </div>
+              )}
+
               <ul className="space-y-3 pt-2">
                 {architecture.map((arch, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">

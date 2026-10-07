@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, ArrowRight } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, Cpu } from 'lucide-react'
 import type { Project } from '../data/projects'
+import ArchitectureModal from './ArchitectureModal'
 
 function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
   return (
@@ -40,8 +42,11 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, className = '', index }: ProjectCardProps) {
   const isFlagship = Boolean(project.featured)
+  const [isArchModalOpen, setIsArchModalOpen] = useState(false)
+  const hasArchitectureInspector = project.slug === 'online-art-gallery'
 
   return (
+    <>
     <article
       className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.995] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col ${isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
         } ${className}`}
@@ -194,17 +199,42 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )}
           </div>
 
-          {/* Case study link — placed to right bottom on mobile and desktop */}
-          <Link
-            to={`/work/${project.slug}`}
-            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 shrink-0 self-end sm:self-auto transition-[transform,color] duration-150 ease-out"
-            aria-label={`Read case study for ${project.title}`}
-          >
-            <span>CASE STUDY</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
+          {/* Action CTAs: Architecture Inspector + Case Study */}
+          <div className="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
+            {hasArchitectureInspector && (
+              <button
+                type="button"
+                onClick={() => setIsArchModalOpen(true)}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all"
+                title="Inspect .NET 8 & SQL Server live architecture"
+              >
+                <Cpu className="w-3 h-3 text-emerald-500" />
+                <span>INSPECT ARCHITECTURE</span>
+              </button>
+            )}
+
+            {/* Case study link */}
+            <Link
+              to={`/work/${project.slug}`}
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 transition-[transform,color] duration-150 ease-out"
+              aria-label={`Read case study for ${project.title}`}
+            >
+              <span>CASE STUDY</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </div>
     </article>
+
+    {/* Architecture Inspection Modal */}
+    {hasArchitectureInspector && (
+      <ArchitectureModal
+        isOpen={isArchModalOpen}
+        onClose={() => setIsArchModalOpen(false)}
+        initialFlowId="auction-concurrency"
+      />
+    )}
+    </>
   )
 }
