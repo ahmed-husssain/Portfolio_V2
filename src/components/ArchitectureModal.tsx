@@ -8,11 +8,7 @@ interface ArchitectureModalProps {
   initialFlowId?: string
 }
 
-export default function ArchitectureModal({
-  isOpen,
-  onClose,
-  initialFlowId = 'auction-concurrency',
-}: ArchitectureModalProps) {
+export default function ArchitectureModal({ isOpen, onClose }: ArchitectureModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -30,7 +26,7 @@ export default function ArchitectureModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 md:p-6 animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity"
@@ -38,27 +34,29 @@ export default function ArchitectureModal({
         aria-hidden="true"
       />
 
-      {/* Modal Container — Compact, focused, and fits within laptop viewports */}
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-surface border border-border-strong rounded-sm shadow-2xl overflow-y-auto z-10 flex flex-col">
-        {/* Sticky Close Button Bar */}
-        <div className="sticky top-0 right-0 z-20 flex justify-between items-center px-4 sm:px-5 py-2.5 bg-surface/95 backdrop-blur-sm border-b border-border">
-          <div className="text-xs font-mono text-muted uppercase tracking-wider flex items-center gap-2">
+      {/* Modal Card - 100% fits on screen, zero scrollbars */}
+      <div className="relative w-full max-w-3xl bg-surface border border-border-strong rounded-sm shadow-2xl z-10 overflow-hidden flex flex-col">
+        {/* Header Bar */}
+        <div className="flex items-center justify-between px-4 py-2.5 sm:px-5 border-b border-border bg-surface-subtle/70">
+          <div className="flex items-center gap-2 text-xs font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-foreground font-semibold">GALLREX ARCHITECTURE WALKTHROUGH</span>
+            <span className="text-foreground font-bold tracking-tight">GALLREX LIVE ARCHITECTURE</span>
+            <span className="text-border-strong hidden sm:inline">|</span>
+            <span className="text-muted hidden sm:inline text-[11px]">CONCURRENCY & WEBSOCKET ENGINE</span>
           </div>
+
           <button
+            type="button"
             onClick={onClose}
-            className="p-1 rounded-sm border border-border text-muted hover:text-foreground hover:bg-surface-subtle transition-colors"
-            aria-label="Close architecture modal"
+            className="p-1 rounded-xs border border-border text-muted hover:text-foreground hover:bg-surface transition-colors"
+            aria-label="Close modal"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        {/* Visualizer Body */}
-        <div>
-          <ArchitectureVisualizer initialFlowId={initialFlowId} className="border-0 rounded-none" />
-        </div>
+        {/* Visualizer Content */}
+        <ArchitectureVisualizer />
       </div>
     </div>
   )

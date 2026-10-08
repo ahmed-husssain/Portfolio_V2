@@ -1,431 +1,321 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   Play,
   RotateCcw,
   CheckCircle2,
-  Code2,
-  Activity,
-  Copy,
-  Check,
   ChevronLeft,
   ChevronRight,
   ShieldCheck,
-  ArrowRight,
+  Zap,
+  Activity,
 } from 'lucide-react'
-import {
-  GALLREX_ARCHITECTURE,
-  type ArchitectureFlow,
-  type ArchitectureNode,
-  type SimulationScenario,
-} from '../data/architectureFlows'
 
-interface ArchitectureVisualizerProps {
-  initialFlowId?: string
-  className?: string
+interface Step {
+  id: string
+  number: number
+  short: string
+  title: string
+  layer: string
+  action: string
+  protection: string
+  metric: string
 }
 
-type ViewTab = 'walkthrough' | 'simulator' | 'code'
+const STEPS: Step[] = [
+  {
+    id: 'bid',
+    number: 1,
+    short: 'User Bids',
+    title: 'Client Submission',
+    layer: 'Client UI',
+    action: 'Collector clicks "Place Bid".',
+    protection: 'Attaches unique UUID key to prevent duplicate charges.',
+    metric: 'Payload < 150 B',
+  },
+  {
+    id: 'cache',
+    number: 2,
+    short: 'Anti-Spam',
+    title: 'In-Memory RAM Filter',
+    layer: 'IMemoryCache',
+    action: 'Checks RAM before database.',
+    protection: 'Catches rapid double-clicks in 0.01ms with zero database load.',
+    metric: '0.01ms speed',
+  },
+  {
+    id: 'validation',
+    number: 3,
+    short: 'Rule Check',
+    title: 'Domain Validation',
+    layer: 'Business Logic',
+    action: 'Verifies auction rules.',
+    protection: 'Confirms active countdown, card on file, and bid increment.',
+    metric: '4 rule checks',
+  },
+  {
+    id: 'sql',
+    number: 4,
+    short: 'SQL Guard',
+    title: 'Concurrency Guard',
+    layer: 'SQL Server & EF Core',
+    action: 'Saves bid with RowVersion.',
+    protection: 'If 2 bids collide at the same millisecond, 1st commits; 2nd retries safely.',
+    metric: 'Zero deadlocks',
+  },
+  {
+    id: 'signalr',
+    number: 5,
+    short: 'Live Push',
+    title: 'SignalR WebSockets',
+    layer: 'Real-Time Multicast',
+    action: 'Broadcasts price to all viewers.',
+    protection: 'All screens update in under 10ms with zero page reloads.',
+    metric: '< 10ms latency',
+  },
+]
 
-export default function ArchitectureVisualizer({
-  initialFlowId = 'auction-concurrency',
-  className = '',
-}: ArchitectureVisualizerProps) {
-  const [selectedFlowId, setSelectedFlowId] = useState(initialFlowId)
-  const currentFlow: ArchitectureFlow =
-    GALLREX_ARCHITECTURE.find((f) => f.id === selectedFlowId) || GALLREX_ARCHITECTURE[0]
+interface Simulation {
+  id: string
+  label: string
+  highlightStep: number
+  result: string
+}
 
-  const [activeStepIndex, setActiveStepIndex] = useState(0)
-  const [activeTab, setActiveTab] = useState<ViewTab>('walkthrough')
+const SIMULATIONS: Simulation[] = [
+  {
+    id: 'collision',
+    label: '2 Bids at Same Millisecond',
+    highlightStep: 4,
+    result: '1st bid commits with RowVersion. 2nd gets instant retry notice with zero deadlocks.',
+  },
+  {
+    id: 'double-click',
+    label: 'Fast Double-Click Spam',
+    highlightStep: 2,
+    result: 'Caught in RAM in 0.01ms. Exactly 1 database write happens.',
+  },
+  {
+    id: 'timeout',
+    label: 'Countdown Hits 0:00',
+    highlightStep: 5,
+    result: 'Background worker finalizes winner and creates order automatically.',
+  },
+]
 
-  // Simulator state
-  const [selectedScenarioId, setSelectedScenarioId] = useState<string>(
-    currentFlow.scenarios[0]?.id || ''
-  )
-  const [isSimulating, setIsSimulating] = useState(false)
-  const [simStepIndex, setSimStepIndex] = useState<number>(-1)
-  const [simLogs, setSimLogs] = useState<string[]>([])
-  const [copiedCode, setCopiedCode] = useState(false)
+export interface ArchitectureVisualizerProps {
+  className?: string
+  initialFlowId?: string
+}
 
-  // Reset when flow changes
-  useEffect(() => {
-    setActiveStepIndex(0)
-    setIsSimulating(false)
-    setSimStepIndex(-1)
-    setSimLogs([])
-    if (currentFlow.scenarios.length > 0) {
-      setSelectedScenarioId(currentFlow.scenarios[0].id)
-    }
-  }, [selectedFlowId])
+export default function ArchitectureVisualizer({ className = '' }: ArchitectureVisualizerProps) {
+  const [activeStep, setActiveStep] = useState(0)
+  const [activeSim, setActiveSim] = useState<Simulation | null>(null)
 
-  const activeNode: ArchitectureNode = currentFlow.nodes[activeStepIndex] || currentFlow.nodes[0]
+  const currentStep = STEPS[activeStep]
 
-  const currentScenario: SimulationScenario | undefined = currentFlow.scenarios.find(
-    (s) => s.id === selectedScenarioId
-  )
-
-  // Simulation execution effect
-  useEffect(() => {
-    if (!isSimulating || !currentScenario) return
-
-    if (simStepIndex < currentScenario.steps.length) {
-      const step = currentScenario.steps[simStepIndex]
-      if (step) {
-        const foundIndex = currentFlow.nodes.findIndex((n) => n.id === step.nodeId)
-        if (foundIndex !== -1) setActiveStepIndex(foundIndex)
-        setSimLogs((prev) => [...prev, step.log])
-      }
-
-      const timer = setTimeout(() => {
-        setSimStepIndex((prev) => prev + 1)
-      }, step?.durationMs || 400)
-
-      return () => clearTimeout(timer)
-    } else {
-      setIsSimulating(false)
-    }
-  }, [isSimulating, simStepIndex, currentScenario, currentFlow.nodes])
-
-  const handleStartSimulation = () => {
-    if (!currentScenario) return
-    setIsSimulating(true)
-    setSimStepIndex(0)
-    setSimLogs([`Starting test: ${currentScenario.title}`])
+  const runSimulation = (sim: Simulation) => {
+    setActiveSim(sim)
+    setActiveStep(sim.highlightStep - 1)
   }
 
-  const handleResetSimulation = () => {
-    setIsSimulating(false)
-    setSimStepIndex(-1)
-    setSimLogs([])
-  }
-
-  const handleNextStep = () => {
-    if (activeStepIndex < currentFlow.nodes.length - 1) {
-      setActiveStepIndex((prev) => prev + 1)
-    }
-  }
-
-  const handlePrevStep = () => {
-    if (activeStepIndex > 0) {
-      setActiveStepIndex((prev) => prev - 1)
-    }
-  }
-
-  const handleCopyCode = () => {
-    if (activeNode?.codeSnippet) {
-      navigator.clipboard.writeText(activeNode.codeSnippet)
-      setCopiedCode(true)
-      setTimeout(() => setCopiedCode(false), 2000)
-    }
+  const resetSimulation = () => {
+    setActiveSim(null)
+    setActiveStep(0)
   }
 
   return (
-    <div
-      className={`border border-border bg-surface rounded-sm overflow-hidden flex flex-col font-sans text-foreground text-left ${className}`}
-    >
-      {/* ─── 1. Header (Minimal & Direct) ─── */}
-      <div className="border-b border-border bg-surface-subtle/50 px-4 py-3 sm:px-5 sm:py-3.5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2 text-[11px] font-mono text-muted mb-0.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-            <span className="font-semibold text-foreground">SYSTEM ARCHITECTURE</span>
-            <span>·</span>
-            <span>GALLREX (.NET 8)</span>
-          </div>
-          <h3 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-            {currentFlow.title}
-          </h3>
-          <p className="text-xs text-secondary mt-0.5">{currentFlow.subtitle}</p>
-        </div>
+    <div className={`p-4 sm:p-5 flex flex-col gap-3 font-sans text-foreground text-left select-none ${className}`}>
+      {/* ─── 1. Header Line ─── */}
+      <div className="flex items-center justify-between gap-2 text-xs">
+        <p className="text-secondary text-xs font-medium truncate">
+          Live auction pipeline: from click to sub-millisecond database commit.
+        </p>
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-[10px] font-semibold shrink-0">
+          <Activity className="w-3 h-3 animate-pulse" />
+          ACTIVE ENGINE
+        </span>
+      </div>
 
-        {/* Subsystem Switcher */}
-        <div className="flex items-center gap-1 p-0.5 bg-page border border-border rounded-sm">
-          {GALLREX_ARCHITECTURE.map((flow) => (
+      {/* ─── 2. 5-Step Pipeline Strip ─── */}
+      <div className="grid grid-cols-5 gap-1.5 p-1 bg-page border border-border rounded-xs">
+        {STEPS.map((step, idx) => {
+          const isSelected = activeStep === idx
+          const isPast = activeStep > idx
+
+          return (
             <button
-              key={flow.id}
-              onClick={() => setSelectedFlowId(flow.id)}
-              className={`px-2 py-1 text-xs font-mono rounded-xs transition-colors ${
-                selectedFlowId === flow.id
-                  ? 'bg-foreground text-page font-semibold'
-                  : 'text-secondary hover:text-foreground'
+              key={step.id}
+              type="button"
+              onClick={() => {
+                setActiveStep(idx)
+                setActiveSim(null)
+              }}
+              className={`py-1.5 px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
+                isSelected
+                  ? 'bg-foreground text-page border-foreground shadow-2xs'
+                  : isPast
+                    ? 'bg-surface border-border-strong text-foreground hover:bg-surface-hover'
+                    : 'bg-page border-transparent text-muted hover:text-foreground'
               }`}
             >
-              {flow.id === 'auction-concurrency' && 'Live Bids'}
-              {flow.id === 'auth-pipeline' && 'OAuth Auth'}
-              {flow.id === 'catalog-indexing' && 'Fast Search'}
+              <span
+                className={`text-[10px] font-mono font-bold leading-none ${
+                  isSelected ? 'text-page' : isPast ? 'text-emerald-500' : 'text-muted'
+                }`}
+              >
+                0{step.number}
+              </span>
+              <span className="text-[11px] sm:text-xs font-semibold tracking-tight truncate w-full text-center">
+                {step.short}
+              </span>
             </button>
-          ))}
-        </div>
+          )
+        })}
       </div>
 
-      {/* ─── 2. Clean Horizontal Stepper ─── */}
-      <div className="px-4 py-2.5 sm:px-5 border-b border-border bg-page/70 flex items-center justify-between gap-3 overflow-x-auto">
-        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-          {currentFlow.nodes.map((node, idx) => {
-            const isCurrent = activeStepIndex === idx
-            const isPast = activeStepIndex > idx
-
-            return (
-              <div key={node.id} className="flex items-center">
-                <button
-                  type="button"
-                  onClick={() => setActiveStepIndex(idx)}
-                  className={`px-2 py-1 rounded-xs border text-xs font-mono transition-all flex items-center gap-1.5 ${
-                    isCurrent
-                      ? 'bg-foreground text-page border-foreground font-semibold shadow-xs'
-                      : isPast
-                        ? 'bg-surface border-border-strong text-foreground hover:bg-surface-hover'
-                        : 'bg-page border-border text-muted hover:text-foreground'
-                  }`}
-                >
-                  <span
-                    className={`w-3.5 h-3.5 rounded-full text-[9px] flex items-center justify-center font-bold ${
-                      isCurrent
-                        ? 'bg-page text-foreground'
-                        : isPast
-                          ? 'bg-emerald-500/20 text-emerald-500'
-                          : 'bg-surface-subtle text-muted'
-                    }`}
-                  >
-                    {idx + 1}
-                  </span>
-                  <span className="whitespace-nowrap">{node.shortLabel}</span>
-                </button>
-
-                {idx < currentFlow.nodes.length - 1 && (
-                  <ArrowRight
-                    className={`w-3 h-3 mx-1 shrink-0 ${
-                      isPast ? 'text-foreground' : 'text-border-strong'
-                    }`}
-                  />
-                )}
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Step Prev/Next Arrows */}
-        <div className="flex items-center gap-1 shrink-0">
-          <button
-            type="button"
-            onClick={handlePrevStep}
-            disabled={activeStepIndex === 0}
-            className="p-1 border border-border bg-page rounded-xs disabled:opacity-30 hover:bg-surface-hover transition-colors"
-            title="Previous step"
-          >
-            <ChevronLeft className="w-3.5 h-3.5" />
-          </button>
-          <button
-            type="button"
-            onClick={handleNextStep}
-            disabled={activeStepIndex === currentFlow.nodes.length - 1}
-            className="p-1 border border-border bg-page rounded-xs disabled:opacity-30 hover:bg-surface-hover transition-colors"
-            title="Next step"
-          >
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
-
-      {/* ─── 3. View Mode Tabs ─── */}
-      <div className="flex items-center gap-4 px-4 sm:px-5 pt-2 border-b border-border bg-surface-subtle/30 text-xs font-mono">
-        <button
-          type="button"
-          onClick={() => setActiveTab('walkthrough')}
-          className={`pb-2 border-b-2 font-medium transition-colors ${
-            activeTab === 'walkthrough'
-              ? 'border-foreground text-foreground font-bold'
-              : 'border-transparent text-secondary hover:text-foreground'
-          }`}
-        >
-          1. Step Details
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('simulator')}
-          className={`pb-2 border-b-2 font-medium transition-colors flex items-center gap-1.5 ${
-            activeTab === 'simulator'
-              ? 'border-foreground text-foreground font-bold'
-              : 'border-transparent text-secondary hover:text-foreground'
-          }`}
-        >
-          <Activity className="w-3.5 h-3.5 text-emerald-500" />
-          <span>2. Live Simulator</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('code')}
-          className={`pb-2 border-b-2 font-medium transition-colors flex items-center gap-1.5 ${
-            activeTab === 'code'
-              ? 'border-foreground text-foreground font-bold'
-              : 'border-transparent text-secondary hover:text-foreground'
-          }`}
-        >
-          <Code2 className="w-3.5 h-3.5" />
-          <span>3. C# Code</span>
-        </button>
-      </div>
-
-      {/* ─── 4. Main Body (Compact & Punchy) ─── */}
-      <div className="p-4 sm:p-5 bg-surface">
-        {/* TAB 1: STEP DETAILS */}
-        {activeTab === 'walkthrough' && (
-          <div className="space-y-3 max-w-2xl">
-            {/* Step Title & Layer */}
-            <div className="flex items-center justify-between gap-2">
-              <div>
-                <span className="text-[10px] font-mono text-muted uppercase">
-                  STEP {activeStepIndex + 1} OF {currentFlow.nodes.length} · {activeNode.layer}
-                </span>
-                <h4 className="text-base font-bold text-foreground tracking-tight">
-                  {activeNode.title}
-                </h4>
-              </div>
-              <span className="text-xs font-mono px-2 py-0.5 rounded-xs border border-border bg-page text-muted">
-                {activeNode.tech}
+      {/* ─── 3. Two-Column Card: Step Details (Left) + Interactive Tests (Right) ─── */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
+        {/* Left: Step Details (7 Cols) */}
+        <div className="md:col-span-7 p-3 rounded-xs border border-border bg-page flex flex-col justify-between gap-2.5">
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono mb-1">
+              <span className="text-muted uppercase text-[10px]">
+                STEP {currentStep.number} OF {STEPS.length}
+              </span>
+              <span className="px-1.5 py-0.5 rounded-2xs border border-border bg-surface text-secondary text-[10px]">
+                {currentStep.layer}
               </span>
             </div>
 
-            {/* What Happens & Benefit Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-              <div className="p-3 rounded-sm border border-border bg-page space-y-1">
-                <span className="text-[10px] font-mono text-muted uppercase font-bold block">
+            <h4 className="text-sm sm:text-base font-bold text-foreground tracking-tight mb-2">
+              {currentStep.title}
+            </h4>
+
+            {/* Action & Guard in 2 clean lines */}
+            <div className="space-y-1.5 text-xs">
+              <div className="flex items-start gap-2">
+                <span className="text-muted font-mono font-bold uppercase text-[10px] shrink-0 pt-0.5">
                   ACTION:
                 </span>
-                <p className="text-xs sm:text-sm text-foreground font-medium leading-relaxed">
-                  {activeNode.summary}
-                </p>
+                <span className="text-foreground font-medium leading-relaxed">{currentStep.action}</span>
               </div>
-
-              <div className="p-3 rounded-sm border border-emerald-500/20 bg-emerald-500/5 space-y-1">
-                <span className="text-[10px] font-mono text-emerald-500 uppercase font-bold block">
-                  WHY IT MATTERS:
+              <div className="flex items-start gap-2">
+                <span className="text-emerald-500 font-mono font-bold uppercase text-[10px] shrink-0 pt-0.5">
+                  GUARD:
                 </span>
-                <p className="text-xs sm:text-sm text-secondary leading-relaxed">
-                  {activeNode.benefit}
-                </p>
+                <span className="text-secondary leading-relaxed">{currentStep.protection}</span>
               </div>
             </div>
           </div>
-        )}
 
-        {/* TAB 2: LIVE SIMULATOR */}
-        {activeTab === 'simulator' && (
-          <div className="space-y-3">
-            {/* 3 Simple Scenario Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              {currentFlow.scenarios.map((sc) => {
-                const isSelected = selectedScenarioId === sc.id
+          {/* Step Footer with Metric & Next/Prev Controls */}
+          <div className="pt-2 border-t border-border flex items-center justify-between text-xs font-mono">
+            <span className="text-emerald-500 font-bold text-[11px]">
+              ✓ {currentStep.metric}
+            </span>
+
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeStep > 0) setActiveStep(activeStep - 1)
+                  setActiveSim(null)
+                }}
+                disabled={activeStep === 0}
+                className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"
+                title="Previous step"
+                aria-label="Previous step"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeStep < STEPS.length - 1) setActiveStep(activeStep + 1)
+                  setActiveSim(null)
+                }}
+                disabled={activeStep === STEPS.length - 1}
+                className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"
+                title="Next step"
+                aria-label="Next step"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: 1-Click Interactive Test Scenarios (5 Cols) */}
+        <div className="md:col-span-5 p-3 rounded-xs border border-border bg-surface-subtle/50 flex flex-col justify-between gap-2.5">
+          <div>
+            <div className="flex items-center justify-between text-[11px] font-mono text-muted mb-1.5">
+              <span className="flex items-center gap-1 font-semibold text-foreground uppercase text-[10px]">
+                <Zap className="w-3 h-3 text-amber-500" />
+                <span>TEST SCENARIOS</span>
+              </span>
+              {activeSim && (
+                <button
+                  type="button"
+                  onClick={resetSimulation}
+                  className="text-muted hover:text-foreground inline-flex items-center gap-0.5 text-[10px] cursor-pointer"
+                >
+                  <RotateCcw className="w-2.5 h-2.5" />
+                  <span>RESET</span>
+                </button>
+              )}
+            </div>
+
+            {/* 3 Compact Test Buttons */}
+            <div className="space-y-1">
+              {SIMULATIONS.map((sim) => {
+                const isActive = activeSim?.id === sim.id
                 return (
                   <button
-                    key={sc.id}
+                    key={sim.id}
                     type="button"
-                    onClick={() => {
-                      setSelectedScenarioId(sc.id)
-                      handleResetSimulation()
-                    }}
-                    className={`p-2.5 rounded-sm border text-left transition-all text-xs font-mono flex flex-col justify-between ${
-                      isSelected
-                        ? 'border-foreground bg-page shadow-xs font-bold text-foreground'
-                        : 'border-border bg-surface text-secondary hover:border-border-strong hover:text-foreground'
+                    onClick={() => runSimulation(sim)}
+                    className={`w-full text-left px-2 py-1.5 rounded-2xs border transition-all text-[11px] font-mono flex items-center justify-between cursor-pointer ${
+                      isActive
+                        ? 'border-foreground bg-page font-bold text-foreground shadow-2xs'
+                        : 'border-border bg-page/70 text-secondary hover:text-foreground hover:border-border-strong'
                     }`}
                   >
-                    <span>{sc.title}</span>
-                    <span className="text-[11px] font-sans font-normal text-muted mt-1 leading-snug">
-                      {sc.summary}
-                    </span>
+                    <span className="truncate">{sim.label}</span>
+                    <Play className={`w-2.5 h-2.5 shrink-0 ${isActive ? 'fill-current' : 'text-muted'}`} />
                   </button>
                 )
               })}
             </div>
-
-            {/* Controls & Log */}
-            <div className="p-3 bg-page border border-border rounded-sm space-y-2.5">
-              <div className="flex items-center justify-between gap-2">
-                <button
-                  type="button"
-                  onClick={handleStartSimulation}
-                  disabled={isSimulating}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-foreground text-page text-xs font-mono font-semibold rounded-xs hover:bg-secondary disabled:opacity-50 transition-colors"
-                >
-                  <Play className="w-3 h-3 fill-current" />
-                  <span>{isSimulating ? 'TESTING...' : 'RUN SIMULATION'}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleResetSimulation}
-                  className="p-1.5 border border-border text-secondary hover:text-foreground text-xs font-mono rounded-xs transition-colors"
-                  title="Reset"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                </button>
-              </div>
-
-              {/* Output Log */}
-              <div className="p-2.5 bg-surface border border-border rounded-xs font-mono text-[11px] text-secondary space-y-1 min-h-[60px] max-h-[90px] overflow-y-auto">
-                {simLogs.length === 0 ? (
-                  <p className="text-muted italic">Click "RUN SIMULATION" to test this scenario.</p>
-                ) : (
-                  simLogs.map((log, idx) => (
-                    <div key={idx} className="flex items-start gap-1 leading-relaxed">
-                      <span className="text-muted">[{idx + 1}]</span>
-                      <span className="text-foreground">{log}</span>
-                    </div>
-                  ))
-                )}
-              </div>
-
-              {/* Outcome Banner */}
-              {currentScenario && !isSimulating && simStepIndex >= currentScenario.steps.length && (
-                <div className="p-2.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 text-xs font-mono flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-bold block">VERIFIED RESULT:</span>
-                    <span className="text-secondary font-sans text-xs">{currentScenario.outcome}</span>
-                  </div>
-                </div>
-              )}
-            </div>
           </div>
-        )}
 
-        {/* TAB 3: CODE */}
-        {activeTab === 'code' && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-foreground font-semibold">{activeNode.codeTitle}</span>
-              <button
-                type="button"
-                onClick={handleCopyCode}
-                className="inline-flex items-center gap-1 px-2 py-0.5 text-[11px] text-muted hover:text-foreground border border-border rounded-xs bg-page transition-colors"
-              >
-                {copiedCode ? (
-                  <>
-                    <Check className="w-3 h-3 text-emerald-500" />
-                    <span>COPIED</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3 h-3" />
-                    <span>COPY</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            <pre className="p-3 bg-page text-foreground border border-border rounded-sm text-xs font-mono overflow-x-auto leading-relaxed max-h-[200px]">
-              <code>{activeNode.codeSnippet}</code>
-            </pre>
+          {/* Test Result Box */}
+          <div className="p-2 rounded-2xs border border-border bg-page text-[11px] font-mono">
+            {activeSim ? (
+              <div className="space-y-0.5">
+                <span className="text-emerald-500 font-bold flex items-center gap-1 text-[10px]">
+                  <CheckCircle2 className="w-3 h-3 shrink-0" />
+                  <span>RESULT:</span>
+                </span>
+                <p className="text-foreground leading-snug font-sans text-xs">
+                  {activeSim.result}
+                </p>
+              </div>
+            ) : (
+              <p className="text-muted text-[11px] italic leading-snug font-sans">
+                Click any scenario above to see how the architecture responds.
+              </p>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* ─── 5. Compact Bottom Guarantee Bar ─── */}
-      <div className="px-4 py-2 bg-surface-subtle/50 border-t border-border flex items-center justify-between text-[11px] font-mono text-muted">
+      {/* ─── 4. Minimal Bottom Guarantee Bar ─── */}
+      <div className="pt-2 border-t border-border flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-muted">
         <span className="flex items-center gap-1.5 text-foreground font-medium">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-          <span>Collision-Proof Under Load</span>
+          <span>Zero Deadlocks Guarantee</span>
         </span>
-        <span className="hidden sm:inline">0.01ms Cache · RowVersion OCC · SignalR WebSockets</span>
+        <span className="hidden sm:inline">0.01ms Cache · RowVersion OCC · WebSockets</span>
       </div>
     </div>
   )
