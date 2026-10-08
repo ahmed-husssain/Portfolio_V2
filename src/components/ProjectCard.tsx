@@ -43,7 +43,8 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, className = '', index }: ProjectCardProps) {
   const isFlagship = Boolean(project.featured)
   const [isArchModalOpen, setIsArchModalOpen] = useState(false)
-  const hasArchitectureInspector = project.slug === 'online-art-gallery'
+  const hasArchitectureInspector =
+    project.slug === 'online-art-gallery' || project.slug === 'shifamanagement'
 
   return (
     <>
@@ -205,8 +206,12 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               <button
                 type="button"
                 onClick={() => setIsArchModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all"
-                title="Inspect .NET 8 & SQL Server live architecture"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all cursor-pointer"
+                title={
+                  project.slug === 'shifamanagement'
+                    ? 'Inspect Flutter, Supabase & PostgreSQL live architecture'
+                    : 'Inspect .NET 8 & SQL Server live architecture'
+                }
               >
                 <Cpu className="w-3 h-3 text-emerald-500" />
                 <span>INSPECT ARCHITECTURE</span>
@@ -232,7 +237,8 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       <ArchitectureModal
         isOpen={isArchModalOpen}
         onClose={() => setIsArchModalOpen(false)}
-        initialFlowId="auction-concurrency"
+        projectSlug={project.slug}
+        initialFlowId={project.slug === 'shifamanagement' ? 'shifa-architecture' : 'auction-concurrency'}
       />
     )}
     </>

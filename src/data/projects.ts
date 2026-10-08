@@ -154,9 +154,9 @@ export const PROJECTS: Project[] = [
     technologies: [
       'Flutter',
       'Dart',
-      'Cloud Firestore',
-      'Firebase Auth',
-      'Cloud Functions',
+      'Supabase',
+      'PostgreSQL',
+      'Row Level Security (RLS)',
       'Riverpod',
     ],
     featured: false,
@@ -173,11 +173,12 @@ export const PROJECTS: Project[] = [
       '/projects/shifamanagement/slide-5.png',
     ],
     architecture: [
-      'Reactive cross-platform architecture with real-time Firestore database synchronization',
-      'Automated 14-day care plan renewal tracking with localized WhatsApp message dispatch',
-      'Asynchronous vector PDF generation for patient invoice printing and billing',
+      'Multi-platform Flutter architecture with Riverpod reactive state management',
+      'ACID-safe atomic invoice generation with PostgreSQL row locking (FOR UPDATE)',
+      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the kernel level',
+      'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
     ],
     outcome:
-      'Reliable healthcare operations system deployed across mobile and desktop for clinical intake and automated billing.',
+      'High-reliability clinical management and billing system deployed across mobile and desktop with zero duplicate invoices.',
   },
 ]

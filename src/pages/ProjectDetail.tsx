@@ -260,19 +260,23 @@ export default function ProjectDetail() {
                 Technical Architecture & Approach
               </h2>
 
-              {/* Interactive Architecture Visualizer for Gallrex */}
-              {project.slug === 'online-art-gallery' && (
+              {/* Interactive Architecture Visualizer for Gallrex & Shifa */}
+              {(project.slug === 'online-art-gallery' || project.slug === 'shifamanagement') && (
                 <div className="pt-2 mb-6">
                   <div className="mb-3 flex items-center justify-between text-xs font-mono">
                     <span className="text-foreground font-semibold flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      INTERACTIVE SYSTEM ARCHITECTURE & CONCURRENCY BENCH
+                      {project.slug === 'shifamanagement'
+                        ? 'INTERACTIVE CLINICAL & INVOICING ARCHITECTURE BENCH'
+                        : 'INTERACTIVE SYSTEM ARCHITECTURE & CONCURRENCY BENCH'}
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
-                      VERIFIABLE WITH .NET 8 REPOSITORY
+                      {project.slug === 'shifamanagement'
+                        ? 'VERIFIABLE WITH SUPABASE & POSTGRESQL 15'
+                        : 'VERIFIABLE WITH .NET 8 REPOSITORY'}
                     </span>
                   </div>
-                  <ArchitectureVisualizer initialFlowId="auction-concurrency" />
+                  <ArchitectureVisualizer projectSlug={project.slug} />
                 </div>
               )}
 

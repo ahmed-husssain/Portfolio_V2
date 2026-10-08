@@ -119,17 +119,18 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
     problem:
       'Home healthcare services needed a centralized system to coordinate staff schedules, track 14-day renewal dates, and dispatch digital invoices reliably.',
     solution:
-      'I engineered a cross-platform application using Flutter and Firebase, featuring automated renewal reminders and WhatsApp invoice generation.',
+      'I engineered a cross-platform clinical operating system using Flutter, Riverpod, and Supabase PostgreSQL with ACID-safe atomic billing RPCs, database-level Row Level Security, and automated care plan renewal tracking.',
     highlights: [
       'Patient intake workflows with diagnostic history and dynamic service fee calculation',
-      'Automated 14-day care plan renewal tracking to prevent coverage lapses',
-      'PDF invoice generation with direct WhatsApp dispatch links',
-      'Multi-platform support across Android, Windows, macOS, and Web',
+      'Gapless atomic invoice generator (SHHC series) with PostgreSQL row locks preventing duplicates',
+      'Row Level Security (RLS) enforcing strict role boundaries between staff and admin access',
+      'Real-time PostgreSQL CDC stream for 7-day care plan expiration alerts',
+      'PDF invoice generation with direct WhatsApp dispatch links and thermal printing',
     ],
     architecture: [
-      'Flutter application architecture with reactive state management',
-      'Cloud Firestore real-time database with role-based security rules',
-      'Asynchronous document pipeline for PDF and invoice generation',
+      'Multi-platform Flutter architecture with Riverpod reactive state management',
+      'PostgreSQL 15 database with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
+      'Supabase BaaS infrastructure providing JWT auth scoping and WebSocket Change Data Capture (CDC)',
     ],
     challenges: [
       'Automating care plan renewal dates across rolling patient schedules',
