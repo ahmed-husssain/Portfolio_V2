@@ -115,29 +115,32 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
   },
   shifamanagement: {
     overview:
-      'ShifaManagement is a cross-platform healthcare operations system designed for patient intake, service fee calculation, care plan tracking, and invoice dispatch.',
+      'ShifaManagement (SMS) is an end-to-end clinical-grade operating platform engineered for Shifa Home Health Care to unify patient intake, dynamic plan renewals, consecutive zero-gap invoicing, and clinical staff coordination.',
     problem:
-      'Home healthcare services needed a centralized system to coordinate staff schedules, track 14-day renewal dates, and dispatch digital invoices reliably.',
+      'Home healthcare coverage is distributed across field caregivers with variable durations (10 to 30 days). Managing these cycles manually caused billing discrepancies, missed renewal dates, duplicate invoices, and sudden care interruptions.',
     solution:
-      'I engineered a cross-platform clinical operating system using Flutter, Riverpod, and Supabase PostgreSQL with ACID-safe atomic billing RPCs, database-level Row Level Security, and automated care plan renewal tracking.',
+      'I engineered a cross-platform operating platform using Flutter, Riverpod, and Supabase PostgreSQL with ACID-safe atomic billing RPCs (create_invoice_atomic), Row Level Security (RLS), dynamic 7-day advance countdown renewals, and isolated dual Staging/Production environments.',
     highlights: [
-      'Patient intake workflows with diagnostic history and dynamic service fee calculation',
-      'Gapless atomic invoice generator (SHHC series) with PostgreSQL row locks preventing duplicates',
-      'Row Level Security (RLS) enforcing strict role boundaries between staff and admin access',
-      'Real-time PostgreSQL CDC stream for 7-day care plan expiration alerts',
-      'PDF invoice generation with direct WhatsApp dispatch links and thermal printing',
+      'Smart Zero-Gap Continuity: Automatic consecutive date calculation (ToDate_prev + 1 day), completely eliminating coverage gaps and overlaps',
+      'Concurrency-Safe Atomic Counter: High-reliability PostgreSQL Security Definer RPC (create_invoice_atomic) preventing duplicate invoice numbers',
+      'Intelligent Renewal Engine: 7-day calibrated advance countdown with 1-click WhatsApp and telephony dispatch pre-populated with patient diagnosis',
+      'Multi-Tier Role-Based Access Control (RBAC): Row Level Security isolating staff access to assigned patients while giving admins hospital-wide visibility',
+      'Dual-Environment Architecture: Staging and Production database isolation preventing test data leakage into live billing sequences',
+      '93 Passing Automated Tests: End-to-end verification covering dynamic expiration lifecycles, date calculations, and adversarial edge cases',
     ],
     architecture: [
-      'Multi-platform Flutter architecture with Riverpod reactive state management',
-      'PostgreSQL 15 database with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
-      'Supabase BaaS infrastructure providing JWT auth scoping and WebSocket Change Data Capture (CDC)',
+      'Multi-platform Flutter 3.27+ with Riverpod 3.x reactive dependency injection and stream providers',
+      'Supabase PostgreSQL 15 with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
+      'Sub-millisecond single-row inline custom service editing on mobile screens (320px - 412px)',
+      'Real-time PostgreSQL Change Data Capture (CDC) streams for active patient rosters and renewal feeds',
     ],
     challenges: [
-      'Automating care plan renewal dates across rolling patient schedules',
-      'Generating lightweight invoices that send instantly through mobile messaging apps',
+      'Eliminating billing overlaps across variable plan durations (10d acute vs 30d chronic): Resolved by enforcing consecutive start-date computation',
+      'Preventing invoice sequence collisions during simultaneous staff access: Solved via atomic PostgreSQL RPC counter rather than client-side incrementation',
+      'Preventing testing clutter in live medical billing: Solved with dual Staging/Production environment isolation',
     ],
     outcome:
-      'Successfully deployed a comprehensive healthcare operations system simplifying patient billing and staff coordination.',
+      'Engineered and delivered a production clinical operating system in 3 months, eliminating billing duplications and care gaps across mobile, desktop, and web.',
   },
 }
 
