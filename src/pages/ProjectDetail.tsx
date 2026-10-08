@@ -96,6 +96,12 @@ export default function ProjectDetail() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
               <span>{project.status || 'PRODUCTION'}</span>
+              {project.lastCommitLabel && (
+                <>
+                  <span>·</span>
+                  <span className="text-foreground font-semibold">COMMIT: {project.lastCommitLabel}</span>
+                </>
+              )}
               {project.year && (
                 <>
                   <span>·</span>

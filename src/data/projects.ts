@@ -8,6 +8,8 @@ export interface Project {
   featured: boolean
   status?: 'live' | 'in-progress' | 'completed'
   year?: string
+  lastCommitDate?: string
+  lastCommitLabel?: string
   liveUrl?: string
   githubUrl?: string
   image?: string
@@ -22,6 +24,46 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    slug: 'shifamanagement',
+    title: 'ShifaManagement',
+    category: 'Healthcare / Cross-Platform',
+    shortDescription:
+      'Home healthcare clinical operations, billing, and care plan renewal platform.',
+    description:
+      'A cross-platform healthcare operations system consolidating patient intake, clinical diagnostics, dynamic per-diem service fee structuring, automated 14-day care plan renewals, and WhatsApp invoice dispatch.',
+    technologies: [
+      'Flutter',
+      'Dart',
+      'Supabase',
+      'PostgreSQL',
+      'Row Level Security (RLS)',
+      'Riverpod',
+    ],
+    featured: true,
+    status: 'completed',
+    year: '2026',
+    lastCommitDate: '2026-10-08T11:16:54+05:00',
+    lastCommitLabel: 'Oct 8, 2026',
+    role: 'Cross-Platform Systems Developer',
+    githubUrl: 'https://github.com/ahmed-husssain/ShifaMangementSystem',
+    image: '/projects/shifamanagement/preview.png',
+    gallery: [
+      '/projects/shifamanagement/slide-1.png',
+      '/projects/shifamanagement/slide-2.png',
+      '/projects/shifamanagement/slide-3.png',
+      '/projects/shifamanagement/slide-4.png',
+      '/projects/shifamanagement/slide-5.png',
+    ],
+    architecture: [
+      'Multi-platform Flutter architecture with Riverpod reactive state management',
+      'ACID-safe atomic invoice generation with PostgreSQL row locking (FOR UPDATE)',
+      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the kernel level',
+      'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
+    ],
+    outcome:
+      'High-reliability clinical management and billing system deployed across mobile and desktop with zero duplicate invoices.',
+  },
   {
     slug: 'online-art-gallery',
     title: 'Online Art Gallery',
@@ -44,7 +86,9 @@ export const PROJECTS: Project[] = [
     ],
     featured: true,
     status: 'live',
-    year: '2025',
+    year: '2026',
+    lastCommitDate: '2026-10-05T22:27:16+05:00',
+    lastCommitLabel: 'Oct 5, 2026',
     role: 'Full-Stack .NET Developer',
     liveUrl: 'https://gallrex.runasp.net',
     githubUrl: 'https://github.com/ahmed-husssain',
@@ -76,6 +120,8 @@ export const PROJECTS: Project[] = [
     featured: true,
     status: 'live',
     year: '2025',
+    lastCommitDate: '2025-06-20T14:30:00Z',
+    lastCommitLabel: 'Jun 20, 2025',
     role: 'Lead Full-Stack Developer',
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
@@ -87,30 +133,6 @@ export const PROJECTS: Project[] = [
     ],
     outcome:
       'Awarded Runner-Up at Aptech Vision 2025 out of multiple competing software projects.',
-  },
-  {
-    slug: 'e-books',
-    title: 'E-Books Platform',
-    category: 'Digital Library / Full-Stack',
-    shortDescription:
-      'Responsive digital library web application featuring user registration and secure session management.',
-    description:
-      'A responsive digital library web application built with PHP and MySQL. Features user registration, authentication, secure session management, and relational database schemas to manage user collections and book data.',
-    technologies: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'REST APIs'],
-    featured: true,
-    status: 'live',
-    year: '2024',
-    role: 'Backend & Web Developer',
-    liveUrl: 'https://readly.gt.tc/User/Pages/home.php',
-    githubUrl: 'https://github.com/ahmed-husssain/E-books',
-    image: '/projects/e-books/cover.webp',
-    architecture: [
-      'Modular PHP backend with secure session handling and user authentication',
-      'Normalized MySQL relational database schema managing user collections and book data',
-      'Clean, responsive Tailwind CSS reader interface for desktop and mobile screens',
-    ],
-    outcome:
-      'Fast, lightweight digital library web application operating reliably with minimal server resource overhead.',
   },
   {
     slug: 'amber-property-corner',
@@ -131,6 +153,8 @@ export const PROJECTS: Project[] = [
     featured: false,
     status: 'live',
     year: '2025',
+    lastCommitDate: '2025-03-12T10:00:00Z',
+    lastCommitLabel: 'Mar 12, 2025',
     role: 'Full-Stack Developer & Database Architect',
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
@@ -144,41 +168,36 @@ export const PROJECTS: Project[] = [
       'High-performance property discovery portal with sub-150ms query turnaround and clean mobile responsiveness.',
   },
   {
-    slug: 'shifamanagement',
-    title: 'ShifaManagement',
-    category: 'Healthcare / Cross-Platform',
+    slug: 'e-books',
+    title: 'E-Books Platform',
+    category: 'Digital Library / Full-Stack',
     shortDescription:
-      'Home healthcare clinical operations, billing, and care plan renewal platform.',
+      'Responsive digital library web application featuring user registration and secure session management.',
     description:
-      'A cross-platform healthcare operations system consolidating patient intake, clinical diagnostics, dynamic per-diem service fee structuring, automated 14-day care plan renewals, and WhatsApp invoice dispatch.',
-    technologies: [
-      'Flutter',
-      'Dart',
-      'Supabase',
-      'PostgreSQL',
-      'Row Level Security (RLS)',
-      'Riverpod',
-    ],
-    featured: false,
-    status: 'completed',
+      'A responsive digital library web application built with PHP and MySQL. Features user registration, authentication, secure session management, and relational database schemas to manage user collections and book data.',
+    technologies: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'REST APIs'],
+    featured: true,
+    status: 'live',
     year: '2024',
-    role: 'Cross-Platform Systems Developer',
-    githubUrl: 'https://github.com/ahmed-husssain/ShifaMangementSystem',
-    image: '/projects/shifamanagement/preview.png',
-    gallery: [
-      '/projects/shifamanagement/slide-1.png',
-      '/projects/shifamanagement/slide-2.png',
-      '/projects/shifamanagement/slide-3.png',
-      '/projects/shifamanagement/slide-4.png',
-      '/projects/shifamanagement/slide-5.png',
-    ],
+    lastCommitDate: '2024-11-15T09:00:00Z',
+    lastCommitLabel: 'Nov 15, 2024',
+    role: 'Backend & Web Developer',
+    liveUrl: 'https://readly.gt.tc/User/Pages/home.php',
+    githubUrl: 'https://github.com/ahmed-husssain/E-books',
+    image: '/projects/e-books/cover.webp',
     architecture: [
-      'Multi-platform Flutter architecture with Riverpod reactive state management',
-      'ACID-safe atomic invoice generation with PostgreSQL row locking (FOR UPDATE)',
-      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the kernel level',
-      'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
+      'Modular PHP backend with secure session handling and user authentication',
+      'Normalized MySQL relational database schema managing user collections and book data',
+      'Clean, responsive Tailwind CSS reader interface for desktop and mobile screens',
     ],
     outcome:
-      'High-reliability clinical management and billing system deployed across mobile and desktop with zero duplicate invoices.',
+      'Fast, lightweight digital library web application operating reliably with minimal server resource overhead.',
   },
 ]
+
+/** Projects sorted by last commit date (most recently committed project first) */
+export const SORTED_PROJECTS: Project[] = [...PROJECTS].sort((a, b) => {
+  const timeA = a.lastCommitDate ? new Date(a.lastCommitDate).getTime() : 0
+  const timeB = b.lastCommitDate ? new Date(b.lastCommitDate).getTime() : 0
+  return timeB - timeA
+})

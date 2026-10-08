@@ -1,7 +1,7 @@
 import Container from '../components/Container'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/Reveal'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS, SORTED_PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 export default function Work() {
@@ -16,6 +16,8 @@ export default function Work() {
             <span className="text-foreground font-semibold">// WORK CATALOG</span>
             <span>·</span>
             <span>[ {PROJECTS.length.toString().padStart(2, '0')} PROJECTS TOTAL ]</span>
+            <span>·</span>
+            <span className="text-emerald-500 font-semibold">RANKED BY LATEST COMMITS</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
@@ -29,7 +31,7 @@ export default function Work() {
 
         {/* Project List */}
         <div className="flex flex-col gap-12 sm:gap-16">
-          {PROJECTS.map((project, index) => (
+          {SORTED_PROJECTS.map((project, index) => (
             <Reveal key={project.slug} delay={index * 50}>
               <ProjectCard project={project} index={index + 1} />
             </Reveal>

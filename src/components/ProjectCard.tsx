@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, ArrowRight, Cpu } from 'lucide-react'
+import { ArrowUpRight, ArrowRight, Cpu, GitCommit } from 'lucide-react'
 import type { Project } from '../data/projects'
 import ArchitectureModal from './ArchitectureModal'
 
@@ -69,10 +69,17 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           </span>
         </div>
 
-        {/* Right: year + links */}
-        <div className="flex items-center gap-3 shrink-0">
-          {project.year && (
-            <span className="text-muted hidden sm:inline">{project.year}</span>
+        {/* Right: commit badge + links */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {project.lastCommitLabel && (
+            <span
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border bg-page text-[10px] font-mono text-secondary"
+              title={`Last commit: ${project.lastCommitLabel}`}
+            >
+              <GitCommit className="w-3 h-3 text-emerald-500 shrink-0" />
+              <span className="text-muted hidden md:inline">COMMIT:</span>
+              <span className="text-foreground font-semibold">{project.lastCommitLabel}</span>
+            </span>
           )}
           {project.githubUrl && (
             <a

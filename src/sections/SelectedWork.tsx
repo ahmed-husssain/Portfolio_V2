@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS, SORTED_PROJECTS } from '../data/projects'
 
 export default function SelectedWork() {
-  const featuredProjects = PROJECTS.filter((p) => p.featured)
+  const featuredProjects = SORTED_PROJECTS.filter((p) => p.featured)
 
   return (
     <section id="work" className="py-20 sm:py-28 md:py-36 border-b border-border">
