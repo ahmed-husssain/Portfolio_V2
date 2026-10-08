@@ -1,7 +1,10 @@
 export interface ArchitectureNode {
   id: string
+  stepNumber: number
+  shortLabel: string
   title: string
   subtitle: string
+  plainEnglish: string
   layer: 'Client' | 'Security / Cache' | 'Application / CQRS' | 'Domain / Validation' | 'Database / OCC' | 'Real-Time' | 'Worker'
   badge: string
   description: string
@@ -51,8 +54,12 @@ export const GALLREX_ARCHITECTURE: ArchitectureFlow[] = [
     nodes: [
       {
         id: 'client-bidder',
+        stepNumber: 1,
+        shortLabel: 'Collector Bids',
         title: 'Client Browser / Collector UI',
         subtitle: 'Idempotent AJAX Post with UUID Header',
+        plainEnglish:
+          'A collector enters an amount and clicks "Bid". The browser attaches a unique safety token (UUID) so sudden network lag or double-clicking can never create accidental duplicate charges.',
         layer: 'Client',
         badge: 'FETCH / AJAX',
         description:
@@ -83,8 +90,12 @@ if (!res.ok) showToast(data.message);`,
       },
       {
         id: 'idempotency-cache',
+        stepNumber: 2,
+        shortLabel: 'Anti-Spam Cache',
         title: 'In-Memory Idempotency Guard',
         subtitle: 'IMemoryCache Sliding Window Deduplication',
+        plainEnglish:
+          'Before querying the database, the server checks high-speed memory. If a user spam-clicked the button, duplicate requests return instantly in 0.01ms with zero SQL Server strain.',
         layer: 'Security / Cache',
         badge: '0.01ms DEDUPLICATION',
         description:
@@ -112,8 +123,12 @@ if (!string.IsNullOrEmpty(idempotencyKey))
       },
       {
         id: 'cqrs-dispatcher',
+        stepNumber: 3,
+        shortLabel: 'Command Router',
         title: 'Strangler Fig CQRS Dispatcher',
         subtitle: 'MediatR Decoupled Command Dispatch',
+        plainEnglish:
+          'Routes the bid request through a dedicated command handler via MediatR, isolating critical monetary logic from ordinary website page controllers.',
         layer: 'Application / CQRS',
         badge: 'MEDIATR COMMAND',
         description:
@@ -140,8 +155,12 @@ public async Task<IActionResult> PlaceBid([FromBody] PlaceBidRequest req, Cancel
       },
       {
         id: 'domain-validator',
+        stepNumber: 4,
+        shortLabel: 'Rule Validator',
         title: 'Domain Bid Validation Engine',
         subtitle: 'Business Rules & Fraud Prevention',
+        plainEnglish:
+          'Verifies the auction is still active, the bidder has a verified card on file, and the bid is higher than the current price before allowing it to proceed.',
         layer: 'Domain / Validation',
         badge: 'BUSINESS RULES',
         description:
@@ -174,8 +193,12 @@ if (request.Amount < minRequired)
       },
       {
         id: 'sql-occ',
+        stepNumber: 5,
+        shortLabel: 'SQL Collision Guard',
         title: 'SQL Server & EF Core (OCC Engine)',
         subtitle: 'Optimistic Concurrency Control via [Timestamp] RowVersion',
+        plainEnglish:
+          'Uses SQL Server RowVersion timestamps. If two collectors bid at the exact same millisecond, the faster bid commits, and the second gets a clean retry notice with zero database deadlocks.',
         layer: 'Database / OCC',
         badge: 'ZERO ROW LOCKS (OCC)',
         description:
@@ -216,8 +239,12 @@ catch (DbUpdateConcurrencyException)
       },
       {
         id: 'signalr-hub',
+        stepNumber: 6,
+        shortLabel: 'Live WebSocket Push',
         title: 'SignalR Real-Time WebSocket Multicast',
         subtitle: 'Sub-10ms Price Push to auction-{productId}',
+        plainEnglish:
+          'Immediately after a bid commits, ASP.NET Core SignalR pushes the updated price to everyone watching the auction in under 10ms with zero page reloads.',
         layer: 'Real-Time',
         badge: 'WEBSOCKET MULTICAST',
         description:
@@ -245,8 +272,12 @@ await _hubContext.Clients
       },
       {
         id: 'background-worker',
+        stepNumber: 7,
+        shortLabel: 'Auto-Settlement Worker',
         title: 'Autonomous Settlement Worker',
         subtitle: 'BackgroundService with PeriodicTimer(15s)',
+        plainEnglish:
+          'Runs on a 15-second background heartbeat. When the auction clock expires, it finalizes the winner and generates an invoice, even if the website currently has zero active visitors.',
         layer: 'Worker',
         badge: 'INDEPENDENT HEARTBEAT',
         description:
@@ -443,8 +474,12 @@ await _hubContext.Clients
     nodes: [
       {
         id: 'oauth-providers',
+        stepNumber: 1,
+        shortLabel: 'OAuth Handshake',
         title: 'Federated OAuth Providers',
         subtitle: 'Google, GitHub, and Discord Handshake',
+        plainEnglish:
+          'Users sign in with 1-click via Google, GitHub, or Discord with official OAuth 2.0 PKCE security, eliminating password fatigue.',
         layer: 'Client',
         badge: 'OAUTH 2.0',
         description:
@@ -472,8 +507,12 @@ await _hubContext.Clients
       },
       {
         id: 'rate-limiter',
+        stepNumber: 2,
+        shortLabel: 'Rate Limiter',
         title: 'Brute-Force Rate Limiter',
         subtitle: 'IMemoryCache 5 Attempts / 5 Minutes',
+        plainEnglish:
+          'Protects traditional password endpoints by locking failed login bursts in RAM for 5 minutes after 5 consecutive attempts.',
         layer: 'Security / Cache',
         badge: 'RATE LIMITING',
         description:
@@ -498,8 +537,12 @@ _memoryCache.Set(attemptsKey, attempts + 1, TimeSpan.FromMinutes(5));`,
       },
       {
         id: 'claim-mapper',
+        stepNumber: 3,
+        shortLabel: 'Claim Mapping',
         title: 'Claim Mapper & Upsert Engine',
         subtitle: 'AuthController.UpsertExternalUserAsync',
+        plainEnglish:
+          'Extracts claims (email, name) and merges them into a local SQL Server record, ensuring foreign-key relationships to bids and orders stay intact.',
         layer: 'Application / CQRS',
         badge: 'CLAIM HARVESTING',
         description:
@@ -537,8 +580,12 @@ _memoryCache.Set(attemptsKey, attempts + 1, TimeSpan.FromMinutes(5));`,
       },
       {
         id: 'avatar-downloader',
+        stepNumber: 4,
+        shortLabel: 'Avatar Mirror',
         title: 'Local Avatar Mirror Pipeline',
         subtitle: 'HttpClient Asset Ingestion to wwwroot/images/avatars',
+        plainEnglish:
+          'Downloads external OAuth avatar images directly to the server to prevent broken hotlinks, expired URLs, and external CORS lag.',
         layer: 'Worker',
         badge: 'ASSET MIRRORING',
         description:
@@ -575,8 +622,12 @@ _memoryCache.Set(attemptsKey, attempts + 1, TimeSpan.FromMinutes(5));`,
     nodes: [
       {
         id: 'catalog-query',
+        stepNumber: 1,
+        shortLabel: 'Catalog Query',
         title: 'Catalog Query Controller',
         subtitle: 'ProductController.Index with EF.Functions.Like',
+        plainEnglish:
+          'Streams artwork using server-side pagination (.Skip().Take(12)) and indexed search, keeping browsing snappy even as thousands of artworks are listed.',
         layer: 'Client',
         badge: 'INDEXED SEARCH',
         description:
@@ -609,8 +660,12 @@ _memoryCache.Set(attemptsKey, attempts + 1, TimeSpan.FromMinutes(5));`,
       },
       {
         id: 'sql-covering-index',
+        stepNumber: 2,
+        shortLabel: 'Covering Index',
         title: 'Covering B-Tree Index',
         subtitle: 'Non-Clustered Index on (IsApproved, Name) with INCLUDE',
+        plainEnglish:
+          'SQL Server resolves artwork queries straight from B-Tree leaf pages without performing expensive table lookups, eliminating disk bottlenecks.',
         layer: 'Database / OCC',
         badge: 'INDEX-ONLY SCAN',
         description:
@@ -631,8 +686,12 @@ INCLUDE (Price, ImageUrl, IsAuction, CurrentBid);`,
       },
       {
         id: 'admin-moderation',
+        stepNumber: 3,
+        shortLabel: 'Moderation Queue',
         title: 'Moderation Pipeline (Artist -> Admin)',
         subtitle: 'AdminController Approval Queue',
+        plainEnglish:
+          'Artist uploads enter as unapproved by default. Staff reviews and approves each piece in the moderation portal before it appears in public catalog searches.',
         layer: 'Domain / Validation',
         badge: 'MODERATION WORKFLOW',
         description:
