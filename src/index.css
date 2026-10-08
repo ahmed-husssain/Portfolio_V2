@@ -61,6 +61,7 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;
   background-color: var(--bg-page);
   color: var(--text-primary);
@@ -73,11 +74,16 @@ body {
   background-color: var(--bg-page);
   color: var(--text-primary);
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   word-break: break-word;
   overflow-wrap: break-word;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }
 
 ::selection {

@@ -53,9 +53,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         } ${className}`}
     >
       {/* ─── Card Header Bar ─── */}
-      <div className="flex items-center justify-between gap-3 border-b border-border px-5 sm:px-6 py-2.5 text-[11px] font-mono bg-surface-subtle/60">
+      <div className="flex items-center justify-between gap-2.5 border-b border-border px-4 sm:px-6 py-2 sm:py-2.5 text-[11px] font-mono bg-surface-subtle/60">
         {/* Left: index + slug + category (compact) */}
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
           {index !== undefined && (
             <span className="text-foreground font-bold shrink-0">
               #{index.toString().padStart(2, '0')}
@@ -109,7 +109,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       </div>
 
       {/* ─── Card Body ─── */}
-      <div className="p-5 sm:p-7 flex-1 flex flex-col gap-5">
+      <div className="p-4 sm:p-7 flex-1 flex flex-col gap-4 sm:gap-5">
 
         {/* ── Title + Short Description ── */}
         <div>
@@ -208,27 +208,27 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           </div>
 
           {/* Action CTAs: Architecture Inspector + Case Study */}
-          <div className="flex items-center gap-2.5 self-end sm:self-auto shrink-0">
+          <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0 pt-1.5 sm:pt-0">
             {hasArchitectureInspector && (
               <button
                 type="button"
                 onClick={() => setIsArchModalOpen(true)}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all cursor-pointer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all cursor-pointer"
                 title={
                   project.slug === 'shifamanagement'
                     ? 'Inspect Flutter, Supabase & PostgreSQL live architecture'
                     : 'Inspect .NET 8 & SQL Server live architecture'
                 }
               >
-                <Cpu className="w-3 h-3 text-emerald-500" />
-                <span>INSPECT ARCHITECTURE</span>
+                <Cpu className="w-3 h-3 text-emerald-500 shrink-0" />
+                <span className="truncate">INSPECT ARCHITECTURE</span>
               </button>
             )}
 
             {/* Case study link */}
             <Link
               to={`/work/${project.slug}`}
-              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 transition-[transform,color] duration-150 ease-out"
+              className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 transition-[transform,color] duration-150 ease-out shrink-0"
               aria-label={`Read case study for ${project.title}`}
             >
               <span>CASE STUDY</span>

@@ -121,7 +121,7 @@ export default function Navbar() {
       {/* ─── Mobile Menu Drawer ─── */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-x-0 top-16 h-[calc(100vh-4rem)] bg-[var(--bg-page)] border-b border-border z-50 md:hidden flex flex-col justify-between p-6 sm:p-8 overflow-y-auto animate-page-in"
+          className="fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] bg-[var(--bg-page)] border-b border-border z-50 md:hidden flex flex-col justify-between p-6 sm:p-8 overflow-y-auto animate-page-in"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile Navigation"

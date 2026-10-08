@@ -230,20 +230,20 @@ export default function ArchitectureVisualizer({
   }
 
   return (
-    <div className={`p-4 sm:p-5 flex flex-col gap-3 font-sans text-foreground text-left select-none ${className}`}>
+    <div className={`p-3 sm:p-5 flex flex-col gap-2.5 sm:gap-3 font-sans text-foreground text-left select-none ${className}`}>
       {/* ─── 1. Header Line ─── */}
       <div className="flex items-center justify-between gap-2 text-xs">
-        <p className="text-secondary text-xs font-medium truncate">
+        <p className="text-secondary text-[11px] sm:text-xs font-medium truncate">
           {flow.subtitle}
         </p>
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-[10px] font-semibold shrink-0">
+        <span className="inline-flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-[9px] sm:text-[10px] font-semibold shrink-0">
           <Activity className="w-3 h-3 animate-pulse" />
           {flow.tag}
         </span>
       </div>
 
       {/* ─── 2. 5-Step Pipeline Strip ─── */}
-      <div className="grid grid-cols-5 gap-1.5 p-1 bg-page border border-border rounded-xs">
+      <div className="grid grid-cols-5 gap-1 sm:gap-1.5 p-1 bg-page border border-border rounded-xs">
         {flow.steps.map((step, idx) => {
           const isSelected = activeStep === idx
           const isPast = activeStep > idx
@@ -256,7 +256,7 @@ export default function ArchitectureVisualizer({
                 setActiveStep(idx)
                 setActiveSim(null)
               }}
-              className={`py-1.5 px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
+              className={`py-1.5 px-0.5 sm:px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
                 isSelected
                   ? 'bg-foreground text-page border-foreground shadow-2xs'
                   : isPast
@@ -265,13 +265,13 @@ export default function ArchitectureVisualizer({
               }`}
             >
               <span
-                className={`text-[10px] font-mono font-bold leading-none ${
+                className={`text-[9px] sm:text-[10px] font-mono font-bold leading-none ${
                   isSelected ? 'text-page' : isPast ? 'text-emerald-500' : 'text-muted'
                 }`}
               >
                 0{step.number}
               </span>
-              <span className="text-[11px] sm:text-xs font-semibold tracking-tight truncate w-full text-center">
+              <span className="text-[9px] xs:text-[10px] sm:text-xs font-semibold tracking-tight truncate w-full text-center px-0.5">
                 {step.short}
               </span>
             </button>

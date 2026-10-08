@@ -39,7 +39,7 @@ export default function Capabilities() {
             return (
               <article
                 key={group.index}
-                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col justify-between p-6 sm:p-8"
+                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8"
               >
                 <div>
                   {/* Domain Header */}
