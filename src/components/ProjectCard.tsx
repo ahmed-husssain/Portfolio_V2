@@ -34,6 +34,35 @@ function shortCategory(cat: string): string {
     .toUpperCase()
 }
 
+/**
+ * Formats commit date labels with high density for compact mobile viewports.
+ * Psychology: Prioritize recent activity ("Oct 5") without stale or redundant
+ * 4-digit year repetition, preserving full details for tooltips and desktop screens.
+ */
+function formatCompactDate(label?: string): string {
+  if (!label) return ''
+  const trimmed = label.trim()
+
+  // Format: "Month Day, Year" -> e.g. "Oct 5, 2026"
+  const withDayMatch = trimmed.match(/^([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})$/)
+  if (withDayMatch) {
+    const [, month, day, year] = withDayMatch
+    if (year === '2026' || year === new Date().getFullYear().toString()) {
+      return `${month} ${day}`
+    }
+    return `${month} '${year.slice(-2)}`
+  }
+
+  // Format: "Month Year" -> e.g. "Oct 2026"
+  const monthYearMatch = trimmed.match(/^([A-Za-z]+)\s+(\d{4})$/)
+  if (monthYearMatch) {
+    const [, month, year] = monthYearMatch
+    return `${month} '${year.slice(-2)}`
+  }
+
+  return trimmed
+}
+
 interface ProjectCardProps {
   project: Project
   className?: string
@@ -53,32 +82,33 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         } ${className}`}
     >
       {/* ─── Card Header Bar ─── */}
-      <div className="flex items-center justify-between gap-2.5 border-b border-border px-4 sm:px-6 py-2 sm:py-2.5 text-[11px] font-mono bg-surface-subtle/60">
-        {/* Left: index + slug + category (compact) */}
-        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+      <div className="flex items-center justify-between gap-2 border-b border-border px-3.5 sm:px-6 py-2 sm:py-2.5 text-[11px] font-mono bg-surface-subtle/60">
+        {/* Left: index + slug + (category on desktop only) */}
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 overflow-hidden">
           {index !== undefined && (
             <span className="text-foreground font-bold shrink-0">
               #{index.toString().padStart(2, '0')}
             </span>
           )}
           <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-          <span className="text-foreground font-semibold shrink-0 truncate">/{project.slug}</span>
-          <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-          <span className="text-muted tracking-wider uppercase truncate hidden xs:block sm:block">
-            {shortCategory(project.category)}
+          <span className="text-foreground font-semibold truncate">/{project.slug}</span>
+          <span className="hidden md:inline-flex items-center gap-1.5 text-muted tracking-wider uppercase shrink-0">
+            <span className="text-border-strong" aria-hidden="true">·</span>
+            <span>{shortCategory(project.category)}</span>
           </span>
         </div>
 
         {/* Right: commit badge + links */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {project.lastCommitLabel && (
             <span
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border bg-page text-[10px] font-mono text-secondary"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
               title={`Last commit: ${project.lastCommitLabel}`}
             >
               <GitCommit className="w-3 h-3 text-emerald-500 shrink-0" />
               <span className="text-muted hidden md:inline">COMMIT:</span>
-              <span className="text-foreground font-semibold">{project.lastCommitLabel}</span>
+              <span className="text-foreground font-semibold sm:hidden">{formatCompactDate(project.lastCommitLabel)}</span>
+              <span className="text-foreground font-semibold hidden sm:inline">{project.lastCommitLabel}</span>
             </span>
           )}
           {project.githubUrl && (
@@ -86,7 +116,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-[color,transform] duration-150 ease-out"
+              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`View source code for ${project.title}`}
             >
               <GithubIcon className="w-3.5 h-3.5" />
@@ -98,7 +128,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-95 transition-[color,transform] duration-150 ease-out"
+              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-95 transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`Visit live site for ${project.title}`}
             >
               <span>LIVE</span>
