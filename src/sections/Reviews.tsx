@@ -30,7 +30,9 @@ function VerificationBadge({ review }: { review: Review }) {
       ? 'APTECH VISION 2025'
       : review.verificationType === 'github'
         ? 'GITHUB COLLABORATOR'
-        : 'VERIFIED ON LINKEDIN'
+        : review.verificationType === 'client'
+          ? 'VERIFIED CLIENT & FOUNDER'
+          : 'VERIFIED ON LINKEDIN'
 
   const content = (
     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
@@ -92,7 +94,7 @@ export default function Reviews() {
         </div>
 
         {/* ─── Reviews Grid ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12">
           {reviewsList.map((item, index) => (
             <article
               key={item.id}

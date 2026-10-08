@@ -30,6 +30,29 @@ export interface Review {
  */
 export const REVIEWS: Review[] = [
   {
+    id: 'rev-shifamanagement-healthcare',
+    name: 'Asad',
+    role: 'Owner & Operational Director',
+    company: 'ShifaHomeHealthCare',
+    relationship: 'Client / Product Owner',
+    project: 'ShifaManagement (Clinical Operations Platform)',
+    projectSlug: 'shifamanagement',
+    verificationType: 'client',
+    verificationUrl: 'https://shifahomehealthcare.org/',
+    deliverables: [
+      '3-Month Production Delivery',
+      'PostgreSQL ACID Atomic Billing',
+      'Automated 14-Day Renewal Engine',
+      'Cross-Platform Flutter Architecture',
+    ],
+    highlightMetric: 'Zero Billing Duplications · 3-Month End-to-End Build',
+    review:
+      'Over the course of 3 months, Ahmed engineered our clinical operations, patient intake, and automated billing platform from the ground up. He implemented ACID-safe PostgreSQL row locking that completely eliminated invoice duplication and structured our 14-day care plan renewal engine flawlessly. His communication was proactive, structured, and fast throughout every milestone. A top-tier engineer who genuinely understands complex business logic and delivers reliable systems.',
+    status: 'approved',
+    consentToPublish: true,
+    createdAt: '2026-10-08',
+  },
+  {
     id: 'rev-mockrithm-aptech-2025',
     name: 'Syed Hamza',
     role: 'Project Evaluator & Mentor',
