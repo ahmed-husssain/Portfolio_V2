@@ -31,7 +31,7 @@ function VerificationBadge({ review }: { review: Review }) {
       : review.verificationType === 'github'
         ? 'GITHUB COLLABORATOR'
         : review.verificationType === 'client'
-          ? 'VERIFIED CLIENT & FOUNDER'
+          ? 'VERIFIED CLIENT WEBSITE'
           : 'VERIFIED ON LINKEDIN'
 
   const content = (
@@ -126,9 +126,17 @@ export default function Reviews() {
 
                 {/* Reviewer Identity Block */}
                 <div className="flex items-start gap-3.5 mb-5">
-                  <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs">
-                    {getInitials(item.name)}
-                  </div>
+                  {item.avatar ? (
+                    <img
+                      src={item.avatar}
+                      alt={item.company || item.name}
+                      className="w-10 h-10 rounded-sm border border-border bg-white object-contain p-1 shrink-0 shadow-2xs"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs">
+                      {getInitials(item.name)}
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <h3 className="font-semibold text-foreground text-sm leading-snug truncate">
                       {item.name}

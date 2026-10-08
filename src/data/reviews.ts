@@ -12,6 +12,7 @@ export interface Review {
   projectSlug?: string
   verificationUrl?: string
   verificationType?: VerificationType
+  avatar?: string
   deliverables?: string[]
   highlightMetric?: string
   status: ReviewStatus
@@ -32,22 +33,22 @@ export const REVIEWS: Review[] = [
   {
     id: 'rev-shifamanagement-healthcare',
     name: 'Asad',
-    role: 'Owner & Operational Director',
+    role: 'Owner',
     company: 'ShifaHomeHealthCare',
     relationship: 'Client / Product Owner',
-    project: 'ShifaManagement (Clinical Operations Platform)',
+    project: 'ShifaManagement',
     projectSlug: 'shifamanagement',
     verificationType: 'client',
     verificationUrl: 'https://shifahomehealthcare.org/',
+    avatar: '/projects/shifamanagement/shifa-logo.jpg',
     deliverables: [
-      '3-Month Production Delivery',
-      'PostgreSQL ACID Atomic Billing',
-      'Automated 14-Day Renewal Engine',
-      'Cross-Platform Flutter Architecture',
+      '3-Month Project Delivery',
+      'Clinical Intake & Billing Engine',
+      '14-Day Care Plan Renewals',
     ],
-    highlightMetric: 'Zero Billing Duplications · 3-Month End-to-End Build',
+    highlightMetric: '3-Month Delivery · Zero Billing Errors',
     review:
-      'Over the course of 3 months, Ahmed engineered our clinical operations, patient intake, and automated billing platform from the ground up. He implemented ACID-safe PostgreSQL row locking that completely eliminated invoice duplication and structured our 14-day care plan renewal engine flawlessly. His communication was proactive, structured, and fast throughout every milestone. A top-tier engineer who genuinely understands complex business logic and delivers reliable systems.',
+      'Ahmed built our clinical operations and billing system in 3 months. The automated invoicing and patient care renewal workflows run smoothly without any duplication issues. Reliable developer who communicates clearly and delivers on time.',
     status: 'approved',
     consentToPublish: true,
     createdAt: '2026-10-08',
