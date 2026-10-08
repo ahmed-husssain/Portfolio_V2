@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, FileText } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -8,6 +8,7 @@ export default function AboutPreview() {
     { label: 'LOCATION', value: 'Karachi, Pakistan (PKT / UTC+5)' },
     { label: 'SPECIALIZATION', value: 'Backend & .NET Web Architecture' },
     { label: 'KEY AWARD', value: 'Runner-Up – Aptech Vision 2025 (Mockrithm)' },
+    { label: 'RESUME / CV', value: 'Official Resume (PDF)', href: '/resume.pdf' },
     { label: 'STATUS', value: 'Available for Engineering Roles & Projects' },
   ]
 
@@ -36,13 +37,25 @@ export default function AboutPreview() {
               </p>
             </div>
 
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 text-sm font-mono font-semibold text-foreground hover:text-secondary transition-colors group"
-            >
-              <span>READ FULL ABOUT & ENGINEERING PRINCIPLES</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link
+                to="/about"
+                className="inline-flex items-center gap-2 text-sm font-mono font-semibold text-foreground hover:text-secondary transition-colors group"
+              >
+                <span>READ FULL ABOUT & PRINCIPLES</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              </Link>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-3 py-1.5 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong active:scale-95 transition-all"
+              >
+                <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                <span>RESUME (PDF)</span>
+                <ArrowUpRight className="w-3 h-3 text-muted" />
+              </a>
+            </div>
           </div>
 
           <div className="lg:col-span-5">
@@ -59,7 +72,20 @@ export default function AboutPreview() {
                       {item.label}
                     </dt>
                     <dd className="text-foreground font-medium text-xs sm:text-sm">
-                      {item.value}
+                      {'href' in item && item.href ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline"
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>{item.value}</span>
+                          <ArrowUpRight className="w-3 h-3 text-muted" />
+                        </a>
+                      ) : (
+                        item.value
+                      )}
                     </dd>
                   </div>
                 ))}

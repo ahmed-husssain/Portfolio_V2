@@ -357,11 +357,11 @@ export default function ProjectDetail() {
                     key={idx}
                     className="group rounded-sm overflow-hidden border border-border bg-surface hover:border-border-strong transition-all flex flex-col"
                   >
-                    <div className="aspect-square w-full overflow-hidden bg-page flex items-center justify-center">
+                    <div className="aspect-[16/10] w-full overflow-hidden bg-page flex items-center justify-center">
                       <img
                         src={imgSrc}
                         alt={`${project.title} Architectural Specification Slide ${idx + 1}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                         loading="lazy"
                       />
                     </div>
@@ -370,12 +370,14 @@ export default function ProjectDetail() {
                         SPECIFICATION // SLIDE 0{idx + 1}
                       </span>
                       <span className="text-foreground font-medium text-[11px]">
-                        {idx === 0 && 'System 2.0 Dashboard'}
-                        {idx === 1 && '1-Click WhatsApp Dispatch'}
-                        {idx === 2 && 'Intelligent Care Alerts'}
-                        {idx === 3 && 'Atomic Soft-Delete & Audit'}
-                        {idx === 4 && 'Zero-Cost Spark Architecture'}
-                        {idx > 4 && `System Slide ${idx + 1}`}
+                        {project.slug === 'online-art-gallery' && idx === 0 && 'Hero & 3D Artwork Showcase'}
+                        {project.slug === 'online-art-gallery' && idx === 1 && 'Curated Artwork Catalog & Bidding'}
+                        {project.slug === 'shifamanagement' && idx === 0 && 'System 2.0 Dashboard'}
+                        {project.slug === 'shifamanagement' && idx === 1 && '1-Click WhatsApp Dispatch'}
+                        {project.slug === 'shifamanagement' && idx === 2 && 'Intelligent Care Alerts'}
+                        {project.slug === 'shifamanagement' && idx === 3 && 'Atomic Soft-Delete & Audit'}
+                        {project.slug === 'shifamanagement' && idx === 4 && 'Zero-Cost Spark Architecture'}
+                        {project.slug !== 'online-art-gallery' && project.slug !== 'shifamanagement' && `System Slide ${idx + 1}`}
                       </span>
                     </div>
                   </div>

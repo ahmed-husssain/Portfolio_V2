@@ -78,6 +78,7 @@ export const CONTACT_LINKS = {
   github: CONTACT_CONFIG.github.url,
   linkedin: CONTACT_CONFIG.linkedin.url,
   email: CONTACT_CONFIG.email,
+  resume: '/resume.pdf',
   review: '/review',
 } as const
 

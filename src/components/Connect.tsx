@@ -46,6 +46,20 @@ export default function Connect({ className = '', withContainer = true }: Connec
           </a>
 
           <a
+            href={CONTACT_LINKS.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Official Resume / CV PDF (opens in new tab)"
+            className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
+          >
+            <span className="tracking-wider kinetic-underline font-medium text-foreground">RESUME (PDF)</span>
+            <ArrowUpRight
+              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+              aria-hidden="true"
+            />
+          </a>
+
+          <a
             href={`mailto:${CONTACT_LINKS.email}`}
             aria-label={`Send an email to ${CONTACT_LINKS.email}`}
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"

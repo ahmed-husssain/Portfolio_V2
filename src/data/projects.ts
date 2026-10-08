@@ -92,6 +92,11 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack .NET Developer',
     liveUrl: 'https://gallrex.runasp.net',
     githubUrl: 'https://github.com/ahmed-husssain',
+    image: '/projects/online-art-gallery/preview.png',
+    gallery: [
+      '/projects/online-art-gallery/slide-1.png',
+      '/projects/online-art-gallery/slide-2.png',
+    ],
     architecture: [
       'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing live bid collisions',
       'Rapid-click idempotency layer via IMemoryCache (UUID sliding window) executing in 0.01ms with zero DB load',

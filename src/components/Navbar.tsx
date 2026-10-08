@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowRight, ArrowUpRight, Mail } from 'lucide-react'
+import { Menu, X, ArrowRight, ArrowUpRight, Mail, FileText } from 'lucide-react'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
 import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
@@ -96,6 +96,19 @@ export default function Navbar() {
                 </Link>
               )
             })}
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong text-xs font-mono font-medium tracking-wider uppercase transition-all duration-150 active:scale-95 group"
+              aria-label="View official Resume (PDF, opens in new tab)"
+            >
+              <FileText className="w-3.5 h-3.5 text-emerald-500" />
+              <span>RESUME</span>
+              <ArrowUpRight className="w-3 h-3 text-muted group-hover:text-foreground transition-colors" />
+            </a>
+
             <div className="pl-2 border-l border-border">
               <ThemeToggle />
             </div>
@@ -203,6 +216,19 @@ export default function Navbar() {
                 <span className="truncate">{CONTACT_CONFIG.email}</span>
               </div>
               <ArrowUpRight className="w-3 h-3 text-muted shrink-0 ml-1" />
+            </a>
+
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-500/15 active:scale-95 transition-all"
+            >
+              <div className="flex items-center gap-2">
+                <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                <span>OFFICIAL RESUME (PDF)</span>
+              </div>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
 
             <div className="grid grid-cols-2 gap-2 text-xs font-mono">

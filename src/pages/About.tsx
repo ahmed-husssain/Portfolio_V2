@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, Trophy } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Trophy, FileText } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
@@ -13,6 +13,7 @@ export default function About() {
     { label: 'CORE STACK', value: 'C#, ASP.NET Core, EF Core, SQL Server, MySQL, React, Tailwind CSS' },
     { label: 'RECOGNITION', value: 'Runner-Up – Aptech Vision 2025 (Project: Mockrithm)' },
     { label: 'AVAILABILITY', value: 'Open for Backend & Full-Stack Engineering Roles' },
+    { label: 'RESUME / CV', value: 'Official Resume (PDF)', href: '/resume.pdf' },
   ]
 
   const buildSteps = [
@@ -115,10 +116,20 @@ export default function About() {
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
                 <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
+                >
+                  <FileText className="w-4 h-4 text-emerald-500" />
+                  <span>OFFICIAL RESUME (PDF)</span>
+                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                </a>
+                <a
                   href="https://github.com/ahmed-husssain"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 border border-border bg-surface text-foreground font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 border border-border bg-surface text-secondary hover:text-foreground font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
                 >
                   <span>GITHUB PROFILE</span>
                   <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
@@ -256,7 +267,20 @@ export default function About() {
                         {item.label}
                       </dt>
                       <dd className="text-foreground font-medium text-xs sm:text-sm">
-                        {item.value}
+                        {'href' in item && item.href ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-foreground hover:underline font-semibold text-emerald-600 dark:text-emerald-400"
+                          >
+                            <FileText className="w-3.5 h-3.5" />
+                            <span>{item.value}</span>
+                            <ArrowUpRight className="w-3 h-3 text-muted" />
+                          </a>
+                        ) : (
+                          item.value
+                        )}
                       </dd>
                     </div>
                   ))}

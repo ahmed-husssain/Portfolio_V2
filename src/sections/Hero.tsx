@@ -1,3 +1,4 @@
+import { FileText, ArrowUpRight } from 'lucide-react'
 import Container from '../components/Container'
 import Button from '../components/Button'
 
@@ -36,14 +37,25 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ─── Primary & Secondary CTAs ─── */}
-        <div className="flex flex-wrap items-center gap-4 mb-16 sm:mb-20 animate-hero-in delay-180">
+        {/* ─── Primary & Secondary CTAs + Resume ─── */}
+        <div className="flex flex-wrap items-center gap-3.5 mb-16 sm:mb-20 animate-hero-in delay-180">
           <Button href="#work" variant="primary" size="md" icon>
             View Work
           </Button>
           <Button href="#contact" variant="secondary" size="md">
             Contact Me
           </Button>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-sm border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover hover:border-border-strong text-xs sm:text-sm font-mono font-semibold tracking-wider uppercase transition-all duration-150 active:scale-[0.98] group"
+            aria-label="View official Resume (PDF, opens in new tab)"
+          >
+            <FileText className="w-3.5 h-3.5 text-emerald-500" />
+            <span>Resume (PDF)</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-muted group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+          </a>
         </div>
 
         {/* ─── Technical Metadata Spec Readout Bar ─── */}

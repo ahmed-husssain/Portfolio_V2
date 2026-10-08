@@ -10,6 +10,7 @@ import {
   Send,
   ShieldCheck,
   AlertCircle,
+  FileText,
 } from 'lucide-react'
 import Container from '../components/Container'
 import Connect from '../components/Connect'
@@ -507,6 +508,26 @@ export default function Contact() {
                       </span>
                       <span className="text-[11px] font-mono text-secondary">
                         {CONTACT_CONFIG.linkedin.handle} · Experience & Network
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" aria-hidden="true" />
+                </a>
+
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group"
+                >
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-5 h-5 text-emerald-500" />
+                    <div>
+                      <span className="text-xs sm:text-sm font-semibold text-foreground block">
+                        Official Resume (PDF)
+                      </span>
+                      <span className="text-[11px] font-mono text-secondary">
+                        Technical skills, projects, and certifications
                       </span>
                     </div>
                   </div>
