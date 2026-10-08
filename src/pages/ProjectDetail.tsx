@@ -72,10 +72,10 @@ export default function ProjectDetail() {
   const overview = caseStudy?.overview
 
   return (
-    <article className="py-14 sm:py-20 md:py-28">
+    <article className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-28">
       <Container>
         {/* Navigation Breadcrumb */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link
             to="/work"
             className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground transition-colors group"

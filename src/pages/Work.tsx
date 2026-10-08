@@ -8,16 +8,16 @@ export default function Work() {
   useDocumentTitle('Work — Ahmed | Backend-Focused .NET Developer')
 
   return (
-    <div className="py-16 sm:py-24 md:py-32">
+    <div className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
       <Container>
         {/* Page Header */}
         <header className="mb-14 sm:mb-20 pb-8 border-b border-border">
-          <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-3">
-            <span className="text-foreground font-semibold">// WORK CATALOG</span>
-            <span>·</span>
-            <span>[ {PROJECTS.length.toString().padStart(2, '0')} PROJECTS TOTAL ]</span>
-            <span>·</span>
-            <span className="text-emerald-500 font-semibold">RANKED BY LATEST COMMITS</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
+            <span className="text-foreground font-semibold shrink-0">// WORK CATALOG</span>
+            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+            <span className="shrink-0">[ {PROJECTS.length.toString().padStart(2, '0')} PROJECTS TOTAL ]</span>
+            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+            <span className="text-emerald-500 font-semibold shrink-0">RANKED BY LATEST COMMITS</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">

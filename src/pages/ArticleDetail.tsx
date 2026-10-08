@@ -129,7 +129,7 @@ export default function ArticleDetail() {
   }
 
   return (
-    <article className="py-16 sm:py-24 md:py-32">
+    <article className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
       <Container>
         <div className="max-w-3xl mx-auto">
           {/* Top Breadcrumb Navigation */}

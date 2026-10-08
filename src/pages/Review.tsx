@@ -70,10 +70,10 @@ export default function Review() {
   }
 
   return (
-    <div className="py-16 sm:py-24 md:py-32">
+    <div className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
       <Container>
         {/* Back Link */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground transition-colors group"
@@ -85,10 +85,10 @@ export default function Review() {
 
         {/* Page Header */}
         <header className="mb-12 sm:mb-16 pb-8 border-b border-border">
-          <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-3">
-            <span className="text-foreground font-semibold">// REVIEWS</span>
-            <span>·</span>
-            <span>SHARE YOUR COLLABORATIVE EXPERIENCE</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
+            <span className="text-foreground font-semibold shrink-0">// REVIEWS</span>
+            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+            <span className="shrink-0">SHARE YOUR COLLABORATIVE EXPERIENCE</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">

@@ -113,14 +113,14 @@ export default function Contact() {
   }
 
   return (
-    <div className="pt-16 sm:pt-24 md:pt-32 pb-8 sm:pb-12">
+    <div className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16">
       <Container>
         {/* ─── 1. Editorial Page Header ─── */}
         <header className="mb-14 sm:mb-20 pb-8 border-b border-border">
-          <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-3">
-            <span className="text-foreground font-semibold">// INITIATE CONTACT</span>
-            <span>·</span>
-            <span>DIRECT DIALOGUE</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
+            <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
+            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+            <span className="shrink-0">DIRECT DIALOGUE</span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
