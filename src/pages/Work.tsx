@@ -5,7 +5,7 @@ import { PROJECTS, SORTED_PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 export default function Work() {
-  useDocumentTitle('Work — Ahmed | Backend-Focused .NET Developer')
+  useDocumentTitle('Projects & Systems — Syed Ahmed Hussain | Software Developer in Karachi')
 
   return (
     <div className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">

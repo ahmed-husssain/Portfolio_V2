@@ -24,7 +24,7 @@ export default function Hero() {
 
         {/* ─── Supporting Paragraph ─── */}
         <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[720px] leading-relaxed mb-6 sm:mb-8 animate-hero-in delay-120">
-          Specialized in C#, ASP.NET Core, SQL Server, and Flutter with PostgreSQL. I build systems designed for data integrity—preventing race conditions, eliminating duplicate financial sequences, and delivering reliable software for production users.
+          Software and website developer based in Karachi, Pakistan. Specialized in C#, ASP.NET Core, SQL Server, and Flutter with PostgreSQL. I build systems designed for data integrity—preventing race conditions, eliminating duplicate financial sequences, and delivering reliable software for production users.
         </p>
 
         {/* ─── Proof Badge ─── */}

@@ -38,7 +38,7 @@ function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
 }
 
 export default function Contact() {
-  useDocumentTitle('Contact — Ahmed | Backend-Focused .NET Developer')
+  useDocumentTitle('Contact & Hire — Syed Ahmed Hussain | Software Developer in Karachi')
 
   const [formData, setFormData] = useState<ContactFormPayload>({
     name: '',

@@ -5,12 +5,12 @@ import Reveal from '../components/Reveal'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 
 export default function About() {
-  useDocumentTitle('About — Ahmed | Backend-Focused .NET Developer')
+  useDocumentTitle('About — Syed Ahmed Hussain | Software & Website Developer in Karachi')
 
   const metadata = [
-    { label: 'BASED IN', value: 'Karachi, Pakistan' },
-    { label: 'FOCUS', value: 'Backend & Web Development (.NET)' },
-    { label: 'CORE STACK', value: 'C#, ASP.NET Core, EF Core, SQL Server, MySQL, React, Tailwind CSS' },
+    { label: 'BASED IN', value: 'Karachi, Pakistan (Remote & On-site)' },
+    { label: 'FOCUS', value: 'Software & Website Development (.NET, Flutter, Full-Stack)' },
+    { label: 'CORE STACK', value: 'C#, ASP.NET Core, EF Core, SQL Server, Flutter, PostgreSQL, React, TypeScript' },
     { label: 'RECOGNITION', value: 'Runner-Up – Aptech Vision 2025 (Project: Mockrithm)' },
     { label: 'AVAILABILITY', value: 'Open for Backend & Full-Stack Engineering Roles' },
     { label: 'RESUME / CV', value: 'Official Resume (PDF)', href: '/resume.pdf' },

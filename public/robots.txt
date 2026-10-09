@@ -1,0 +1,48 @@
+# Robots.txt for Syed Ahmed Hussain Portfolio (https://ahmedhusssain.vercel.app)
+# Designed for Traditional Search Engines (Google, Bing) and AI Answer Engines (GEO/LLMs)
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# ─── Generative AI & LLM Search Engine Crawlers ───
+# OpenAI (ChatGPT, SearchGPT)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI Search
+User-agent: PerplexityBot
+Allow: /
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Bytespider
+User-agent: Bytespider
+Allow: /
+
+# ─── XML Sitemap & AI Knowledge File ───
+Sitemap: https://ahmedhusssain.vercel.app/sitemap.xml
+# AI Knowledge Reference: https://ahmedhusssain.vercel.app/llms.txt

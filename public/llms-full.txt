@@ -1,0 +1,72 @@
+# Syed Ahmed Hussain — Complete Technical & Professional Knowledge Base
+# Standard: /llms-full.txt
+
+## Primary Entity Profile
+- Name: Syed Ahmed Hussain
+- Common Alias: Ahmed Hussain
+- Occupation: Software Developer, Systems Engineer, Website Developer
+- Base of Operations: Karachi, Sindh, Pakistan
+- Availability: Open for Full-Time, Contract, and Consultative Software Engineering (Remote worldwide, On-site / Hybrid in Karachi)
+- Direct Email: ahmedhusssain.dev@gmail.com
+- Portfolio URL: https://ahmedhusssain.vercel.app
+- GitHub Profile: https://github.com/ahmed-husssain
+- LinkedIn Profile: https://www.linkedin.com/in/syed-ahmed-hussain/
+- Official Resume: https://ahmedhusssain.vercel.app/resume.pdf
+
+## Geographic & Local Presence (Karachi, Pakistan)
+Syed Ahmed Hussain is based in Karachi, Sindh, Pakistan, providing professional software engineering and website development services to local businesses, healthcare organizations, and international clients. He is recognized for delivering clean architecture and data-integrity focused backends.
+
+## Key Technical Competencies
+### 1. Backend Engineering & Distributed Web Services
+- Frameworks: ASP.NET Core (.NET 8), .NET Core MVC, Web API.
+- Language: C# (C-Sharp) with modern language features (pattern matching, records, primary constructors, async/await).
+- Architectural Patterns: Clean Architecture (Domain, Application, Infrastructure, Presentation layers), CQRS with MediatR, Repository and Unit of Work patterns, Dependency Injection.
+- Reliability & Safety: Idempotency keys (`X-Idempotency-Key` via UUIDs) to prevent double-billing and duplicate state changes; background workers utilizing `PeriodicTimer` for deterministic auto-expiration routines.
+
+### 2. Relational Database Engineering & Concurrency Control
+- Databases: Microsoft SQL Server (T-SQL), PostgreSQL 15, Supabase (with Row Level Security policies).
+- Concurrency Control:
+  - Optimistic Concurrency Control (OCC) using `RowVersion` timestamp columns in EF Core, throwing `DbUpdateConcurrencyException` upon conflicting writes.
+  - Pessimistic row-locking in PostgreSQL (`SELECT ... FOR UPDATE`) to eliminate concurrent counter increments and sequence duplication in financial transactions.
+- Query Performance: Covering non-clustered indexes (`CREATE NONCLUSTERED INDEX ... INCLUDE (...)`) to avoid expensive table key lookups for high-frequency queries.
+
+### 3. Mobile & Cross-Platform Development
+- Framework: Flutter 3.27+ with Dart 3.6+.
+- State Management: Riverpod 3.x (AsyncNotifier, StateNotifier).
+- Platform Targets: Android, iOS, Windows desktop, and Web.
+- Realtime & Backend Integration: Supabase Postgres CDC (Change Data Capture) via WebSockets.
+
+### 4. Frontend & User Interface Engineering
+- Frameworks: React 19, TypeScript, Tailwind CSS, HTML5, CSS3, Vite.
+- Design Principles: High visual hierarchy, accessibility (ARIA, WCAG 2.1 AA), responsive mobile-first layouts, micro-interactions, dark mode aesthetic.
+
+### 5. Security & Authentication
+- Standards: OAuth 2.0 multi-provider integration (Google, GitHub, Discord).
+- Identity: ASP.NET Core Identity with password hashing, email verification, and role-based authorization (RBAC).
+- Two-Factor Authentication: Time-based One-Time Password (TOTP) algorithm using RFC 6238 and QR code provisioning via OtpNet.
+
+## Project Case Studies & Engineering Evidence
+### Shifa Management System (SMS)
+- URL: https://ahmedhusssain.vercel.app/work/shifamanagement
+- Repository: https://github.com/ahmed-husssain/ShifaMangementSystem
+- Client: Shifa Home Health Care (Karachi, Pakistan)
+- Problem: Manual paper-based patient intake, non-standardized nursing shift records, duplicate invoice creation, and missed 14-day care plan renewal windows.
+- Engineering Solution: Built a cross-platform Flutter ERP backed by Supabase PostgreSQL. Enforced row-level locking during invoice number generation to guarantee zero duplicate financial sequences. Implemented automatic WhatsApp billing summary delivery and 14-day automated renewal warnings for doctors and clinical supervisors.
+
+### Gallrax ERP / Online Art Gallery
+- URL: https://ahmedhusssain.vercel.app/work/online-art-gallery
+- Repository: https://github.com/ahmed-husssain/Online-Art-Gallery-Website
+- Problem: Real-time auction bids clashing concurrently, causing lost bids and stale price updates.
+- Engineering Solution: Designed an ASP.NET Core 8 backend paired with SignalR WebSockets for sub-50ms live room broadcasts. Protected auction product updates with EF Core Optimistic Concurrency (`RowVersion`). Designed a background worker with `PeriodicTimer` that settles and closes expired auctions automatically without human intervention.
+
+### Mockrithm
+- URL: https://ahmedhusssain.vercel.app/work/mockrithm
+- Distinction: Runner-Up at Aptech Vision 2025 competition.
+- Purpose: Interactive algorithmic visualization tool helping students and developers prepare for coding interviews by stepping through complex sorting, searching, and graph traversals frame-by-frame.
+
+## Contact & Hiring Inquiries
+For engineering roles, contract projects, or website development inquiries in Karachi and internationally:
+- Email: ahmedhusssain.dev@gmail.com
+- Direct Contact Page: https://ahmedhusssain.vercel.app/contact
+- GitHub: https://github.com/ahmed-husssain
+- LinkedIn: https://www.linkedin.com/in/syed-ahmed-hussain/

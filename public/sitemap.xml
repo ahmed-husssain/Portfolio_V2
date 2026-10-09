@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ahmedhusssain.vercel.app/og-image.png</image:loc>
+      <image:title>Syed Ahmed Hussain — Software &amp; Website Developer in Karachi</image:title>
+      <image:caption>Portfolio of Syed Ahmed Hussain, software developer based in Karachi, Pakistan specializing in .NET, SQL Server, and Flutter with PostgreSQL.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Work Catalog -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Project: ShifaManagement -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work/shifamanagement</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://ahmedhusssain.vercel.app/projects/shifamanagement/preview.png</image:loc>
+      <image:title>Shifa Management System — Healthcare Platform</image:title>
+    </image:image>
+  </url>
+
+  <!-- Project: Gallrax ERP (Online Art Gallery) -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work/online-art-gallery</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://ahmedhusssain.vercel.app/projects/online-art-gallery/hero.png</image:loc>
+      <image:title>Gallrax ERP — Online Art Gallery &amp; Auction Platform</image:title>
+    </image:image>
+  </url>
+
+  <!-- Project: Mockrithm -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work/mockrithm</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Project: Amber Property Corner -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work/amber-property-corner</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Project: E-Books -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/work/e-books</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- About Syed Ahmed Hussain -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/about</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Technical Writing & Engineering Notes -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/writing</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- Contact & Service Inquiries -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/contact</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Official Resume PDF -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/resume.pdf</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+</urlset>

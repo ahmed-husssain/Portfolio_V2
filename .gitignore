@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Root draft assets
+syed_ahmed_hussain_resume.*

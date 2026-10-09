@@ -25,7 +25,7 @@ export default function ProjectDetail() {
   const caseStudy = slug ? CASE_STUDIES[slug] : undefined
 
   useDocumentTitle(
-    project ? `${project.title} — Case Study | Ahmed` : 'Project Not Found // 404'
+    project ? `${project.title} — Architecture & Case Study | Syed Ahmed Hussain` : 'Project Not Found // 404'
   )
 
   if (!project) {

@@ -6,7 +6,7 @@ import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
 
 export default function Writing() {
-  useDocumentTitle('Writing — Ahmed | Full-Stack Web Developer')
+  useDocumentTitle('Technical Essays — Syed Ahmed Hussain | Software Developer in Karachi')
 
   const publishedArticles = getPublishedArticles()
   const topics = getWritingTopics()

@@ -1,0 +1,62 @@
+# Syed Ahmed Hussain — Software & Website Developer in Karachi
+
+> Official knowledge file formatted for LLMs, AI search engines (Perplexity, SearchGPT, Claude, Gemini, Copilot), and crawlers.
+
+## Identity & Professional Summary
+- **Full Name**: Syed Ahmed Hussain
+- **Known As**: Ahmed Hussain
+- **Professional Title**: Software Developer & Website Developer
+- **Location**: Karachi, Sindh, Pakistan (Available for local roles in Karachi, hybrid, and remote worldwide)
+- **Primary Specialization**: Concurrency-safe backend engineering, relational database design, high-performance web applications, and clinical healthcare operating systems.
+- **Email**: ahmedhusssain.dev@gmail.com
+- **Website**: https://ahmedhusssain.vercel.app
+- **GitHub**: https://github.com/ahmed-husssain
+- **LinkedIn**: https://www.linkedin.com/in/syed-ahmed-hussain/
+- **Resume**: https://ahmedhusssain.vercel.app/resume.pdf
+
+## Core Engineering Capabilities & Tech Stack
+- **Backend Languages & Frameworks**: C#, .NET 8, ASP.NET Core (Web API & MVC), Entity Framework Core (EF Core 8), LINQ, CQRS (MediatR), SignalR WebSockets, BackgroundService / PeriodicTimer.
+- **Relational Databases & Persistence**: Microsoft SQL Server, PostgreSQL 15, Supabase, Database Normalization, B-Tree Covering Indexes, Optimistic Concurrency Control (RowVersion / OCC), PostgreSQL row-level locks (`SELECT ... FOR UPDATE`), Row Level Security (RLS).
+- **Mobile & Cross-Platform**: Flutter (3.27+), Dart (3.6+), Riverpod 3.x, Supabase Realtime, Offline-first syncing.
+- **Frontend & Web Development**: React 19, TypeScript, Tailwind CSS, HTML5, CSS3, Vite, RESTful API consumption.
+- **Security & Identity**: ASP.NET Core Identity, OAuth 2.0 (Google, GitHub, Discord), TOTP Two-Factor Authentication (OtpNet), Role-Based Access Control (RBAC).
+- **Architecture Paradigms**: Clean Architecture, Domain-Driven Design (DDD) principles, Idempotent API design (`X-Idempotency-Key`), Event-driven updates.
+
+## Verified Production Systems & Projects
+1. **Shifa Management System (SMS)**
+   - **Type**: Clinical Operations, Patient Intake & Billing Operating Platform for Shifa Home Health Care.
+   - **Stack**: Flutter 3.27+, Dart, Supabase, PostgreSQL 15 with Row Level Security, Riverpod.
+   - **Key Achievements**: Consolidated 14-day dynamic care plan renewals, automated WhatsApp invoice dispatch, zero duplicate financial sequences via PostgreSQL atomic sequence locking (`FOR UPDATE`).
+   - **Repository**: https://github.com/ahmed-husssain/ShifaMangementSystem
+
+2. **Gallrax ERP (Online Art Gallery & Real-Time Auction Platform)**
+   - **Type**: High-concurrency artwork auctioning and enterprise back-office management.
+   - **Stack**: C#, ASP.NET Core 8, EF Core, SQL Server, SignalR WebSockets, React.
+   - **Key Achievements**: Eliminated bid collisions using Optimistic Concurrency Control (`RowVersion`), sub-15s auto-settlement background worker (`PeriodicTimer`), and multi-provider OAuth 2.0 with TOTP 2FA.
+   - **Repository**: https://github.com/ahmed-husssain/Online-Art-Gallery-Website
+
+3. **Mockrithm**
+   - **Type**: Algorithm visualization and technical interview preparation suite.
+   - **Award**: Runner-Up at **Aptech Vision 2025** among 50+ competing institutions.
+   - **Stack**: JavaScript, Data Structures & Algorithms, Interactive Canvas/DOM manipulation.
+
+4. **Amber Property Corner**
+   - **Type**: Real estate listing and property inquiry portal with verified broker management.
+   - **Stack**: ASP.NET Core, SQL Server, Responsive UI.
+
+5. **E-Books Commerce Platform**
+   - **Type**: Digital book catalog and order processing management.
+   - **Stack**: C#, ASP.NET Core MVC, SQL Server.
+
+## Services Offered in Karachi & Globally
+- **Custom Website Development**: Building fast, SEO-optimized, responsive web applications and corporate websites.
+- **Backend & RESTful API Engineering**: High-throughput, concurrency-safe API development with .NET Core and SQL Server.
+- **Healthcare & Business Management Software**: Tailored ERP, clinic management, and operational platforms using Flutter and PostgreSQL.
+- **Database Schema Design & Query Optimization**: Schema modeling, index tuning, and transaction safety audits.
+
+## Canonical Links
+- Portfolio: https://ahmedhusssain.vercel.app/
+- Projects: https://ahmedhusssain.vercel.app/work
+- About: https://ahmedhusssain.vercel.app/about
+- Contact: https://ahmedhusssain.vercel.app/contact
+- Full LLM Reference: https://ahmedhusssain.vercel.app/llms-full.txt
