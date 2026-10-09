@@ -19,12 +19,12 @@ export default function Hero() {
 
         {/* ─── Main Headline ─── */}
         <h1 className="text-[clamp(1.75rem,5vw,3.85rem)] font-bold tracking-tight leading-[1.12] text-foreground mb-6 sm:mb-8 max-w-[980px] animate-hero-in delay-60">
-          Hi, I'm Ahmed. I build .NET backends and full-stack web applications with modern AI workflows.
+          Hi, I'm Ahmed. I engineer concurrency-safe backends, clinical operating systems, and real-time web applications.
         </h1>
 
         {/* ─── Supporting Paragraph ─── */}
-        <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[680px] leading-relaxed mb-6 sm:mb-8 animate-hero-in delay-120">
-          Specialized in C#, ASP.NET Core, and relational SQL Server databases. I pair solid backend fundamentals with AI coding tools to turn complex product requirements into clean, production-ready software.
+        <p className="text-secondary text-base sm:text-lg md:text-xl max-w-[720px] leading-relaxed mb-6 sm:mb-8 animate-hero-in delay-120">
+          Specialized in C#, ASP.NET Core, SQL Server, and Flutter with PostgreSQL. I build systems designed for data integrity—preventing race conditions, eliminating duplicate financial sequences, and delivering reliable software for production users.
         </p>
 
         {/* ─── Proof Badge ─── */}
@@ -58,32 +58,53 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* ─── Technical Metadata Spec Readout Bar ─── */}
-        <div className="border-t border-border pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 animate-hero-in delay-240">
-          <div className="flex flex-col gap-1.5">
-            <span className="font-mono text-[11px] text-muted tracking-widest uppercase">
-              // 01. SPECIALIZATION
+        {/* ─── Verified Production Proof Bar ─── */}
+        <div className="border-t border-border pt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 animate-hero-in delay-240">
+          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
+              // CLIENT DELIVERY
             </span>
-            <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              Backend & .NET Web Architecture
+            <span className="text-base sm:text-lg font-bold font-mono text-foreground">
+              3 Months
             </span>
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <span className="font-mono text-[11px] text-muted tracking-widest uppercase">
-              // 02. CORE STACK
-            </span>
-            <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              C#, ASP.NET Core, SQL Server, React, Tailwind CSS
+            <span className="text-[11px] font-mono text-secondary">
+              Zero-to-production clinical platform
             </span>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <span className="font-mono text-[11px] text-muted tracking-widest uppercase">
-              // 03. ENGINEERING FOCUS
+          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
+              // BILLING SAFETY
             </span>
-            <span className="font-mono text-xs sm:text-sm text-foreground font-medium">
-              Clean Architecture, Idempotent APIs & Relational Schemas
+            <span className="text-base sm:text-lg font-bold font-mono text-emerald-500">
+              0 Duplicates
+            </span>
+            <span className="text-[11px] font-mono text-secondary">
+              PostgreSQL atomic sequence locks
+            </span>
+          </div>
+
+          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
+              // AUTOMATED TESTS
+            </span>
+            <span className="text-base sm:text-lg font-bold font-mono text-foreground">
+              93 Passed
+            </span>
+            <span className="text-[11px] font-mono text-secondary">
+              Verified clinical & financial logic
+            </span>
+          </div>
+
+          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
+              // REAL-TIME PUSH
+            </span>
+            <span className="text-base sm:text-lg font-bold font-mono text-foreground">
+              &lt; 10ms Latency
+            </span>
+            <span className="text-[11px] font-mono text-secondary">
+              SignalR WebSocket multicast
             </span>
           </div>
         </div>

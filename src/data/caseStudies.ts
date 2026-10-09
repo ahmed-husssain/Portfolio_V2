@@ -131,7 +131,7 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
     architecture: [
       'Multi-platform Flutter 3.27+ with Riverpod 3.x reactive dependency injection and stream providers',
       'Supabase PostgreSQL 15 with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
-      'Sub-millisecond single-row inline custom service editing on mobile screens (320px - 412px)',
+      'Responsive single-row inline service editing without wrapping on mobile viewports (320px - 412px)',
       'Real-time PostgreSQL Change Data Capture (CDC) streams for active patient rosters and renewal feeds',
     ],
     challenges: [

@@ -273,13 +273,13 @@ export default function ProjectDetail() {
                     <span className="text-foreground font-semibold flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       {project.slug === 'shifamanagement'
-                        ? 'INTERACTIVE CLINICAL & INVOICING ARCHITECTURE BENCH'
-                        : 'INTERACTIVE SYSTEM ARCHITECTURE & CONCURRENCY BENCH'}
+                        ? 'INTERACTIVE CLINICAL DATA FLOW & BILLING SIMULATOR'
+                        : 'INTERACTIVE BID CONCURRENCY & DATA FLOW SIMULATOR'}
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
                       {project.slug === 'shifamanagement'
-                        ? 'VERIFIABLE WITH SUPABASE & POSTGRESQL 15'
-                        : 'VERIFIABLE WITH .NET 8 REPOSITORY'}
+                        ? 'DOCUMENTED SUPABASE & POSTGRESQL 15 ARCHITECTURE'
+                        : 'DOCUMENTED .NET 8 & SQL SERVER ARCHITECTURE'}
                     </span>
                   </div>
                   <ArchitectureVisualizer projectSlug={project.slug} />

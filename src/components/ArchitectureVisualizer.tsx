@@ -39,10 +39,10 @@ interface FlowData {
 
 const FLOWS: Record<string, FlowData> = {
   'online-art-gallery': {
-    subtitle: 'Live auction pipeline: from click to sub-millisecond database commit.',
+    subtitle: 'Live auction pipeline: request validation, concurrency guard, and real-time push.',
     tag: '.NET 8 & SQL SERVER',
-    guarantee: 'Zero Deadlocks Guarantee',
-    guaranteeTech: '0.01ms Cache · RowVersion OCC · WebSockets',
+    guarantee: 'Bid Concurrency Safety',
+    guaranteeTech: 'In-Memory Cache · RowVersion OCC · SignalR WebSockets',
     steps: [
       {
         id: 'bid',
@@ -52,7 +52,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'Client UI',
         action: 'Collector clicks "Place Bid".',
         protection: 'Attaches unique UUID key to prevent duplicate charges.',
-        metric: 'Payload < 150 B',
+        metric: 'Idempotency UUID',
       },
       {
         id: 'cache',
@@ -61,8 +61,8 @@ const FLOWS: Record<string, FlowData> = {
         title: 'In-Memory RAM Filter',
         layer: 'IMemoryCache',
         action: 'Checks RAM before database.',
-        protection: 'Catches rapid double-clicks in 0.01ms with zero database load.',
-        metric: '0.01ms speed',
+        protection: 'Catches rapid double-clicks in RAM before hitting the database.',
+        metric: 'In-Memory Filter',
       },
       {
         id: 'validation',
@@ -72,7 +72,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'Business Logic',
         action: 'Verifies auction rules.',
         protection: 'Confirms active countdown, card on file, and bid increment.',
-        metric: '4 rule checks',
+        metric: 'Rule Validation',
       },
       {
         id: 'sql',
@@ -82,7 +82,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'SQL Server & EF Core',
         action: 'Saves bid with RowVersion.',
         protection: 'If 2 bids collide at the same millisecond, 1st commits; 2nd retries safely.',
-        metric: 'Zero deadlocks',
+        metric: 'OCC RowVersion',
       },
       {
         id: 'signalr',
@@ -92,7 +92,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'Real-Time Multicast',
         action: 'Broadcasts price to all viewers.',
         protection: 'All screens update in under 10ms with zero page reloads.',
-        metric: '< 10ms latency',
+        metric: '< 10ms Multicast',
       },
     ],
     simulations: [
@@ -106,7 +106,7 @@ const FLOWS: Record<string, FlowData> = {
         id: 'double-click',
         label: 'Fast Double-Click Spam',
         highlightStep: 2,
-        result: 'Caught in RAM in 0.01ms. Exactly 1 database write happens.',
+        result: 'Caught in memory cache. Exactly 1 database write commits, preventing duplicate bids.',
       },
       {
         id: 'timeout',
@@ -117,10 +117,10 @@ const FLOWS: Record<string, FlowData> = {
     ],
   },
   'shifamanagement': {
-    subtitle: 'Clinical operations & billing: from staff input to ACID database commit.',
+    subtitle: 'Clinical operations & billing: from staff intake to ACID database commit.',
     tag: 'FLUTTER · SUPABASE · POSTGRES 15',
-    guarantee: 'Zero Duplicate Invoices Guarantee',
-    guaranteeTech: 'ACID RPCs · Row Level Security · Realtime CDC',
+    guarantee: 'Strict Sequential Invoice Safety',
+    guaranteeTech: 'PostgreSQL Atomic RPCs · Row-Level Security · Realtime CDC',
     steps: [
       {
         id: 'input',
@@ -130,7 +130,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'Flutter & Riverpod',
         action: 'Staff issues invoice or intake.',
         protection: 'Attaches UUID idempotency key to prevent double submissions.',
-        metric: 'Local validation < 1ms',
+        metric: 'Client Validation',
       },
       {
         id: 'gateway',
@@ -139,8 +139,8 @@ const FLOWS: Record<string, FlowData> = {
         title: 'Pre-Lock Idempotency',
         layer: 'Supabase Gateway',
         action: 'Intercepts duplicate network retry.',
-        protection: 'Returns existing invoice in 0.05ms without touching database counters.',
-        metric: '0.05ms replay',
+        protection: 'Returns existing invoice payload without incrementing database sequence counters.',
+        metric: 'Idempotent Replay',
       },
       {
         id: 'rowlock',
@@ -150,17 +150,17 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'PostgreSQL FOR UPDATE',
         action: 'Locks sequence row exclusively.',
         protection: 'Guarantees consecutive gapless numbering (SHHC-5001) with zero collisions.',
-        metric: 'Zero number gaps',
+        metric: 'Atomic Sequence Lock',
       },
       {
         id: 'rls',
         number: 4,
         short: 'RLS Guard',
         title: 'Row Level Security',
-        layer: 'Postgres RLS Kernel',
+        layer: 'PostgreSQL Row Level Security',
         action: 'Filters query by JWT role.',
         protection: 'Blocks staff from accessing agency profit margins and unassigned patients.',
-        metric: 'Kernel-level isolation',
+        metric: 'Row-Level Isolation',
       },
       {
         id: 'stream',
@@ -170,7 +170,7 @@ const FLOWS: Record<string, FlowData> = {
         layer: 'Postgres CDC & WebSocket',
         action: 'Streams updates to all devices.',
         protection: 'Pushes 7-day care plan expiration alerts instantly across Android, iOS & Desktop.',
-        metric: '< 15ms broadcast',
+        metric: 'Live CDC Alert',
       },
     ],
     simulations: [
@@ -184,7 +184,7 @@ const FLOWS: Record<string, FlowData> = {
         id: 'staff-access-violation',
         label: 'Staff Queries Agency Margins',
         highlightStep: 4,
-        result: 'PostgreSQL Row Level Security blocks request at kernel level. 0 restricted records returned.',
+        result: 'PostgreSQL Row Level Security blocks request at database level. 0 restricted records returned.',
       },
       {
         id: 'plan-expiration-event',
