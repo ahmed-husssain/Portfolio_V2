@@ -58,53 +58,53 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* ─── Verified Production Proof Bar ─── */}
+        {/* ─── Client Value & Delivery Pillars ─── */}
         <div className="border-t border-border pt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 animate-hero-in delay-240">
           <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
             <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
-              // CLIENT DELIVERY
+              // WHAT I BUILD
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground">
-              3 Months
+              Web & Mobile Apps
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Zero-to-production clinical platform
+              Modern websites, portals & mobile apps
             </span>
           </div>
 
           <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
             <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
-              // BILLING SAFETY
+              // CODE QUALITY
+            </span>
+            <span className="text-base sm:text-lg font-bold font-mono text-foreground">
+              Production-Ready
+            </span>
+            <span className="text-[11px] font-mono text-secondary">
+              Clean architecture & secure authentication
+            </span>
+          </div>
+
+          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
+            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
+              // DATA SAFETY
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-emerald-500">
-              0 Duplicates
+              High Reliability
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              PostgreSQL atomic sequence locks
+              Zero duplicate charges & zero data loss
             </span>
           </div>
 
           <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
             <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
-              // AUTOMATED TESTS
+              // CLIENT COMMITMENT
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground">
-              93 Passed
+              On-Time Delivery
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Verified clinical & financial logic
-            </span>
-          </div>
-
-          <div className="p-3.5 sm:p-4 rounded-sm border border-border bg-surface flex flex-col gap-1">
-            <span className="font-mono text-[10px] text-muted tracking-widest uppercase">
-              // REAL-TIME PUSH
-            </span>
-            <span className="text-base sm:text-lg font-bold font-mono text-foreground">
-              &lt; 10ms Latency
-            </span>
-            <span className="text-[11px] font-mono text-secondary">
-              SignalR WebSocket multicast
+              Fast turnaround & clear communication
             </span>
           </div>
         </div>
