@@ -18,7 +18,7 @@ export default function SectionHeading({
   scramble = true,
 }: SectionHeadingProps) {
   return (
-    <div className={`mb-12 md:mb-16 ${className}`}>
+    <div className={`mb-8 sm:mb-10 md:mb-12 ${className}`}>
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between border-b border-border pb-4 gap-2">
         <div className="flex items-baseline gap-3">
           {index && (

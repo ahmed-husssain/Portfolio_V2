@@ -9,7 +9,7 @@ export default function WritingPreview() {
   const topics = getWritingTopics()
 
   return (
-    <section id="writing" className="py-20 sm:py-28 md:py-36 border-b border-border">
+    <section id="writing" className="py-12 sm:py-16 md:py-20 border-b border-border">
       <Container>
         <SectionHeading
           index="// 05"

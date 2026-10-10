@@ -70,7 +70,7 @@ export default function Review() {
   }
 
   return (
-    <div className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
+    <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
         {/* Back Link */}
         <div className="mb-6 sm:mb-8">

@@ -13,7 +13,7 @@ export default function AboutPreview() {
   ]
 
   return (
-    <section id="about" className="py-20 sm:py-28 md:py-36 border-b border-border">
+    <section id="about" className="py-12 sm:py-16 md:py-20 border-b border-border">
       <Container>
         <SectionHeading
           index="// 03"

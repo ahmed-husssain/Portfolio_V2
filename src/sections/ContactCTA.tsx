@@ -7,7 +7,7 @@ import { CONTACT_CONFIG } from '../data/contact'
 
 export default function ContactCTA() {
   return (
-    <section id="contact" className="pt-20 sm:pt-28 md:pt-36 pb-0">
+    <section id="contact" className="pt-12 sm:pt-16 md:pt-20 pb-0">
       <Container>
         <SectionHeading
           index="// 06"

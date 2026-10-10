@@ -7,7 +7,7 @@ export default function NotFound() {
   useDocumentTitle('404 — Page Not Found | Ahmed')
 
   return (
-    <div className="pt-24 sm:pt-36 pb-16 sm:pb-24 min-h-[70vh] flex items-center">
+    <div className="pt-16 sm:pt-24 pb-12 sm:pb-16 min-h-[70vh] flex items-center">
       <Container>
         <div className="border border-border bg-surface rounded-sm p-8 sm:p-14 max-w-2xl">
           <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">

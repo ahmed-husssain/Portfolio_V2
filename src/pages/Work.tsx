@@ -8,10 +8,10 @@ export default function Work() {
   useDocumentTitle('Projects & Systems — Syed Ahmed Hussain | Software Developer in Karachi')
 
   return (
-    <div className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32">
+    <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
         {/* Page Header */}
-        <header className="mb-14 sm:mb-20 pb-8 border-b border-border">
+        <header className="mb-8 sm:mb-12 pb-6 border-b border-border">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
             <span className="text-foreground font-semibold shrink-0">// WORK CATALOG</span>
             <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
