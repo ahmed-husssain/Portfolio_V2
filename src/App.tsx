@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
 import ScrollProgress from './components/ScrollProgress'
@@ -61,6 +62,9 @@ export default function App() {
               </PageTransition>
             </Suspense>
           </main>
+
+          {/* ─── Global Footer ─── */}
+          <Footer />
         </div>
       </BrowserRouter>
     </ThemeProvider>

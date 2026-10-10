@@ -4,12 +4,10 @@ import SelectedWork from '../sections/SelectedWork'
 import Capabilities from '../sections/Capabilities'
 import AboutPreview from '../sections/AboutPreview'
 import Reviews from '../sections/Reviews'
-import WritingPreview from '../sections/WritingPreview'
-import ContactCTA from '../sections/ContactCTA'
 import Reveal from '../components/Reveal'
 
 export default function Home() {
-  useDocumentTitle('Backend-Focused .NET Developer')
+  useDocumentTitle('Syed Ahmed Hussain — Software & Website Developer in Karachi')
 
   return (
     <>
@@ -25,12 +23,6 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <Reviews />
-      </Reveal>
-      <Reveal>
-        <WritingPreview />
-      </Reveal>
-      <Reveal>
-        <ContactCTA />
       </Reveal>
     </>
   )
