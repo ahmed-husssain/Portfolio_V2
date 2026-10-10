@@ -4,10 +4,10 @@ import Button from '../components/Button'
 
 export default function Hero() {
   return (
-    <section className="pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-28 md:pb-36 border-b border-border">
+    <section className="pt-20 sm:pt-24 md:pt-28 pb-16 sm:pb-24 md:pb-28 border-b border-border">
       <Container>
         {/* ─── Eyebrow ─── */}
-        <div className="flex items-center gap-2.5 font-mono text-xs sm:text-sm text-secondary mb-6 sm:mb-8 animate-hero-in">
+        <div className="flex items-center gap-2.5 font-mono text-xs sm:text-sm text-secondary mb-4 sm:mb-5 animate-hero-in">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
