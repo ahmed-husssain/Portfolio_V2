@@ -2,7 +2,6 @@ import { useDocumentTitle } from '../lib/useDocumentTitle'
 import Hero from '../sections/Hero'
 import SelectedWork from '../sections/SelectedWork'
 import Capabilities from '../sections/Capabilities'
-import AboutPreview from '../sections/AboutPreview'
 import Reviews from '../sections/Reviews'
 import Reveal from '../components/Reveal'
 
@@ -17,9 +16,6 @@ export default function Home() {
       </Reveal>
       <Reveal>
         <Capabilities />
-      </Reveal>
-      <Reveal>
-        <AboutPreview />
       </Reveal>
       <Reveal>
         <Reviews />
