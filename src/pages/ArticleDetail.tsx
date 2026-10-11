@@ -1,9 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Calendar, Tag, MessageSquare, BookOpen } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, Tag, MessageSquare, BookOpen, Share2, ExternalLink, Sparkles } from 'lucide-react'
 import Container from '../components/Container'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
+import { CONTACT_CONFIG } from '../data/contact'
+import BiddingConcurrencyVisualizer from '../components/writing/BiddingConcurrencyVisualizer'
+import MedicalBillingVisualizer from '../components/writing/MedicalBillingVisualizer'
+
+function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+      />
+    </svg>
+  )
+}
 
 // Dynamic component loaders isolated to this route-level chunk
 const articleLoaders = import.meta.glob<{ default: React.ComponentType<{ components?: any }> }>(
@@ -52,6 +67,9 @@ const mdxComponents = {
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-foreground underline decoration-border hover:decoration-foreground underline-offset-4 transition-colors" {...props} />
   ),
+  // Custom Interactive Visualizer Components for Engineering Demonstrations
+  BiddingConcurrencyVisualizer,
+  MedicalBillingVisualizer,
 }
 
 export default function ArticleDetail() {
@@ -61,8 +79,8 @@ export default function ArticleDetail() {
 
   useDocumentTitle(
     article
-      ? `${article.title} — Ahmed | Full-Stack Web Developer`
-      : 'Article Not Found — Ahmed | Full-Stack Web Developer'
+      ? `${article.title} — Syed Ahmed Hussain`
+      : 'Article Not Found — Syed Ahmed Hussain'
   )
 
   const [MdxContent, setMdxContent] = useState<React.ComponentType<{ components?: any }> | null>(null)
@@ -128,6 +146,9 @@ export default function ArticleDetail() {
     )
   }
 
+  const articleUrl = typeof window !== 'undefined' ? window.location.href : `https://ahmedhussain.me/writing/${article.slug}`
+  const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`
+
   return (
     <article className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
@@ -157,36 +178,55 @@ export default function ArticleDetail() {
               <span className="text-foreground font-semibold uppercase tracking-wider">
                 BY AHMED HUSSAIN
               </span>
+              <span>·</span>
+              <span className="px-2 py-0.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-[10px]">
+                INTERACTIVE DEMONSTRATION
+              </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground tracking-tight leading-tight mb-6">
               {article.title}
             </h1>
 
-            <p className="text-secondary text-base sm:text-lg leading-relaxed mb-6">
+            <p className="text-secondary text-base sm:text-lg leading-relaxed mb-6 font-normal">
               {article.description}
             </p>
 
-            {/* Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-border">
-              <Tag className="w-3 h-3 text-muted mr-1" aria-hidden="true" />
-              {article.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2.5 py-0.5 text-xs font-mono bg-surface border border-border text-secondary rounded-sm"
-                >
-                  {tag}
-                </span>
-              ))}
+            {/* Tags Strip + Share on LinkedIn */}
+            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
+              <div className="flex flex-wrap items-center gap-2">
+                <Tag className="w-3.5 h-3.5 text-muted mr-1" aria-hidden="true" />
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 text-xs font-mono bg-page border border-border text-secondary rounded-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                href={linkedInShareUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1 bg-surface border border-border text-xs font-mono text-secondary hover:text-foreground hover:border-border-strong rounded-xs transition-colors"
+                title="Share this breakdown on LinkedIn"
+              >
+                <Share2 className="w-3 h-3 text-blue-500" />
+                <span>SHARE ON LINKEDIN</span>
+              </a>
             </div>
           </header>
 
-          {/* MDX Article Body */}
+          {/* Article Body Content */}
           <div className="min-h-[200px]">
             {loading && (
-              <div className="py-12 flex items-center justify-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
-                <span>LOADING ESSAY CONTENT...</span>
+              <div className="py-16 text-center">
+                <div className="inline-block w-6 h-6 border-2 border-foreground border-t-transparent rounded-full animate-spin mb-4" />
+                <p className="text-xs font-mono text-muted uppercase tracking-wider">
+                  LOADING ESSAY & INTERACTIVE WIDGETS...
+                </p>
               </div>
             )}
 
@@ -203,26 +243,51 @@ export default function ArticleDetail() {
             )}
           </div>
 
-          {/* Author Callout & Feedback Card */}
+          {/* Engineering Artifacts & Social Activity Card */}
           <div className="mt-16 sm:mt-20 border border-border bg-surface rounded-sm p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-6 border-b border-border">
               <div>
-                <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1">
-                  AUTHOR // ARCHITECTURE & SYSTEMS
+                <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-500" /> AUTHOR & PRODUCTION SYSTEMS
                 </p>
                 <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                  Ahmed Hussain
+                  Syed Ahmed Hussain
                 </h3>
                 <p className="text-xs sm:text-sm text-secondary mt-1 max-w-md">
-                  Full-stack web developer building real-world web applications with modern TypeScript, backend APIs, relational databases, and scalable UI architectures.
+                  Backend-focused software developer building clinical platforms and high-concurrency e-commerce systems with .NET 8, Flutter, and PostgreSQL.
                 </p>
               </div>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href={CONTACT_CONFIG.linkedin.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#0A66C2]/10 border border-[#0A66C2]/30 text-[#0A66C2] dark:text-[#70B5F9] text-xs font-mono font-medium rounded-xs hover:bg-[#0A66C2]/20 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>CONNECT ON LINKEDIN</span>
+                </a>
+                <a
+                  href={CONTACT_CONFIG.github.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-xs hover:border-border-strong transition-colors"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>GITHUB PROFILE</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="pt-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+              <span className="text-muted">HAVE A QUESTION ABOUT THIS IMPLEMENTATION?</span>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong transition-colors shrink-0"
+                className="inline-flex items-center gap-1.5 font-semibold text-foreground hover:text-secondary transition-colors"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>DISCUSS THIS ESSAY</span>
+                <span>DISCUSS ARCHITECTURE & INQUIRIES</span>
               </Link>
             </div>
           </div>
