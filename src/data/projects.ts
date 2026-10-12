@@ -29,9 +29,9 @@ export const PROJECTS: Project[] = [
     title: 'ShifaManagement',
     category: 'Healthcare / Cross-Platform',
     shortDescription:
-      'Home healthcare clinical operations, billing, and care plan renewal platform.',
+      'Cross-platform clinical operations, dynamic billing, and automated care plan renewals.',
     description:
-      'A cross-platform healthcare operations system consolidating patient intake, clinical diagnostics, dynamic per-diem service fee structuring, automated 14-day care plan renewals, and WhatsApp invoice dispatch.',
+      'Clinical operations system automating patient intake, diagnostic logs, dynamic fee schedules, 14-day care plan renewals, and WhatsApp PDF dispatch.',
     technologies: [
       'Flutter',
       'Dart',
@@ -62,16 +62,16 @@ export const PROJECTS: Project[] = [
       'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
     ],
     outcome:
-      'High-reliability clinical management and billing system deployed across mobile and desktop with zero duplicate invoices.',
+      'Zero duplicate invoices across production mobile and desktop deployments with ACID-guaranteed sequence locks.',
   },
   {
     slug: 'online-art-gallery',
     title: 'Online Art Gallery',
     category: 'E-Commerce / .NET Full-Stack',
     shortDescription:
-      'Full-stack digital & AI art marketplace with automated auction and bidding engine.',
+      'Real-time art marketplace with concurrency-safe auction settlement and live bidding.',
     description:
-      'A full-stack e-commerce web platform for digital and AI-generated art. Engineered with ASP.NET Core MVC, multi-provider OAuth 2.0 authentication, an automated auction/bidding engine, shopping cart, and a relational SQL Server database schema.',
+      'High-throughput marketplace engineered with ASP.NET Core and SQL Server. Features optimistic concurrency control (RowVersion), SignalR WebSocket bid streams, and sub-10ms cache idempotency.',
     technologies: [
       'C#',
       '.NET 8',
@@ -104,16 +104,16 @@ export const PROJECTS: Project[] = [
       'Autonomous AuctionEndingWorker (BackgroundService) settling expired auctions via 15-second PeriodicTimer',
     ],
     outcome:
-      'Production-grade e-commerce and live auction platform operating with zero table deadlocks, sub-10ms WebSocket multicasts, and autonomous background settlement.',
+      'Zero database deadlocks under concurrent bid spikes with sub-10ms SignalR WebSocket multicast latency.',
   },
   {
     slug: 'mockrithm',
     title: 'Mockrithm',
     category: 'AI / Web Application',
     shortDescription:
-      'AI-driven interview preparation web platform designed to help students practice technical interviews.',
+      'AI interview simulator with live speech pacing analytics and in-browser code editor.',
     description:
-      'An AI-driven interview preparation web platform designed to help students practice and refine technical interview skills with real-time feedback, in-browser code editor, and speech pacing analysis.',
+      'Conversational technical interview simulator featuring real-time audio analysis, Monaco in-browser code evaluation, and automated competency scoring.',
     technologies: [
       'Next.js',
       'React',
@@ -137,16 +137,16 @@ export const PROJECTS: Project[] = [
       'Role-based competency scoring and structured evaluation summaries',
     ],
     outcome:
-      'Awarded Runner-Up at Aptech Vision 2025 out of multiple competing software projects.',
+      'Awarded Runner-Up at Aptech Vision 2025 across university and institute software engineering contenders.',
   },
   {
     slug: 'amber-property-corner',
     title: 'Amber Property Corner',
     category: 'Real Estate / Full-Stack',
     shortDescription:
-      'Real estate discovery portal with multi-criteria search and admin listing workflows.',
+      'Fast property search engine with indexed multi-criteria filtering and agent lead routing.',
     description:
-      'A full-stack real estate web application built for fast property discovery, multi-parameter location queries, automated agent lead routing, and role-based administrative listing workflows.',
+      'Property discovery portal with normalized PostgreSQL schemas, Prisma type-safe queries, indexed search filters, and administrative lead routing.',
     technologies: [
       'Next.js',
       'React',
@@ -170,16 +170,16 @@ export const PROJECTS: Project[] = [
       'Secure role-based administrative dashboard with session authentication',
     ],
     outcome:
-      'High-performance property discovery portal with sub-150ms query turnaround and clean mobile responsiveness.',
+      'Sub-150ms catalog query turnaround with zero-table scan index tuning.',
   },
   {
     slug: 'e-books',
     title: 'E-Books Platform',
     category: 'Digital Library / Full-Stack',
     shortDescription:
-      'Responsive digital library web application featuring user registration and secure session management.',
+      'Lightweight catalog reader with ACID-compliant MySQL schemas and session authentication.',
     description:
-      'A responsive digital library web application built with PHP and MySQL. Features user registration, authentication, secure session management, and relational database schemas to manage user collections and book data.',
+      'Digital library web application featuring normalized relational schemas, session-based authentication, and mobile reader layouts.',
     technologies: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'REST APIs'],
     featured: true,
     status: 'live',
@@ -196,7 +196,7 @@ export const PROJECTS: Project[] = [
       'Clean, responsive Tailwind CSS reader interface for desktop and mobile screens',
     ],
     outcome:
-      'Fast, lightweight digital library web application operating reliably with minimal server resource overhead.',
+      'Reliable catalog browsing operating with minimal server memory overhead.',
   },
 ]
 

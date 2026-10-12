@@ -39,7 +39,8 @@ export default function Capabilities() {
             return (
               <article
                 key={group.index}
-                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong transition-all duration-200 rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8"
+                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 transition-[transform,background-color,border-color] duration-150 ease-out rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8 shadow-2xs"
+                style={{ boxShadow: 'var(--hairline-top)' }}
               >
                 <div>
                   {/* Domain Header */}
@@ -47,14 +48,14 @@ export default function Capabilities() {
                     <div className="flex items-center gap-2">
                       <span className="text-foreground font-semibold">#{group.index}</span>
                       <span className="text-border-strong" aria-hidden="true">|</span>
-                      <span className="tracking-wider uppercase">{group.subtitle}</span>
+                      <span className="text-micro-caps text-secondary">{group.subtitle}</span>
                     </div>
 
                     {/* Spec Snippet Toggle Button */}
                     <button
                       type="button"
                       onClick={() => toggleSnippet(group.index)}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-border bg-page text-[10px] font-mono text-secondary hover:text-foreground hover:border-border-strong transition-colors"
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-border bg-page text-[10px] font-mono text-secondary hover:text-foreground hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
                       title="Inspect implementation code spec"
                     >
                       <Code2 className="w-3 h-3 text-emerald-500" />

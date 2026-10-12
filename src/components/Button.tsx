@@ -48,17 +48,17 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      'bg-accent-bg text-accent-text border border-transparent hover:opacity-90 active:scale-[0.98]',
+      'bg-accent-bg text-accent-text border border-transparent hover:opacity-90 active:scale-[0.96]',
     secondary:
-      'bg-surface text-foreground border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.98]',
+      'bg-surface text-foreground border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.96]',
     outline:
-      'bg-transparent text-foreground border border-border hover:border-border-strong hover:bg-surface active:scale-[0.98]',
+      'bg-transparent text-foreground border border-border hover:border-border-strong hover:bg-surface active:scale-[0.96]',
     link:
       'p-0 text-foreground underline-offset-4 hover:underline border-none bg-transparent',
   }
 
   const baseStyles =
-    'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-sm transition-all duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed'
+    'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs transition-[transform,opacity,background-color,border-color] duration-150 ease-out focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
   const combinedClasses = `${baseStyles} ${
     variant === 'link' ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`

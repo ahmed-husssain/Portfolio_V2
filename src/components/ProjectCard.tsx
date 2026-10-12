@@ -138,7 +138,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-[color,transform] duration-150 ease-out shrink-0"
+              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`View source code for ${project.title}`}
             >
               <GithubIcon className="w-3.5 h-3.5" />
@@ -150,7 +150,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-95 transition-[color,transform] duration-150 ease-out shrink-0"
+              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`Visit live site for ${project.title}`}
             >
               <span>LIVE</span>
@@ -192,8 +192,8 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div className="rounded-sm border border-border bg-page/50 overflow-hidden">
             {/* Section label */}
             <div className="px-4 py-2 border-b border-border flex items-center gap-2 text-[10px] font-mono text-muted tracking-widest uppercase bg-surface-subtle/40">
-              <span className="w-1.5 h-1.5 rounded-full bg-foreground shrink-0" aria-hidden="true" />
-              ARCHITECTURAL HIGHLIGHTS
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+              // SYSTEM ARCHITECTURE & CONSTRAINTS
             </div>
             {/* Architecture items — one per row, no wrapping surprises */}
             <ul className="divide-y divide-border/50">
@@ -206,11 +206,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 </li>
               ))}
             </ul>
-            {/* Outcome pill */}
+            {/* Outcome pill (Matt Biilmann Proof of Work) */}
             {project.outcome && (
               <div className="px-4 py-2.5 border-t border-border bg-surface-subtle/40 flex items-start gap-2.5">
-                <span className="text-[10px] font-mono text-muted uppercase tracking-widest shrink-0 pt-px">
-                  OUT:
+                <span className="text-[10px] font-mono text-emerald-500 font-bold uppercase tracking-widest shrink-0 pt-px">
+                  [VERIFIED OUTCOME]:
                 </span>
                 <span className="text-xs text-foreground font-mono font-medium leading-relaxed">
                   {project.outcome}
@@ -231,7 +231,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )}
             {project.outcome && (
               <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                <span className="text-[10px] text-muted uppercase tracking-widest block">OUTCOME</span>
+                <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">[VERIFIED OUTCOME]</span>
                 <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
               </div>
             )}
@@ -266,7 +266,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               <button
                 type="button"
                 onClick={() => setIsArchModalOpen(true)}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-95 transition-all cursor-pointer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
                 title={
                   project.slug === 'shifamanagement'
                     ? 'Inspect Flutter, Supabase & PostgreSQL live architecture'
@@ -281,11 +281,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Case study link */}
             <Link
               to={`/work/${project.slug}`}
-              className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 active:translate-x-0.5 transition-[transform,color] duration-150 ease-out shrink-0"
+              className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-[0.96] transition-[transform,color] duration-150 ease-out shrink-0 select-none"
               aria-label={`Read case study for ${project.title}`}
             >
               <span>CASE STUDY</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 ease-out group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
         </div>

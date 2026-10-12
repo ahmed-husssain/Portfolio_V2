@@ -77,12 +77,12 @@ export default function About() {
             <span className="shrink-0">BACKEND-FOCUSED .NET DEVELOPER</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
-            Building scalable web applications and reliable APIs with clean architecture.
+          <h1 className="text-display text-foreground mb-5 sm:mb-6 max-w-3xl">
+            Engineering distributed backends, transactional integrity, and typed APIs.
           </h1>
 
-          <p className="text-secondary text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
-            Backend-focused .NET Developer with hands-on experience building web applications using C#, ASP.NET Core MVC, Web API, Entity Framework Core, and SQL Server. I focus on clean architecture, query performance, and reliable database design.
+          <p className="text-body-lead text-secondary max-w-3xl mb-2">
+            Specialized in C#, ASP.NET Core Web API, Entity Framework Core, and SQL Server. Dedicated to atomic sequencing, database query tuning, and clean boundary architecture.
           </p>
         </header>
 
@@ -92,25 +92,22 @@ export default function About() {
             <div className="max-w-3xl space-y-6 text-secondary text-sm sm:text-base leading-relaxed">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                 <span className="text-foreground font-semibold">// PERSPECTIVE</span>
-                <span className="uppercase tracking-wider">HOW I BUILD SOFTWARE</span>
+                <span className="text-micro-caps text-secondary">HOW I BUILD SOFTWARE</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
+              <h2 className="text-title-1 text-foreground">
                 Understanding the complete system under the hood.
               </h2>
 
-              <p>
-                I build software with a focus on data integrity, clear domain boundaries, and predictable API behavior. Rather than only focusing on visual appearance, I prioritize understanding how data moves through the database, how endpoints respond under load, and how security is enforced.
+              <p className="text-secondary leading-relaxed">
+                Prioritizing data invariants, atomic concurrency, and deterministic latency over superficial layers. From optimistic concurrency locking in live bidding engines to kernel-level Row Level Security in clinical healthcare workflows, every system is engineered to behave predictably under production load.
               </p>
 
-              <p>
-                From architecting automated bidding engines and multi-provider OAuth 2.0 authentication in <strong className="text-foreground font-medium">Online Art Gallery</strong> to engineering <strong className="text-foreground font-medium">Mockrithm</strong> and <strong className="text-foreground font-medium">E-Books</strong>, I strive to write software that is dependable, readable, and easy to scale.
-              </p>
-
-              <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-mono">
+              <div className="pt-4 flex flex-wrap items-center gap-3.5 text-xs font-mono">
                 <Link
                   to="/work"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-xs hover:bg-secondary active:scale-[0.96] transition-[background-color,transform] duration-150 ease-out select-none shadow-2xs"
+                  style={{ boxShadow: 'var(--hairline-top)' }}
                 >
                   <span>EXPLORE PROJECTS</span>
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
@@ -119,20 +116,22 @@ export default function About() {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground font-semibold rounded-xs hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out select-none shadow-2xs"
+                  style={{ boxShadow: 'var(--hairline-top)' }}
                 >
                   <FileText className="w-4 h-4 text-emerald-500" />
                   <span>OFFICIAL RESUME (PDF)</span>
-                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground" aria-hidden="true" />
                 </a>
                 <a
                   href="https://github.com/ahmed-husssain"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 border border-border bg-surface text-secondary hover:text-foreground font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 border border-border bg-surface text-secondary hover:text-foreground font-semibold rounded-xs hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out select-none shadow-2xs"
+                  style={{ boxShadow: 'var(--hairline-top)' }}
                 >
                   <span>GITHUB PROFILE</span>
-                  <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground" aria-hidden="true" />
                 </a>
               </div>
             </div>

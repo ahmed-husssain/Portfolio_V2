@@ -25,12 +25,12 @@ export default function Hero() {
 
         {/* ─── Main Headline (Apple Fluid Typography & Negative Optical Tracking) ─── */}
         <h1 className="text-display text-foreground mb-5 sm:mb-7 max-w-[960px] animate-hero-in delay-60">
-          Hi, I'm Ahmed. I engineer concurrency-safe backends, clinical operating systems, and real-time web applications.
+          Backend Architect & .NET Engineer. Concurrency-safe systems, transactional integrity, and real-time clinical platforms.
         </h1>
 
         {/* ─── Supporting Paragraph (Harmonic Body Lead) ─── */}
         <p className="text-body-lead text-secondary max-w-[740px] mb-6 sm:mb-8 animate-hero-in delay-120">
-          Software and website developer based in Karachi, Pakistan. Specialized in C#, ASP.NET Core, SQL Server, and Flutter with PostgreSQL. I build systems designed for strict data integrity—preventing race conditions, eliminating duplicate financial sequences, and delivering reliable software for production users.
+          Specialized in ASP.NET Core, SQL Server, and Flutter with PostgreSQL. Engineered for strict data integrity: zero race conditions, atomic financial sequencing, and validated clinical reliability.
         </p>
 
         {/* ─── Proof Badge (Apple Luminous Material & Spatial Harmony) ─── */}
@@ -39,7 +39,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <Trophy className="w-3.5 h-3.5 text-amber-500" aria-hidden="true" />
+            <Trophy className="w-3.5 h-3.5 text-amber-500 shrink-0" aria-hidden="true" />
             <span className="text-foreground font-bold">RUNNER-UP AWARD</span>
             <span className="text-border-strong" aria-hidden="true">·</span>
             <span className="text-muted">APTECH VISION 2025 (MOCKRITHM)</span>
@@ -51,82 +51,82 @@ export default function Hero() {
           <Button href="#work" variant="primary" size="md" icon>
             View Work
           </Button>
-          <Button href="#contact" variant="secondary" size="md">
-            Contact Me
+          <Button href="/contact" variant="secondary" size="md">
+            Contact
           </Button>
           <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="tactile-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover hover:border-border-strong text-micro-caps transition-[background-color,border-color,transform] duration-150 group shadow-2xs"
+            className="tactile-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover hover:border-border-strong text-micro-caps transition-[background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] group shadow-2xs select-none"
             style={{ boxShadow: 'var(--hairline-top)' }}
             aria-label="View official Resume (PDF, opens in new tab)"
           >
-            <FileText className="w-3.5 h-3.5 text-emerald-500" />
+            <FileText className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
             <span>RESUME (PDF)</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-muted group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-3.5 h-3.5 text-muted group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150 ease-out" />
           </a>
         </div>
 
         {/* ─── Client Value & Delivery Pillars (Matt Biilmann Proof-of-Work) ─── */}
         <div className="border-t border-border pt-7 sm:pt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 animate-hero-in delay-240">
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 transition-[transform,border-color] duration-150 hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // WHAT I BUILD
+              // ARCHITECTURE
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              Web & Mobile Apps
+              Distributed Systems
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Modern websites, portals & cross-platform apps
+              ASP.NET Core Web APIs & SignalR WebSockets
             </span>
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 transition-[transform,border-color] duration-150 hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // CODE QUALITY
+              // DATA INTEGRITY
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              Production-Ready
+              ACID Atomic Locks
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Clean architecture & secure auth guards
+              RowVersion OCC & FOR UPDATE sequence safety
             </span>
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 transition-[transform,border-color] duration-150 hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // DATA SAFETY
+              // CONCURRENCY
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-emerald-500 tracking-tight">
-              High Reliability
+              Zero Collisions
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Zero duplicate charges & ACID safety
+              Sub-10ms cache idempotency & row locking
             </span>
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 transition-[transform,border-color] duration-150 hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // CLIENT COMMITMENT
+              // VERIFIED OUTCOME
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              On-Time Delivery
+              0 Duplicates
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Fast turnaround & clear technical communication
+              Validated clinical & transactional reliability
             </span>
           </div>
         </div>

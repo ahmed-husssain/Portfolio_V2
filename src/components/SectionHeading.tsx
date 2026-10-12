@@ -22,7 +22,7 @@ export default function SectionHeading({
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between border-b border-border pb-4 gap-2">
         <div className="flex items-baseline gap-3">
           {index && (
-            <span className="font-mono text-xs text-muted tracking-wider">
+            <span className="text-micro-caps text-muted">
               {index}
             </span>
           )}
@@ -30,22 +30,22 @@ export default function SectionHeading({
             <ScrambleText
               text={title}
               as="h2"
-              className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground"
+              className="text-title-1 text-foreground"
             />
           ) : (
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
+            <h2 className="text-title-1 text-foreground">
               {title}
             </h2>
           )}
         </div>
         {meta && (
-          <span className="font-mono text-xs text-muted tracking-wider">
+          <span className="text-micro-caps text-muted">
             {meta}
           </span>
         )}
       </div>
       {subtitle && (
-        <p className="text-secondary text-sm md:text-base mt-4 max-w-[640px] leading-relaxed">
+        <p className="text-body-lead text-secondary mt-3.5 max-w-[680px]">
           {subtitle}
         </p>
       )}
