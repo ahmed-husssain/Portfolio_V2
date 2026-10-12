@@ -536,61 +536,29 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Operational Details & Availability */}
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8">
-              <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-5 border-b border-border">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
-                <span className="text-foreground font-semibold">{CONTACT_CONFIG.availability.status}</span>
+            {/* ─── Operational Availability & Location Telemetry Bar ─── */}
+            <div
+              className="border border-border bg-surface rounded-sm p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono"
+              style={{ boxShadow: 'var(--hairline-top)' }}
+            >
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
+                <span className="text-foreground font-semibold text-micro-caps truncate">
+                  {CONTACT_CONFIG.availability.status}
+                </span>
               </div>
 
-              <div className="space-y-4 text-xs font-mono">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-muted shrink-0 mt-0.5" aria-hidden="true" />
-                  <div>
-                    <span className="text-muted block text-[10px] uppercase tracking-wider">LOCATION</span>
-                    <span className="text-foreground font-medium">
-                      {CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <Clock className="w-4 h-4 text-muted shrink-0 mt-0.5" aria-hidden="true" />
-                  <div>
-                    <span className="text-muted block text-[10px] uppercase tracking-wider">TIMEZONE</span>
-                    <span className="text-foreground font-medium">{CONTACT_CONFIG.location.timezone}</span>
-                    <span className="text-secondary block text-[11px] mt-0.5">
-                      {CONTACT_CONFIG.location.timezoneNote}
-                    </span>
-                  </div>
-                </div>
+              <div className="flex items-center gap-2.5 text-muted text-[11px] shrink-0">
+                <span className="inline-flex items-center gap-1 text-secondary">
+                  <MapPin className="w-3.5 h-3.5 text-muted shrink-0" aria-hidden="true" />
+                  <span>{CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}</span>
+                </span>
+                <span className="text-border-strong" aria-hidden="true">·</span>
+                <span className="inline-flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-muted shrink-0" aria-hidden="true" />
+                  <span>PKT (UTC+5)</span>
+                </span>
               </div>
-            </div>
-
-            {/* Engagement Guidelines */}
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8">
-              <div className="text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-4 border-b border-border">
-                <span className="text-foreground font-semibold">// ENGAGEMENT GUIDELINES</span>
-              </div>
-
-              <p className="text-secondary text-xs sm:text-sm leading-relaxed mb-4">
-                To make our initial conversation as productive as possible, having clarity on these points is helpful:
-              </p>
-
-              <ul className="space-y-2 text-xs font-mono text-secondary">
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
-                  <span>Brief project overview or problem description</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
-                  <span>Existing stack or preferred technologies</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
-                  <span>Target launch timeline and engagement scope</span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
