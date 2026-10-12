@@ -3,10 +3,8 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  Clock,
   Copy,
   Mail,
-  MapPin,
   Send,
   ShieldCheck,
   AlertCircle,
@@ -118,18 +116,28 @@ export default function Contact() {
       <Container>
         {/* ─── 1. Editorial Page Header ─── */}
         <header className="mb-8 sm:mb-12 pb-6 border-b border-border">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
-            <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
-            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-            <span className="shrink-0">DIRECT DIALOGUE</span>
+          <div className="flex flex-wrap items-center justify-between gap-y-2 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
+            <div className="flex items-center gap-2">
+              <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="text-emerald-500 font-semibold inline-flex items-center gap-1.5 shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+                AVAILABLE FOR ROLES
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-secondary">
+              <span>{CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}</span>
+              <span className="text-border-strong" aria-hidden="true">·</span>
+              <span>PKT (UTC+5)</span>
+            </div>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-5">
+          <h1 className="text-display text-foreground mb-4 max-w-3xl">
             Let's build something useful.
           </h1>
 
-          <p className="text-secondary text-base sm:text-lg md:text-xl max-w-3xl leading-relaxed">
-            I work on scalable backend APIs, relational database schemas, and modern web applications. Feel free to reach out directly by email or use the inquiry form below.
+          <p className="text-body-lead text-secondary max-w-3xl leading-relaxed">
+            Scalable backend APIs, relational database schemas, and modern web applications. Feel free to reach out directly by email or use the inquiry form below.
           </p>
         </header>
 
@@ -533,31 +541,6 @@ export default function Contact() {
                   </div>
                   <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" aria-hidden="true" />
                 </a>
-              </div>
-            </div>
-
-            {/* ─── Operational Availability & Location Telemetry Bar ─── */}
-            <div
-              className="border border-border bg-surface rounded-sm p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono"
-              style={{ boxShadow: 'var(--hairline-top)' }}
-            >
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
-                <span className="text-foreground font-semibold text-micro-caps truncate">
-                  {CONTACT_CONFIG.availability.status}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2.5 text-muted text-[11px] shrink-0">
-                <span className="inline-flex items-center gap-1 text-secondary">
-                  <MapPin className="w-3.5 h-3.5 text-muted shrink-0" aria-hidden="true" />
-                  <span>{CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}</span>
-                </span>
-                <span className="text-border-strong" aria-hidden="true">·</span>
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-muted shrink-0" aria-hidden="true" />
-                  <span>PKT (UTC+5)</span>
-                </span>
               </div>
             </div>
           </div>
