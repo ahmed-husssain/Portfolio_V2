@@ -14,7 +14,7 @@ export default function SelectedWork() {
         <SectionHeading
           index="// 01"
           title="Selected Work"
-          subtitle="Web applications, APIs, and platforms engineered with a focus on reliability, database performance, and clean architecture."
+          subtitle="Web applications and APIs built with a focus on clean code, database integrity, and practical problem solving."
           meta={`[ ${featuredProjects.length.toString().padStart(2, '0')} FEATURED OF ${PROJECTS.length.toString().padStart(2, '0')} TOTAL ]`}
         />
 

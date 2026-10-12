@@ -14,7 +14,7 @@ export default function WritingPreview() {
         <SectionHeading
           index="// 05"
           title="Writing"
-          subtitle="Practical engineering essays, architectural breakdowns, and field notes from building production web products."
+          subtitle="Practical guides, engineering notes, and lessons learned from building web applications."
           meta={
             publishedArticles.length > 0
               ? `[ ${publishedArticles.length < 10 ? `0${publishedArticles.length}` : publishedArticles.length} PUBLISHED ]`

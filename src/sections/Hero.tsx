@@ -23,17 +23,17 @@ export default function Hero() {
           <span>KARACHI, PK (REMOTE & LOCAL)</span>
         </div>
 
-        {/* ─── Main Headline (Apple Fluid Typography & Negative Optical Tracking) ─── */}
+        {/* ─── Main Headline (Grounded, Honest Title) ─── */}
         <h1 className="text-display text-foreground mb-5 sm:mb-7 max-w-[960px] animate-hero-in delay-60">
-          Backend Architect & .NET Engineer. Concurrency-safe systems, transactional integrity, and real-time clinical platforms.
+          Full-Stack .NET & Web Developer. Building reliable web apps, clean APIs, and responsive digital products.
         </h1>
 
-        {/* ─── Supporting Paragraph (Harmonic Body Lead) ─── */}
+        {/* ─── Supporting Paragraph (Ownership & Problem-Solving) ─── */}
         <p className="text-body-lead text-secondary max-w-[740px] mb-6 sm:mb-8 animate-hero-in delay-120">
-          Specialized in ASP.NET Core, SQL Server, and Flutter with PostgreSQL. Engineered for strict data integrity: zero race conditions, atomic financial sequencing, and validated clinical reliability.
+          Specialized in C#, ASP.NET Core, SQL Server, and Flutter. I build practical web and mobile applications from scratch—focusing on clean code, database integrity, and smooth user experiences.
         </p>
 
-        {/* ─── Proof Badge (Apple Luminous Material & Spatial Harmony) ─── */}
+        {/* ─── Proof Badge ─── */}
         <div className="flex items-center mb-8 sm:mb-10 animate-hero-in delay-150">
           <div 
             className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs"
@@ -46,7 +46,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ─── Primary & Secondary CTAs + Resume (Emil Kowalski Tactile Feedback) ─── */}
+        {/* ─── Primary & Secondary CTAs + Resume ─── */}
         <div className="flex flex-wrap items-center gap-3.5 mb-10 sm:mb-14 animate-hero-in delay-180">
           <Button href="#work" variant="primary" size="md" icon>
             View Work
@@ -68,20 +68,20 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* ─── Client Value & Delivery Pillars (Matt Biilmann Proof-of-Work) ─── */}
+        {/* ─── Client Value & Practical Pillars ─── */}
         <div className="border-t border-border pt-7 sm:pt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 animate-hero-in delay-240">
           <div 
             className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // ARCHITECTURE
+              // FULL-STACK
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              Distributed Systems
+              End-to-End Apps
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              ASP.NET Core Web APIs & SignalR WebSockets
+              ASP.NET Core APIs, SQL Server & modern UI
             </span>
           </div>
 
@@ -93,10 +93,10 @@ export default function Hero() {
               // DATA INTEGRITY
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              ACID Atomic Locks
+              Reliable Databases
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              RowVersion OCC & FOR UPDATE sequence safety
+              Normalized relational schemas & ACID transactions
             </span>
           </div>
 
@@ -105,13 +105,13 @@ export default function Hero() {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // CONCURRENCY
+              // PROBLEM SOLVING
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-emerald-500 tracking-tight">
-              Zero Collisions
+              Edge Case Handling
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Sub-10ms cache idempotency & row locking
+              Concurrency tokens & clear error recovery
             </span>
           </div>
 
@@ -120,13 +120,13 @@ export default function Hero() {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
-              // VERIFIED OUTCOME
+              // WORK ETHIC
             </span>
             <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
-              0 Duplicates
+              Clean Execution
             </span>
             <span className="text-[11px] font-mono text-secondary">
-              Validated clinical & transactional reliability
+              Readable code, clear communication & testing
             </span>
           </div>
         </div>

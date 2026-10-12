@@ -29,7 +29,7 @@ export default function Writing() {
           </h1>
 
           <p className="text-body-lead text-secondary max-w-3xl font-normal">
-            Practical reflections on backend architecture, system design, concurrency invariants, and performance. Notes taken directly from building production software.
+            Articles and engineering notes on backend development, C#, database handling, and lessons learned while building real-world projects.
           </p>
         </header>
 
@@ -144,7 +144,7 @@ export default function Writing() {
         {/* Bottom Contact Prompt */}
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-micro-caps text-secondary">
-            HAVE A SPECIFIC SYSTEM TOPIC OR ARCHITECTURAL QUESTION?
+            HAVE A QUESTION ABOUT THESE ARTICLES OR CODE EXAMPLES?
           </p>
           <Link
             to="/contact"

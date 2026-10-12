@@ -29,9 +29,9 @@ export const PROJECTS: Project[] = [
     title: 'ShifaManagement',
     category: 'Healthcare / Cross-Platform',
     shortDescription:
-      'Cross-platform clinical operations, dynamic billing, and automated care plan renewals.',
+      'Healthcare management app with patient records, billing schedules, and care plan renewals.',
     description:
-      'Clinical operations system automating patient intake, diagnostic logs, dynamic fee schedules, 14-day care plan renewals, and WhatsApp PDF dispatch.',
+      'Cross-platform healthcare management app built with Flutter and Supabase. Handles patient intake, billing calculations, 14-day renewal alerts, and automated PDF invoice generation.',
     technologies: [
       'Flutter',
       'Dart',
@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     lastCommitDate: '2026-10-08T11:16:54+05:00',
     lastCommitLabel: 'Oct 8, 2026',
-    role: 'Cross-Platform Systems Developer',
+    role: 'Cross-Platform App Developer',
     githubUrl: 'https://github.com/ahmed-husssain/ShifaMangementSystem',
     image: '/projects/shifamanagement/preview.png',
     gallery: [
@@ -56,22 +56,22 @@ export const PROJECTS: Project[] = [
       '/projects/shifamanagement/slide-5.png',
     ],
     architecture: [
-      'Multi-platform Flutter architecture with Riverpod reactive state management',
-      'ACID-safe atomic invoice generation with PostgreSQL row locking (FOR UPDATE)',
-      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the kernel level',
-      'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
+      'Multi-platform Flutter frontend with Riverpod for predictable state management',
+      'Atomic invoice numbering using PostgreSQL database functions to prevent duplicates',
+      'Row Level Security (RLS) policies ensuring staff access only authorized patient data',
+      'Real-time Supabase subscriptions for upcoming care plan renewal reminders',
     ],
     outcome:
-      'Zero duplicate invoices across production mobile and desktop deployments with ACID-guaranteed sequence locks.',
+      'Eliminated duplicate invoice generation through atomic database sequences and shipped cross-platform apps for mobile and desktop.',
   },
   {
     slug: 'online-art-gallery',
     title: 'Online Art Gallery',
     category: 'E-Commerce / .NET Full-Stack',
     shortDescription:
-      'Real-time art marketplace with concurrency-safe auction settlement and live bidding.',
+      'Full-stack e-commerce marketplace featuring live auctions, bidding, and cart checkout.',
     description:
-      'High-throughput marketplace engineered with ASP.NET Core and SQL Server. Features optimistic concurrency control (RowVersion), SignalR WebSocket bid streams, and sub-10ms cache idempotency.',
+      'Full-stack auction and e-commerce application built with ASP.NET Core and SQL Server. Features real-time bid updates via SignalR, concurrency checks to handle simultaneous bids, and OAuth 2.0 logins.',
     technologies: [
       'C#',
       '.NET 8',
@@ -98,22 +98,22 @@ export const PROJECTS: Project[] = [
       '/projects/online-art-gallery/slide-2.png',
     ],
     architecture: [
-      'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing live bid collisions',
-      'Rapid-click idempotency layer via IMemoryCache (UUID sliding window) executing in 0.01ms with zero DB load',
-      'Sub-10ms real-time WebSocket push via ASP.NET Core SignalR (AuctionHub) to room auction-{productId}',
-      'Autonomous AuctionEndingWorker (BackgroundService) settling expired auctions via 15-second PeriodicTimer',
+      'EF Core RowVersion concurrency tokens to catch and resolve simultaneous bid conflicts',
+      'In-memory sliding cache window to prevent accidental double-click bid submissions',
+      'SignalR WebSockets pushing live bid increments to all active auction viewers',
+      'Background worker service checking and closing completed auctions on a scheduled timer',
     ],
     outcome:
-      'Zero database deadlocks under concurrent bid spikes with sub-10ms SignalR WebSocket multicast latency.',
+      'Handled simultaneous bid submissions cleanly using EF Core concurrency tokens and delivered live updates via SignalR WebSockets.',
   },
   {
     slug: 'mockrithm',
     title: 'Mockrithm',
     category: 'AI / Web Application',
     shortDescription:
-      'AI interview simulator with live speech pacing analytics and in-browser code editor.',
+      'AI interview practice web app with speech recognition and in-browser code editing.',
     description:
-      'Conversational technical interview simulator featuring real-time audio analysis, Monaco in-browser code evaluation, and automated competency scoring.',
+      'Interactive interview practice app built with Next.js and React. Integrates speech-to-text audio feedback, an in-browser code editor, and scoring summaries to help candidates prepare for technical interviews.',
     technologies: [
       'Next.js',
       'React',
@@ -127,26 +127,26 @@ export const PROJECTS: Project[] = [
     year: '2025',
     lastCommitDate: '2025-06-20T14:30:00Z',
     lastCommitLabel: 'Jun 20, 2025',
-    role: 'Lead Full-Stack Developer',
+    role: 'Full-Stack Web Developer',
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
     image: '/projects/mockrithm/preview.png',
     architecture: [
-      'Real-time voice and conversational interview simulator with speech-to-text',
-      'In-browser code editor with syntax highlighting for technical problem solving',
-      'Role-based competency scoring and structured evaluation summaries',
+      'Web Speech API integration providing instant transcription and audio feedback',
+      'In-browser Monaco code editor with language syntax highlighting',
+      'Structured evaluation forms breaking down technical score metrics',
     ],
     outcome:
-      'Awarded Runner-Up at Aptech Vision 2025 across university and institute software engineering contenders.',
+      'Won Runner-Up at Aptech Vision 2025, praised for responsive UI design and full-stack API integration.',
   },
   {
     slug: 'amber-property-corner',
     title: 'Amber Property Corner',
     category: 'Real Estate / Full-Stack',
     shortDescription:
-      'Fast property search engine with indexed multi-criteria filtering and agent lead routing.',
+      'Real estate listing portal with property filters, agent inquiry forms, and admin dashboard.',
     description:
-      'Property discovery portal with normalized PostgreSQL schemas, Prisma type-safe queries, indexed search filters, and administrative lead routing.',
+      'Full-stack real estate discovery app built with Next.js, Prisma, and PostgreSQL. Features multi-parameter property search, inquiry lead routing, and a protected admin listing portal.',
     technologies: [
       'Next.js',
       'React',
@@ -160,26 +160,26 @@ export const PROJECTS: Project[] = [
     year: '2025',
     lastCommitDate: '2025-03-12T10:00:00Z',
     lastCommitLabel: 'Mar 12, 2025',
-    role: 'Full-Stack Developer & Database Architect',
+    role: 'Full-Stack Web Developer',
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
     image: '/projects/amber-property-corner/preview.png',
     architecture: [
-      'Relational PostgreSQL schema with normalized property and inquiry models',
-      'Prisma ORM for type-safe database access and automated migrations',
-      'Secure role-based administrative dashboard with session authentication',
+      'Normalized PostgreSQL database schema for property details, images, and user inquiries',
+      'Type-safe database queries and automated schema migrations via Prisma ORM',
+      'Protected admin portal for managing property listings and reviewing inquiries',
     ],
     outcome:
-      'Sub-150ms catalog query turnaround with zero-table scan index tuning.',
+      'Delivered responsive search with database index optimization and a clean mobile-friendly interface.',
   },
   {
     slug: 'e-books',
     title: 'E-Books Platform',
     category: 'Digital Library / Full-Stack',
     shortDescription:
-      'Lightweight catalog reader with ACID-compliant MySQL schemas and session authentication.',
+      'Digital library web app with user authentication, catalog browsing, and reading lists.',
     description:
-      'Digital library web application featuring normalized relational schemas, session-based authentication, and mobile reader layouts.',
+      'Web-based digital library built with PHP and MySQL. Includes user registration, session management, catalog search, and responsive reader layouts.',
     technologies: ['PHP', 'MySQL', 'Tailwind CSS', 'JavaScript', 'REST APIs'],
     featured: true,
     status: 'live',
@@ -191,12 +191,12 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/ahmed-husssain/E-books',
     image: '/projects/e-books/cover.webp',
     architecture: [
-      'Modular PHP backend with secure session handling and user authentication',
-      'Normalized MySQL relational database schema managing user collections and book data',
-      'Clean, responsive Tailwind CSS reader interface for desktop and mobile screens',
+      'Clean PHP backend structure handling session security and user profile state',
+      'Normalized MySQL relational tables organizing categories, authors, and books',
+      'Responsive reading layouts styled with Tailwind CSS for mobile and desktop screens',
     ],
     outcome:
-      'Reliable catalog browsing operating with minimal server memory overhead.',
+      'Built a functional, lightweight library platform with straightforward relational queries and clean mobile navigation.',
   },
 ]
 

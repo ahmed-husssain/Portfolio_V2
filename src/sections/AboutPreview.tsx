@@ -6,7 +6,7 @@ import SectionHeading from '../components/SectionHeading'
 export default function AboutPreview() {
   const highlights = [
     { label: 'LOCATION', value: 'Karachi, Pakistan (PKT / UTC+5)' },
-    { label: 'SPECIALIZATION', value: 'Backend & .NET Web Architecture' },
+    { label: 'SPECIALIZATION', value: 'Full-Stack & .NET Web Development' },
     { label: 'KEY AWARD', value: 'Runner-Up – Aptech Vision 2025 (Mockrithm)' },
     { label: 'RESUME / CV', value: 'Official Resume (PDF)', href: '/resume.pdf' },
     { label: 'STATUS', value: 'Available for Engineering Roles & Projects' },
@@ -25,15 +25,15 @@ export default function AboutPreview() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           <div className="lg:col-span-7">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground tracking-tight leading-snug mb-6">
-              I am a backend-focused .NET developer building scalable web applications and reliable APIs.
+              I am a full-stack .NET and web developer building responsive web applications and reliable APIs.
             </h3>
 
             <div className="space-y-4 text-secondary text-sm sm:text-base leading-relaxed mb-8">
               <p>
-                I build web applications using C#, ASP.NET Core MVC, Web API, Entity Framework Core, and SQL Server. I focus on clean architecture, relational database design, and secure authentication workflows like OAuth 2.0.
+                I build web applications using C#, ASP.NET Core MVC, Web API, Entity Framework Core, and SQL Server. I focus on clean code, relational database design, and secure authentication workflows like OAuth 2.0.
               </p>
               <p>
-                Whether architecting automated auction engines or tuning database queries, I prioritize practical, maintainable solutions that deliver real value.
+                Whether building real-time auction features or optimizing database queries, I prioritize practical, maintainable solutions that deliver real value.
               </p>
             </div>
 

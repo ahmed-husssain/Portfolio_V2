@@ -21,7 +21,7 @@ export default function Footer() {
               <span className="text-muted">Karachi, PK</span>
             </div>
             <p className="text-[11px] text-muted">
-              Engineering concurrency-safe backends, clinical platforms & distributed systems.
+              Full-stack web & .NET developer building reliable web applications and clean APIs.
             </p>
           </div>
 

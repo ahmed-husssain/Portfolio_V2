@@ -21,11 +21,11 @@ export default function Work() {
           </div>
 
           <h1 className="text-title-1 text-foreground mb-4 sm:mb-5">
-            Systems & Production Engineering
+            Featured Projects & Case Studies
           </h1>
 
           <p className="text-body-lead text-secondary max-w-3xl font-normal">
-            A verified record of full-stack web applications, clinical healthcare platforms, and high-concurrency engines. Each case study details the system architecture, performance guarantees, and business outcomes.
+            A collection of full-stack web and mobile applications. Each project details the problem solved, implementation details, tech stack, and key lessons learned.
           </p>
         </header>
 

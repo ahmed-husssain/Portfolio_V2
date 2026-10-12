@@ -193,7 +193,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Section label */}
             <div className="px-4 py-2 border-b border-border flex items-center gap-2 text-[10px] font-mono text-muted tracking-widest uppercase bg-surface-subtle/40">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
-              // SYSTEM ARCHITECTURE & CONSTRAINTS
+              // TECHNICAL IMPLEMENTATION HIGHLIGHTS
             </div>
             {/* Architecture items — one per row, no wrapping surprises */}
             <ul className="divide-y divide-border/50">
@@ -206,11 +206,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 </li>
               ))}
             </ul>
-            {/* Outcome pill (Matt Biilmann Proof of Work) */}
+            {/* Outcome pill */}
             {project.outcome && (
               <div className="px-4 py-2.5 border-t border-border bg-surface-subtle/40 flex items-start gap-2.5">
                 <span className="text-[10px] font-mono text-emerald-500 font-bold uppercase tracking-widest shrink-0 pt-px">
-                  [VERIFIED OUTCOME]:
+                  OUTCOME:
                 </span>
                 <span className="text-xs text-foreground font-mono font-medium leading-relaxed">
                   {project.outcome}
@@ -231,7 +231,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )}
             {project.outcome && (
               <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">[VERIFIED OUTCOME]</span>
+                <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">OUTCOME</span>
                 <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
               </div>
             )}
@@ -269,12 +269,12 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
                 title={
                   project.slug === 'shifamanagement'
-                    ? 'Inspect Flutter, Supabase & PostgreSQL live architecture'
-                    : 'Inspect .NET 8 & SQL Server live architecture'
+                    ? 'Inspect Flutter, Supabase & PostgreSQL flow'
+                    : 'Inspect .NET 8 & SQL Server auction flow'
                 }
               >
                 <Cpu className="w-3 h-3 text-emerald-500 shrink-0" />
-                <span className="truncate">INSPECT ARCHITECTURE</span>
+                <span className="truncate">VIEW SYSTEM FLOW</span>
               </button>
             )}
 

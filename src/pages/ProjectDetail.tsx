@@ -89,7 +89,7 @@ export default function ProjectDetail() {
         <header className="border-b border-border pb-10 sm:pb-14 mb-12 sm:mb-16">
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted uppercase tracking-wider mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-foreground font-semibold">// ARCHITECTURAL CASE STUDY</span>
+              <span className="text-foreground font-semibold">// PROJECT CASE STUDY</span>
               <span>·</span>
               <span>{project.category}</span>
             </div>
@@ -263,7 +263,7 @@ export default function ProjectDetail() {
                 <span className="uppercase tracking-wider">DATA FLOW & DESIGN CHOICES</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                Technical Architecture & Approach
+                Technical Implementation & Approach
               </h2>
 
               {/* Interactive Architecture Visualizer for Gallrex & Shifa */}
@@ -278,8 +278,8 @@ export default function ProjectDetail() {
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
                       {project.slug === 'shifamanagement'
-                        ? 'DOCUMENTED SUPABASE & POSTGRESQL 15 ARCHITECTURE'
-                        : 'DOCUMENTED .NET 8 & SQL SERVER ARCHITECTURE'}
+                        ? 'DOCUMENTED SUPABASE & POSTGRESQL 15 FLOW'
+                        : 'DOCUMENTED .NET 8 & SQL SERVER DATA FLOW'}
                     </span>
                   </div>
                   <ArchitectureVisualizer projectSlug={project.slug} />
@@ -341,14 +341,14 @@ export default function ProjectDetail() {
             <section className="space-y-6 pt-6 border-t border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
                 <ImageIcon className="w-3.5 h-3.5" aria-hidden="true" />
-                <span className="text-foreground font-semibold uppercase">SYSTEM ARCHITECTURE & INTERFACE SPECIFICATION</span>
+                <span className="text-foreground font-semibold uppercase">SYSTEM WORKFLOWS & INTERFACE PREVIEWS</span>
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
-                  Visual Architecture & System Specification
+                  System Workflows & Interface Screens
                 </h2>
                 <p className="text-secondary text-sm leading-relaxed mt-1">
-                  High-resolution architectural blueprints, automated clinical workflows, and live telemetry interfaces extracted from the system specification.
+                  Feature walkthroughs, database-backed user flows, and core UI interfaces.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">

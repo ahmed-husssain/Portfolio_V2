@@ -78,11 +78,11 @@ export default function About() {
           </div>
 
           <h1 className="text-display text-foreground mb-5 sm:mb-6 max-w-3xl">
-            Engineering distributed backends, transactional integrity, and typed APIs.
+            Building reliable web applications and clean APIs with modern tools.
           </h1>
 
           <p className="text-body-lead text-secondary max-w-3xl mb-2">
-            Specialized in C#, ASP.NET Core Web API, Entity Framework Core, and SQL Server. Dedicated to atomic sequencing, database query tuning, and clean boundary architecture.
+            Full-stack and backend developer working with C#, ASP.NET Core, SQL Server, and Flutter. I enjoy taking features from database schema design and business logic all the way to a clean, usable frontend.
           </p>
         </header>
 
@@ -100,7 +100,7 @@ export default function About() {
               </h2>
 
               <p className="text-secondary leading-relaxed">
-                Prioritizing data invariants, atomic concurrency, and deterministic latency over superficial layers. From optimistic concurrency locking in live bidding engines to kernel-level Row Level Security in clinical healthcare workflows, every system is engineered to behave predictably under production load.
+                I focus on building software that is dependable, well-structured, and easy to maintain. Whether preventing race conditions in a live auction app or structuring database tables for healthcare records, I care deeply about getting the fundamentals right: solid data models, clear API contracts, and responsive user experiences.
               </p>
 
               <div className="pt-4 flex flex-wrap items-center gap-3.5 text-xs font-mono">
