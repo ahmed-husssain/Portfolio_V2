@@ -49,13 +49,14 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-200 border-b ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 border-b ${
         mobileMenuOpen
           ? 'bg-page border-border shadow-none'
           : scrolled
-            ? 'bg-[var(--bg-page)]/90 backdrop-blur-md border-border shadow-xs'
-            : 'bg-[var(--bg-page)]/70 backdrop-blur-sm border-border/60'
+            ? 'material-frosted border-border/90 shadow-xs'
+            : 'material-frosted border-border/60'
       }`}
+      style={{ boxShadow: 'var(--hairline-top)' }}
     >
       <Container>
         <div className="flex items-center justify-between h-16">
@@ -63,11 +64,11 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
+              className="text-xs sm:text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
             >
               AHMED HUSSAIN
             </Link>
-            <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border text-[11px] font-mono text-muted">
+            <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border text-micro-caps text-muted">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
               <span>{AVAILABILITY_STATUS.label}</span>
             </div>
@@ -75,7 +76,7 @@ export default function Navbar() {
 
           {/* ─── Desktop Nav Links & Controls ─── */}
           <nav
-            className="hidden md:flex items-center gap-7"
+            className="hidden md:flex items-center gap-6"
             aria-label="Main navigation"
           >
             {NAV_ITEMS.map((item) => {
@@ -84,7 +85,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`relative text-xs font-mono tracking-wider uppercase transition-colors duration-150 py-1.5 ${
+                  className={`relative text-micro-caps transition-[color,transform] duration-150 py-1.5 active:scale-[0.96] ${
                     active
                       ? 'text-foreground font-semibold'
                       : 'text-secondary hover:text-foreground'
@@ -101,7 +102,8 @@ export default function Navbar() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong text-xs font-mono font-medium tracking-wider uppercase transition-all duration-150 active:scale-95 group"
+              className="tactile-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong text-micro-caps transition-[color,border-color,transform] duration-150 group"
+              style={{ boxShadow: 'var(--hairline-top)' }}
               aria-label="View official Resume (PDF, opens in new tab)"
             >
               <FileText className="w-3.5 h-3.5 text-emerald-500" />

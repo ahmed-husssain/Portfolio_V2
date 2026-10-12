@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, ArrowRight, Cpu, GitCommit } from 'lucide-react'
 import type { Project } from '../data/projects'
@@ -24,7 +24,6 @@ function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
 
 /** Shorten a category string to a compact label for the header bar */
 function shortCategory(cat: string): string {
-  // Strip common suffix words to keep it tight
   return cat
     .replace(/\s*\/\s*Full-Stack Web Application/i, '')
     .replace(/\s*\/\s*Web Application/i, '')
@@ -34,16 +33,10 @@ function shortCategory(cat: string): string {
     .toUpperCase()
 }
 
-/**
- * Formats commit date labels with high density for compact mobile viewports.
- * Psychology: Prioritize recent activity ("Oct 5") without stale or redundant
- * 4-digit year repetition, preserving full details for tooltips and desktop screens.
- */
 function formatCompactDate(label?: string): string {
   if (!label) return ''
   const trimmed = label.trim()
 
-  // Format: "Month Day, Year" -> e.g. "Oct 5, 2026"
   const withDayMatch = trimmed.match(/^([A-Za-z]+)\s+(\d{1,2}),\s*(\d{4})$/)
   if (withDayMatch) {
     const [, month, day, year] = withDayMatch
@@ -53,7 +46,6 @@ function formatCompactDate(label?: string): string {
     return `${month} '${year.slice(-2)}`
   }
 
-  // Format: "Month Year" -> e.g. "Oct 2026"
   const monthYearMatch = trimmed.match(/^([A-Za-z]+)\s+(\d{4})$/)
   if (monthYearMatch) {
     const [, month, year] = monthYearMatch
@@ -72,17 +64,47 @@ interface ProjectCardProps {
 export default function ProjectCard({ project, className = '', index }: ProjectCardProps) {
   const isFlagship = Boolean(project.featured)
   const [isArchModalOpen, setIsArchModalOpen] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
   const hasArchitectureInspector =
     project.slug === 'online-art-gallery' || project.slug === 'shifamanagement'
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
 
   return (
     <>
     <article
-      className={`group border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 hover:shadow-xs active:translate-y-0 active:scale-[0.995] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col ${isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
-        } ${className}`}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-md active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col ${
+        isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
+      } ${className}`}
+      style={{ boxShadow: 'var(--hairline-top)' }}
     >
+      {/* ─── Emil Kowalski Ambient Spotlight Glow ─── */}
+      <div
+        className="pointer-events-none absolute -inset-px rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        style={{
+          background: isHovered
+            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.06), transparent 70%)`
+            : '',
+        }}
+        aria-hidden="true"
+      />
+
       {/* ─── Card Header Bar ─── */}
-      <div className="flex items-center justify-between gap-2 border-b border-border px-3.5 sm:px-6 py-2 sm:py-2.5 text-[11px] font-mono bg-surface-subtle/60">
+      <div className="flex items-center justify-between gap-2 border-b border-border px-3.5 sm:px-6 py-2 sm:py-2.5 text-micro-caps bg-surface-subtle/60 relative z-20">
         {/* Left: index + slug + (category on desktop only) */}
         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 overflow-hidden">
           {index !== undefined && (
@@ -92,7 +114,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           )}
           <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
           <span className="text-foreground font-semibold truncate">/{project.slug}</span>
-          <span className="hidden md:inline-flex items-center gap-1.5 text-muted tracking-wider uppercase shrink-0">
+          <span className="hidden md:inline-flex items-center gap-1.5 text-muted shrink-0">
             <span className="text-border-strong" aria-hidden="true">·</span>
             <span>{shortCategory(project.category)}</span>
           </span>
@@ -139,7 +161,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       </div>
 
       {/* ─── Card Body ─── */}
-      <div className="p-4 sm:p-7 flex-1 flex flex-col gap-4 sm:gap-5">
+      <div className="p-4 sm:p-7 flex-1 flex flex-col gap-4 sm:gap-5 relative z-20">
 
         {/* ── Title + Short Description ── */}
         <div>
@@ -148,8 +170,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
           >
             <h3
-              className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:underline transition-all ${isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
-                }`}
+              className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:underline transition-all ${
+                isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
+              }`}
             >
               {project.title}
             </h3>

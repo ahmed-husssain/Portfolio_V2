@@ -32,9 +32,13 @@
 
   --border-subtle: #E4E4E7;
   --border-strong: #D4D4D8;
+  --hairline-top: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
   --accent-bg: #09090B;
   --accent-text: #FFFFFF;
+
+  --ease-spring-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring-gentle: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dark {
@@ -49,9 +53,71 @@
 
   --border-subtle: #222222;
   --border-strong: #333333;
+  --hairline-top: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   --accent-bg: #FFFFFF;
   --accent-text: #000000;
+
+  --ease-spring-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Apple Fluid Typography Scale & Optical Tracking ─── */
+.text-display {
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.038em;
+  font-weight: 700;
+}
+
+.text-title-1 {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.028em;
+  font-weight: 600;
+}
+
+.text-title-2 {
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.25;
+  letter-spacing: -0.022em;
+  font-weight: 600;
+}
+
+.text-body-lead {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.012em;
+}
+
+.text-micro-caps {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem; /* 11px */
+  line-height: 1.2;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+/* ─── Apple Materials Glassmorphism Layer ─── */
+.material-frosted {
+  background-color: var(--bg-surface);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--hairline-top);
+}
+
+/* ─── Emil Kowalski Tactile Button Base ─── */
+.tactile-btn {
+  will-change: transform;
+  transition: transform 120ms var(--ease-spring-snappy), 
+              background-color 150ms ease-out, 
+              border-color 150ms ease-out,
+              box-shadow 150ms ease-out;
+}
+
+.tactile-btn:active {
+  transform: scale(0.96) translateY(0.5px);
 }
 
 *, *::before, *::after {
