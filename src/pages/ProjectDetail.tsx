@@ -5,6 +5,7 @@ import { PROJECTS } from '../data/projects'
 import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
+import { useGitHubCommit } from '../hooks/useGitHubCommit'
 
 // GitHub inline SVG icon
 function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -23,6 +24,12 @@ export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const project = PROJECTS.find((p) => p.slug === slug)
   const caseStudy = slug ? CASE_STUDIES[slug] : undefined
+
+  const { commitLabel } = useGitHubCommit(
+    project?.githubUrl,
+    project?.lastCommitLabel,
+    project?.lastCommitDate
+  )
 
   useDocumentTitle(
     project ? `${project.title} — Architecture & Case Study | Syed Ahmed Hussain` : 'Project Not Found // 404'
@@ -96,10 +103,10 @@ export default function ProjectDetail() {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
               <span>{project.status || 'PRODUCTION'}</span>
-              {project.lastCommitLabel && (
+              {commitLabel && (
                 <>
                   <span>·</span>
-                  <span className="text-foreground font-semibold">COMMIT: {project.lastCommitLabel}</span>
+                  <span className="text-foreground font-semibold">COMMIT: {commitLabel}</span>
                 </>
               )}
               {project.year && (

@@ -25,7 +25,7 @@ export default function Work() {
           </h1>
 
           <p className="text-body-lead text-secondary max-w-3xl font-normal">
-            A collection of full-stack web and mobile applications. Each project details the problem solved, implementation details, tech stack, and key lessons learned.
+            Full-stack projects detailing real-world problems, tech stacks, and solutions.
           </p>
         </header>
 

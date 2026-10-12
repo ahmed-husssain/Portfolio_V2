@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, ArrowRight, Cpu, GitCommit } from 'lucide-react'
 import type { Project } from '../data/projects'
+import { useGitHubCommit } from '../hooks/useGitHubCommit'
 import ArchitectureModal from './ArchitectureModal'
 
 function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
@@ -71,6 +72,12 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
   const hasArchitectureInspector =
     project.slug === 'online-art-gallery' || project.slug === 'shifamanagement'
 
+  const { commitLabel } = useGitHubCommit(
+    project.githubUrl,
+    project.lastCommitLabel,
+    project.lastCommitDate
+  )
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
@@ -122,15 +129,15 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
         {/* Right: commit badge + links */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {project.lastCommitLabel && (
+          {commitLabel && (
             <span
               className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
-              title={`Last commit: ${project.lastCommitLabel}`}
+              title={`Last commit: ${commitLabel}`}
             >
               <GitCommit className="w-3 h-3 text-emerald-500 shrink-0" />
               <span className="text-muted hidden md:inline">COMMIT:</span>
-              <span className="text-foreground font-semibold sm:hidden">{formatCompactDate(project.lastCommitLabel)}</span>
-              <span className="text-foreground font-semibold hidden sm:inline">{project.lastCommitLabel}</span>
+              <span className="text-foreground font-semibold sm:hidden">{formatCompactDate(commitLabel)}</span>
+              <span className="text-foreground font-semibold hidden sm:inline">{commitLabel}</span>
             </span>
           )}
           {project.githubUrl && (
