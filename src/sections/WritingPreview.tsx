@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Calendar } from 'lucide-react'
+import { ArrowRight, Notebook, Calendar } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -27,13 +27,13 @@ export default function WritingPreview() {
             {publishedArticles.slice(0, 2).map((article) => (
               <article
                 key={article.slug}
-                className="border border-border bg-surface rounded-sm p-6 sm:p-8 flex flex-col justify-between hover:border-border-strong transition-all duration-200 group"
+                className="border border-border bg-surface rounded-sm p-6 sm:p-8 flex flex-col justify-between hover:border-border-strong transition-all duration-200 group pixel-corners"
               >
                 <div>
                   <div className="flex items-center justify-between border-b border-border pb-3 mb-4 text-xs font-mono text-muted">
                     <span className="text-foreground font-semibold">TECHNICAL ESSAY</span>
                     <div className="flex items-center gap-1.5 text-secondary">
-                      <Calendar className="w-3 h-3" aria-hidden="true" />
+                      <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                       <time dateTime={article.date}>{article.date}</time>
                     </div>
                   </div>
@@ -68,16 +68,16 @@ export default function WritingPreview() {
                     className="inline-flex items-center gap-1 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group-hover:translate-x-0.5 transition-transform"
                   >
                     <span>READ</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <ArrowRight className="w-3.5 h-3.5 pixel-icon" />
                   </Link>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 mb-10">
+          <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 mb-10 pixel-corners">
             <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4 pb-3 border-b border-border">
-              <BookOpen className="w-3.5 h-3.5 text-foreground" />
+              <Notebook className="w-3.5 h-3.5 pixel-icon text-foreground" />
               <span className="text-foreground font-semibold">// EDITORIAL PIPELINE</span>
               <span>·</span>
               <span>HONEST PUBLICATION POLICY</span>
@@ -116,7 +116,7 @@ export default function WritingPreview() {
             className="inline-flex items-center gap-2 text-sm font-mono font-semibold text-foreground hover:text-secondary transition-colors group"
           >
             <span>VIEW WRITING INDEX</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            <ArrowRight className="w-4 h-4 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </Container>

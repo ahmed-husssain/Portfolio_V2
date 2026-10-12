@@ -285,3 +285,79 @@ button, a, input, select, textarea {
   transform-origin: right center;
 }
 
+/* ─── Streamline Pixel Aesthetic Utilities ("Pixel Taste") ─── */
+.pixel-icon {
+  shape-rendering: crispEdges;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+/* Stepped Square Beacon (replacing fuzzy round pulse) */
+.pixel-beacon {
+  width: 7px;
+  height: 7px;
+  background-color: #10B981;
+  display: inline-block;
+  image-rendering: pixelated;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.4);
+  flex-shrink: 0;
+}
+
+.pixel-beacon::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 1px solid #10B981;
+  opacity: 0.75;
+  animation: pixel-beacon-pulse 2s steps(4) infinite;
+}
+
+@keyframes pixel-beacon-pulse {
+  0% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.4); opacity: 0.3; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* 8-bit Stepped Micro Corners for Cards */
+.pixel-corners {
+  position: relative;
+}
+
+.pixel-corners::before,
+.pixel-corners::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: var(--text-muted);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.pixel-corners::before {
+  top: 3px;
+  left: 3px;
+}
+
+.pixel-corners::after {
+  bottom: 3px;
+  right: 3px;
+}
+
+/* Pixel tag / telemetry pill accent */
+.pixel-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  padding: 2px 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  image-rendering: pixelated;
+}
+
+

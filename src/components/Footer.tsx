@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, FileText } from 'lucide-react'
+import { ExternalLink, FileText } from 'pixelarticons/react'
 import Container from './Container'
 import { CONTACT_CONFIG } from '../data/contact'
 
@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Identity & Status */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
               <span className="text-foreground font-semibold uppercase tracking-wider">
                 Syed Ahmed Hussain
               </span>
@@ -43,11 +43,11 @@ export default function Footer() {
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 hover:text-foreground transition-colors group"
             >
-              <FileText className="w-3 h-3 text-emerald-500" />
+              <FileText className="w-3.5 h-3.5 text-emerald-500 pixel-icon" />
               <span>RESUME</span>
-              <ArrowUpRight className="w-2.5 h-2.5 text-muted" />
+              <ExternalLink className="w-3 h-3 text-muted group-hover:text-foreground pixel-icon transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
             <span className="text-border-strong hidden sm:inline" aria-hidden="true">|</span>
             <a

@@ -1,4 +1,15 @@
-import { ArrowLeft, ArrowUpRight, CheckCircle2, Layers, Terminal, AlertCircle, Cpu, ShieldCheck, ImageIcon } from 'lucide-react'
+import {
+  ArrowLeft,
+  ExternalLink,
+  Check,
+  Layout,
+  Terminal,
+  WarningDiamond,
+  Cpu,
+  Shield,
+  Image,
+  Github,
+} from 'pixelarticons/react'
 import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
@@ -6,19 +17,6 @@ import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
-
-// GitHub inline SVG icon
-function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-      />
-    </svg>
-  )
-}
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -39,9 +37,9 @@ export default function ProjectDetail() {
     return (
       <div className="py-24 sm:py-36 min-h-[60vh] flex items-center">
         <Container>
-          <div className="border border-border bg-surface rounded-sm p-8 sm:p-14 max-w-2xl">
+          <div className="border border-border bg-surface rounded-sm p-8 sm:p-14 max-w-2xl pixel-corners">
             <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">
-              <span className="w-2 h-2 rounded-full bg-red-500" aria-hidden="true" />
+              <span className="pixel-beacon bg-red-500" aria-hidden="true" />
               <span>ERROR 404 // CASE STUDY NOT FOUND</span>
             </div>
 
@@ -57,7 +55,7 @@ export default function ProjectDetail() {
               to="/work"
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-semibold px-5 py-2.5 bg-foreground text-page hover:bg-secondary transition-colors rounded-sm"
             >
-              <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+              <ArrowLeft className="w-4 h-4 pixel-icon" aria-hidden="true" />
               <span>RETURN TO WORK CATALOG</span>
             </Link>
           </div>
@@ -87,7 +85,7 @@ export default function ProjectDetail() {
             to="/work"
             className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground transition-colors group"
           >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
+            <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" aria-hidden="true" />
             <span>BACK TO ALL PROJECTS</span>
           </Link>
         </div>
@@ -101,7 +99,7 @@ export default function ProjectDetail() {
               <span>{project.category}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
               <span>{project.status || 'PRODUCTION'}</span>
               {commitLabel && (
                 <>
@@ -127,7 +125,7 @@ export default function ProjectDetail() {
           </p>
 
           {/* Quick Spec Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 bg-surface border border-border rounded-sm text-xs font-mono mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 bg-surface border border-border rounded-sm text-xs font-mono mb-6 pixel-corners">
             <div>
               <span className="text-muted block text-[10px] uppercase tracking-wider mb-1">ROLE</span>
               <span className="text-foreground font-medium">{project.role || 'Full-Stack Developer'}</span>
@@ -156,7 +154,7 @@ export default function ProjectDetail() {
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
               >
                 <span>VISIT PRODUCTION SYSTEM</span>
-                <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                <ExternalLink className="w-4 h-4 pixel-icon" aria-hidden="true" />
               </a>
             )}
 
@@ -167,7 +165,7 @@ export default function ProjectDetail() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong transition-colors"
               >
-                <GithubIcon className="w-4 h-4" />
+                <Github className="w-4 h-4 pixel-icon" />
                 <span>INSPECT REPOSITORY</span>
               </a>
             )}
@@ -254,7 +252,7 @@ export default function ProjectDetail() {
               <ul className="space-y-3 pt-2">
                 {highlights.map((highlight, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                    <CheckCircle2 className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <Check className="w-4 h-4 text-foreground shrink-0 mt-1 pixel-icon" aria-hidden="true" />
                     <span>{highlight}</span>
                   </li>
                 ))}
@@ -277,8 +275,8 @@ export default function ProjectDetail() {
               {(project.slug === 'online-art-gallery' || project.slug === 'shifamanagement') && (
                 <div className="pt-2 mb-6">
                   <div className="mb-3 flex items-center justify-between text-xs font-mono">
-                    <span className="text-foreground font-semibold flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-foreground font-semibold flex items-center gap-2">
+                      <span className="pixel-beacon bg-emerald-500" />
                       {project.slug === 'shifamanagement'
                         ? 'INTERACTIVE CLINICAL DATA FLOW & BILLING SIMULATOR'
                         : 'INTERACTIVE BID CONCURRENCY & DATA FLOW SIMULATOR'}
@@ -296,7 +294,7 @@ export default function ProjectDetail() {
               <ul className="space-y-3 pt-2">
                 {architecture.map((arch, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                    <Cpu className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <Cpu className="w-4 h-4 text-foreground shrink-0 mt-1 pixel-icon" aria-hidden="true" />
                     <span>{arch}</span>
                   </li>
                 ))}
@@ -317,7 +315,7 @@ export default function ProjectDetail() {
               <ul className="space-y-3 pt-2">
                 {challenges.map((challenge, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm sm:text-base text-secondary">
-                    <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-1" aria-hidden="true" />
+                    <WarningDiamond className="w-4 h-4 text-foreground shrink-0 mt-1 pixel-icon" aria-hidden="true" />
                     <span>{challenge}</span>
                   </li>
                 ))}
@@ -335,7 +333,7 @@ export default function ProjectDetail() {
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
                 Outcome & Status
               </h2>
-              <div className="p-5 sm:p-6 bg-surface border border-border rounded-sm">
+              <div className="p-5 sm:p-6 bg-surface border border-border rounded-sm pixel-corners">
                 <p className="text-foreground text-sm sm:text-base leading-relaxed font-medium">
                   {outcome}
                 </p>
@@ -347,7 +345,7 @@ export default function ProjectDetail() {
           {project.gallery && project.gallery.length > 0 && (
             <section className="space-y-6 pt-6 border-t border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <ImageIcon className="w-3.5 h-3.5" aria-hidden="true" />
+                <Image className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span className="text-foreground font-semibold uppercase">SYSTEM WORKFLOWS & INTERFACE PREVIEWS</span>
               </div>
               <div>
@@ -362,7 +360,7 @@ export default function ProjectDetail() {
                 {project.gallery.map((imgSrc, idx) => (
                   <div
                     key={idx}
-                    className="group rounded-sm overflow-hidden border border-border bg-surface hover:border-border-strong transition-all flex flex-col"
+                    className="group rounded-sm overflow-hidden border border-border bg-surface hover:border-border-strong transition-all flex flex-col pixel-corners"
                   >
                     <div className="aspect-[16/10] w-full overflow-hidden bg-page flex items-center justify-center">
                       <img
@@ -397,7 +395,7 @@ export default function ProjectDetail() {
           {project.technologies && project.technologies.length > 0 && (
             <section className="space-y-4 pt-6 border-t border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <Terminal className="w-3.5 h-3.5" aria-hidden="true" />
+                <Terminal className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span className="text-foreground font-semibold uppercase">TECHNOLOGY STACK</span>
               </div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight">
@@ -420,7 +418,7 @@ export default function ProjectDetail() {
           {(project.liveUrl || project.githubUrl) && (
             <section className="space-y-4 pt-6 border-t border-border">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <ShieldCheck className="w-3.5 h-3.5" aria-hidden="true" />
+                <Shield className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span className="text-foreground font-semibold uppercase">EXTERNAL VERIFICATION & ACCESS</span>
               </div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight">
@@ -435,7 +433,7 @@ export default function ProjectDetail() {
                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
                   >
                     <span>VISIT PRODUCTION SYSTEM</span>
-                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                    <ExternalLink className="w-4 h-4 pixel-icon" aria-hidden="true" />
                   </a>
                 )}
                 {project.githubUrl && (
@@ -445,7 +443,7 @@ export default function ProjectDetail() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-5 py-2.5 border border-border bg-surface text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong transition-colors"
                   >
-                    <GithubIcon className="w-4 h-4" />
+                    <Github className="w-4 h-4 pixel-icon" />
                     <span>INSPECT REPOSITORY</span>
                   </a>
                 )}
@@ -455,9 +453,9 @@ export default function ProjectDetail() {
 
           {/* ─── 11. Next Project Navigation ─── */}
           <nav aria-label="Next Case Study" className="pt-10 border-t border-border">
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong transition-all">
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong transition-all pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-4 border-b border-border">
-                <Layers className="w-3.5 h-3.5" aria-hidden="true" />
+                <Layout className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span className="text-foreground font-semibold">NEXT CASE STUDY</span>
               </div>
 

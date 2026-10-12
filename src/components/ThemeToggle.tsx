@@ -1,4 +1,4 @@
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon } from 'pixelarticons/react'
 import { useTheme } from '../lib/theme'
 
 interface ThemeToggleProps {

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ExternalLink } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from './Container'
 import { CONTACT_LINKS } from '../data/contact'
@@ -25,8 +25,8 @@ export default function Connect({ className = '', withContainer = true }: Connec
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
             <span className="tracking-wider kinetic-underline">GITHUB</span>
-            <ArrowUpRight
-              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+            <ExternalLink
+              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground pixel-icon"
               aria-hidden="true"
             />
           </a>
@@ -39,8 +39,8 @@ export default function Connect({ className = '', withContainer = true }: Connec
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
             <span className="tracking-wider kinetic-underline">LINKEDIN</span>
-            <ArrowUpRight
-              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+            <ExternalLink
+              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground pixel-icon"
               aria-hidden="true"
             />
           </a>
@@ -53,8 +53,8 @@ export default function Connect({ className = '', withContainer = true }: Connec
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
             <span className="tracking-wider kinetic-underline font-medium text-foreground">RESUME (PDF)</span>
-            <ArrowUpRight
-              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+            <ExternalLink
+              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground pixel-icon"
               aria-hidden="true"
             />
           </a>
@@ -65,8 +65,8 @@ export default function Connect({ className = '', withContainer = true }: Connec
             className="group inline-flex items-center gap-1.5 py-1 text-secondary hover:text-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground rounded-xs"
           >
             <span className="tracking-wider kinetic-underline">EMAIL</span>
-            <ArrowUpRight
-              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+            <ExternalLink
+              className="w-3.5 h-3.5 text-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground pixel-icon"
               aria-hidden="true"
             />
           </a>

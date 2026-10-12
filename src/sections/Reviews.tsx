@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, ArrowUpRight, CheckCircle2, Trash2 } from 'lucide-react'
+import { ArrowRight, ExternalLink, Check, Trash } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -19,7 +19,7 @@ function VerificationBadge({ review }: { review: Review }) {
   if (review.isLocalSubmission) {
     return (
       <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
-        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" aria-hidden="true" />
+        <span className="pixel-beacon bg-amber-500" aria-hidden="true" />
         <span>YOUR SUBMISSION · LOCAL PREVIEW</span>
       </span>
     )
@@ -35,10 +35,10 @@ function VerificationBadge({ review }: { review: Review }) {
           : 'VERIFIED ON LINKEDIN'
 
   const content = (
-    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
-      <CheckCircle2 className="w-3 h-3 text-emerald-500" aria-hidden="true" />
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
+      <Check className="w-3 h-3 text-emerald-500 pixel-icon" aria-hidden="true" />
       <span>{label}</span>
-      {review.verificationUrl && <ArrowUpRight className="w-2.5 h-2.5 ml-0.5 opacity-80" aria-hidden="true" />}
+      {review.verificationUrl && <ExternalLink className="w-2.5 h-2.5 ml-0.5 opacity-80 pixel-icon" aria-hidden="true" />}
     </span>
   )
 
@@ -83,7 +83,7 @@ export default function Reviews() {
           {reviewsList.map((item) => (
             <article
               key={item.id}
-              className={`border bg-surface hover:border-border-strong hover:shadow-xs transition-[border-color,box-shadow] duration-200 rounded-sm p-6 sm:p-8 ${
+              className={`border bg-surface hover:border-border-strong hover:shadow-xs transition-[border-color,box-shadow] duration-200 rounded-sm p-6 sm:p-8 pixel-corners ${
                 item.isLocalSubmission ? 'border-amber-500/40 shadow-xs' : 'border-border'
               }`}
             >
@@ -94,10 +94,10 @@ export default function Reviews() {
                     <img
                       src={item.avatar}
                       alt={item.company || item.name}
-                      className="h-10 sm:h-12 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs"
+                      className="h-10 sm:h-12 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
                     />
                   ) : (
-                    <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs pixel-corners">
                       {getInitials(item.name)}
                     </div>
                   )}
@@ -117,11 +117,11 @@ export default function Reviews() {
                     <button
                       type="button"
                       onClick={() => handleDeleteLocal(item.id)}
-                      className="text-muted hover:text-red-500 active:scale-90 transition-[color,transform] duration-150 ease-out p-1"
+                      className="text-muted hover:text-red-500 active:scale-90 transition-[color,transform] duration-150 ease-out p-1 cursor-pointer"
                       title="Remove local preview"
                       aria-label="Remove local preview"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash className="w-3.5 h-3.5 pixel-icon" />
                     </button>
                   )}
                 </div>
@@ -146,7 +146,7 @@ export default function Reviews() {
                     className="inline-flex items-center gap-1.5 font-semibold text-foreground hover:underline active:scale-95 transition-all group shrink-0"
                   >
                     <span>INSPECT CASE STUDY</span>
-                    <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
+                    <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
                   </Link>
                 )}
               </div>
@@ -155,7 +155,7 @@ export default function Reviews() {
         </div>
 
         {/* ─── Bottom CTA Bar ─── */}
-        <div className="max-w-3xl mx-auto p-5 sm:p-6 border border-border bg-surface rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="max-w-3xl mx-auto p-5 sm:p-6 border border-border bg-surface rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 pixel-corners">
           <div className="space-y-0.5">
             <h4 className="text-xs sm:text-sm font-semibold text-foreground">
               Have we collaborated on an API, database system, or web platform?
@@ -167,10 +167,10 @@ export default function Reviews() {
 
           <Link
             to="/review"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-all shrink-0 select-none"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-all shrink-0 select-none group"
           >
             <span>SUBMIT AN ENDORSEMENT</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </Container>

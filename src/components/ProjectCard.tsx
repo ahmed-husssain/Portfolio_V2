@@ -1,27 +1,9 @@
 import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, ArrowRight, Cpu, GitCommit } from 'lucide-react'
+import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/react'
 import type { Project } from '../data/projects'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
 import ArchitectureModal from './ArchitectureModal'
-
-function GithubIcon({ className = 'w-3.5 h-3.5' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  )
-}
 
 /** Shorten a category string to a compact label for the header bar */
 function shortCategory(cat: string): string {
@@ -94,7 +76,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-md active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col ${
+      className={`group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-md active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col pixel-corners ${
         isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
       } ${className}`}
       style={{ boxShadow: 'var(--hairline-top)' }}
@@ -134,7 +116,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
               title={`Last commit: ${commitLabel}`}
             >
-              <GitCommit className="w-3 h-3 text-emerald-500 shrink-0" />
+              <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
               <span className="text-muted hidden md:inline">COMMIT:</span>
               <span className="text-foreground font-semibold sm:hidden">{formatCompactDate(commitLabel)}</span>
               <span className="text-foreground font-semibold hidden sm:inline">{commitLabel}</span>
@@ -148,7 +130,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`View source code for ${project.title}`}
             >
-              <GithubIcon className="w-3.5 h-3.5" />
+              <Github className="w-3.5 h-3.5 pixel-icon" />
               <span className="hidden sm:inline tracking-wider">SRC</span>
             </a>
           )}
@@ -157,11 +139,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0"
+              className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0 group/live"
               aria-label={`Visit live site for ${project.title}`}
             >
               <span>LIVE</span>
-              <ArrowUpRight className="w-3 h-3 transition-transform duration-150 ease-out group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
+              <ExternalLink className="w-3 h-3 pixel-icon transition-transform duration-150 ease-out group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
             </a>
           )}
         </div>
@@ -280,7 +262,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                     : 'Inspect .NET 8 & SQL Server auction flow'
                 }
               >
-                <Cpu className="w-3 h-3 text-emerald-500 shrink-0" />
+                <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
                 <span className="truncate">VIEW SYSTEM FLOW</span>
               </button>
             )}
@@ -288,11 +270,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Case study link */}
             <Link
               to={`/work/${project.slug}`}
-              className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-[0.96] transition-[transform,color] duration-150 ease-out shrink-0 select-none"
+              className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-[0.96] transition-[transform,color] duration-150 ease-out shrink-0 select-none group"
               aria-label={`Read case study for ${project.title}`}
             >
               <span>CASE STUDY</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 ease-out group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
         </div>

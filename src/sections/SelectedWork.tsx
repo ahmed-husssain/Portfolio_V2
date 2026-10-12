@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -34,7 +34,7 @@ export default function SelectedWork() {
             className="inline-flex items-center gap-2 text-sm font-mono font-semibold text-foreground hover:text-secondary transition-colors group"
           >
             <span>VIEW ALL PROJECTS ({PROJECTS.length})</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            <ArrowRight className="w-4 h-4 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </Container>

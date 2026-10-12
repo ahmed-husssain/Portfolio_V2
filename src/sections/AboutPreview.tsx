@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, FileText } from 'lucide-react'
+import { ArrowRight, ExternalLink, FileText } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -43,7 +43,7 @@ export default function AboutPreview() {
                 className="inline-flex items-center gap-2 text-sm font-mono font-semibold text-foreground hover:text-secondary transition-colors group"
               >
                 <span>READ FULL ABOUT & PRINCIPLES</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight className="w-4 h-4 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <a
                 href="/resume.pdf"
@@ -51,17 +51,17 @@ export default function AboutPreview() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold px-3 py-1.5 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong active:scale-95 transition-all"
               >
-                <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
                 <span>RESUME (PDF)</span>
-                <ArrowUpRight className="w-3 h-3 text-muted" />
+                <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
               </a>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="border border-border bg-surface rounded-sm p-6">
+            <div className="border border-border bg-surface rounded-sm p-6 pixel-corners">
               <div className="flex items-center gap-2 pb-3 mb-5 border-b border-border text-xs font-mono text-muted">
-                <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span className="pixel-beacon" aria-hidden="true" />
                 <span className="text-foreground font-semibold">// PROFILE SNAPSHOT</span>
               </div>
 
@@ -79,9 +79,9 @@ export default function AboutPreview() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-semibold hover:underline"
                         >
-                          <FileText className="w-3.5 h-3.5" />
+                          <FileText className="w-3.5 h-3.5 pixel-icon" />
                           <span>{item.value}</span>
-                          <ArrowUpRight className="w-3 h-3 text-muted" />
+                          <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
                         </a>
                       ) : (
                         item.value

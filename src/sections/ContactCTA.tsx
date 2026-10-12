@@ -1,4 +1,4 @@
-import { ArrowRight, Mail } from 'lucide-react'
+import { ArrowRight, Mail } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
@@ -16,10 +16,10 @@ export default function ContactCTA() {
           meta="[ GET IN TOUCH ]"
         />
 
-        <div className="border border-border bg-surface rounded-sm p-6 sm:p-10 md:p-14">
+        <div className="border border-border bg-surface rounded-sm p-6 sm:p-10 md:p-14 pixel-corners">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span className="pixel-beacon" aria-hidden="true" />
               <span>CURRENT STATUS: {CONTACT_CONFIG.availability.status}</span>
             </div>
 
@@ -36,7 +36,7 @@ export default function ContactCTA() {
                 href={`mailto:${CONTACT_CONFIG.email}`}
                 className="inline-flex items-center gap-2.5 px-5 py-3 text-xs sm:text-sm font-mono font-semibold bg-foreground text-page hover:bg-secondary transition-colors rounded-sm"
               >
-                <Mail className="w-4 h-4" aria-hidden="true" />
+                <Mail className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span>{CONTACT_CONFIG.email.toUpperCase()}</span>
               </a>
 
@@ -45,7 +45,7 @@ export default function ContactCTA() {
                 className="inline-flex items-center gap-2 px-5 py-3 text-xs sm:text-sm font-mono font-semibold border border-border hover:border-border-strong text-foreground transition-colors rounded-sm group"
               >
                 <span>VISIT CONTACT PAGE</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight className="w-4 h-4 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </Link>
             </div>
           </div>

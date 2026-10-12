@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Code2, ChevronDown, ChevronUp, Copy, Check } from 'lucide-react'
+import { Code, ChevronDown, ChevronUp, Copy, Check } from 'pixelarticons/react'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
 import { CAPABILITY_GROUPS } from '../data/capabilities'
@@ -39,7 +39,7 @@ export default function Capabilities() {
             return (
               <article
                 key={group.index}
-                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 transition-[transform,background-color,border-color] duration-150 ease-out rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8 shadow-2xs"
+                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 transition-[transform,background-color,border-color] duration-150 ease-out rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8 shadow-2xs pixel-corners"
                 style={{ boxShadow: 'var(--hairline-top)' }}
               >
                 <div>
@@ -55,15 +55,15 @@ export default function Capabilities() {
                     <button
                       type="button"
                       onClick={() => toggleSnippet(group.index)}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-border bg-page text-[10px] font-mono text-secondary hover:text-foreground hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
+                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-border bg-page text-[10px] font-mono text-secondary hover:text-foreground hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
                       title="Inspect implementation code spec"
                     >
-                      <Code2 className="w-3 h-3 text-emerald-500" />
+                      <Code className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
                       <span>{isExpanded ? 'HIDE SPEC' : 'VIEW CODE SPEC'}</span>
                       {isExpanded ? (
-                        <ChevronUp className="w-2.5 h-2.5" />
+                        <ChevronUp className="w-3 h-3 pixel-icon" />
                       ) : (
-                        <ChevronDown className="w-2.5 h-2.5" />
+                        <ChevronDown className="w-3 h-3 pixel-icon" />
                       )}
                     </button>
                   </div>
@@ -93,22 +93,22 @@ export default function Capabilities() {
                     <div className="mb-6 rounded-sm border border-border bg-page overflow-hidden animate-fadeIn">
                       <div className="px-3.5 py-2 border-b border-border bg-surface-subtle/70 flex items-center justify-between text-xs font-mono">
                         <div className="flex items-center gap-1.5 text-foreground font-semibold text-[11px]">
-                          <Code2 className="w-3 h-3 text-emerald-500" />
+                          <Code className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
                           <span>{group.specSnippet.title}</span>
                         </div>
                         <button
                           type="button"
                           onClick={(e) => copyCode(group.specSnippet.code, group.index, e)}
-                          className="inline-flex items-center gap-1 text-[10px] text-muted hover:text-foreground px-2 py-0.5 rounded-xs border border-border bg-page transition-colors"
+                          className="inline-flex items-center gap-1 text-[10px] text-muted hover:text-foreground px-2 py-0.5 rounded-xs border border-border bg-page transition-colors cursor-pointer select-none"
                         >
                           {isCopied ? (
                             <>
-                              <Check className="w-2.5 h-2.5 text-emerald-500" />
+                              <Check className="w-3 h-3 pixel-icon text-emerald-500" />
                               <span>COPIED</span>
                             </>
                           ) : (
                             <>
-                              <Copy className="w-2.5 h-2.5" />
+                              <Copy className="w-3 h-3 pixel-icon" />
                               <span>COPY</span>
                             </>
                           )}

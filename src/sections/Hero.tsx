@@ -1,4 +1,4 @@
-import { FileText, ArrowUpRight, Trophy } from 'lucide-react'
+import { FileText, ExternalLink, Trophy } from 'pixelarticons/react'
 import Container from '../components/Container'
 import Button from '../components/Button'
 
@@ -14,10 +14,7 @@ export default function Hero() {
       <Container>
         {/* ─── Eyebrow / Terminal Status Pill ─── */}
         <div className="flex flex-wrap items-center gap-2.5 text-micro-caps text-secondary mb-4 sm:mb-6 animate-hero-in">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
+          <span className="pixel-beacon shrink-0" aria-hidden="true" />
           <span className="text-foreground font-semibold">// STATUS: AVAILABLE FOR ROLES</span>
           <span className="text-border-strong" aria-hidden="true">·</span>
           <span>KARACHI, PK (REMOTE & LOCAL)</span>
@@ -36,10 +33,10 @@ export default function Hero() {
         {/* ─── Proof Badge ─── */}
         <div className="flex items-center mb-8 sm:mb-10 animate-hero-in delay-150">
           <div 
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <Trophy className="w-3.5 h-3.5 text-amber-500 shrink-0" aria-hidden="true" />
+            <Trophy className="w-3.5 h-3.5 pixel-icon text-amber-500 shrink-0" aria-hidden="true" />
             <span className="text-foreground font-bold">RUNNER-UP AWARD</span>
             <span className="text-border-strong" aria-hidden="true">·</span>
             <span className="text-muted">APTECH VISION 2025 (MOCKRITHM)</span>
@@ -62,16 +59,16 @@ export default function Hero() {
             style={{ boxShadow: 'var(--hairline-top)' }}
             aria-label="View official Resume (PDF, opens in new tab)"
           >
-            <FileText className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+            <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
             <span>RESUME (PDF)</span>
-            <ArrowUpRight className="w-3.5 h-3.5 text-muted group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150 ease-out" />
+            <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-150 ease-out" />
           </a>
         </div>
 
         {/* ─── Client Value & Practical Pillars ─── */}
         <div className="border-t border-border pt-7 sm:pt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 animate-hero-in delay-240">
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
@@ -86,7 +83,7 @@ export default function Hero() {
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
@@ -101,7 +98,7 @@ export default function Hero() {
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">
@@ -116,7 +113,7 @@ export default function Hero() {
           </div>
 
           <div 
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs"
+            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-micro-caps text-muted">

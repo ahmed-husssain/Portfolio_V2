@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import {
   Play,
-  RotateCcw,
-  CheckCircle2,
+  Reload,
+  Check,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck,
+  Shield,
   Zap,
-  Activity,
-} from 'lucide-react'
+  Radio,
+} from 'pixelarticons/react'
 
 interface Step {
   id: string
@@ -237,7 +237,7 @@ export default function ArchitectureVisualizer({
           {flow.subtitle}
         </p>
         <span className="inline-flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-[9px] sm:text-[10px] font-semibold shrink-0">
-          <Activity className="w-3 h-3 animate-pulse" />
+          <Radio className="w-3.5 h-3.5 pixel-icon" />
           {flow.tag}
         </span>
       </div>
@@ -282,7 +282,7 @@ export default function ArchitectureVisualizer({
       {/* ─── 3. Two-Column Card: Step Details (Left) + Interactive Tests (Right) ─── */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
         {/* Left: Step Details (7 Cols) */}
-        <div className="md:col-span-7 p-3 rounded-xs border border-border bg-page flex flex-col justify-between gap-2.5">
+        <div className="md:col-span-7 p-3 rounded-xs border border-border bg-page flex flex-col justify-between gap-2.5 pixel-corners">
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono mb-1">
               <span className="text-muted uppercase text-[10px]">
@@ -316,8 +316,9 @@ export default function ArchitectureVisualizer({
 
           {/* Step Footer with Metric & Next/Prev Controls */}
           <div className="pt-2 border-t border-border flex items-center justify-between text-xs font-mono">
-            <span className="text-emerald-500 font-bold text-[11px]">
-              ✓ {currentStep.metric}
+            <span className="text-emerald-500 font-bold text-[11px] flex items-center gap-1">
+              <Check className="w-3 h-3 pixel-icon" />
+              <span>{currentStep.metric}</span>
             </span>
 
             <div className="flex items-center gap-1">
@@ -332,7 +333,7 @@ export default function ArchitectureVisualizer({
                 title="Previous step"
                 aria-label="Previous step"
               >
-                <ChevronLeft className="w-3.5 h-3.5" />
+                <ChevronLeft className="w-3.5 h-3.5 pixel-icon" />
               </button>
               <button
                 type="button"
@@ -345,27 +346,27 @@ export default function ArchitectureVisualizer({
                 title="Next step"
                 aria-label="Next step"
               >
-                <ChevronRight className="w-3.5 h-3.5" />
+                <ChevronRight className="w-3.5 h-3.5 pixel-icon" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Right: 1-Click Interactive Test Scenarios (5 Cols) */}
-        <div className="md:col-span-5 p-3 rounded-xs border border-border bg-surface-subtle/50 flex flex-col justify-between gap-2.5">
+        <div className="md:col-span-5 p-3 rounded-xs border border-border bg-surface-subtle/50 flex flex-col justify-between gap-2.5 pixel-corners">
           <div>
             <div className="flex items-center justify-between text-[11px] font-mono text-muted mb-1.5">
               <span className="flex items-center gap-1 font-semibold text-foreground uppercase text-[10px]">
-                <Zap className="w-3 h-3 text-amber-500" />
+                <Zap className="w-3.5 h-3.5 text-amber-500 pixel-icon" />
                 <span>TEST SCENARIOS</span>
               </span>
               {activeSim && (
                 <button
                   type="button"
                   onClick={resetSimulation}
-                  className="text-muted hover:text-foreground inline-flex items-center gap-0.5 text-[10px] cursor-pointer"
+                  className="text-muted hover:text-foreground inline-flex items-center gap-1 text-[10px] cursor-pointer"
                 >
-                  <RotateCcw className="w-2.5 h-2.5" />
+                  <Reload className="w-3 h-3 pixel-icon" />
                   <span>RESET</span>
                 </button>
               )}
@@ -387,7 +388,7 @@ export default function ArchitectureVisualizer({
                     }`}
                   >
                     <span className="truncate">{sim.label}</span>
-                    <Play className={`w-2.5 h-2.5 shrink-0 ${isActive ? 'fill-current' : 'text-muted'}`} />
+                    <Play className={`w-3 h-3 shrink-0 pixel-icon ${isActive ? 'text-foreground' : 'text-muted'}`} />
                   </button>
                 )
               })}
@@ -399,7 +400,7 @@ export default function ArchitectureVisualizer({
             {activeSim ? (
               <div className="space-y-0.5">
                 <span className="text-emerald-500 font-bold flex items-center gap-1 text-[10px]">
-                  <CheckCircle2 className="w-3 h-3 shrink-0" />
+                  <Check className="w-3.5 h-3.5 shrink-0 pixel-icon" />
                   <span>RESULT:</span>
                 </span>
                 <p className="text-foreground leading-snug font-sans text-xs">
@@ -418,7 +419,7 @@ export default function ArchitectureVisualizer({
       {/* ─── 4. Minimal Bottom Guarantee Bar ─── */}
       <div className="pt-2 border-t border-border flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-muted">
         <span className="flex items-center gap-1.5 text-foreground font-medium">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+          <Shield className="w-3.5 h-3.5 text-emerald-500 pixel-icon" />
           <span>{flow.guarantee}</span>
         </span>
         <span className="hidden sm:inline">{flow.guaranteeTech}</span>

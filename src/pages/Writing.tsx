@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Calendar, Tag, ShieldCheck } from 'lucide-react'
+import { ArrowRight, Notebook, Calendar, Label, Shield } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
@@ -39,7 +39,7 @@ export default function Writing() {
             {publishedArticles.map((article, index) => (
               <Reveal key={article.slug} delay={index * 50}>
                 <article
-                  className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.995] transition-[transform,border-color,box-shadow] duration-200 ease-out group"
+                  className="border border-border bg-surface rounded-sm p-6 sm:p-8 hover:border-border-strong hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.995] transition-[transform,border-color,box-shadow] duration-200 ease-out group pixel-corners"
                   style={{ boxShadow: 'var(--hairline-top)' }}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3 text-micro-caps text-muted pb-3 mb-4 border-b border-border">
@@ -49,7 +49,7 @@ export default function Writing() {
                       <span>VERIFIED</span>
                     </div>
                     <div className="flex items-center gap-1.5 text-secondary">
-                      <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+                      <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                       <time dateTime={article.date}>{article.date}</time>
                     </div>
                   </div>
@@ -60,7 +60,7 @@ export default function Writing() {
                       className="hover:underline underline-offset-4 decoration-border transition-colors inline-flex items-center gap-2"
                     >
                       <span>{article.title}</span>
-                      <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 group-hover:translate-x-0" />
+                      <ArrowRight className="w-4 h-4 pixel-icon opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 group-hover:translate-x-0" />
                     </Link>
                   </h2>
 
@@ -70,7 +70,7 @@ export default function Writing() {
 
                   <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
                     <div className="flex flex-wrap items-center gap-2">
-                      <Tag className="w-3 h-3 text-muted mr-1" aria-hidden="true" />
+                      <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
                       {article.tags.map((tag) => (
                         <span
                           key={tag}
@@ -86,7 +86,7 @@ export default function Writing() {
                       className="inline-flex items-center gap-1.5 text-micro-caps font-semibold text-foreground hover:underline transition-colors"
                     >
                       <span>READ ESSAY</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5 pixel-icon" />
                     </Link>
                   </div>
                 </article>
@@ -97,12 +97,12 @@ export default function Writing() {
           /* Honest Editorial Empty State */
           <Reveal className="space-y-8 mb-16">
             <div 
-              className="border border-border bg-surface rounded-sm p-8 sm:p-12"
+              className="border border-border bg-surface rounded-sm p-8 sm:p-12 pixel-corners"
               style={{ boxShadow: 'var(--hairline-top)' }}
             >
               <div className="max-w-2xl">
                 <div className="flex items-center gap-2 text-micro-caps text-muted mb-4">
-                  <BookOpen className="w-4 h-4 text-foreground" aria-hidden="true" />
+                  <Notebook className="w-4 h-4 text-foreground pixel-icon" aria-hidden="true" />
                   <span className="text-foreground font-semibold">// PUBLICATION PIPELINE</span>
                 </div>
 
@@ -114,8 +114,8 @@ export default function Writing() {
                   I write about production problems I have personally solved: backend APIs, relational database schemas, auth patterns, and full-stack performance tradeoffs. Every article is paired with working code, verifiable benchmarks, and real production considerations.
                 </p>
 
-                <div className="flex items-start gap-3 p-4 bg-page border border-border rounded-xs text-xs font-mono text-secondary mb-8">
-                  <ShieldCheck className="w-4 h-4 text-foreground shrink-0 mt-0.5" aria-hidden="true" />
+                <div className="flex items-start gap-3 p-4 bg-page border border-border rounded-xs text-xs font-mono text-secondary mb-8 pixel-corners">
+                  <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
                   <span className="leading-relaxed">
                     HONEST PUBLICATION POLICY // No synthetic reading times, fabricated publication dates, or placeholder articles. Pieces are published only when fully tested and ready for production scrutiny.
                   </span>
@@ -151,7 +151,7 @@ export default function Writing() {
             className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground hover:underline transition-colors group"
           >
             <span>SUGGEST A TOPIC / GET IN TOUCH</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
       </Container>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { X } from 'lucide-react'
+import { Close } from 'pixelarticons/react'
 import ArchitectureVisualizer from './ArchitectureVisualizer'
 
 interface ArchitectureModalProps {
@@ -45,11 +45,11 @@ export default function ArchitectureModal({
       />
 
       {/* Modal Card - 100% fits on screen, zero scrollbars on desktop/tablet, smooth scroll if small phone */}
-      <div className="relative w-full max-w-3xl bg-surface border border-border-strong rounded-sm shadow-2xl z-10 overflow-hidden flex flex-col max-h-[96dvh]">
+      <div className="relative w-full max-w-3xl bg-surface border border-border-strong rounded-sm shadow-2xl z-10 overflow-hidden flex flex-col max-h-[96dvh] pixel-corners">
         {/* Header Bar */}
         <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-5 border-b border-border bg-surface-subtle/70 shrink-0">
           <div className="flex items-center gap-2 text-xs font-mono min-w-0">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span className="pixel-beacon bg-emerald-500 shrink-0" />
             <span className="text-foreground font-bold tracking-tight truncate">{title}</span>
             <span className="text-border-strong hidden sm:inline">|</span>
             <span className="text-muted hidden sm:inline text-[11px] truncate">{subtitle}</span>
@@ -61,7 +61,7 @@ export default function ArchitectureModal({
             className="p-1 rounded-xs border border-border text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer shrink-0 ml-2"
             aria-label="Close modal"
           >
-            <X className="w-3.5 h-3.5" />
+            <Close className="w-4 h-4 pixel-icon" />
           </button>
         </div>
 

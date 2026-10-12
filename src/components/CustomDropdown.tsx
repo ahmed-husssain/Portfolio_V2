@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useId } from 'react'
-import { ChevronDown, Check } from 'lucide-react'
+import { ChevronDown, Check } from 'pixelarticons/react'
 
 export interface CustomDropdownProps {
   label: string
@@ -148,7 +148,7 @@ export default function CustomDropdown({
       >
         <span className="truncate">{value || 'Select an option'}</span>
         <ChevronDown
-          className={`w-4 h-4 text-muted shrink-0 transition-transform duration-200 ${
+          className={`w-4 h-4 text-muted shrink-0 transition-transform duration-200 pixel-icon ${
             isOpen ? 'rotate-180 text-foreground' : 'group-hover:text-foreground'
           }`}
           aria-hidden="true"
@@ -166,7 +166,7 @@ export default function CustomDropdown({
           id={`${componentId}-listbox`}
           role="listbox"
           aria-labelledby={`${componentId}-label`}
-          className="absolute left-0 right-0 z-40 mt-1.5 max-h-60 overflow-y-auto border border-border bg-surface shadow-lg rounded-sm py-1 focus:outline-none animate-page-in divide-y divide-border/30"
+          className="absolute left-0 right-0 z-40 mt-1.5 max-h-60 overflow-y-auto border border-border bg-surface shadow-lg rounded-sm py-1 focus:outline-none animate-page-in divide-y divide-border/30 pixel-corners"
           tabIndex={-1}
         >
           {options.map((option, idx) => {
@@ -192,7 +192,7 @@ export default function CustomDropdown({
                 <span className="truncate">{option}</span>
                 {isSelected && (
                   <Check
-                    className="w-3.5 h-3.5 text-foreground shrink-0"
+                    className="w-3.5 h-3.5 text-foreground shrink-0 pixel-icon"
                     aria-hidden="true"
                   />
                 )}

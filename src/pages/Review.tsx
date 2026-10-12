@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { ArrowLeft, CheckCircle2, Send, Shield } from 'lucide-react'
+import { ArrowLeft, Check, Send, Shield } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
@@ -78,7 +78,7 @@ export default function Review() {
             to="/"
             className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground transition-colors group"
           >
-            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
+            <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" aria-hidden="true" />
             <span>BACK TO HOMEPAGE</span>
           </Link>
         </div>
@@ -103,9 +103,9 @@ export default function Review() {
         {/* Form Container / Success State */}
         <div className="max-w-2xl">
           {isSubmitted ? (
-            <div className="border border-border bg-surface rounded-sm p-8 sm:p-12 animate-page-in">
+            <div className="border border-border bg-surface rounded-sm p-8 sm:p-12 animate-page-in pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider mb-4">
-                <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
+                <Check className="w-4 h-4 pixel-icon" aria-hidden="true" />
                 <span>SUBMISSION RECEIVED // PENDING APPROVAL</span>
               </div>
 
@@ -117,7 +117,7 @@ export default function Review() {
                 {serverMessage}
               </p>
 
-              <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted mb-8 space-y-1">
+              <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted mb-8 space-y-1 pixel-corners">
                 <div><span className="text-secondary">SUBMITTED AS:</span> {formData.name}</div>
                 {formData.role && <div><span className="text-secondary">ROLE:</span> {formData.role}</div>}
                 {formData.company && <div><span className="text-secondary">ORGANIZATION:</span> {formData.company}</div>}
@@ -127,9 +127,9 @@ export default function Review() {
               <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
                 <Link
                   to="/#reviews"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary transition-colors group"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" aria-hidden="true" />
+                  <Check className="w-4 h-4 text-emerald-400 pixel-icon" aria-hidden="true" />
                   <span>VIEW YOUR REVIEW ON HOMEPAGE</span>
                 </Link>
 
@@ -158,8 +158,8 @@ export default function Review() {
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-6 sm:space-y-8 animate-page-in">
               {/* Editorial Privacy Note */}
-              <div className="flex items-start gap-3 p-4 bg-surface border border-border rounded-sm text-xs font-mono text-secondary">
-                <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="flex items-start gap-3 p-4 bg-surface border border-border rounded-sm text-xs font-mono text-secondary pixel-corners">
+                <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
                 <p className="leading-relaxed">
                   Notice: Testimonials are reviewed by Ahmed prior to publication to prevent spam and verify authenticity. Your email is not published publicly.
                 </p>
@@ -390,7 +390,7 @@ export default function Review() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" aria-hidden="true" />
+                      <Send className="w-4 h-4 pixel-icon" aria-hidden="true" />
                       <span>SUBMIT REVIEW FOR MODERATION</span>
                     </>
                   )}

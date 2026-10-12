@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowRight, ArrowUpRight, Mail, FileText } from 'lucide-react'
+import { Menu, Close, ArrowRight, ExternalLink, Mail, FileText } from 'pixelarticons/react'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
 import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
@@ -69,7 +69,7 @@ export default function Navbar() {
               AHMED HUSSAIN
             </Link>
             <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border text-micro-caps text-muted">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+              <span className="pixel-beacon" aria-hidden="true" />
               <span>{AVAILABILITY_STATUS.label}</span>
             </div>
           </div>
@@ -106,9 +106,9 @@ export default function Navbar() {
               style={{ boxShadow: 'var(--hairline-top)' }}
               aria-label="View official Resume (PDF, opens in new tab)"
             >
-              <FileText className="w-3.5 h-3.5 text-emerald-500" />
+              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
               <span>RESUME</span>
-              <ArrowUpRight className="w-3 h-3 text-muted group-hover:text-foreground transition-colors" />
+              <ExternalLink className="w-3 h-3 pixel-icon text-muted group-hover:text-foreground transition-colors" />
             </a>
 
             <div className="pl-2 border-l border-border">
@@ -127,9 +127,9 @@ export default function Navbar() {
               className="p-2 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover active:scale-95 transition-all duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer"
             >
               {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-foreground" aria-hidden="true" />
+                <Close className="w-5 h-5 pixel-icon text-foreground" aria-hidden="true" />
               ) : (
-                <Menu className="w-5 h-5" aria-hidden="true" />
+                <Menu className="w-5 h-5 pixel-icon" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -203,8 +203,8 @@ export default function Navbar() {
           <div className="my-3 p-3.5 rounded-xs border border-border bg-surface-subtle/50 flex flex-col gap-2.5">
             <div className="flex items-center justify-between text-[10px] font-mono text-muted uppercase">
               <span>DIRECT CONNECT</span>
-              <span className="text-emerald-500 font-semibold flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-emerald-500 font-semibold flex items-center gap-1.5">
+                <span className="pixel-beacon" />
                 AVAILABLE
               </span>
             </div>
@@ -214,10 +214,10 @@ export default function Navbar() {
               className="p-2.5 rounded-2xs border border-border bg-page flex items-center justify-between text-xs font-mono text-foreground hover:bg-surface active:scale-95 transition-all"
             >
               <div className="flex items-center gap-2 truncate">
-                <Mail className="w-3.5 h-3.5 text-muted shrink-0" />
+                <Mail className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
                 <span className="truncate">{CONTACT_CONFIG.email}</span>
               </div>
-              <ArrowUpRight className="w-3 h-3 text-muted shrink-0 ml-1" />
+              <ExternalLink className="w-3 h-3 pixel-icon text-muted shrink-0 ml-1" />
             </a>
 
             <a
@@ -227,10 +227,10 @@ export default function Navbar() {
               className="p-2.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-500/15 active:scale-95 transition-all"
             >
               <div className="flex items-center gap-2">
-                <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
                 <span>OFFICIAL RESUME (PDF)</span>
               </div>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ExternalLink className="w-3.5 h-3.5 pixel-icon" />
             </a>
 
             <div className="grid grid-cols-2 gap-2 text-xs font-mono">
@@ -241,7 +241,7 @@ export default function Navbar() {
                 className="p-2 rounded-2xs border border-border bg-page text-secondary hover:text-foreground flex items-center justify-center gap-1.5 active:scale-95 transition-all"
               >
                 <span>GITHUB</span>
-                <ArrowUpRight className="w-3 h-3 text-muted" />
+                <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
               </a>
               <a
                 href={CONTACT_CONFIG.linkedin.url}
@@ -250,15 +250,15 @@ export default function Navbar() {
                 className="p-2 rounded-2xs border border-border bg-page text-secondary hover:text-foreground flex items-center justify-center gap-1.5 active:scale-95 transition-all"
               >
                 <span>LINKEDIN</span>
-                <ArrowUpRight className="w-3 h-3 text-muted" />
+                <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
               </a>
             </div>
           </div>
 
           {/* Bottom: Clean Single-Line Status Bar */}
           <div className="pt-2.5 border-t border-border flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-muted shrink-0">
-            <div className="flex items-center gap-1.5 text-secondary truncate">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
+            <div className="flex items-center gap-2 text-secondary truncate">
+              <span className="pixel-beacon shrink-0" aria-hidden="true" />
               <span className="truncate">Karachi, Pakistan (Remote & On-site)</span>
             </div>
             <span className="text-muted shrink-0 ml-2">PORTFOLIO // V2</span>

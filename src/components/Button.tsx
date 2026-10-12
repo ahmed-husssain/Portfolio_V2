@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ExternalLink } from 'pixelarticons/react'
 import { useMagneticHover } from '../hooks/useMagneticHover'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'link'
@@ -68,8 +68,8 @@ export default function Button({
     <>
       <span>{children}</span>
       {icon && (
-        <ArrowUpRight
-          className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        <ExternalLink
+          className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           aria-hidden="true"
         />
       )}

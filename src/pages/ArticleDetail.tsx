@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Calendar, Tag, MessageSquare, BookOpen } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, Label, Message, Notebook } from 'pixelarticons/react'
 import Container from '../components/Container'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
@@ -37,7 +37,7 @@ const mdxComponents = {
     <blockquote className="border-l-2 border-foreground/50 bg-surface/40 pl-4 py-2 my-6 text-secondary italic text-sm sm:text-base rounded-r-sm" {...props} />
   ),
   pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className="bg-surface border border-border rounded-sm p-4 sm:p-5 overflow-x-auto my-6 font-mono text-xs sm:text-sm text-foreground leading-relaxed" {...props} />
+    <pre className="bg-surface border border-border rounded-sm p-4 sm:p-5 overflow-x-auto my-6 font-mono text-xs sm:text-sm text-foreground leading-relaxed pixel-corners" {...props} />
   ),
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
     const isInline = !className
@@ -104,9 +104,9 @@ export default function ArticleDetail() {
     return (
       <div className="py-20 sm:py-32">
         <Container>
-          <div className="max-w-2xl mx-auto border border-border bg-surface rounded-sm p-8 sm:p-12 text-center">
+          <div className="max-w-2xl mx-auto border border-border bg-surface rounded-sm p-8 sm:p-12 text-center pixel-corners">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">
-              <BookOpen className="w-4 h-4 text-muted" />
+              <Notebook className="w-4 h-4 text-muted pixel-icon" />
               <span>// ARTICLE NOT FOUND</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mb-4">
@@ -119,7 +119,7 @@ export default function ArticleDetail() {
               to="/writing"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-3.5 h-3.5 pixel-icon" />
               <span>BACK TO WRITING INDEX</span>
             </Link>
           </div>
@@ -138,7 +138,7 @@ export default function ArticleDetail() {
               to="/writing"
               className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors group"
             >
-              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" />
               <span>BACK TO WRITING</span>
             </Link>
             <span className="text-muted hidden sm:inline-block tracking-wider uppercase">
@@ -150,7 +150,7 @@ export default function ArticleDetail() {
           <header className="mb-12 sm:mb-16 pb-8 border-b border-border">
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted mb-4">
               <div className="flex items-center gap-1.5 text-secondary">
-                <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+                <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                 <time dateTime={article.date}>{article.date}</time>
               </div>
               <span>·</span>
@@ -169,7 +169,7 @@ export default function ArticleDetail() {
 
             {/* Tags */}
             <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-border">
-              <Tag className="w-3 h-3 text-muted mr-1" aria-hidden="true" />
+              <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
               {article.tags.map((tag) => (
                 <span
                   key={tag}
@@ -185,13 +185,13 @@ export default function ArticleDetail() {
           <div className="min-h-[200px]">
             {loading && (
               <div className="py-12 flex items-center justify-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
+                <span className="pixel-beacon bg-foreground" />
                 <span>LOADING ESSAY CONTENT...</span>
               </div>
             )}
 
             {error && (
-              <div className="border border-border bg-surface rounded-sm p-6 text-center text-xs font-mono text-secondary">
+              <div className="border border-border bg-surface rounded-sm p-6 text-center text-xs font-mono text-secondary pixel-corners">
                 {error}
               </div>
             )}
@@ -204,7 +204,7 @@ export default function ArticleDetail() {
           </div>
 
           {/* Author Callout & Feedback Card */}
-          <div className="mt-16 sm:mt-20 border border-border bg-surface rounded-sm p-6 sm:p-8">
+          <div className="mt-16 sm:mt-20 border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1">
@@ -219,9 +219,9 @@ export default function ArticleDetail() {
               </div>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong transition-colors shrink-0"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong transition-colors shrink-0 group"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
+                <Message className="w-3.5 h-3.5 pixel-icon" />
                 <span>DISCUSS THIS ESSAY</span>
               </Link>
             </div>
@@ -231,9 +231,9 @@ export default function ArticleDetail() {
           <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             <Link
               to="/writing"
-              className="inline-flex items-center gap-2 text-xs font-mono text-secondary hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-mono text-secondary hover:text-foreground transition-colors group"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-0.5" />
               <span>ALL TECHNICAL WRITING</span>
             </Link>
 
@@ -243,7 +243,7 @@ export default function ArticleDetail() {
                 className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
               >
                 <span>NEXT: {nextArticle.title}</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
               </Link>
             ) : (
               <Link
@@ -251,7 +251,7 @@ export default function ArticleDetail() {
                 className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
               >
                 <span>EXPLORE SELECTED WORK</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
               </Link>
             )}
           </div>

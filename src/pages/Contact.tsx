@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import {
   ArrowRight,
-  ArrowUpRight,
+  ExternalLink,
   Check,
   Copy,
   Mail,
   Send,
-  ShieldCheck,
-  AlertCircle,
+  Shield,
+  WarningDiamond,
   FileText,
-} from 'lucide-react'
+  Github,
+} from 'pixelarticons/react'
 import Container from '../components/Container'
 import Connect from '../components/Connect'
 import CustomDropdown from '../components/CustomDropdown'
@@ -22,18 +23,6 @@ import {
   type FormValidationErrors,
   type ContactSubmissionResult,
 } from '../lib/contact/contactService'
-
-function GithubIcon({ className = 'w-4 h-4' }: { className?: string }) {
-  return (
-    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-      />
-    </svg>
-  )
-}
 
 export default function Contact() {
   useDocumentTitle('Contact & Hire — Syed Ahmed Hussain | Software Developer in Karachi')
@@ -121,7 +110,7 @@ export default function Contact() {
               <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="text-emerald-500 font-semibold inline-flex items-center gap-1.5 shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+                <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
                 AVAILABLE FOR ROLES
               </span>
             </div>
@@ -145,11 +134,11 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* ─── Left Column: Contact Form ─── */}
           <div className="lg:col-span-7">
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 md:p-10">
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 md:p-10 pixel-corners">
               {/* Form Telemetry Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-border text-xs font-mono text-muted">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" aria-hidden="true" />
+                  <span className="pixel-beacon bg-emerald-500 shrink-0" aria-hidden="true" />
                   <span className="text-foreground font-semibold uppercase tracking-wider truncate">
                     // PROJECT INQUIRY
                   </span>
@@ -164,7 +153,7 @@ export default function Contact() {
               </div>
 
               {/* Form Guidance Microcopy */}
-              <p className="text-secondary text-xs sm:text-sm leading-relaxed mb-8 bg-page border border-border rounded-sm p-4">
+              <p className="text-secondary text-xs sm:text-sm leading-relaxed mb-8 bg-page border border-border rounded-sm p-4 pixel-corners">
                 Tell me what you're building, key technical requirements, and your target timeline. All inquiries route directly to Ahmed Hussain.
               </p>
 
@@ -172,9 +161,9 @@ export default function Contact() {
               {generalError && (
                 <div
                   role="alert"
-                  className="p-4 mb-6 border border-border bg-page text-foreground text-xs sm:text-sm rounded-sm flex items-start gap-2.5 animate-page-in"
+                  className="p-4 mb-6 border border-border bg-page text-foreground text-xs sm:text-sm rounded-sm flex items-start gap-2.5 animate-page-in pixel-corners"
                 >
-                  <AlertCircle className="w-4 h-4 text-foreground shrink-0 mt-0.5" aria-hidden="true" />
+                  <WarningDiamond className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
                   <span>{generalError}</span>
                 </div>
               )}
@@ -184,7 +173,7 @@ export default function Contact() {
                 <div className="py-6 space-y-6 animate-page-in">
                   <div className="flex items-center justify-between gap-3 text-xs font-mono text-muted uppercase tracking-wider pb-3 border-b border-border">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-emerald-500" aria-hidden="true" />
+                      <Shield className="w-4 h-4 text-emerald-500 pixel-icon" aria-hidden="true" />
                       <span className="text-foreground font-semibold">
                         {submissionResult.mode === 'delivered'
                           ? 'TRANSMISSION CONFIRMED // DELIVERED'
@@ -207,7 +196,7 @@ export default function Contact() {
                   </p>
 
                   {/* Summary Record */}
-                  <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted space-y-1.5">
+                  <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted space-y-1.5 pixel-corners">
                     <div><span className="text-secondary">SENDER:</span> {formData.name} &lt;{formData.email}&gt;</div>
                     {formData.company && <div><span className="text-secondary">ORGANIZATION:</span> {formData.company}</div>}
                     <div><span className="text-secondary">AREA OF FOCUS:</span> {formData.service}</div>
@@ -219,9 +208,9 @@ export default function Contact() {
                     {submissionResult.mailtoFallbackUrl && (
                       <a
                         href={submissionResult.mailtoFallbackUrl}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all group"
                       >
-                        <Send className="w-3.5 h-3.5" aria-hidden="true" />
+                        <Send className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                         <span>LAUNCH MAIL CLIENT</span>
                       </a>
                     )}
@@ -418,7 +407,7 @@ export default function Contact() {
                       ) : (
                         <>
                           <span>TRANSMIT INQUIRY</span>
-                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 pixel-icon" aria-hidden="true" />
                         </>
                       )}
                     </button>
@@ -431,9 +420,9 @@ export default function Contact() {
           {/* ─── Right Column: Direct Channels & Logistics ─── */}
           <div className="lg:col-span-5 space-y-6">
             {/* Primary Email Card */}
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8">
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-4 border-b border-border">
-                <Mail className="w-4 h-4 text-foreground" aria-hidden="true" />
+                <Mail className="w-4 h-4 text-foreground pixel-icon" aria-hidden="true" />
                 <span className="text-foreground font-semibold">PRIMARY DIRECT CHANNEL</span>
               </div>
 
@@ -448,26 +437,26 @@ export default function Contact() {
               <div className="flex items-center gap-2">
                 <a
                   href={`mailto:${CONTACT_CONFIG.email}`}
-                  className="flex-1 min-w-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary transition-colors overflow-hidden"
+                  className="flex-1 min-w-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary transition-colors overflow-hidden group"
                 >
                   <span className="truncate">{CONTACT_CONFIG.email.toUpperCase()}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0 pixel-icon transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
 
                 <button
                   type="button"
                   onClick={handleCopyEmail}
                   title="Copy email address"
-                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors"
+                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors cursor-pointer"
                 >
                   {copiedEmail ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-foreground" />
+                      <Check className="w-3.5 h-3.5 text-foreground pixel-icon" />
                       <span className="text-[11px]">COPIED</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-muted" />
+                      <Copy className="w-3.5 h-3.5 text-muted pixel-icon" />
                       <span className="text-[11px]">COPY</span>
                     </>
                   )}
@@ -476,7 +465,7 @@ export default function Contact() {
             </div>
 
             {/* Professional Profiles */}
-            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8">
+            <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-5 border-b border-border">
                 <span className="text-foreground font-semibold">// PROFESSIONAL LINKS</span>
               </div>
@@ -486,10 +475,10 @@ export default function Contact() {
                   href={CONTACT_CONFIG.github.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group"
+                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group pixel-corners"
                 >
                   <div className="flex items-center gap-3">
-                    <GithubIcon className="w-5 h-5 text-foreground" />
+                    <Github className="w-5 h-5 text-foreground pixel-icon" />
                     <div>
                       <span className="text-xs sm:text-sm font-semibold text-foreground block">
                         GitHub Profile
@@ -499,17 +488,17 @@ export default function Contact() {
                       </span>
                     </div>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 pixel-icon" aria-hidden="true" />
                 </a>
 
                 <a
                   href={CONTACT_CONFIG.linkedin.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group"
+                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group pixel-corners"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-5 h-5 flex items-center justify-center font-bold text-sm text-foreground">in</span>
+                    <span className="w-5 h-5 flex items-center justify-center font-bold text-sm text-foreground font-mono">in</span>
                     <div>
                       <span className="text-xs sm:text-sm font-semibold text-foreground block">
                         LinkedIn Profile
@@ -519,17 +508,17 @@ export default function Contact() {
                       </span>
                     </div>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 pixel-icon" aria-hidden="true" />
                 </a>
 
                 <a
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group"
+                  className="flex items-center justify-between p-4 border border-border bg-page hover:border-border-strong rounded-sm transition-all duration-200 group pixel-corners"
                 >
                   <div className="flex items-center gap-3">
-                    <FileText className="w-5 h-5 text-emerald-500" />
+                    <FileText className="w-5 h-5 text-emerald-500 pixel-icon" />
                     <div>
                       <span className="text-xs sm:text-sm font-semibold text-foreground block">
                         Official Resume (PDF)
@@ -539,7 +528,7 @@ export default function Contact() {
                       </span>
                     </div>
                   </div>
-                  <ArrowUpRight className="w-4 h-4 text-muted group-hover:text-foreground transition-colors" aria-hidden="true" />
+                  <ExternalLink className="w-4 h-4 text-muted group-hover:text-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 pixel-icon" aria-hidden="true" />
                 </a>
               </div>
             </div>
