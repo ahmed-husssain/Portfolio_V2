@@ -7,6 +7,8 @@ import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
 import ScrollProgress from './components/ScrollProgress'
 
+import { SplashProvider } from './components/SplashLoader'
+
 // Critical Homepage kept in initial bundle
 import Home from './pages/Home'
 
@@ -36,36 +38,38 @@ export default function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <div className="min-h-screen bg-page text-foreground flex flex-col selection:bg-accent-bg selection:text-accent-text">
-          {/* ─── Ambient Scroll Progress Indicator (Flow Theory) ─── */}
-          <ScrollProgress />
+        <SplashProvider>
+          <ScrollToTop />
+          <div className="min-h-screen bg-page text-foreground flex flex-col selection:bg-accent-bg selection:text-accent-text">
+            {/* ─── Ambient Scroll Progress Indicator (Flow Theory) ─── */}
+            <ScrollProgress />
 
-          {/* ─── Fixed Header / Navbar ─── */}
-          <Navbar />
+            {/* ─── Fixed Header / Navbar ─── */}
+            <Navbar />
 
-          {/* ─── Route Viewport with Code-Split Boundaries & Subtle Transition ─── */}
-          <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
-            <Suspense fallback={<PageFallback />}>
-              <PageTransition>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/work" element={<Work />} />
-                  <Route path="/work/:slug" element={<ProjectDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/writing" element={<Writing />} />
-                  <Route path="/writing/:slug" element={<ArticleDetail />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/review" element={<Review />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </PageTransition>
-            </Suspense>
-          </main>
+            {/* ─── Route Viewport with Code-Split Boundaries & Subtle Transition ─── */}
+            <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">
+              <Suspense fallback={<PageFallback />}>
+                <PageTransition>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/work" element={<Work />} />
+                    <Route path="/work/:slug" element={<ProjectDetail />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/writing" element={<Writing />} />
+                    <Route path="/writing/:slug" element={<ArticleDetail />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/review" element={<Review />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </PageTransition>
+              </Suspense>
+            </main>
 
-          {/* ─── Global Footer ─── */}
-          <Footer />
-        </div>
+            {/* ─── Global Footer ─── */}
+            <Footer />
+          </div>
+        </SplashProvider>
       </BrowserRouter>
     </ThemeProvider>
   )

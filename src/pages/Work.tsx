@@ -1,11 +1,13 @@
 import Container from '../components/Container'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/Reveal'
-import { PROJECTS, SORTED_PROJECTS } from '../data/projects'
+import { PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useRankedProjects } from '../lib/github/ranking.ts'
 
 export default function Work() {
   useDocumentTitle('Projects & Systems — Syed Ahmed Hussain | Software Developer in Karachi')
+  const { projects } = useRankedProjects({ featuredOnly: false })
 
   return (
     <div className="pt-20 sm:pt-24 pb-16 sm:pb-20 md:pb-24">
@@ -31,7 +33,7 @@ export default function Work() {
 
         {/* ─── Project List (Elevated Cards with Luminous Hairlines) ─── */}
         <div className="flex flex-col gap-10 sm:gap-14">
-          {SORTED_PROJECTS.map((project, index) => (
+          {projects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 40}>
               <ProjectCard project={project} index={index + 1} />
             </Reveal>

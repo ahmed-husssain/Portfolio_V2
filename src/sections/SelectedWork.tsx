@@ -1,12 +1,13 @@
-import { ArrowRight } from 'pixelarticons/react'
+import { ArrowRight, Trophy } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
-import { PROJECTS, SORTED_PROJECTS } from '../data/projects'
+import { PROJECTS } from '../data/projects'
+import { useRankedProjects } from '../lib/github/ranking.ts'
 
 export default function SelectedWork() {
-  const featuredProjects = SORTED_PROJECTS.filter((p) => p.featured)
+  const { projects: featuredProjects } = useRankedProjects({ featuredOnly: true })
 
   return (
     <section id="work" className="py-12 sm:py-16 md:py-20 border-b border-border">
@@ -17,6 +18,19 @@ export default function SelectedWork() {
           subtitle="Web applications and APIs built with a focus on clean code, database integrity, and practical problem solving."
           meta={`[ ${featuredProjects.length.toString().padStart(2, '0')} FEATURED OF ${PROJECTS.length.toString().padStart(2, '0')} TOTAL ]`}
         />
+
+        {/* ─── Aptech Vision 2025 Recognition ─── */}
+        <div className="mb-8 -mt-2 flex items-center">
+          <div
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs pixel-corners"
+            style={{ boxShadow: 'var(--hairline-top)' }}
+          >
+            <Trophy className="w-3.5 h-3.5 pixel-icon text-amber-500 shrink-0" aria-hidden="true" />
+            <span className="text-foreground font-bold">RUNNER-UP AWARD</span>
+            <span className="text-border-strong" aria-hidden="true">·</span>
+            <span className="text-muted">APTECH VISION 2025 (MOCKRITHM)</span>
+          </div>
+        </div>
 
         <div className="flex flex-col gap-10 sm:gap-14">
           {featuredProjects.map((project, index) => (
