@@ -76,6 +76,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      data-cursor-text="VIEW CASE STUDY ↗"
       className={`group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-md active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow] duration-200 ease-out rounded-sm overflow-hidden flex flex-col pixel-corners ${
         isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
       } ${className}`}
@@ -127,6 +128,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-cursor-text="SRC CODE ↗"
               className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0"
               aria-label={`View source code for ${project.title}`}
             >
@@ -139,6 +141,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-cursor-text="LIVE DEMO ↗"
               className="inline-flex items-center gap-0.5 text-foreground font-semibold hover:underline active:scale-[0.96] transition-[color,transform] duration-150 ease-out shrink-0 group/live"
               aria-label={`Visit live site for ${project.title}`}
             >
@@ -255,6 +258,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               <button
                 type="button"
                 onClick={() => setIsArchModalOpen(true)}
+                data-cursor-text="SYSTEM FLOW ⚙"
                 className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
                 title={
                   project.slug === 'shifamanagement'
@@ -270,6 +274,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Case study link */}
             <Link
               to={`/work/${project.slug}`}
+              data-cursor-text="CASE STUDY ↗"
               className="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 sm:py-1 text-xs font-mono font-semibold text-foreground hover:underline active:scale-[0.96] transition-[transform,color] duration-150 ease-out shrink-0 select-none group"
               aria-label={`Read case study for ${project.title}`}
             >

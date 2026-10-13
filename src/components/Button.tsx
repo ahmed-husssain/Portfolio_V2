@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { ExternalLink } from 'pixelarticons/react'
 import { useMagneticHover } from '../hooks/useMagneticHover'
 
@@ -11,7 +11,7 @@ interface BaseButtonProps {
   icon?: boolean
   className?: string
   children: React.ReactNode
-  /** Affordance Theory — enables magnetic cursor gravity on this button */
+  /** Enables magnetic cursor gravity on this button */
   magnetic?: boolean
 }
 
@@ -34,11 +34,12 @@ export default function Button({
   className = '',
   children,
   href,
-  magnetic = false,
+  magnetic = true,
   ...props
 }: ButtonProps) {
-  // Concept 3 — Magnetic Cursor Gravity (Affordance Theory)
-  const magnetRef = useMagneticHover(0.28)
+  const magnetRef = useMagneticHover(0.24)
+  const [isHovered, setIsHovered] = useState(false)
+  const [exitDirection, setExitDirection] = useState<'top' | 'bottom'>('bottom')
 
   const sizeStyles = {
     sm: 'px-3 py-1.5 text-xs',
@@ -48,31 +49,66 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      'bg-accent-bg text-accent-text border border-transparent hover:opacity-90 active:scale-[0.96]',
+      'bg-accent-bg text-accent-text border border-transparent shadow-2xs',
     secondary:
-      'bg-surface text-foreground border border-border hover:bg-surface-hover hover:border-border-strong active:scale-[0.96]',
+      'bg-surface text-foreground border border-border shadow-2xs',
     outline:
-      'bg-transparent text-foreground border border-border hover:border-border-strong hover:bg-surface active:scale-[0.96]',
+      'bg-transparent text-foreground border border-border shadow-2xs',
     link:
       'p-0 text-foreground underline-offset-4 hover:underline border-none bg-transparent',
   }
 
-  const baseStyles =
-    'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs transition-[transform,opacity,background-color,border-color] duration-150 ease-out focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
+  const isLink = variant === 'link'
+
+  const baseStyles = isLink
+    ? 'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
+    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none active:scale-[0.96] group'
 
   const combinedClasses = `${baseStyles} ${
-    variant === 'link' ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`
+    isLink ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`
   } ${className}`
+
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const fromTop = e.clientY - rect.top < rect.height / 2
+    setExitDirection(fromTop ? 'top' : 'bottom')
+    setIsHovered(true)
+  }, [])
+
+  const handleMouseLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const toTop = e.clientY < rect.top + rect.height / 2
+    setExitDirection(toTop ? 'top' : 'bottom')
+    setIsHovered(false)
+  }, [])
 
   const content = (
     <>
-      <span>{children}</span>
-      {icon && (
-        <ExternalLink
-          className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      {/* ── Dennis Snellenberg Liquid Bubble Fill Layer (Inside Previous Structure) ── */}
+      {!isLink && (
+        <span
+          className="absolute -inset-x-4 -top-8 -bottom-8 rounded-[50%] bg-[#455CE9] pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+          style={{
+            transform: isHovered
+              ? 'translate3d(0, 0, 0)'
+              : exitDirection === 'top'
+                ? 'translate3d(0, -115%, 0)'
+                : 'translate3d(0, 115%, 0)',
+          }}
           aria-hidden="true"
         />
       )}
+
+      {/* ── Text and Icon Content ── */}
+      <span className={`relative z-10 inline-flex items-center gap-2 transition-colors duration-200 ${!isLink ? 'group-hover:text-white' : ''}`}>
+        <span>{children}</span>
+        {icon && (
+          <ExternalLink
+            className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            aria-hidden="true"
+          />
+        )}
+      </span>
     </>
   )
 
@@ -81,7 +117,9 @@ export default function Button({
       <a
         href={href}
         ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLAnchorElement>) : undefined}
-        className={`group ${combinedClasses}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className={combinedClasses}
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {content}
@@ -92,11 +130,12 @@ export default function Button({
   return (
     <button
       ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLButtonElement>) : undefined}
-      className={`group ${combinedClasses}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={combinedClasses}
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {content}
     </button>
   )
 }
-

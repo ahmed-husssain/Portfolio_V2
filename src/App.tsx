@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/PageTransition'
 import ScrollProgress from './components/ScrollProgress'
+import MagneticCursor from './components/MagneticCursor'
 
 import { SplashProvider } from './components/SplashLoader'
 
@@ -43,6 +44,9 @@ export default function App() {
           <div className="min-h-screen bg-page text-foreground flex flex-col selection:bg-accent-bg selection:text-accent-text">
             {/* ─── Ambient Scroll Progress Indicator (Flow Theory) ─── */}
             <ScrollProgress />
+
+            {/* ─── Dennis Snellenberg Awwwards Magnetic Cursor Follower ─── */}
+            <MagneticCursor />
 
             {/* ─── Fixed Header / Navbar ─── */}
             <Navbar />

@@ -85,18 +85,20 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             <Button href="/contact" variant="primary" size="md">
               Contact
             </Button>
-            <a
+            <Button
               href="/resume.pdf"
+              variant="secondary"
+              size="md"
               target="_blank"
               rel="noopener noreferrer"
-              className="tactile-btn inline-flex items-center gap-2 px-3.5 py-2 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover hover:border-border-strong text-micro-caps transition-[background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] group shadow-2xs select-none"
+              className="tactile-btn !px-3.5 !py-2 text-micro-caps text-secondary shadow-2xs"
               style={{ boxShadow: 'var(--hairline-top)' }}
               aria-label="View official Resume (PDF, opens in new tab)"
             >
               <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
               <span>RESUME (PDF)</span>
-              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-foreground transition-colors" />
-            </a>
+              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-white transition-colors" />
+            </Button>
           </div>
 
           <div className="hidden sm:flex items-center gap-2 text-micro-caps text-muted font-mono">
