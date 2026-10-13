@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, Close, ArrowRight, ExternalLink, Mail, FileText } from 'pixelarticons/react'
 import Container from './Container'
 import ThemeToggle from './ThemeToggle'
+import KarachiClock from './KarachiClock'
 import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
 import { CONTACT_CONFIG } from '../data/contact'
 
@@ -49,13 +50,12 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 border-b ${
-        mobileMenuOpen
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 border-b ${mobileMenuOpen
           ? 'bg-page border-border shadow-none'
           : scrolled
             ? 'material-frosted border-border/90 shadow-xs'
             : 'material-frosted border-border/60'
-      }`}
+        }`}
       style={{ boxShadow: 'var(--hairline-top)' }}
     >
       <Container>
@@ -64,11 +64,18 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="text-xs sm:text-sm font-semibold tracking-tight text-foreground hover:opacity-80 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
+              className="group flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-tight text-foreground hover:opacity-85 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
             >
-              AHMED HUSSAIN
+              <span className="font-mono text-muted text-xs group-hover:text-foreground transition-colors">//</span>
+              <span>AHMED HUSSAIN</span>
             </Link>
-            <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-border text-micro-caps text-muted">
+
+            {/* Zone 2: Karachi Clock (Desktop Telemetry) */}
+            <div className="hidden lg:flex items-center pl-3 border-l border-border">
+              <KarachiClock showIcon format="full" />
+            </div>
+
+            <div className="hidden sm:flex lg:hidden items-center gap-2 pl-3 border-l border-border text-micro-caps text-muted">
               <span className="pixel-beacon" aria-hidden="true" />
               <span>{AVAILABILITY_STATUS.label}</span>
             </div>
@@ -76,7 +83,7 @@ export default function Navbar() {
 
           {/* ─── Desktop Nav Links & Controls ─── */}
           <nav
-            className="hidden md:flex items-center gap-6"
+            className="hidden md:flex items-center gap-5 lg:gap-6"
             aria-label="Main navigation"
           >
             {NAV_ITEMS.map((item) => {
@@ -85,33 +92,28 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`relative text-micro-caps transition-[color,transform] duration-150 py-1.5 active:scale-[0.96] ${
-                    active
+                  className={`relative text-micro-caps transition-[color,transform] duration-150 py-1.5 active:scale-[0.96] ${active
                       ? 'text-foreground font-semibold'
                       : 'text-secondary hover:text-foreground'
-                  } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-foreground after:transition-transform after:duration-150 ${
-                    active ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100 after:opacity-40'
-                  }`}
+                    } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-foreground after:transition-transform after:duration-150 ${active ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100 after:opacity-40'
+                    }`}
                 >
                   {item.label}
                 </Link>
               )
             })}
 
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tactile-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:border-border-strong text-micro-caps transition-[color,border-color,transform] duration-150 group"
+            {/* Minimalist Editorial Pill CTA Button */}
+            <Link
+              to="/contact"
+              className="tactile-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-surface hover:bg-surface-hover hover:border-border-strong text-foreground text-micro-caps transition-[color,border-color,transform] duration-150 select-none"
               style={{ boxShadow: 'var(--hairline-top)' }}
-              aria-label="View official Resume (PDF, opens in new tab)"
             >
-              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-              <span>RESUME</span>
-              <ExternalLink className="w-3 h-3 pixel-icon text-muted group-hover:text-foreground transition-colors" />
-            </a>
+              <span>GET IN TOUCH</span>
+              <span className="text-muted text-[10px]">↗</span>
+            </Link>
 
-            <div className="pl-2 border-l border-border">
+            <div className="pl-1 border-l border-border">
               <ThemeToggle />
             </div>
           </nav>
@@ -157,22 +159,19 @@ export default function Navbar() {
                     key={item.href}
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`p-3 rounded-xs border transition-all flex items-center justify-between group active:scale-[0.99] ${
-                      active
+                    className={`p-3 rounded-xs border transition-all flex items-center justify-between group active:scale-[0.99] ${active
                         ? 'bg-surface border-border-strong shadow-2xs'
                         : 'bg-page/70 border-border hover:bg-surface hover:border-border-strong'
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className={`text-[11px] font-mono font-bold shrink-0 ${
-                        active ? 'text-emerald-500' : 'text-muted'
-                      }`}>
+                      <span className={`text-[11px] font-mono font-bold shrink-0 ${active ? 'text-emerald-500' : 'text-muted'
+                        }`}>
                         0{idx + 1}
                       </span>
                       <div className="flex flex-col text-left min-w-0">
-                        <span className={`text-sm font-semibold tracking-tight ${
-                          active ? 'text-foreground' : 'text-secondary group-hover:text-foreground'
-                        }`}>
+                        <span className={`text-sm font-semibold tracking-tight ${active ? 'text-foreground' : 'text-secondary group-hover:text-foreground'
+                          }`}>
                           {item.label}
                         </span>
                         {item.description && (
