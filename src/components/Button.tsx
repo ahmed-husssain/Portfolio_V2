@@ -62,7 +62,7 @@ export default function Button({
 
   const baseStyles = isLink
     ? 'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
-    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none active:scale-[0.96] group'
+    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none active:scale-[0.96] group whitespace-nowrap'
 
   const combinedClasses = `${baseStyles} ${
     isLink ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`
@@ -84,10 +84,10 @@ export default function Button({
 
   const content = (
     <>
-      {/* ── Dennis Snellenberg Liquid Bubble Fill Layer (Inside Previous Structure) ── */}
+      {/* ── Theme-Matched Emerald Liquid Bubble Fill Layer ── */}
       {!isLink && (
         <span
-          className="absolute -inset-x-4 -top-8 -bottom-8 rounded-[50%] bg-[#455CE9] pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+          className="absolute -inset-x-4 -top-8 -bottom-8 rounded-[50%] bg-emerald-500 pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
           style={{
             transform: isHovered
               ? 'translate3d(0, 0, 0)'
@@ -100,11 +100,11 @@ export default function Button({
       )}
 
       {/* ── Text and Icon Content ── */}
-      <span className={`relative z-10 inline-flex items-center gap-2 transition-colors duration-200 ${!isLink ? 'group-hover:text-white' : ''}`}>
-        <span>{children}</span>
+      <span className={`relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors duration-200 ${!isLink ? 'group-hover:text-black font-semibold' : ''}`}>
+        {children}
         {icon && (
           <ExternalLink
-            className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0"
             aria-hidden="true"
           />
         )}

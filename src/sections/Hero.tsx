@@ -91,13 +91,12 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
               size="md"
               target="_blank"
               rel="noopener noreferrer"
-              className="tactile-btn !px-3.5 !py-2 text-micro-caps text-secondary shadow-2xs"
               style={{ boxShadow: 'var(--hairline-top)' }}
               aria-label="View official Resume (PDF, opens in new tab)"
             >
-              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 group-hover:text-black shrink-0 transition-colors" />
               <span>RESUME (PDF)</span>
-              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-white transition-colors" />
+              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-black shrink-0 transition-colors" />
             </Button>
           </div>
 
