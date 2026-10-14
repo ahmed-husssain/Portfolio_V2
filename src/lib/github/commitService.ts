@@ -70,33 +70,46 @@ function getDurableSnapshotPath(): string {
  * Safely reads the durable snapshot from disk.
  * Prioritizes dynamic snapshot file; falls back to bundled repository snapshot if present.
  */
-export function readDurableSnapshot(): DurableSnapshot | null {
+/**
+ * Reads the dynamic runtime snapshot from disk (e.g. /tmp or .cache).
+ * Does not fall back to the bundled static snapshot.
+ */
+export function readDynamicSnapshot(): DurableSnapshot | null {
   try {
-    let bestSnapshot: DurableSnapshot | null = null
-
-    // 1. Dynamic snapshot from runtime disk (e.g. /tmp or .cache)
     const filePath = getDurableSnapshotPath()
     if (fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf-8')
       const parsed = JSON.parse(raw) as DurableSnapshot
       if (parsed && typeof parsed.lastRefreshed === 'number' && parsed.commits) {
-        bestSnapshot = parsed
+        return parsed
       }
     }
+  } catch {
+    // Disk read or JSON parse failure
+  }
+  return null
+}
 
-    // 2. Bundled repository snapshot file (committed via GitHub Action or build)
+/**
+ * Safely reads the durable snapshot from disk.
+ * Prioritizes dynamic runtime snapshot file; falls back to bundled repository snapshot if dynamic cache is absent.
+ */
+export function readDurableSnapshot(): DurableSnapshot | null {
+  const dynamic = readDynamicSnapshot()
+  if (dynamic) {
+    return dynamic
+  }
+
+  try {
+    // Bundled repository snapshot file (fallback when dynamic cache is empty)
     const bundledPath = path.join(process.cwd(), 'src', 'data', 'github-commits-snapshot.json')
     if (fs.existsSync(bundledPath)) {
       const raw = fs.readFileSync(bundledPath, 'utf-8')
       const parsed = JSON.parse(raw) as DurableSnapshot
       if (parsed && typeof parsed.lastRefreshed === 'number' && parsed.commits) {
-        if (!bestSnapshot || parsed.lastRefreshed > bestSnapshot.lastRefreshed) {
-          bestSnapshot = parsed
-        }
+        return parsed
       }
     }
-
-    return bestSnapshot
   } catch {
     // Disk read or JSON parse failure
   }
@@ -469,22 +482,24 @@ export async function getLatestCommits(
   const repos = options.repos || ALLOWED_REPOSITORIES
   const fetchFn = options.fetchFn || fetch
 
-  // 1. Check durable snapshot from disk
-  const existingSnapshot = readDurableSnapshot()
+  // 1. Check dynamic runtime snapshot from disk
+  const dynamicSnapshot = readDynamicSnapshot()
   const isFresh =
     !options.forceRefresh &&
-    existingSnapshot &&
-    Date.now() - existingSnapshot.lastRefreshed < REFRESH_INTERVAL_MS &&
-    Object.keys(existingSnapshot.commits).length > 0
+    dynamicSnapshot &&
+    Date.now() - dynamicSnapshot.lastRefreshed < REFRESH_INTERVAL_MS &&
+    Object.keys(dynamicSnapshot.commits).length > 0
 
-  if (isFresh && existingSnapshot) {
+  if (isFresh && dynamicSnapshot) {
     // Within 24-hour window: serve durable snapshot without calling GitHub!
     return {
-      commits: existingSnapshot.commits,
-      timestamp: existingSnapshot.lastRefreshed,
+      commits: dynamicSnapshot.commits,
+      timestamp: dynamicSnapshot.lastRefreshed,
       source: 'cached',
     }
   }
+
+  const existingSnapshot = dynamicSnapshot || readDurableSnapshot()
 
   // 2. Prevent rapid retry if upstream is known to be rate-limited or in backoff cooldown
   if (
@@ -688,22 +703,24 @@ export async function performScheduledRefresh(options: {
     }
   }
 
-  const existingSnapshot = readDurableSnapshot()
+  const dynamicSnapshot = readDynamicSnapshot()
 
   // 2. Daily limit check: if refreshed within last 24 hours, skip upstream fetch!
   if (
     !options.force &&
-    existingSnapshot &&
-    Date.now() - existingSnapshot.lastRefreshed < REFRESH_INTERVAL_MS &&
-    Object.keys(existingSnapshot.commits).length > 0
+    dynamicSnapshot &&
+    Date.now() - dynamicSnapshot.lastRefreshed < REFRESH_INTERVAL_MS &&
+    Object.keys(dynamicSnapshot.commits).length > 0
   ) {
     return {
       status: 'already_fresh',
       message: 'Commits were already refreshed within the last 24 hours',
-      commits: existingSnapshot.commits,
-      timestamp: existingSnapshot.lastRefreshed,
+      commits: dynamicSnapshot.commits,
+      timestamp: dynamicSnapshot.lastRefreshed,
     }
   }
+
+  const existingSnapshot = dynamicSnapshot || readDurableSnapshot()
 
   // 3. Acquire atomic lock
   const acquired = acquireRefreshLock()
