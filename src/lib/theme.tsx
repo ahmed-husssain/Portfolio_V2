@@ -10,16 +10,16 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
-const STORAGE_KEY = 'portfolio_theme_pref'
+const STORAGE_KEY = 'portfolio_theme'
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === 'undefined') return 'dark'
+    if (typeof window === 'undefined') return 'light'
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
     if (stored === 'dark' || stored === 'light') {
       return stored
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return 'light'
   })
 
   useEffect(() => {
