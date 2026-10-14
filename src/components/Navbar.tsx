@@ -4,7 +4,7 @@ import ThemeToggle from './ThemeToggle'
 import { NAV_ITEMS } from '../data/navigation'
 import { CONTACT_CONFIG } from '../data/contact'
 
-// Reusable native magnetic wrapper (Dennis Snellenberg spring physics)
+// Reusable native magnetic wrapper for floating action buttons
 function MagneticItem({
   children,
   className = '',
@@ -60,16 +60,16 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
-  // Exclude Home/Index from nav links since it is covered by the left logo
+  // Exclude Home/Index from nav links since the left logo links to Home
   const navLinks = NAV_ITEMS.filter((item) => item.href !== '/')
 
-  // ─── Gliding Magnetic Hover Dot State ───
-  const [dotPos, setDotPos] = useState<{ left: number; opacity: number }>({
+  // ─── Gliding Pill Capsule Indicator State ───
+  const [indicator, setIndicator] = useState<{ left: number; width: number; opacity: number }>({
     left: 0,
+    width: 0,
     opacity: 0,
   })
-  const navContainerRef = useRef<HTMLDivElement>(null)
-  const linksMapRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
+  const linksRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const isActiveRoute = useCallback(
     (path: string) => {
@@ -79,25 +79,25 @@ export default function Navbar() {
     [location.pathname]
   )
 
-  const updateDotToActive = useCallback(() => {
+  const updateToActive = useCallback(() => {
     const activeItem = navLinks.find((item) => isActiveRoute(item.href))
     if (activeItem) {
-      const el = linksMapRef.current.get(activeItem.href)
-      const container = navContainerRef.current
-      if (el && container) {
-        const containerRect = container.getBoundingClientRect()
-        const elRect = el.getBoundingClientRect()
-        const center = elRect.left - containerRect.left + elRect.width / 2
-        setDotPos({ left: center, opacity: 1 })
+      const el = linksRef.current.get(activeItem.href)
+      if (el) {
+        setIndicator({
+          left: el.offsetLeft,
+          width: el.offsetWidth,
+          opacity: 1,
+        })
         return
       }
     }
-    setDotPos((prev) => ({ ...prev, opacity: 0 }))
+    setIndicator((prev) => ({ ...prev, opacity: 0 }))
   }, [isActiveRoute, navLinks])
 
   useEffect(() => {
-    updateDotToActive()
-  }, [updateDotToActive])
+    updateToActive()
+  }, [updateToActive])
 
   // Scroll listener for disappearing header & floating circle trigger
   useEffect(() => {
@@ -140,80 +140,82 @@ export default function Navbar() {
     <>
       {/* ─── 1. TOP AMBIENT NAVIGATION (Dennis Snellenberg Style) ─── */}
       <header
-        className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-7 sm:py-8 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
+        className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-6 sm:py-7 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
           scrolled ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Left: Brand with Dennis Snellenberg Signature Horizontal Roll */}
+        {/* Left: Brand with Slower & Smoother Horizontal Roll */}
         <div className="pointer-events-auto">
-          <MagneticItem strength={0.25}>
-            <Link
-              to="/"
-              className="group flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
-            >
-              <span className="text-muted font-normal select-none">©</span>
-              <span className="relative inline-flex items-center overflow-hidden h-[20px] w-[132px]">
-                {/* State 1: "Code by Ahmed" */}
-                <span className="absolute inset-0 flex items-center whitespace-nowrap transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-[115%]">
-                  Code by Ahmed
-                </span>
-                {/* State 2: "Ahmed Hussain" */}
-                <span className="absolute inset-0 flex items-center whitespace-nowrap font-semibold text-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-[115%] group-hover:translate-x-0">
-                  Ahmed Hussain
-                </span>
+          <Link
+            to="/"
+            className="group flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
+          >
+            <span className="text-muted font-normal select-none">©</span>
+            <span className="relative inline-flex items-center overflow-hidden h-[20px] w-[132px]">
+              {/* State 1: "Code by Ahmed" */}
+              <span className="absolute inset-0 flex items-center whitespace-nowrap transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-[115%]">
+                Code by Ahmed
               </span>
-            </Link>
-          </MagneticItem>
+              {/* State 2: "Ahmed Hussain" */}
+              <span className="absolute inset-0 flex items-center whitespace-nowrap font-semibold text-foreground transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-[115%] group-hover:translate-x-0">
+                Ahmed Hussain
+              </span>
+            </span>
+          </Link>
         </div>
 
-        {/* Right: Pure Text Links with Magnetic Hover & Gliding Dot */}
+        {/* Right: Restored Gliding Pill Dock (Clean cursor, zero magnetic word drag) */}
         <nav
-          ref={navContainerRef}
-          onMouseLeave={updateDotToActive}
-          className="hidden md:flex items-center gap-8 relative pointer-events-auto"
+          className="hidden md:flex items-center gap-3 lg:gap-4 pointer-events-auto"
           aria-label="Main navigation"
         >
-          {navLinks.map((item) => {
-            const active = isActiveRoute(item.href)
-            return (
-              <MagneticItem key={item.href} strength={0.3}>
+          {/* Gliding Magic Pill Dock */}
+          <div
+            onMouseLeave={updateToActive}
+            className="relative flex items-center p-1 rounded-xs bg-surface-subtle/70 border border-border/70 backdrop-blur-xs select-none"
+          >
+            {/* Dynamic Sliding Capsule Indicator */}
+            <div
+              className="absolute top-1 bottom-1 rounded-2xs bg-surface border border-border shadow-2xs transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none motion-reduce:transition-none"
+              style={{
+                transform: `translate3d(${indicator.left}px, 0, 0)`,
+                width: `${indicator.width}px`,
+                opacity: indicator.opacity,
+              }}
+            />
+
+            {navLinks.map((item) => {
+              const active = isActiveRoute(item.href)
+              return (
                 <Link
+                  key={item.href}
                   ref={(el) => {
-                    if (el) linksMapRef.current.set(item.href, el)
-                    else linksMapRef.current.delete(item.href)
+                    if (el) linksRef.current.set(item.href, el)
+                    else linksRef.current.delete(item.href)
                   }}
                   to={item.href}
                   onMouseEnter={(e) => {
-                    const container = navContainerRef.current
-                    if (container) {
-                      const containerRect = container.getBoundingClientRect()
-                      const elRect = e.currentTarget.getBoundingClientRect()
-                      const center = elRect.left - containerRect.left + elRect.width / 2
-                      setDotPos({ left: center, opacity: 1 })
-                    }
+                    setIndicator({
+                      left: e.currentTarget.offsetLeft,
+                      width: e.currentTarget.offsetWidth,
+                      opacity: 1,
+                    })
                   }}
-                  className={`text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 py-1 ${
-                    active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
+                  className={`relative z-10 px-3.5 py-1 text-xs sm:text-sm font-medium transition-colors duration-150 select-none cursor-pointer ${
+                    active
+                      ? 'text-foreground font-semibold'
+                      : 'text-secondary hover:text-foreground'
                   }`}
                 >
                   {item.label}
                 </Link>
-              </MagneticItem>
-            )
-          })}
-
-          <div className="pl-2">
-            <ThemeToggle />
+              )
+            })}
           </div>
 
-          {/* Gliding Magnetic Hover Dot */}
-          <span
-            className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-foreground pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{
-              transform: `translate3d(${dotPos.left - 3}px, 0, 0)`,
-              opacity: dotPos.opacity,
-            }}
-          />
+          <div className="pl-1 border-l border-border">
+            <ThemeToggle />
+          </div>
         </nav>
 
         {/* Mobile Minimal Menu Trigger (At Top of Page) */}
