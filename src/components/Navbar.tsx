@@ -1,25 +1,75 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, Close, ArrowRight, ExternalLink, Mail, FileText } from 'pixelarticons/react'
-import Container from './Container'
-import Button from './Button'
 import ThemeToggle from './ThemeToggle'
-import KarachiClock from './KarachiClock'
-import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
+import { NAV_ITEMS } from '../data/navigation'
 import { CONTACT_CONFIG } from '../data/contact'
 
+// Reusable native magnetic wrapper (Dennis Snellenberg spring physics)
+function MagneticItem({
+  children,
+  className = '',
+  strength = 0.35,
+  onClick,
+}: {
+  children: React.ReactNode
+  className?: string
+  strength?: number
+  onClick?: () => void
+}) {
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const isHovered = useRef(false)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = (e.clientX - (rect.left + rect.width / 2)) * strength
+    const y = (e.clientY - (rect.top + rect.height / 2)) * strength
+    setOffset({ x, y })
+  }
+
+  const handleMouseEnter = () => {
+    isHovered.current = true
+  }
+
+  const handleMouseLeave = () => {
+    isHovered.current = false
+    setOffset({ x: 0, y: 0 })
+  }
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      className={`inline-block will-change-transform ${className}`}
+      style={{
+        transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
+        transition:
+          offset.x === 0 && offset.y === 0
+            ? 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
+            : 'transform 0.1s ease-out',
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
-  // ─── Gliding Magic Pill Indicator State ───
-  const [indicator, setIndicator] = useState<{ left: number; width: number; opacity: number }>({
+  // Exclude Home/Index from nav links since it is covered by the left logo
+  const navLinks = NAV_ITEMS.filter((item) => item.href !== '/')
+
+  // ─── Gliding Magnetic Hover Dot State ───
+  const [dotPos, setDotPos] = useState<{ left: number; opacity: number }>({
     left: 0,
-    width: 0,
     opacity: 0,
   })
-  const linksRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
+  const navContainerRef = useRef<HTMLDivElement>(null)
+  const linksMapRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const isActiveRoute = useCallback(
     (path: string) => {
@@ -29,48 +79,54 @@ export default function Navbar() {
     [location.pathname]
   )
 
-  const updateToActive = useCallback(() => {
-    const activeItem = NAV_ITEMS.find((item) => isActiveRoute(item.href))
+  const updateDotToActive = useCallback(() => {
+    const activeItem = navLinks.find((item) => isActiveRoute(item.href))
     if (activeItem) {
-      const el = linksRef.current.get(activeItem.href)
-      if (el) {
-        setIndicator({
-          left: el.offsetLeft,
-          width: el.offsetWidth,
-          opacity: 1,
-        })
+      const el = linksMapRef.current.get(activeItem.href)
+      const container = navContainerRef.current
+      if (el && container) {
+        const containerRect = container.getBoundingClientRect()
+        const elRect = el.getBoundingClientRect()
+        const center = elRect.left - containerRect.left + elRect.width / 2
+        setDotPos({ left: center, opacity: 1 })
         return
       }
     }
-    setIndicator((prev) => ({ ...prev, opacity: 0 }))
-  }, [isActiveRoute])
+    setDotPos((prev) => ({ ...prev, opacity: 0 }))
+  }, [isActiveRoute, navLinks])
 
   useEffect(() => {
-    updateToActive()
-  }, [updateToActive])
+    updateDotToActive()
+  }, [updateDotToActive])
 
+  // Scroll listener for disappearing header & floating circle trigger
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      setScrolled(window.scrollY > 100)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu on Escape key
+  // Close menu on route change
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  // Escape key closes menu
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
-        setMobileMenuOpen(false)
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [mobileMenuOpen])
+  }, [menuOpen])
 
-  // Prevent background scroll when mobile menu is open
+  // Prevent background scroll when menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (menuOpen) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
@@ -78,261 +134,234 @@ export default function Navbar() {
     return () => {
       document.body.style.overflow = ''
     }
-  }, [mobileMenuOpen])
+  }, [menuOpen])
 
   return (
-    <header
-      className={`fixed z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        mobileMenuOpen
-          ? 'top-0 inset-x-0 bg-page border-b border-border shadow-none'
-          : scrolled
-            ? 'top-2 inset-x-2 sm:inset-x-4 max-w-5xl mx-auto rounded-xs border border-border material-frosted shadow-sm'
-            : 'top-0 inset-x-0 border-b border-border/60 material-frosted'
-      }`}
-      style={{ boxShadow: 'var(--hairline-top)' }}
-    >
-      <Container>
-        <div className="flex items-center justify-between h-14 sm:h-16">
-          {/* ─── Brand / Name with Editorial Kinetic Roll ─── */}
-          <div className="flex items-center gap-4">
+    <>
+      {/* ─── 1. TOP AMBIENT NAVIGATION (Dennis Snellenberg Style) ─── */}
+      <header
+        className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-7 sm:py-8 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
+          scrolled ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
+        }`}
+      >
+        {/* Left: Brand with Dennis Snellenberg Signature Horizontal Roll */}
+        <div className="pointer-events-auto">
+          <MagneticItem strength={0.25}>
             <Link
               to="/"
-              className="group flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-tight text-foreground focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
+              className="group flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
             >
-              <span className="font-mono text-muted text-xs group-hover:text-emerald-500 transition-colors">//</span>
-              <span className="relative inline-flex flex-col h-[18px] overflow-hidden leading-tight font-semibold">
-                <span className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
-                  AHMED HUSSAIN
+              <span className="text-muted font-normal select-none">©</span>
+              <span className="relative inline-flex items-center overflow-hidden h-[20px] w-[132px]">
+                {/* State 1: "Code by Ahmed" */}
+                <span className="absolute inset-0 flex items-center whitespace-nowrap transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-[115%]">
+                  Code by Ahmed
                 </span>
-                <span className="absolute top-full left-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground">
-                  AHMED HUSSAIN
+                {/* State 2: "Ahmed Hussain" */}
+                <span className="absolute inset-0 flex items-center whitespace-nowrap font-semibold text-foreground transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-[115%] group-hover:translate-x-0">
+                  Ahmed Hussain
                 </span>
               </span>
             </Link>
+          </MagneticItem>
+        </div>
 
-            {/* Zone 2: Karachi Clock (Desktop Telemetry) */}
-            <div className="hidden lg:flex items-center pl-3 border-l border-border">
-              <KarachiClock showIcon format="full" />
-            </div>
+        {/* Right: Pure Text Links with Magnetic Hover & Gliding Dot */}
+        <nav
+          ref={navContainerRef}
+          onMouseLeave={updateDotToActive}
+          className="hidden md:flex items-center gap-8 relative pointer-events-auto"
+          aria-label="Main navigation"
+        >
+          {navLinks.map((item) => {
+            const active = isActiveRoute(item.href)
+            return (
+              <MagneticItem key={item.href} strength={0.3}>
+                <Link
+                  ref={(el) => {
+                    if (el) linksMapRef.current.set(item.href, el)
+                    else linksMapRef.current.delete(item.href)
+                  }}
+                  to={item.href}
+                  onMouseEnter={(e) => {
+                    const container = navContainerRef.current
+                    if (container) {
+                      const containerRect = container.getBoundingClientRect()
+                      const elRect = e.currentTarget.getBoundingClientRect()
+                      const center = elRect.left - containerRect.left + elRect.width / 2
+                      setDotPos({ left: center, opacity: 1 })
+                    }
+                  }}
+                  className={`text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 py-1 ${
+                    active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </MagneticItem>
+            )
+          })}
 
-            <div className="hidden sm:flex lg:hidden items-center gap-2 pl-3 border-l border-border text-micro-caps text-muted">
-              <span className="pixel-beacon" aria-hidden="true" />
-              <span>{AVAILABILITY_STATUS.label}</span>
-            </div>
+          <div className="pl-2">
+            <ThemeToggle />
           </div>
 
-          {/* ─── Desktop Nav Links & Controls (Gliding Spotlight Dock) ─── */}
-          <nav
-            className="hidden md:flex items-center gap-3 lg:gap-4"
-            aria-label="Main navigation"
+          {/* Gliding Magnetic Hover Dot */}
+          <span
+            className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-foreground pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              transform: `translate3d(${dotPos.left - 3}px, 0, 0)`,
+              opacity: dotPos.opacity,
+            }}
+          />
+        </nav>
+
+        {/* Mobile Minimal Menu Trigger (At Top of Page) */}
+        <div className="flex items-center gap-3 md:hidden pointer-events-auto">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open navigation menu"
+            className="text-xs font-medium uppercase tracking-wider text-foreground px-3.5 py-1.5 rounded-full border border-border bg-page/80 backdrop-blur-xs active:scale-95 transition-transform"
           >
-            {/* Gliding Magic Pill Dock */}
-            <div
-              onMouseLeave={updateToActive}
-              className="relative flex items-center p-1 rounded-xs bg-surface-subtle/70 border border-border/70 backdrop-blur-xs select-none"
-            >
-              {/* Dynamic Sliding Capsule Indicator */}
-              <div
-                className="absolute top-1 bottom-1 rounded-2xs bg-surface border border-border shadow-2xs transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none motion-reduce:transition-none"
-                style={{
-                  transform: `translate3d(${indicator.left}px, 0, 0)`,
-                  width: `${indicator.width}px`,
-                  opacity: indicator.opacity,
-                }}
+            Menu
+          </button>
+        </div>
+      </header>
+
+      {/* ─── 2. FLOATING MAGNETIC CIRCULAR BUTTON (Trigger on Scroll) ─── */}
+      <div
+        data-no-cursor="true"
+        className={`fixed top-5 right-5 sm:top-8 sm:right-10 z-50 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+          scrolled || menuOpen
+            ? 'scale-100 opacity-100 pointer-events-auto'
+            : 'scale-0 opacity-0 pointer-events-none'
+        }`}
+      >
+        <MagneticItem strength={0.4}>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-foreground text-page shadow-xl flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none"
+          >
+            {/* Liquid Fill Hover Ring */}
+            <span
+              className="absolute inset-0 rounded-full bg-emerald-500 scale-0 group-hover:scale-100 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              aria-hidden="true"
+            />
+
+            {/* Kinetic Hamburger / Close Lines */}
+            <div className="relative z-10 w-5 h-4 flex flex-col justify-between items-center pointer-events-none">
+              <span
+                className={`w-5 h-[1.5px] bg-page rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  menuOpen ? 'translate-y-[7px] rotate-45' : ''
+                }`}
               />
-
-              {NAV_ITEMS.map((item) => {
-                const active = isActiveRoute(item.href)
-                return (
-                  <Link
-                    key={item.href}
-                    ref={(el) => {
-                      if (el) linksRef.current.set(item.href, el)
-                      else linksRef.current.delete(item.href)
-                    }}
-                    to={item.href}
-                    onMouseEnter={(e) => {
-                      setIndicator({
-                        left: e.currentTarget.offsetLeft,
-                        width: e.currentTarget.offsetWidth,
-                        opacity: 1,
-                      })
-                    }}
-                    className={`relative z-10 px-3 py-1 text-micro-caps transition-colors duration-150 select-none ${
-                      active
-                        ? 'text-foreground font-semibold'
-                        : 'text-secondary hover:text-foreground'
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
+              <span
+                className={`w-5 h-[1.5px] bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
+                }`}
+              />
+              <span
+                className={`w-5 h-[1.5px] bg-page rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  menuOpen ? '-translate-y-[7px] -rotate-45' : ''
+                }`}
+              />
             </div>
+          </button>
+        </MagneticItem>
+      </div>
 
-            {/* Liquid Bubble "GET IN TOUCH" Button */}
-            <Button
-              href="/contact"
-              variant="secondary"
-              size="sm"
-              style={{ boxShadow: 'var(--hairline-top)' }}
-              className="text-micro-caps font-semibold"
-            >
-              <span>GET IN TOUCH</span>
-              <span className="text-muted text-[10px] group-hover:text-black">↗</span>
-            </Button>
-
-            <div className="pl-1 border-l border-border">
-              <ThemeToggle />
-            </div>
-          </nav>
-
-          {/* ─── Mobile Controls (Theme Toggle + Menu Button) ─── */}
-          <div className="flex items-center gap-2 md:hidden">
+      {/* ─── 3. FULL-SCREEN EDITORIAL MENU OVERLAY (Dennis Snellenberg Style) ─── */}
+      <div
+        className={`fixed inset-0 z-40 bg-page/95 backdrop-blur-xl flex flex-col justify-between p-8 sm:p-14 md:p-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          menuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation Menu"
+      >
+        {/* Top Header of the Overlay */}
+        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-6">
+          <span>// NAVIGATION</span>
+          <div className="flex items-center gap-6">
+            <span className="hidden sm:inline">LAHORE, PK</span>
             <ThemeToggle />
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded={mobileMenuOpen}
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-              className="p-2 rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover active:scale-95 transition-all duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer"
-            >
-              {mobileMenuOpen ? (
-                <Close className="w-5 h-5 pixel-icon text-foreground" aria-hidden="true" />
-              ) : (
-                <Menu className="w-5 h-5 pixel-icon" aria-hidden="true" />
-              )}
-            </button>
           </div>
         </div>
-      </Container>
 
-      {/* ─── Modern Mobile Navigation Drawer ─── */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] bg-page border-b border-border z-50 md:hidden flex flex-col justify-between p-4 sm:p-6 overflow-y-auto animate-page-in font-sans"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile Navigation"
-        >
-          {/* Top: Structured Interactive Navigation Items */}
-          <div className="flex flex-col gap-2 pt-1">
-            <span className="text-[10px] font-mono uppercase tracking-widest text-muted px-1 mb-0.5">
-              // NAVIGATION
+        {/* Center: High-Fashion Typographic Navigation */}
+        <nav className="flex flex-col gap-3 sm:gap-5 my-auto" aria-label="Overlay navigation links">
+          <Link
+            to="/"
+            onClick={() => setMenuOpen(false)}
+            className="group flex items-baseline gap-4 sm:gap-6 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground transition-transform duration-300 hover:translate-x-3"
+          >
+            <span className="text-xs sm:text-sm font-mono font-normal text-muted group-hover:text-emerald-500 transition-colors">
+              01
             </span>
-            <nav className="flex flex-col gap-1.5" aria-label="Mobile navigation links">
-              {NAV_ITEMS.map((item, idx) => {
-                const active = isActiveRoute(item.href)
-                return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`p-3 rounded-xs border transition-all flex items-center justify-between group active:scale-[0.99] ${active
-                        ? 'bg-surface border-border-strong shadow-2xs'
-                        : 'bg-page/70 border-border hover:bg-surface hover:border-border-strong'
-                      }`}
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className={`text-[11px] font-mono font-bold shrink-0 ${active ? 'text-emerald-500' : 'text-muted'
-                        }`}>
-                        0{idx + 1}
-                      </span>
-                      <div className="flex flex-col text-left min-w-0">
-                        <span className={`text-sm font-semibold tracking-tight ${active ? 'text-foreground' : 'text-secondary group-hover:text-foreground'
-                          }`}>
-                          {item.label}
-                        </span>
-                        {item.description && (
-                          <span className="text-[11px] text-muted font-mono leading-tight truncate">
-                            {item.description}
-                          </span>
-                        )}
-                      </div>
-                    </div>
+            <span>Home</span>
+          </Link>
 
-                    <div className="flex items-center gap-2 shrink-0 ml-2">
-                      {active ? (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 text-[10px] font-mono font-semibold">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                          ACTIVE
-                        </span>
-                      ) : (
-                        <ArrowRight className="w-3.5 h-3.5 text-muted group-hover:text-foreground group-hover:translate-x-0.5 transition-all" />
-                      )}
-                    </div>
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          {navLinks.map((item, idx) => {
+            const active = isActiveRoute(item.href)
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                onClick={() => setMenuOpen(false)}
+                className={`group flex items-baseline gap-4 sm:gap-6 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight transition-transform duration-300 hover:translate-x-3 ${
+                  active ? 'text-foreground' : 'text-foreground/70 hover:text-foreground'
+                }`}
+              >
+                <span className={`text-xs sm:text-sm font-mono font-normal transition-colors ${
+                  active ? 'text-emerald-500' : 'text-muted group-hover:text-emerald-500'
+                }`}>
+                  0{idx + 2}
+                </span>
+                <span>{item.label}</span>
+              </Link>
+            )
+          })}
+        </nav>
 
-          {/* Middle: Direct Connect Card (Eliminates the empty void) */}
-          <div className="my-3 p-3.5 rounded-xs border border-border bg-surface-subtle/50 flex flex-col gap-2.5">
-            <div className="flex items-center justify-between text-[10px] font-mono text-muted uppercase">
-              <span>DIRECT CONNECT</span>
-              <span className="text-emerald-500 font-semibold flex items-center gap-1.5">
-                <span className="pixel-beacon" />
-                AVAILABLE
-              </span>
-            </div>
-
+        {/* Bottom: Socials & Direct Connect */}
+        <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-muted">
+          <div className="flex items-center gap-6">
             <a
               href={`mailto:${CONTACT_CONFIG.email}`}
-              className="p-2.5 rounded-2xs border border-border bg-page flex items-center justify-between text-xs font-mono text-foreground hover:bg-surface active:scale-95 transition-all"
+              className="text-foreground hover:text-emerald-500 transition-colors"
             >
-              <div className="flex items-center gap-2 truncate">
-                <Mail className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
-                <span className="truncate">{CONTACT_CONFIG.email}</span>
-              </div>
-              <ExternalLink className="w-3 h-3 pixel-icon text-muted shrink-0 ml-1" />
+              {CONTACT_CONFIG.email}
             </a>
-
             <a
-              href="/resume.pdf"
+              href={CONTACT_CONFIG.github.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 flex items-center justify-between text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-emerald-500/15 active:scale-95 transition-all"
+              className="hover:text-foreground transition-colors"
             >
-              <div className="flex items-center gap-2">
-                <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-                <span>OFFICIAL RESUME (PDF)</span>
-              </div>
-              <ExternalLink className="w-3.5 h-3.5 pixel-icon" />
+              GitHub ↗
             </a>
-
-            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-              <a
-                href={CONTACT_CONFIG.github.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-2xs border border-border bg-page text-secondary hover:text-foreground flex items-center justify-center gap-1.5 active:scale-95 transition-all"
-              >
-                <span>GITHUB</span>
-                <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
-              </a>
-              <a
-                href={CONTACT_CONFIG.linkedin.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-2xs border border-border bg-page text-secondary hover:text-foreground flex items-center justify-center gap-1.5 active:scale-95 transition-all"
-              >
-                <span>LINKEDIN</span>
-                <ExternalLink className="w-3 h-3 pixel-icon text-muted" />
-              </a>
-            </div>
+            <a
+              href={CONTACT_CONFIG.linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              LinkedIn ↗
+            </a>
           </div>
 
-          {/* Bottom: Clean Single-Line Status Bar */}
-          <div className="pt-2.5 border-t border-border flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-muted shrink-0">
-            <div className="flex items-center gap-2 text-secondary truncate">
-              <span className="pixel-beacon shrink-0" aria-hidden="true" />
-              <span className="truncate">Karachi, Pakistan (Remote & On-site)</span>
-            </div>
-            <span className="text-muted shrink-0 ml-2">PORTFOLIO // V2</span>
+          <div className="flex items-center gap-2 text-[11px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>AVAILABLE FOR SELECT CLIENTS</span>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   )
 }
