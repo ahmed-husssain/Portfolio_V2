@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   Play,
   Reload,
@@ -216,18 +216,58 @@ export default function ArchitectureVisualizer({
   const flow = FLOWS[flowKey] || FLOWS['online-art-gallery']
   const [activeStep, setActiveStep] = useState(0)
   const [activeSim, setActiveSim] = useState<Simulation | null>(null)
+  const [isSimulating, setIsSimulating] = useState(false)
+  const simTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const currentStep = flow.steps[activeStep] || flow.steps[0]
+  useEffect(() => {
+    return () => {
+      if (simTimerRef.current) clearInterval(simTimerRef.current)
+    }
+  }, [])
+
+  const selectStep = (idx: number) => {
+    if (simTimerRef.current) clearInterval(simTimerRef.current)
+    setIsSimulating(false)
+    setActiveSim(null)
+    setActiveStep(idx)
+  }
 
   const runSimulation = (sim: Simulation) => {
+    if (simTimerRef.current) clearInterval(simTimerRef.current)
     setActiveSim(sim)
-    setActiveStep(sim.highlightStep - 1)
+    const targetStep = sim.highlightStep - 1
+
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setActiveStep(targetStep)
+      setIsSimulating(false)
+      return
+    }
+
+    setIsSimulating(true)
+    setActiveStep(0)
+    let cur = 0
+    simTimerRef.current = setInterval(() => {
+      cur += 1
+      if (cur <= targetStep) {
+        setActiveStep(cur)
+      } else {
+        if (simTimerRef.current) clearInterval(simTimerRef.current)
+        setIsSimulating(false)
+      }
+    }, 220)
   }
 
   const resetSimulation = () => {
+    if (simTimerRef.current) clearInterval(simTimerRef.current)
     setActiveSim(null)
+    setIsSimulating(false)
     setActiveStep(0)
   }
+
+  const currentStep = flow.steps[activeStep] || flow.steps[0]
 
   return (
     <div className={`p-3 sm:p-5 flex flex-col gap-2.5 sm:gap-3 font-sans text-foreground text-left select-none ${className}`}>
@@ -242,41 +282,163 @@ export default function ArchitectureVisualizer({
         </span>
       </div>
 
-      {/* ─── 2. 5-Step Pipeline Strip ─── */}
-      <div className="grid grid-cols-5 gap-1 sm:gap-1.5 p-1 bg-page border border-border rounded-xs">
-        {flow.steps.map((step, idx) => {
-          const isSelected = activeStep === idx
-          const isPast = activeStep > idx
-
-          return (
-            <button
-              key={step.id}
-              type="button"
-              onClick={() => {
-                setActiveStep(idx)
-                setActiveSim(null)
-              }}
-              className={`py-1.5 px-0.5 sm:px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
-                isSelected
-                  ? 'bg-foreground text-page border-foreground shadow-2xs'
-                  : isPast
-                    ? 'bg-surface border-border-strong text-foreground hover:bg-surface-hover'
-                    : 'bg-page border-transparent text-muted hover:text-foreground'
+      {/* ─── 2. Kinetic SVG Architectural Data Rail + Pipeline Strip ─── */}
+      <div className="p-2 sm:p-2.5 bg-page border border-border rounded-xs flex flex-col gap-1.5 pixel-corners">
+        {/* Real-Time Bus Telemetry Readout */}
+        <div className="flex items-center justify-between text-[10px] font-mono text-muted px-0.5">
+          <span className="flex items-center gap-1.5">
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                isSimulating ? 'bg-amber-400 animate-ping' : 'bg-emerald-500'
               }`}
+            />
+            <span className="text-foreground font-semibold">BUS TELEMETRY</span>
+            <span className="text-secondary hidden xs:inline">· PACKET IN FLIGHT</span>
+          </span>
+          <span className="text-emerald-500 font-bold">
+            NODE 0{currentStep.number} ACTIVE · {currentStep.metric}
+          </span>
+        </div>
+
+        {/* Scalable SVG Kinetic Pipeline Rail */}
+        <div className="w-full h-7 flex items-center relative select-none">
+          <svg
+            viewBox="0 0 500 28"
+            className="w-full h-7 block overflow-visible"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Inactive Bus Spine Track */}
+            <line
+              x1="50"
+              y1="14"
+              x2="450"
+              y2="14"
+              stroke="currentColor"
+              strokeOpacity="0.16"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+            />
+
+            {/* Active Energized Data Stream Line */}
+            <line
+              x1="50"
+              y1="14"
+              x2={50 + activeStep * 100}
+              y2="14"
+              stroke="#10B981"
+              strokeWidth="2.5"
+              strokeDasharray="6 4"
+              className="data-flow-active transition-all duration-300 ease-out"
+            />
+
+            {/* 5 Bus Node Terminals */}
+            {flow.steps.map((s, idx) => {
+              const x = 50 + idx * 100
+              const isPassed = idx < activeStep
+              const isActive = idx === activeStep
+              return (
+                <g
+                  key={s.id}
+                  className="cursor-pointer"
+                  onClick={() => selectStep(idx)}
+                >
+                  {/* Outer Ping Ripple on Active Terminal */}
+                  {isActive && (
+                    <circle
+                      cx={x}
+                      cy="14"
+                      r="9"
+                      fill="#10B981"
+                      fillOpacity="0.25"
+                      className="animate-ping"
+                    />
+                  )}
+
+                  {/* Terminal Node Circle */}
+                  <circle
+                    cx={x}
+                    cy="14"
+                    r={isActive ? '6' : '4'}
+                    fill={isActive || isPassed ? '#10B981' : 'var(--bg-page)'}
+                    stroke={isActive || isPassed ? '#10B981' : 'currentColor'}
+                    strokeOpacity={isActive || isPassed ? '1' : '0.35'}
+                    strokeWidth="1.5"
+                    className="transition-all duration-200"
+                  />
+
+                  {/* Central Node Pixel Core */}
+                  {isActive && (
+                    <circle cx={x} cy="14" r="2.5" fill="#FFFFFF" />
+                  )}
+                </g>
+              )
+            })}
+
+            {/* Traveling Kinetic Packet Marker */}
+            <g
+              style={{
+                transform: `translateX(${activeStep * 100}px)`,
+                transition: 'transform 260ms cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
             >
-              <span
-                className={`text-[9px] sm:text-[10px] font-mono font-bold leading-none ${
-                  isSelected ? 'text-page' : isPast ? 'text-emerald-500' : 'text-muted'
+              {/* Packet Aura Glow */}
+              <circle
+                cx="50"
+                cy="14"
+                r="11"
+                fill="#10B981"
+                fillOpacity="0.18"
+                className="animate-pulse"
+              />
+              {/* Packet Ring */}
+              <circle
+                cx="50"
+                cy="14"
+                r="7"
+                stroke="#10B981"
+                strokeWidth="1.5"
+                fill="none"
+              />
+              {/* Packet High-Energy White Dot */}
+              <circle cx="50" cy="14" r="3" fill="#FFFFFF" />
+            </g>
+          </svg>
+        </div>
+
+        {/* 5-Step Pipeline Button Grid (Anchored 1:1 with SVG terminals) */}
+        <div className="grid grid-cols-5 gap-1 sm:gap-1.5 pt-1 border-t border-border/60">
+          {flow.steps.map((step, idx) => {
+            const isSelected = activeStep === idx
+            const isPast = activeStep > idx
+
+            return (
+              <button
+                key={step.id}
+                type="button"
+                onClick={() => selectStep(idx)}
+                className={`py-1.5 px-0.5 sm:px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
+                  isSelected
+                    ? 'bg-foreground text-page border-foreground shadow-2xs font-semibold'
+                    : isPast
+                      ? 'bg-surface border-border-strong text-foreground hover:bg-surface-hover'
+                      : 'bg-page border-transparent text-muted hover:text-foreground'
                 }`}
               >
-                0{step.number}
-              </span>
-              <span className="text-[9px] xs:text-[10px] sm:text-xs font-semibold tracking-tight truncate w-full text-center px-0.5">
-                {step.short}
-              </span>
-            </button>
-          )
-        })}
+                <span
+                  className={`text-[9px] sm:text-[10px] font-mono font-bold leading-none ${
+                    isSelected ? 'text-page' : isPast ? 'text-emerald-500' : 'text-muted'
+                  }`}
+                >
+                  0{step.number}
+                </span>
+                <span className="text-[9px] xs:text-[10px] sm:text-xs font-medium tracking-tight truncate w-full text-center px-0.5">
+                  {step.short}
+                </span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       {/* ─── 3. Two-Column Card: Step Details (Left) + Interactive Tests (Right) ─── */}
@@ -325,8 +487,7 @@ export default function ArchitectureVisualizer({
               <button
                 type="button"
                 onClick={() => {
-                  if (activeStep > 0) setActiveStep(activeStep - 1)
-                  setActiveSim(null)
+                  if (activeStep > 0) selectStep(activeStep - 1)
                 }}
                 disabled={activeStep === 0}
                 className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"
@@ -338,8 +499,7 @@ export default function ArchitectureVisualizer({
               <button
                 type="button"
                 onClick={() => {
-                  if (activeStep < flow.steps.length - 1) setActiveStep(activeStep + 1)
-                  setActiveSim(null)
+                  if (activeStep < flow.steps.length - 1) selectStep(activeStep + 1)
                 }}
                 disabled={activeStep === flow.steps.length - 1}
                 className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"

@@ -82,12 +82,18 @@ export default function Button({
     setIsHovered(false)
   }, [])
 
+  const isPrimary = variant === 'primary'
+
   const content = (
     <>
-      {/* ── Theme-Matched Emerald Liquid Bubble Fill Layer ── */}
+      {/* ── Theme-Matched #EDEDED Liquid Bubble Fill Layer ── */}
       {!isLink && (
         <span
-          className="absolute -inset-x-4 -top-8 -bottom-8 rounded-[50%] bg-emerald-500 pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+          className={`absolute -inset-x-4 -top-8 -bottom-8 rounded-[50%] pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+            isPrimary
+              ? 'bg-[#18181B] dark:bg-[#18181B]'
+              : 'bg-[#EDEDED] dark:bg-[#EDEDED]'
+          }`}
           style={{
             transform: isHovered
               ? 'translate3d(0, 0, 0)'
@@ -100,7 +106,15 @@ export default function Button({
       )}
 
       {/* ── Text and Icon Content ── */}
-      <span className={`relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors duration-200 ${!isLink ? 'group-hover:text-black font-semibold' : ''}`}>
+      <span
+        className={`relative z-10 inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors duration-200 ${
+          !isLink
+            ? isPrimary
+              ? 'group-hover:text-white dark:group-hover:text-[#EDEDED] font-semibold'
+              : 'group-hover:text-black dark:group-hover:text-[#09090B] font-semibold'
+            : ''
+        }`}
+      >
         {children}
         {icon && (
           <ExternalLink

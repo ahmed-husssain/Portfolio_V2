@@ -477,8 +477,25 @@ button, a, input, select, textarea {
   padding: 2px 6px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
   image-rendering: pixelated;
 }
+
+/* ─── Telemetry SVG Data Bus Stream ─── */
+@keyframes data-flow-dash {
+  to {
+    stroke-dashoffset: -20px;
+  }
+}
+
+.data-flow-active {
+  animation: data-flow-dash 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-flow-active {
+    animation: none;
+  }
+}
+
 
 
