@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, Close, ArrowRight, ExternalLink, Mail, FileText } from 'pixelarticons/react'
 import Container from './Container'
+import Button from './Button'
 import ThemeToggle from './ThemeToggle'
 import KarachiClock from './KarachiClock'
 import { NAV_ITEMS, AVAILABILITY_STATUS } from '../data/navigation'
@@ -11,6 +12,42 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+
+  // ─── Gliding Magic Pill Indicator State ───
+  const [indicator, setIndicator] = useState<{ left: number; width: number; opacity: number }>({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  })
+  const linksRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
+
+  const isActiveRoute = useCallback(
+    (path: string) => {
+      if (path === '/') return location.pathname === '/'
+      return location.pathname.startsWith(path)
+    },
+    [location.pathname]
+  )
+
+  const updateToActive = useCallback(() => {
+    const activeItem = NAV_ITEMS.find((item) => isActiveRoute(item.href))
+    if (activeItem) {
+      const el = linksRef.current.get(activeItem.href)
+      if (el) {
+        setIndicator({
+          left: el.offsetLeft,
+          width: el.offsetWidth,
+          opacity: 1,
+        })
+        return
+      }
+    }
+    setIndicator((prev) => ({ ...prev, opacity: 0 }))
+  }, [isActiveRoute])
+
+  useEffect(() => {
+    updateToActive()
+  }, [updateToActive])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,31 +80,34 @@ export default function Navbar() {
     }
   }, [mobileMenuOpen])
 
-  const isActiveRoute = (path: string) => {
-    if (path === '/') return location.pathname === '/'
-    return location.pathname.startsWith(path)
-  }
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-200 border-b ${mobileMenuOpen
-          ? 'bg-page border-border shadow-none'
+      className={`fixed z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        mobileMenuOpen
+          ? 'top-0 inset-x-0 bg-page border-b border-border shadow-none'
           : scrolled
-            ? 'material-frosted border-border/90 shadow-xs'
-            : 'material-frosted border-border/60'
-        }`}
+            ? 'top-2 inset-x-2 sm:inset-x-4 max-w-5xl mx-auto rounded-xs border border-border material-frosted shadow-sm'
+            : 'top-0 inset-x-0 border-b border-border/60 material-frosted'
+      }`}
       style={{ boxShadow: 'var(--hairline-top)' }}
     >
       <Container>
-        <div className="flex items-center justify-between h-16">
-          {/* ─── Brand / Name Linking to Home ─── */}
+        <div className="flex items-center justify-between h-14 sm:h-16">
+          {/* ─── Brand / Name with Editorial Kinetic Roll ─── */}
           <div className="flex items-center gap-4">
             <Link
               to="/"
-              className="group flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-tight text-foreground hover:opacity-85 transition-opacity focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
+              className="group flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-tight text-foreground focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none"
             >
-              <span className="font-mono text-muted text-xs group-hover:text-foreground transition-colors">//</span>
-              <span>AHMED HUSSAIN</span>
+              <span className="font-mono text-muted text-xs group-hover:text-emerald-500 transition-colors">//</span>
+              <span className="relative inline-flex flex-col h-[18px] overflow-hidden leading-tight font-semibold">
+                <span className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                  AHMED HUSSAIN
+                </span>
+                <span className="absolute top-full left-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground">
+                  AHMED HUSSAIN
+                </span>
+              </span>
             </Link>
 
             {/* Zone 2: Karachi Clock (Desktop Telemetry) */}
@@ -81,37 +121,66 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* ─── Desktop Nav Links & Controls ─── */}
+          {/* ─── Desktop Nav Links & Controls (Gliding Spotlight Dock) ─── */}
           <nav
-            className="hidden md:flex items-center gap-5 lg:gap-6"
+            className="hidden md:flex items-center gap-3 lg:gap-4"
             aria-label="Main navigation"
           >
-            {NAV_ITEMS.map((item) => {
-              const active = isActiveRoute(item.href)
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`relative text-micro-caps transition-[color,transform] duration-150 py-1.5 active:scale-[0.96] ${active
-                      ? 'text-foreground font-semibold'
-                      : 'text-secondary hover:text-foreground'
-                    } focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1.5px] after:bg-foreground after:transition-transform after:duration-150 ${active ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100 after:opacity-40'
-                    }`}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
+            {/* Gliding Magic Pill Dock */}
+            <div
+              onMouseLeave={updateToActive}
+              className="relative flex items-center p-1 rounded-xs bg-surface-subtle/70 border border-border/70 backdrop-blur-xs select-none"
+            >
+              {/* Dynamic Sliding Capsule Indicator */}
+              <div
+                className="absolute top-1 bottom-1 rounded-2xs bg-surface border border-border shadow-2xs transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none motion-reduce:transition-none"
+                style={{
+                  transform: `translate3d(${indicator.left}px, 0, 0)`,
+                  width: `${indicator.width}px`,
+                  opacity: indicator.opacity,
+                }}
+              />
 
-            {/* Minimalist Editorial Pill CTA Button */}
-            <Link
-              to="/contact"
-              className="tactile-btn inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-surface hover:bg-surface-hover hover:border-border-strong text-foreground text-micro-caps transition-[color,border-color,transform] duration-150 select-none"
+              {NAV_ITEMS.map((item) => {
+                const active = isActiveRoute(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    ref={(el) => {
+                      if (el) linksRef.current.set(item.href, el)
+                      else linksRef.current.delete(item.href)
+                    }}
+                    to={item.href}
+                    onMouseEnter={(e) => {
+                      setIndicator({
+                        left: e.currentTarget.offsetLeft,
+                        width: e.currentTarget.offsetWidth,
+                        opacity: 1,
+                      })
+                    }}
+                    className={`relative z-10 px-3 py-1 text-micro-caps transition-colors duration-150 select-none ${
+                      active
+                        ? 'text-foreground font-semibold'
+                        : 'text-secondary hover:text-foreground'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Liquid Bubble "GET IN TOUCH" Button */}
+            <Button
+              href="/contact"
+              variant="secondary"
+              size="sm"
               style={{ boxShadow: 'var(--hairline-top)' }}
+              className="text-micro-caps font-semibold"
             >
               <span>GET IN TOUCH</span>
-              <span className="text-muted text-[10px]">↗</span>
-            </Link>
+              <span className="text-muted text-[10px] group-hover:text-black">↗</span>
+            </Button>
 
             <div className="pl-1 border-l border-border">
               <ThemeToggle />
