@@ -154,37 +154,37 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ─── 1. TOP AMBIENT NAVIGATION (Zero Boxes, Pure Typography) ─── */}
+      {/* ─── 1. TOP AMBIENT NAVIGATION (Zero Boxes, Pure Optical Alignment) ─── */}
       <header
         className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-7 sm:py-8 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
           scrolled ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Left: Brand with Slower 750ms Horizontal Roll */}
-        <div className="pointer-events-auto">
+        {/* Left: Brand with Slower 750ms Horizontal Roll (Aligned to 32px h-8 baseline) */}
+        <div className="pointer-events-auto flex items-center h-8">
           <Link
             to="/"
-            className="group flex items-center gap-1.5 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
+            className="group flex items-center gap-1.5 h-8 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
           >
-            <span className="text-muted font-normal select-none">©</span>
-            <span className="relative inline-flex items-center overflow-hidden h-[20px] w-[132px]">
+            <span className="text-muted font-normal select-none flex items-center leading-none">©</span>
+            <span className="relative inline-flex items-center overflow-hidden h-8 w-[136px]">
               {/* State 1: "Code by Ahmed" */}
-              <span className="absolute inset-0 flex items-center whitespace-nowrap transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-[115%]">
+              <span className="absolute inset-0 flex items-center whitespace-nowrap transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-[115%] will-change-transform leading-none">
                 Code by Ahmed
               </span>
               {/* State 2: "Ahmed Hussain" */}
-              <span className="absolute inset-0 flex items-center whitespace-nowrap font-semibold text-foreground transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-[115%] group-hover:translate-x-0">
+              <span className="absolute inset-0 flex items-center whitespace-nowrap font-semibold text-foreground transition-transform duration-750 ease-[cubic-bezier(0.16,1,0.3,1)] translate-x-[115%] group-hover:translate-x-0 will-change-transform leading-none">
                 Ahmed Hussain
               </span>
             </span>
           </Link>
         </div>
 
-        {/* Right: Pure Typographic Nav Links with Dual-Text Roll & Pixelify Icon Reveal */}
+        {/* Right: Pure Typographic Nav Links + Theme Toggle (Aligned to identical 32px h-8 baseline) */}
         <nav
           ref={navContainerRef}
           onMouseLeave={updateUnderlineToActive}
-          className="hidden md:flex items-center gap-7 sm:gap-8 relative pointer-events-auto"
+          className="hidden md:flex items-center h-8 gap-7 sm:gap-8 relative pointer-events-auto"
           aria-label="Main navigation"
         >
           {NAV_LINKS.map((item) => {
@@ -212,12 +212,12 @@ export default function Navbar() {
                     })
                   }
                 }}
-                className={`group relative py-1 text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 select-none cursor-pointer ${
+                className={`group relative h-8 flex items-center text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 select-none cursor-pointer ${
                   active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
                 }`}
               >
-                {/* Responsive Self-Sizing Mask Container (Prevents any clipping across all devices) */}
-                <span className="relative inline-flex flex-col h-[22px] overflow-hidden justify-center leading-none">
+                {/* Responsive Self-Sizing Mask Container */}
+                <span className="relative inline-flex flex-col h-8 overflow-hidden justify-center leading-none">
                   {/* Invisible sizer row guarantees parent width perfectly accommodates widest state */}
                   <span
                     className="invisible h-0 overflow-hidden flex items-center select-none pointer-events-none"
@@ -228,12 +228,12 @@ export default function Navbar() {
                   </span>
 
                   {/* State 1 (At rest): Clean full word */}
-                  <span className="h-[22px] flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform">
+                  <span className="h-8 flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform leading-none">
                     {item.label}
                   </span>
 
                   {/* State 2 (On hover): Prefix + Pixelify Icon replacing the trailing letter */}
-                  <span className="absolute top-full left-0 h-[22px] flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform font-semibold text-foreground">
+                  <span className="absolute top-full left-0 h-8 flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform font-semibold text-foreground leading-none">
                     {iconConfig && IconComponent ? (
                       <span className="inline-flex items-center">
                         <span>{iconConfig.prefix}</span>
@@ -250,14 +250,14 @@ export default function Navbar() {
             )
           })}
 
-          <div className="pl-1">
+          <div className="pl-1 flex items-center h-8">
             <ThemeToggle />
           </div>
 
-          {/* Razor-thin kinetic gliding underline (1.5px hairline, zero boxes) */}
+          {/* Razor-thin kinetic gliding underline (1.5px hairline, aligned to exact bottom of 32px line) */}
           <span
             aria-hidden="true"
-            className="absolute -bottom-1 h-[1.5px] bg-foreground pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+            className="absolute bottom-0 h-[1.5px] bg-foreground pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
             style={{
               transform: `translate3d(${underline.left}px, 0, 0)`,
               width: `${underline.width}px`,
@@ -267,7 +267,7 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile Minimal Menu Trigger (At Top of Page) */}
-        <div className="flex items-center gap-3 md:hidden pointer-events-auto">
+        <div className="flex items-center gap-3 md:hidden pointer-events-auto h-8">
           <ThemeToggle />
           <button
             type="button"
