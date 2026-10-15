@@ -1,8 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Briefcase, User, BookOpen, Mail } from 'pixelarticons/react'
 import ThemeToggle from './ThemeToggle'
 import { NAV_ITEMS } from '../data/navigation'
 import { CONTACT_CONFIG } from '../data/contact'
+
+// Map each nav route to its prefix (word minus last letter) and pixelify icon
+const NAV_ICON_MAP: Record<
+  string,
+  { prefix: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }> }
+> = {
+  '/work': { prefix: 'Wor', icon: Briefcase },
+  '/about': { prefix: 'Abou', icon: User },
+  '/writing': { prefix: 'Writin', icon: BookOpen },
+  '/contact': { prefix: 'Contac', icon: Mail },
+}
 
 // Reusable native magnetic wrapper for floating action buttons
 function MagneticItem({
@@ -168,7 +180,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Right: Pure Typographic Nav Links with Dual-Text Roll & Kinetic Underline (ZERO BOXES) */}
+        {/* Right: Pure Typographic Nav Links with Dual-Text Roll & Pixelify Icon Reveal */}
         <nav
           ref={navContainerRef}
           onMouseLeave={updateUnderlineToActive}
@@ -177,6 +189,9 @@ export default function Navbar() {
         >
           {navLinks.map((item) => {
             const active = isActiveRoute(item.href)
+            const iconConfig = NAV_ICON_MAP[item.href]
+            const IconComponent = iconConfig?.icon
+
             return (
               <Link
                 key={item.href}
@@ -201,13 +216,23 @@ export default function Navbar() {
                   active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
                 }`}
               >
-                {/* Masked Dual-Text Roll */}
+                {/* Masked Dual-Text Roll with Pixel Icon Transformation */}
                 <span className="relative inline-flex flex-col h-[18px] overflow-hidden leading-tight">
-                  <span className="transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                  {/* State 1 (At rest): Clean full word (Work, About, Writing, Contact) */}
+                  <span className="transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full flex items-center">
                     {item.label}
                   </span>
-                  <span className="absolute top-full left-0 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground font-semibold">
-                    {item.label}
+
+                  {/* State 2 (On hover): Prefix + Pixelify Icon replacing the last letter! */}
+                  <span className="absolute top-full left-0 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground font-semibold flex items-center gap-0.5">
+                    {iconConfig && IconComponent ? (
+                      <>
+                        <span>{iconConfig.prefix}</span>
+                        <IconComponent className="w-3.5 h-3.5 pixel-icon text-foreground inline-block shrink-0" aria-hidden="true" />
+                      </>
+                    ) : (
+                      <span>{item.label}</span>
+                    )}
                   </span>
                 </span>
               </Link>
@@ -218,7 +243,7 @@ export default function Navbar() {
             <ThemeToggle />
           </div>
 
-          {/* Razor-thin kinetic gliding underline (1.5px hairline, NOT a box or pill) */}
+          {/* Razor-thin kinetic gliding underline (1.5px hairline, zero boxes) */}
           <span
             aria-hidden="true"
             className="absolute -bottom-1 h-[1.5px] bg-foreground pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -323,6 +348,9 @@ export default function Navbar() {
 
           {navLinks.map((item, idx) => {
             const active = isActiveRoute(item.href)
+            const iconConfig = NAV_ICON_MAP[item.href]
+            const IconComponent = iconConfig?.icon
+
             return (
               <Link
                 key={item.href}
@@ -337,7 +365,12 @@ export default function Navbar() {
                 }`}>
                   0{idx + 2}
                 </span>
-                <span>{item.label}</span>
+                <span className="flex items-center gap-3">
+                  <span>{item.label}</span>
+                  {IconComponent && (
+                    <IconComponent className="w-6 h-6 pixel-icon opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                  )}
+                </span>
               </Link>
             )
           })}
