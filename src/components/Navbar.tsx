@@ -16,6 +16,9 @@ const NAV_ICON_MAP: Record<
   '/contact': { prefix: 'Contac', icon: Mail },
 }
 
+// Stable module-level nav links list to prevent infinite render loops
+const NAV_LINKS = NAV_ITEMS.filter((item) => item.href !== '/')
+
 // Reusable native magnetic wrapper for floating action buttons
 function MagneticItem({
   children,
@@ -72,9 +75,6 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
-  // Exclude Home/Index from nav links since the left logo links to Home
-  const navLinks = NAV_ITEMS.filter((item) => item.href !== '/')
-
   // ─── Razor-thin Kinetic Gliding Underline State (Zero Boxes) ───
   const [underline, setUnderline] = useState<{ left: number; width: number; opacity: number }>({
     left: 0,
@@ -93,7 +93,7 @@ export default function Navbar() {
   )
 
   const updateUnderlineToActive = useCallback(() => {
-    const activeItem = navLinks.find((item) => isActiveRoute(item.href))
+    const activeItem = NAV_LINKS.find((item) => isActiveRoute(item.href))
     if (activeItem) {
       const el = linksRef.current.get(activeItem.href)
       const container = navContainerRef.current
@@ -109,7 +109,7 @@ export default function Navbar() {
       }
     }
     setUnderline((prev) => ({ ...prev, opacity: 0 }))
-  }, [isActiveRoute, navLinks])
+  }, [isActiveRoute])
 
   useEffect(() => {
     updateUnderlineToActive()
@@ -187,7 +187,7 @@ export default function Navbar() {
           className="hidden md:flex items-center gap-7 sm:gap-8 relative pointer-events-auto"
           aria-label="Main navigation"
         >
-          {navLinks.map((item) => {
+          {NAV_LINKS.map((item) => {
             const active = isActiveRoute(item.href)
             const iconConfig = NAV_ICON_MAP[item.href]
             const IconComponent = iconConfig?.icon
@@ -216,20 +216,31 @@ export default function Navbar() {
                   active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
                 }`}
               >
-                {/* Masked Dual-Text Roll with Pixel Icon Transformation */}
-                <span className="relative inline-flex flex-col h-[18px] overflow-hidden leading-tight">
-                  {/* State 1 (At rest): Clean full word (Work, About, Writing, Contact) */}
-                  <span className="transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full flex items-center">
+                {/* Responsive Self-Sizing Mask Container (Prevents any clipping across all devices) */}
+                <span className="relative inline-flex flex-col h-[22px] overflow-hidden justify-center leading-none">
+                  {/* Invisible sizer row guarantees parent width perfectly accommodates widest state */}
+                  <span
+                    className="invisible h-0 overflow-hidden flex items-center select-none pointer-events-none"
+                    aria-hidden="true"
+                  >
+                    <span>{iconConfig?.prefix || item.label}</span>
+                    <span className="w-4 h-4 ml-0.5 shrink-0" />
+                  </span>
+
+                  {/* State 1 (At rest): Clean full word */}
+                  <span className="h-[22px] flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform">
                     {item.label}
                   </span>
 
-                  {/* State 2 (On hover): Prefix + Pixelify Icon replacing the last letter! */}
-                  <span className="absolute top-full left-0 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground font-semibold flex items-center gap-0.5">
+                  {/* State 2 (On hover): Prefix + Pixelify Icon replacing the trailing letter */}
+                  <span className="absolute top-full left-0 h-[22px] flex items-center whitespace-nowrap transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full motion-reduce:transition-none will-change-transform font-semibold text-foreground">
                     {iconConfig && IconComponent ? (
-                      <>
+                      <span className="inline-flex items-center">
                         <span>{iconConfig.prefix}</span>
-                        <IconComponent className="w-3.5 h-3.5 pixel-icon text-foreground inline-block shrink-0" aria-hidden="true" />
-                      </>
+                        <span className="w-4 h-4 inline-flex items-center justify-center shrink-0 ml-0.5">
+                          <IconComponent className="w-3.5 h-3.5 pixel-icon text-foreground" aria-hidden="true" />
+                        </span>
+                      </span>
                     ) : (
                       <span>{item.label}</span>
                     )}
@@ -246,7 +257,7 @@ export default function Navbar() {
           {/* Razor-thin kinetic gliding underline (1.5px hairline, zero boxes) */}
           <span
             aria-hidden="true"
-            className="absolute -bottom-1 h-[1.5px] bg-foreground pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            className="absolute -bottom-1 h-[1.5px] bg-foreground pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
             style={{
               transform: `translate3d(${underline.left}px, 0, 0)`,
               width: `${underline.width}px`,
@@ -346,7 +357,7 @@ export default function Navbar() {
             <span>Home</span>
           </Link>
 
-          {navLinks.map((item, idx) => {
+          {NAV_LINKS.map((item, idx) => {
             const active = isActiveRoute(item.href)
             const iconConfig = NAV_ICON_MAP[item.href]
             const IconComponent = iconConfig?.icon

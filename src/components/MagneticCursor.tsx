@@ -33,15 +33,23 @@ export default function MagneticCursor() {
       const target = e.target as HTMLElement | null
       if (!target) return
 
-      // Keep default sleek cursor in navbar so it doesn't cover navlinks
+      // Hide custom cursor completely over navbar so no black dot covers navlinks
       const isNavbar = Boolean(target.closest('header, nav, [data-no-cursor]'))
-      const textTarget = target.closest('[data-cursor-text]') as HTMLElement | null
-      const clickableTarget = target.closest('a, button, [role="button"]')
-
       if (isNavbar) {
         setCursorText('')
         setIsHoveringLink(false)
-      } else if (textTarget) {
+        if (cursorRef.current) cursorRef.current.style.opacity = '0'
+        return
+      }
+
+      if (cursorRef.current && isVisibleRef.current) {
+        cursorRef.current.style.opacity = '1'
+      }
+
+      const textTarget = target.closest('[data-cursor-text]') as HTMLElement | null
+      const clickableTarget = target.closest('a, button, [role="button"]')
+
+      if (textTarget) {
         const text = textTarget.getAttribute('data-cursor-text') || ''
         setCursorText(text)
         setIsHoveringLink(false)
