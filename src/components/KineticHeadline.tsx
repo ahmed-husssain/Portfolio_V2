@@ -158,7 +158,7 @@ export default function KineticHeadline({ className = '', lines }: KineticHeadli
           >
             <div className="flex items-baseline flex-wrap gap-x-3">
               {line.prefix && (
-                <div className="shrink-0 mb-1 lg:mb-0 mr-1 sm:mr-3">
+                <div className="w-full lg:w-auto shrink-0 mb-1 lg:mb-0 mr-1 sm:mr-3">
                   {line.prefix}
                 </div>
               )}
@@ -188,7 +188,7 @@ export default function KineticHeadline({ className = '', lines }: KineticHeadli
             </div>
 
             {line.suffix && (
-              <div className="shrink-0 mt-2 lg:mt-0 lg:ml-auto">
+              <div className="hidden lg:block shrink-0 lg:ml-auto">
                 {line.suffix}
               </div>
             )}

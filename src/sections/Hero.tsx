@@ -28,10 +28,10 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
 
       <Container>
         {/* ─── Eyebrow / Terminal Status Pill ─── */}
-        <div className={`flex flex-wrap items-center justify-between gap-3 text-micro-caps text-secondary mb-6 sm:mb-8 ${isRevealed ? 'animate-hero-in' : 'opacity-0'}`}>
-          <div className="flex items-center gap-2.5">
+        <div className={`flex flex-wrap items-center justify-between gap-2.5 text-micro-caps text-secondary mb-5 sm:mb-8 ${isRevealed ? 'animate-hero-in' : 'opacity-0'}`}>
+          <div className="flex items-center gap-2">
             <span className="pixel-beacon shrink-0" aria-hidden="true" />
-            <span className="text-foreground font-semibold">// STATUS: AVAILABLE FOR ROLES & CONTRACTS</span>
+            <span className="text-foreground font-semibold text-[10px] sm:text-micro-caps tracking-wide">// STATUS: AVAILABLE FOR ROLES & CONTRACTS</span>
             <span className="text-border-strong hidden sm:inline" aria-hidden="true">·</span>
             <span className="hidden sm:inline">KARACHI, PK (REMOTE & LOCAL)</span>
           </div>
@@ -41,7 +41,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
         </div>
 
         {/* ─── Asymmetrical 3-Row Editorial Kinetic Headline ─── */}
-        <div className={`mb-8 sm:mb-12 ${isRevealed ? 'animate-hero-in delay-60' : 'opacity-0'}`}>
+        <div className={`mb-4 sm:mb-12 ${isRevealed ? 'animate-hero-in delay-60' : 'opacity-0'}`}>
           <KineticHeadline
             lines={[
               {
@@ -55,7 +55,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
               {
                 text: 'built with clean code &',
                 suffix: (
-                  <div className="flex flex-col text-left lg:text-right font-mono text-[10px] sm:text-xs text-muted leading-tight tracking-wider uppercase border-l-2 lg:border-l-0 lg:border-r-2 border-border pl-2.5 lg:pl-0 lg:pr-3 py-0.5">
+                  <div className="hidden lg:flex flex-col text-right font-mono text-xs text-muted leading-tight tracking-wider uppercase border-r-2 border-border pr-3 py-0.5">
                     <span className="text-foreground font-semibold">ASP.NET CORE & C#,</span>
                     <span>SQL SERVER & MODERN WEB</span>
                   </div>
@@ -66,7 +66,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
                 suffix: (
                   <a
                     href="#work"
-                    className="editorial-cta text-base sm:text-lg lg:text-xl font-mono font-medium text-foreground hover:text-secondary transition-colors select-none py-1"
+                    className="hidden lg:inline-flex editorial-cta text-base sm:text-lg lg:text-xl font-mono font-medium text-foreground hover:text-secondary transition-colors select-none py-1"
                   >
                     <span>View Selected Work</span>
                     <span className="arrow-box" aria-hidden="true">
@@ -79,9 +79,48 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
           />
         </div>
 
-        {/* ─── Fast Actions (Contact & Resume) ─── */}
-        <div className={`flex flex-wrap items-center justify-between gap-4 mb-8 sm:mb-10 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
-          <div className="flex flex-wrap items-center gap-3">
+        {/* ─── Mobile Tech Capabilities & Stack Tag ─── */}
+        <div className={`flex lg:hidden items-center gap-2 text-micro-caps text-secondary font-mono border-l-2 border-accent pl-2.5 py-0.5 mb-5 ${isRevealed ? 'animate-hero-in delay-90' : 'opacity-0'}`}>
+          <span className="text-foreground font-semibold">ASP.NET CORE & C#</span>
+          <span className="text-muted">·</span>
+          <span>SQL SERVER & MODERN WEB</span>
+        </div>
+
+        {/* ─── Mobile Action Group (Touch-Native & Balanced) ─── */}
+        <div className={`flex lg:hidden flex-col gap-2.5 mb-8 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
+          <Button
+            href="#work"
+            variant="primary"
+            size="md"
+            className="w-full justify-center group"
+          >
+            <span>View Selected Work</span>
+            <span className="ml-1.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true">↗</span>
+          </Button>
+
+          <div className="grid grid-cols-2 gap-2.5">
+            <Button href="/contact" variant="secondary" size="md" className="justify-center">
+              Contact
+            </Button>
+            <Button
+              href="/resume.pdf"
+              variant="secondary"
+              size="md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="justify-center"
+              aria-label="View official Resume (PDF, opens in new tab)"
+            >
+              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+              <span>RESUME</span>
+              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
+            </Button>
+          </div>
+        </div>
+
+        {/* ─── Desktop Fast Actions (Contact & Resume) ─── */}
+        <div className={`hidden lg:flex items-center justify-between gap-4 mb-8 sm:mb-10 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
+          <div className="flex items-center gap-3">
             <Button href="/contact" variant="primary" size="md">
               Contact
             </Button>
@@ -100,70 +139,70 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             </Button>
           </div>
 
-          <div className="hidden sm:flex items-center gap-2 text-micro-caps text-muted font-mono">
+          <div className="flex items-center gap-2 text-micro-caps text-muted font-mono">
             <span>// C# · ASP.NET CORE · SQL SERVER · REACT</span>
           </div>
         </div>
 
-        {/* ─── Client Value & Practical Pillars ─── */}
-        <div className={`border-t border-border pt-7 sm:pt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 ${isRevealed ? 'animate-hero-in delay-180' : 'opacity-0'}`}>
+        {/* ─── Client Value & Practical Pillars (Responsive 2x2 on Mobile, 4x1 on Desktop) ─── */}
+        <div className={`border-t border-border pt-6 sm:pt-8 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 ${isRevealed ? 'animate-hero-in delay-180' : 'opacity-0'}`}>
           <div
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
+            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <span className="text-micro-caps text-muted">
+            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
               // FULL-STACK
             </span>
-            <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
+            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               End-to-End Apps
             </span>
-            <span className="text-[11px] font-mono text-secondary">
+            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
               ASP.NET Core APIs, SQL Server & modern UI
             </span>
           </div>
 
           <div
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
+            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <span className="text-micro-caps text-muted">
+            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
               // DATA INTEGRITY
             </span>
-            <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
+            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               Reliable Databases
             </span>
-            <span className="text-[11px] font-mono text-secondary">
-              Normalized relational schemas & ACID transactions
+            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
+              Normalized schemas & ACID transactions
             </span>
           </div>
 
           <div
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
+            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <span className="text-micro-caps text-muted">
+            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
               // PROBLEM SOLVING
             </span>
-            <span className="text-base sm:text-lg font-bold font-mono text-emerald-500 tracking-tight">
-              Edge Case Handling
+            <span className="text-sm sm:text-lg font-bold font-mono text-emerald-500 tracking-tight leading-tight">
+              Edge Cases
             </span>
-            <span className="text-[11px] font-mono text-secondary">
-              Concurrency tokens & clear error recovery
+            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
+              Concurrency tokens & error recovery
             </span>
           </div>
 
           <div
-            className="p-4 rounded-xs border border-border bg-surface flex flex-col gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
+            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <span className="text-micro-caps text-muted">
+            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
               // WORK ETHIC
             </span>
-            <span className="text-base sm:text-lg font-bold font-mono text-foreground tracking-tight">
+            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               Clean Execution
             </span>
-            <span className="text-[11px] font-mono text-secondary">
-              Readable code, clear communication & testing
+            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
+              Readable code, tests & clear updates
             </span>
           </div>
         </div>
