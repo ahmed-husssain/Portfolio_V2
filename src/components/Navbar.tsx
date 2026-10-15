@@ -280,43 +280,43 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ─── 2. FLOATING MAGNETIC CIRCULAR BUTTON (Trigger on Scroll) ─── */}
+      {/* ─── 2. FLOATING MAGNETIC CIRCULAR BUTTON (Trigger on Scroll & Menu Close) ─── */}
       <div
         data-no-cursor="true"
-        className={`fixed top-5 right-5 sm:top-8 sm:right-10 z-50 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
+        className={`fixed top-4 right-4 sm:top-6 sm:right-8 z-50 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
           scrolled || menuOpen
             ? 'scale-100 opacity-100 pointer-events-auto'
             : 'scale-0 opacity-0 pointer-events-none'
         }`}
       >
-        <MagneticItem strength={0.4}>
+        <MagneticItem strength={0.35}>
           <button
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="group relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-foreground text-page shadow-xl flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none"
+            className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-surface text-foreground border border-border hover:border-border-strong shadow-lg flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none active:scale-95 transition-all"
           >
             {/* Liquid Fill Hover Ring */}
             <span
-              className="absolute inset-0 rounded-full bg-emerald-500 scale-0 group-hover:scale-100 transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="absolute inset-0 rounded-full bg-foreground scale-0 group-hover:scale-100 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
               aria-hidden="true"
             />
 
             {/* Kinetic Hamburger / Close Lines */}
-            <div className="relative z-10 w-5 h-4 flex flex-col justify-between items-center pointer-events-none">
+            <div className="relative z-10 w-4 h-3.5 flex flex-col justify-between items-center pointer-events-none">
               <span
-                className={`w-5 h-[1.5px] bg-page rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  menuOpen ? 'translate-y-[7px] rotate-45' : ''
+                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  menuOpen ? 'translate-y-[6px] rotate-45' : ''
                 }`}
               />
               <span
-                className={`w-5 h-[1.5px] bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
                 }`}
               />
               <span
-                className={`w-5 h-[1.5px] bg-page rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  menuOpen ? '-translate-y-[7px] -rotate-45' : ''
+                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  menuOpen ? '-translate-y-[6px] -rotate-45' : ''
                 }`}
               />
             </div>
@@ -326,7 +326,7 @@ export default function Navbar() {
 
       {/* ─── 3. FULL-SCREEN EDITORIAL MENU OVERLAY (Dennis Snellenberg Style) ─── */}
       <div
-        className={`fixed inset-0 z-40 bg-page/95 backdrop-blur-xl flex flex-col justify-between p-8 sm:p-14 md:p-20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 z-40 bg-page/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-12 md:p-16 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           menuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
@@ -336,26 +336,43 @@ export default function Navbar() {
         aria-label="Navigation Menu"
       >
         {/* Top Header of the Overlay */}
-        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-6">
-          <span>// NAVIGATION</span>
-          <div className="flex items-center gap-6">
-            <span className="hidden sm:inline">LAHORE, PK</span>
+        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-4 sm:pb-6 pr-12 sm:pr-16">
+          <div className="flex items-center gap-2.5">
+            <span className="text-secondary font-semibold">// NAVIGATION</span>
+            <span className="text-border-strong hidden xs:inline" aria-hidden="true">·</span>
+            <span className="text-foreground hidden xs:inline font-mono">KARACHI, PK</span>
+          </div>
+          <div className="flex items-center gap-4">
             <ThemeToggle />
           </div>
         </div>
 
         {/* Center: High-Fashion Typographic Navigation */}
-        <nav className="flex flex-col gap-3 sm:gap-5 my-auto" aria-label="Overlay navigation links">
-          <Link
-            to="/"
-            onClick={() => setMenuOpen(false)}
-            className="group flex items-baseline gap-4 sm:gap-6 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground transition-transform duration-300 hover:translate-x-3"
-          >
-            <span className="text-xs sm:text-sm font-mono font-normal text-muted group-hover:text-emerald-500 transition-colors">
-              01
-            </span>
-            <span>Home</span>
-          </Link>
+        <nav className="flex flex-col gap-2.5 sm:gap-4 my-auto py-4" aria-label="Overlay navigation links">
+          {(() => {
+            const isHomeActive = location.pathname === '/'
+            return (
+              <Link
+                to="/"
+                onClick={() => setMenuOpen(false)}
+                className={`group flex items-baseline gap-4 sm:gap-6 py-1.5 transition-transform duration-200 hover:translate-x-2 active:scale-[0.98] ${
+                  isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
+                }`}
+              >
+                <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
+                  isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
+                }`}>
+                  01
+                </span>
+                <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
+                  <span>Home</span>
+                  {isHomeActive && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
+                  )}
+                </span>
+              </Link>
+            )
+          })()}
 
           {NAV_LINKS.map((item, idx) => {
             const active = isActiveRoute(item.href)
@@ -367,19 +384,22 @@ export default function Navbar() {
                 key={item.href}
                 to={item.href}
                 onClick={() => setMenuOpen(false)}
-                className={`group flex items-baseline gap-4 sm:gap-6 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight transition-transform duration-300 hover:translate-x-3 ${
-                  active ? 'text-foreground' : 'text-foreground/70 hover:text-foreground'
+                className={`group flex items-baseline gap-4 sm:gap-6 py-1.5 transition-transform duration-200 hover:translate-x-2 active:scale-[0.98] ${
+                  active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                 }`}
               >
-                <span className={`text-xs sm:text-sm font-mono font-normal transition-colors ${
-                  active ? 'text-emerald-500' : 'text-muted group-hover:text-emerald-500'
+                <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
+                  active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
                 }`}>
                   0{idx + 2}
                 </span>
-                <span className="flex items-center gap-3">
+                <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
                   <span>{item.label}</span>
-                  {IconComponent && (
-                    <IconComponent className="w-6 h-6 pixel-icon opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                  {active && (
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
+                  )}
+                  {IconComponent && !active && (
+                    <IconComponent className="w-5 h-5 pixel-icon text-muted opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline-block" aria-hidden="true" />
                   )}
                 </span>
               </Link>
@@ -387,36 +407,47 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Bottom: Socials & Direct Connect */}
-        <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-muted">
-          <div className="flex items-center gap-6">
+        {/* Bottom: Socials & Direct Connect (Zero Mid-Word Splitting) */}
+        <div className="pt-5 border-t border-border flex flex-col gap-3.5 text-xs font-mono text-muted">
+          {/* Row 1: Direct Email on its own line */}
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] text-muted tracking-wider uppercase">// CONTACT</span>
             <a
               href={`mailto:${CONTACT_CONFIG.email}`}
-              className="text-foreground hover:text-emerald-500 transition-colors"
+              className="text-foreground hover:text-emerald-500 transition-colors text-xs sm:text-sm font-mono font-medium truncate"
             >
               {CONTACT_CONFIG.email}
             </a>
-            <a
-              href={CONTACT_CONFIG.github.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              GitHub ↗
-            </a>
-            <a
-              href={CONTACT_CONFIG.linkedin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              LinkedIn ↗
-            </a>
           </div>
 
-          <div className="flex items-center gap-2 text-[11px]">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>AVAILABLE FOR SELECT CLIENTS</span>
+          {/* Row 2: Social Links + Availability Status */}
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-4 text-secondary">
+              <a
+                href={CONTACT_CONFIG.github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+              >
+                <span>GitHub</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+              <span className="text-border-strong" aria-hidden="true">·</span>
+              <a
+                href={CONTACT_CONFIG.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+              >
+                <span>LinkedIn</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+
+            <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-secondary">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <span>AVAILABLE FOR ROLES</span>
+            </div>
           </div>
         </div>
       </div>
