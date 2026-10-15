@@ -63,12 +63,13 @@ export default function Navbar() {
   // Exclude Home/Index from nav links since the left logo links to Home
   const navLinks = NAV_ITEMS.filter((item) => item.href !== '/')
 
-  // ─── Gliding Pill Capsule Indicator State ───
-  const [indicator, setIndicator] = useState<{ left: number; width: number; opacity: number }>({
+  // ─── Razor-thin Kinetic Gliding Underline State (Zero Boxes) ───
+  const [underline, setUnderline] = useState<{ left: number; width: number; opacity: number }>({
     left: 0,
     width: 0,
     opacity: 0,
   })
+  const navContainerRef = useRef<HTMLDivElement>(null)
   const linksRef = useRef<Map<string, HTMLAnchorElement>>(new Map())
 
   const isActiveRoute = useCallback(
@@ -79,25 +80,28 @@ export default function Navbar() {
     [location.pathname]
   )
 
-  const updateToActive = useCallback(() => {
+  const updateUnderlineToActive = useCallback(() => {
     const activeItem = navLinks.find((item) => isActiveRoute(item.href))
     if (activeItem) {
       const el = linksRef.current.get(activeItem.href)
-      if (el) {
-        setIndicator({
-          left: el.offsetLeft,
-          width: el.offsetWidth,
+      const container = navContainerRef.current
+      if (el && container) {
+        const containerRect = container.getBoundingClientRect()
+        const elRect = el.getBoundingClientRect()
+        setUnderline({
+          left: elRect.left - containerRect.left,
+          width: elRect.width,
           opacity: 1,
         })
         return
       }
     }
-    setIndicator((prev) => ({ ...prev, opacity: 0 }))
+    setUnderline((prev) => ({ ...prev, opacity: 0 }))
   }, [isActiveRoute, navLinks])
 
   useEffect(() => {
-    updateToActive()
-  }, [updateToActive])
+    updateUnderlineToActive()
+  }, [updateUnderlineToActive])
 
   // Scroll listener for disappearing header & floating circle trigger
   useEffect(() => {
@@ -138,13 +142,13 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ─── 1. TOP AMBIENT NAVIGATION (Dennis Snellenberg Style) ─── */}
+      {/* ─── 1. TOP AMBIENT NAVIGATION (Zero Boxes, Pure Typography) ─── */}
       <header
-        className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-6 sm:py-7 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
+        className={`fixed top-0 inset-x-0 z-40 px-6 sm:px-10 md:px-14 py-7 sm:py-8 flex items-center justify-between transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none select-none ${
           scrolled ? '-translate-y-6 opacity-0' : 'translate-y-0 opacity-100'
         }`}
       >
-        {/* Left: Brand with Slower & Smoother Horizontal Roll */}
+        {/* Left: Brand with Slower 750ms Horizontal Roll */}
         <div className="pointer-events-auto">
           <Link
             to="/"
@@ -164,58 +168,66 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Right: Restored Gliding Pill Dock (Clean cursor, zero magnetic word drag) */}
+        {/* Right: Pure Typographic Nav Links with Dual-Text Roll & Kinetic Underline (ZERO BOXES) */}
         <nav
-          className="hidden md:flex items-center gap-3 lg:gap-4 pointer-events-auto"
+          ref={navContainerRef}
+          onMouseLeave={updateUnderlineToActive}
+          className="hidden md:flex items-center gap-7 sm:gap-8 relative pointer-events-auto"
           aria-label="Main navigation"
         >
-          {/* Gliding Magic Pill Dock */}
-          <div
-            onMouseLeave={updateToActive}
-            className="relative flex items-center p-1 rounded-xs bg-surface-subtle/70 border border-border/70 backdrop-blur-xs select-none"
-          >
-            {/* Dynamic Sliding Capsule Indicator */}
-            <div
-              className="absolute top-1 bottom-1 rounded-2xs bg-surface border border-border shadow-2xs transition-all duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none motion-reduce:transition-none"
-              style={{
-                transform: `translate3d(${indicator.left}px, 0, 0)`,
-                width: `${indicator.width}px`,
-                opacity: indicator.opacity,
-              }}
-            />
-
-            {navLinks.map((item) => {
-              const active = isActiveRoute(item.href)
-              return (
-                <Link
-                  key={item.href}
-                  ref={(el) => {
-                    if (el) linksRef.current.set(item.href, el)
-                    else linksRef.current.delete(item.href)
-                  }}
-                  to={item.href}
-                  onMouseEnter={(e) => {
-                    setIndicator({
-                      left: e.currentTarget.offsetLeft,
-                      width: e.currentTarget.offsetWidth,
+          {navLinks.map((item) => {
+            const active = isActiveRoute(item.href)
+            return (
+              <Link
+                key={item.href}
+                ref={(el) => {
+                  if (el) linksRef.current.set(item.href, el)
+                  else linksRef.current.delete(item.href)
+                }}
+                to={item.href}
+                onMouseEnter={(e) => {
+                  const container = navContainerRef.current
+                  if (container) {
+                    const containerRect = container.getBoundingClientRect()
+                    const elRect = e.currentTarget.getBoundingClientRect()
+                    setUnderline({
+                      left: elRect.left - containerRect.left,
+                      width: elRect.width,
                       opacity: 1,
                     })
-                  }}
-                  className={`relative z-10 px-3.5 py-1 text-xs sm:text-sm font-medium transition-colors duration-150 select-none cursor-pointer ${
-                    active
-                      ? 'text-foreground font-semibold'
-                      : 'text-secondary hover:text-foreground'
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              )
-            })}
-          </div>
+                  }
+                }}
+                className={`group relative py-1 text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 select-none cursor-pointer ${
+                  active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
+                }`}
+              >
+                {/* Masked Dual-Text Roll */}
+                <span className="relative inline-flex flex-col h-[18px] overflow-hidden leading-tight">
+                  <span className="transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                    {item.label}
+                  </span>
+                  <span className="absolute top-full left-0 transition-transform duration-350 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full text-foreground font-semibold">
+                    {item.label}
+                  </span>
+                </span>
+              </Link>
+            )
+          })}
 
-          <div className="pl-1 border-l border-border">
+          <div className="pl-1">
             <ThemeToggle />
           </div>
+
+          {/* Razor-thin kinetic gliding underline (1.5px hairline, NOT a box or pill) */}
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-1 h-[1.5px] bg-foreground pointer-events-none transition-all duration-350 ease-[cubic-bezier(0.16,1,0.3,1)]"
+            style={{
+              transform: `translate3d(${underline.left}px, 0, 0)`,
+              width: `${underline.width}px`,
+              opacity: underline.opacity,
+            }}
+          />
         </nav>
 
         {/* Mobile Minimal Menu Trigger (At Top of Page) */}
