@@ -2,7 +2,7 @@ import { ArrowRight, ExternalLink, Trophy, FileText } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export default function About() {
   useDocumentTitle('About — Syed Ahmed Hussain | Software & Website Developer in Karachi')

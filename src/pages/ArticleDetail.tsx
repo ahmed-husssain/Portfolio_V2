@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Calendar, Label, Message, Notebook } from 'pixelarticons/react'
 import Container from '../components/Container'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
 
 // Dynamic component loaders isolated to this route-level chunk

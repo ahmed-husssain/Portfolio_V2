@@ -1,4 +1,4 @@
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import Hero from '../sections/Hero'
 import SelectedWork from '../sections/SelectedWork'
 import Capabilities from '../sections/Capabilities'

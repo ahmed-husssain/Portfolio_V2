@@ -2,7 +2,7 @@ import Container from '../components/Container'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/Reveal'
 import { PROJECTS } from '../data/projects'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { useRankedProjects } from '../lib/github/ranking.ts'
 
 export default function Work() {

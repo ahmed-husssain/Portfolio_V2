@@ -14,7 +14,7 @@ import { Link, useParams } from 'react-router-dom'
 import Container from '../components/Container'
 import { PROJECTS } from '../data/projects'
 import { CASE_STUDIES } from '../data/caseStudies'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
 

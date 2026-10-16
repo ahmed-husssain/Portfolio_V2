@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { ArrowLeft, Check, Send, Shield } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { submitReview, type ReviewSubmissionInput } from '../lib/reviews/reviewService'
 import { PROJECTS } from '../data/projects'
 

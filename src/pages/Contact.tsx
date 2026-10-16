@@ -14,7 +14,7 @@ import {
 import Container from '../components/Container'
 import Connect from '../components/Connect'
 import CustomDropdown from '../components/CustomDropdown'
-import { useDocumentTitle } from '../lib/useDocumentTitle'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { CONTACT_CONFIG } from '../data/contact'
 import {
   submitContactForm,
