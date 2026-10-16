@@ -2,6 +2,7 @@ import { ArrowRight, Notebook, Calendar, Label, Shield } from 'pixelarticons/rea
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
+import PageHeader from '../components/ui/PageHeader'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
 
@@ -14,24 +15,19 @@ export default function Writing() {
   return (
     <div className="pt-20 sm:pt-24 pb-16 sm:pb-20 md:pb-24">
       <Container>
-        {/* ─── Page Header (Apple Optical Hierarchy) ─── */}
-        <header className="mb-10 sm:mb-14 pb-8 border-b border-border">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-micro-caps text-muted mb-4">
-            <span className="text-foreground font-semibold shrink-0">// TECHNICAL ESSAYS & FIELD NOTES</span>
-            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-            <span className="shrink-0">
-              [ {publishedArticles.length < 10 ? `0${publishedArticles.length}` : publishedArticles.length} ESSAYS PUBLISHED ]
-            </span>
-          </div>
-
-          <h1 className="text-title-1 text-foreground mb-4 sm:mb-5">
-            Technical Essays & Field Notes
-          </h1>
-
-          <p className="text-body-lead text-secondary max-w-3xl font-normal">
-            Articles and engineering notes on backend development, C#, database handling, and lessons learned while building real-world projects.
-          </p>
-        </header>
+        <PageHeader
+          eyebrow={
+            <>
+              <span className="text-foreground font-semibold shrink-0">// TECHNICAL ESSAYS & FIELD NOTES</span>
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="shrink-0">
+                [ {publishedArticles.length < 10 ? `0${publishedArticles.length}` : publishedArticles.length} ESSAYS PUBLISHED ]
+              </span>
+            </>
+          }
+          title="Technical Essays & Field Notes"
+          description="Articles and engineering notes on backend development, C#, database handling, and lessons learned while building real-world projects."
+        />
 
         {/* Content Section: Either Published Articles OR Honest Editorial State */}
         {publishedArticles.length > 0 ? (

@@ -16,6 +16,7 @@ import { PROJECTS } from '../data/projects'
 import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
+import BackLink from '../components/ui/BackLink'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
 
 export default function ProjectDetail() {
@@ -80,15 +81,7 @@ export default function ProjectDetail() {
     <article className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
         {/* Navigation Breadcrumb */}
-        <div className="mb-6 sm:mb-8">
-          <Link
-            to="/work"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground transition-colors group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" aria-hidden="true" />
-            <span>BACK TO ALL PROJECTS</span>
-          </Link>
-        </div>
+        <BackLink to="/work" label="BACK TO ALL PROJECTS" />
 
         {/* ─── 1. Project Header ─── */}
         <header className="border-b border-border pb-10 sm:pb-14 mb-12 sm:mb-16">

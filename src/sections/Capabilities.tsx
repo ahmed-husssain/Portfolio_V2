@@ -1,22 +1,15 @@
 import { useState } from 'react'
-import { Code, ChevronDown, ChevronUp, Copy, Check } from 'pixelarticons/react'
+import { Code, ChevronDown, ChevronUp } from 'pixelarticons/react'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
+import CopyButton from '../components/ui/CopyButton'
 import { CAPABILITY_GROUPS } from '../data/capabilities'
 
 export default function Capabilities() {
   const [expandedIndex, setExpandedIndex] = useState<string | null>(null)
-  const [copiedIndex, setCopiedIndex] = useState<string | null>(null)
 
   const toggleSnippet = (index: string) => {
     setExpandedIndex((prev) => (prev === index ? null : index))
-  }
-
-  const copyCode = (code: string, index: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    navigator.clipboard.writeText(code)
-    setCopiedIndex(index)
-    setTimeout(() => setCopiedIndex(null), 2000)
   }
 
   return (
@@ -34,7 +27,6 @@ export default function Capabilities() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {CAPABILITY_GROUPS.map((group) => {
             const isExpanded = expandedIndex === group.index
-            const isCopied = copiedIndex === group.index
 
             return (
               <article
@@ -96,23 +88,10 @@ export default function Capabilities() {
                           <Code className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
                           <span>{group.specSnippet.title}</span>
                         </div>
-                        <button
-                          type="button"
-                          onClick={(e) => copyCode(group.specSnippet.code, group.index, e)}
+                        <CopyButton
+                          text={group.specSnippet.code}
                           className="inline-flex items-center gap-1 text-[10px] text-muted hover:text-foreground px-2 py-0.5 rounded-xs border border-border bg-page transition-colors cursor-pointer select-none"
-                        >
-                          {isCopied ? (
-                            <>
-                              <Check className="w-3 h-3 pixel-icon text-emerald-500" />
-                              <span>COPIED</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3 h-3 pixel-icon" />
-                              <span>COPY</span>
-                            </>
-                          )}
-                        </button>
+                        />
                       </div>
                       <pre className="p-3.5 text-foreground text-[11px] font-mono overflow-x-auto leading-relaxed max-h-[220px]">
                         <code>{group.specSnippet.code}</code>

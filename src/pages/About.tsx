@@ -2,6 +2,7 @@ import { ArrowRight, ExternalLink, Trophy, FileText } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import Reveal from '../components/Reveal'
+import PageHeader from '../components/ui/PageHeader'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export default function About() {
@@ -70,21 +71,19 @@ export default function About() {
     <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
         {/* ─── 1. Page Header & Short Introduction ─── */}
-        <header className="mb-8 sm:mb-12 pb-6 border-b border-border">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
-            <span className="text-foreground font-semibold shrink-0">// ABOUT AHMED</span>
-            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-            <span className="shrink-0">BACKEND-FOCUSED .NET DEVELOPER</span>
-          </div>
-
-          <h1 className="text-display text-foreground mb-5 sm:mb-6 max-w-3xl">
-            Building reliable web applications and clean APIs with modern tools.
-          </h1>
-
-          <p className="text-body-lead text-secondary max-w-3xl mb-2">
-            Full-stack and backend developer working with C#, ASP.NET Core, SQL Server, and Flutter. I enjoy taking features from database schema design and business logic all the way to a clean, usable frontend.
-          </p>
-        </header>
+        <PageHeader
+          className="mb-8 sm:mb-12 pb-6 border-b border-border"
+          titleSize="display"
+          eyebrow={
+            <>
+              <span className="text-foreground font-semibold shrink-0">// ABOUT AHMED</span>
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="shrink-0">BACKEND-FOCUSED .NET DEVELOPER</span>
+            </>
+          }
+          title="Building reliable web applications and clean APIs with modern tools."
+          description="Full-stack and backend developer working with C#, ASP.NET Core, SQL Server, and Flutter. I enjoy taking features from database schema design and business logic all the way to a clean, usable frontend."
+        />
 
         {/* ─── 2. Perspective ─── */}
         <Reveal>

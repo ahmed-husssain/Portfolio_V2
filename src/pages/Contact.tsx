@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import {
   ArrowRight,
   ExternalLink,
-  Check,
-  Copy,
   Mail,
   Send,
   Shield,
@@ -14,6 +12,9 @@ import {
 import Container from '../components/Container'
 import Connect from '../components/Connect'
 import CustomDropdown from '../components/CustomDropdown'
+import PageHeader from '../components/ui/PageHeader'
+import Badge from '../components/ui/Badge'
+import CopyButton from '../components/ui/CopyButton'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { CONTACT_CONFIG } from '../data/contact'
 import {
@@ -41,13 +42,6 @@ export default function Contact() {
   const [submitting, setSubmitting] = useState(false)
   const [submissionResult, setSubmissionResult] = useState<ContactSubmissionResult | null>(null)
   const [generalError, setGeneralError] = useState<string | null>(null)
-  const [copiedEmail, setCopiedEmail] = useState(false)
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(CONTACT_CONFIG.email)
-    setCopiedEmail(true)
-    setTimeout(() => setCopiedEmail(false), 2000)
-  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -104,31 +98,26 @@ export default function Contact() {
     <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
         {/* ─── 1. Editorial Page Header ─── */}
-        <header className="mb-8 sm:mb-12 pb-6 border-b border-border">
-          <div className="flex flex-wrap items-center justify-between gap-y-2 text-[11px] sm:text-xs font-mono text-muted uppercase tracking-wider mb-4">
-            <div className="flex items-center gap-2">
+        <PageHeader
+          className="mb-8 sm:mb-12 pb-6 border-b border-border"
+          titleSize="display"
+          eyebrow={
+            <>
               <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="text-emerald-500 font-semibold inline-flex items-center gap-1.5 shrink-0">
-                <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
-                AVAILABLE FOR ROLES
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-secondary">
+              <Badge variant="status">AVAILABLE FOR ROLES</Badge>
+            </>
+          }
+          metaRight={
+            <>
               <span>{CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}</span>
               <span className="text-border-strong" aria-hidden="true">·</span>
               <span>PKT (UTC+5)</span>
-            </div>
-          </div>
-
-          <h1 className="text-display text-foreground mb-4 max-w-3xl">
-            Let's build something useful.
-          </h1>
-
-          <p className="text-body-lead text-secondary max-w-3xl leading-relaxed">
-            Scalable backend APIs, relational database schemas, and modern web applications. Feel free to reach out directly by email or use the inquiry form below.
-          </p>
-        </header>
+            </>
+          }
+          title="Let's build something useful."
+          description="Scalable backend APIs, relational database schemas, and modern web applications. Feel free to reach out directly by email or use the inquiry form below."
+        />
 
         {/* ─── 2. Main Two-Column Layout ─── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
@@ -443,24 +432,10 @@ export default function Contact() {
                   <ExternalLink className="w-3.5 h-3.5 shrink-0 pixel-icon transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </a>
 
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
+                <CopyButton
+                  text={CONTACT_CONFIG.email}
                   title="Copy email address"
-                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors cursor-pointer"
-                >
-                  {copiedEmail ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-foreground pixel-icon" />
-                      <span className="text-[11px]">COPIED</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5 text-muted pixel-icon" />
-                      <span className="text-[11px]">COPY</span>
-                    </>
-                  )}
-                </button>
+                />
               </div>
             </div>
 

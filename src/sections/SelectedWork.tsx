@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Container from '../components/Container'
 import SectionHeading from '../components/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
+import Badge from '../components/ui/Badge'
 import { PROJECTS } from '../data/projects'
 import { useRankedProjects } from '../lib/github/ranking.ts'
 
@@ -21,15 +22,12 @@ export default function SelectedWork() {
 
         {/* ─── Aptech Vision 2025 Recognition ─── */}
         <div className="mb-8 -mt-2 flex items-center">
-          <div
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-xs border border-border bg-surface text-micro-caps text-secondary shadow-2xs pixel-corners"
-            style={{ boxShadow: 'var(--hairline-top)' }}
-          >
+          <Badge>
             <Trophy className="w-3.5 h-3.5 pixel-icon text-amber-500 shrink-0" aria-hidden="true" />
             <span className="text-foreground font-bold">RUNNER-UP AWARD</span>
             <span className="text-border-strong" aria-hidden="true">·</span>
             <span className="text-muted">APTECH VISION 2025 (MOCKRITHM)</span>
-          </div>
+          </Badge>
         </div>
 
         <div className="flex flex-col gap-10 sm:gap-14">
