@@ -13,7 +13,7 @@ export default function CopyButton({
   text,
   label = 'COPY',
   copiedLabel = 'COPIED',
-  className = 'shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong transition-colors cursor-pointer',
+  className = 'shrink-0 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 border border-border bg-page text-foreground text-xs font-mono rounded-sm hover:border-border-strong active:scale-[0.96] transition-[transform,border-color,background-color] duration-100 ease-out cursor-pointer select-none',
   title = 'Copy to clipboard',
 }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)

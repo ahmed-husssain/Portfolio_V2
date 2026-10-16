@@ -140,6 +140,10 @@
   box-shadow: var(--hairline-top);
 }
 
+.hairline-card {
+  box-shadow: var(--hairline-top);
+}
+
 /* ─── Emil Kowalski Tactile Button Base ─── */
 .tactile-btn {
   will-change: transform;

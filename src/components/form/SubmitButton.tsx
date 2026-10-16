@@ -13,7 +13,7 @@ export default function SubmitButton({
   label,
   loadingLabel = 'TRANSMITTING...',
   disabled,
-  className = 'group w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all duration-150 disabled:opacity-60 cursor-pointer shadow-xs',
+  className = 'group w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.97] transition-[transform,background-color] duration-100 ease-out disabled:opacity-60 cursor-pointer shadow-xs select-none',
 }: SubmitButtonProps) {
   return (
     <button

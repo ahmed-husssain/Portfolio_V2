@@ -62,7 +62,7 @@ export default function Button({
 
   const baseStyles = isLink
     ? 'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
-    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none active:scale-[0.96] group whitespace-nowrap'
+    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none transition-transform duration-100 ease-out active:scale-[0.97] group whitespace-nowrap'
 
   const combinedClasses = `${baseStyles} ${
     isLink ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`
