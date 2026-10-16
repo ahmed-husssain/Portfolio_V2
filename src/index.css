@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-sans: "Geist", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "Fira Code", monospace;
+  --font-serif: "Instrument Serif", Georgia, Cambria, serif;
 
   --color-page: var(--bg-page);
   --color-surface: var(--bg-surface);
@@ -65,15 +66,16 @@
 /* ─── Apple Fluid Typography Scale & Optical Tracking ─── */
 .text-display {
   font-size: clamp(2.25rem, 5.5vw, 4.25rem);
-  line-height: 1.08;
-  letter-spacing: -0.038em;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
   font-weight: 700;
+  text-wrap: balance;
 }
 
 .text-editorial-display {
   font-size: clamp(1.85rem, 6.5vw, 4.85rem);
-  line-height: 1.08;
-  letter-spacing: -0.038em;
+  line-height: 1.06;
+  letter-spacing: -0.04em;
   font-weight: 700;
   text-wrap: balance;
 }
@@ -92,6 +94,7 @@
   line-height: 1.15;
   letter-spacing: -0.028em;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .text-title-2 {
@@ -99,20 +102,33 @@
   line-height: 1.25;
   letter-spacing: -0.022em;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .text-body-lead {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-  line-height: 1.6;
+  line-height: 1.625;
   letter-spacing: -0.012em;
+  max-width: 65ch;
+  text-wrap: pretty;
 }
 
 .text-micro-caps {
   font-family: var(--font-mono);
   font-size: 0.6875rem; /* 11px */
   line-height: 1.2;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.prose-measure {
+  max-width: 65ch;
 }
 
 /* ─── Apple Materials Glassmorphism Layer ─── */
@@ -146,10 +162,15 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   background-color: var(--bg-page);
   color: var(--text-primary);
   transition: background-color 0.2s ease, color 0.2s ease;
   overflow-x: hidden;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 body {
