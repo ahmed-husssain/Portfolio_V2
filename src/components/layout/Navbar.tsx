@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Briefcase, User, BookOpen, Mail } from 'pixelarticons/react'
-import ThemeToggle from './ThemeToggle'
-import { NAV_ITEMS } from '../data/navigation'
-import { CONTACT_CONFIG } from '../data/contact'
+import ThemeToggle from '../ui/ThemeToggle'
+import { NAV_ITEMS } from '../../data/navigation'
+import { CONTACT_CONFIG } from '../../data/contact'
 
 // Map each nav route to its prefix (word minus last letter) and pixelify icon
 const NAV_ICON_MAP: Record<

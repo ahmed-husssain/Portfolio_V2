@@ -11,7 +11,7 @@ import {
   Github,
 } from 'pixelarticons/react'
 import { Link, useParams } from 'react-router-dom'
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import { PROJECTS } from '../data/projects'
 import { CASE_STUDIES } from '../data/caseStudies'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'

@@ -1,7 +1,7 @@
 import { ArrowRight, ExternalLink, Trophy, FileText } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
-import Container from '../components/Container'
-import Reveal from '../components/Reveal'
+import Container from '../components/ui/Container'
+import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 

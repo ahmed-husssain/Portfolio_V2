@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, Calendar, Label, Message, Notebook } from 'pixelarticons/react'
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
 

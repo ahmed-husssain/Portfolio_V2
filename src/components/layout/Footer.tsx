@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ExternalLink, FileText } from 'pixelarticons/react'
-import Container from './Container'
-import { CONTACT_CONFIG } from '../data/contact'
+import Container from '../ui/Container'
+import { CONTACT_CONFIG } from '../../data/contact'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()

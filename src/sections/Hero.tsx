@@ -1,8 +1,8 @@
 import { FileText, ExternalLink } from 'pixelarticons/react'
-import Container from '../components/Container'
-import Button from '../components/Button'
-import KineticHeadline from '../components/KineticHeadline'
-import CursorTelemetry from '../components/CursorTelemetry'
+import Container from '../components/ui/Container'
+import Button from '../components/ui/Button'
+import KineticHeadline from '../components/motion/KineticHeadline'
+import CursorTelemetry from '../components/motion/CursorTelemetry'
 import KarachiClock from '../components/KarachiClock'
 import { useSplash } from '../components/SplashLoader'
 

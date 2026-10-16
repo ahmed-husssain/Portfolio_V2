@@ -1,5 +1,5 @@
 import { Sun, Moon } from 'pixelarticons/react'
-import { useTheme } from '../lib/theme'
+import { useTheme } from '../../lib/theme'
 
 interface ThemeToggleProps {
   className?: string

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { ExternalLink } from 'pixelarticons/react'
-import { useMagneticHover } from '../hooks/useMagneticHover'
+import { useMagneticHover } from '../../hooks/useMagneticHover'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'link'
 type ButtonSize = 'sm' | 'md' | 'lg'

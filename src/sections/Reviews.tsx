@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { ArrowRight, ExternalLink, Check, Trash } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
-import Container from '../components/Container'
-import SectionHeading from '../components/SectionHeading'
+import Container from '../components/ui/Container'
+import SectionHeading from '../components/ui/SectionHeading'
 import { getApprovedReviews, deleteLocalReview } from '../lib/reviews/reviewService'
 import type { Review } from '../data/reviews'
 

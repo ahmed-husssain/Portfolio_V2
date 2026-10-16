@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Code, ChevronDown, ChevronUp } from 'pixelarticons/react'
-import Container from '../components/Container'
-import SectionHeading from '../components/SectionHeading'
+import Container from '../components/ui/Container'
+import SectionHeading from '../components/ui/SectionHeading'
 import CopyButton from '../components/ui/CopyButton'
 import { CAPABILITY_GROUPS } from '../data/capabilities'
 

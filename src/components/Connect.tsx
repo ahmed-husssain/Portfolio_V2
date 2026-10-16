@@ -1,6 +1,6 @@
 import { ExternalLink } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
-import Container from './Container'
+import Container from './ui/Container'
 import { CONTACT_LINKS } from '../data/contact'
 
 interface ConnectProps {

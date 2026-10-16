@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import {
-  ArrowRight,
   ExternalLink,
   Mail,
   Send,
   Shield,
-  WarningDiamond,
   FileText,
   Github,
 } from 'pixelarticons/react'
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import Connect from '../components/Connect'
-import CustomDropdown from '../components/CustomDropdown'
+import CustomDropdown from '../components/form/CustomDropdown'
 import PageHeader from '../components/ui/PageHeader'
 import Badge from '../components/ui/Badge'
 import CopyButton from '../components/ui/CopyButton'
+import FormField from '../components/form/FormField'
+import FormAlert from '../components/form/FormAlert'
+import SubmitButton from '../components/form/SubmitButton'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { CONTACT_CONFIG } from '../data/contact'
 import {
@@ -147,15 +148,7 @@ export default function Contact() {
               </p>
 
               {/* General Submission Error Banner */}
-              {generalError && (
-                <div
-                  role="alert"
-                  className="p-4 mb-6 border border-border bg-page text-foreground text-xs sm:text-sm rounded-sm flex items-start gap-2.5 animate-page-in pixel-corners"
-                >
-                  <WarningDiamond className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
-                  <span>{generalError}</span>
-                </div>
-              )}
+              {generalError && <FormAlert>{generalError}</FormAlert>}
 
               {/* Submission Result / Success View */}
               {submissionResult ? (
@@ -231,14 +224,7 @@ export default function Contact() {
 
                   {/* Row 1: Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {/* Name */}
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                      >
-                        Your Name *
-                      </label>
+                    <FormField id="name" label="Your Name" required error={errors.name}>
                       <input
                         type="text"
                         id="name"
@@ -255,21 +241,9 @@ export default function Contact() {
                           errors.name ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                         }`}
                       />
-                      {errors.name && (
-                        <p id="name-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
-                          {errors.name}
-                        </p>
-                      )}
-                    </div>
+                    </FormField>
 
-                    {/* Email */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                      >
-                        Email Address *
-                      </label>
+                    <FormField id="email" label="Email Address" required error={errors.email}>
                       <input
                         type="email"
                         id="email"
@@ -286,22 +260,15 @@ export default function Contact() {
                           errors.email ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                         }`}
                       />
-                      {errors.email && (
-                        <p id="email-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
+                    </FormField>
                   </div>
 
                   {/* Row 2: Company / Project (Optional) */}
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider mb-2"
-                    >
-                      Company / Organization <span className="text-muted text-[10px]">(OPTIONAL)</span>
-                    </label>
+                  <FormField
+                    id="company"
+                    label="Company / Organization"
+                    counter={<span className="text-muted text-[10px]">(OPTIONAL)</span>}
+                  >
                     <input
                       type="text"
                       id="company"
@@ -313,7 +280,7 @@ export default function Contact() {
                       placeholder="e.g. TechCorp or Stealth Startup"
                       className="w-full min-h-[44px] px-3.5 py-2.5 bg-page border border-border hover:border-border-strong text-base sm:text-sm font-mono text-foreground placeholder:text-muted rounded-sm transition-all duration-150 focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground/20 disabled:opacity-50"
                     />
-                  </div>
+                  </FormField>
 
                   {/* Row 3: Custom Technical Dropdowns for Service Area & Budget Bracket */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -337,14 +304,12 @@ export default function Contact() {
                   </div>
 
                   {/* Row 4: Message / What do you need? */}
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <label
-                        htmlFor="message"
-                        className="block text-xs font-mono text-foreground font-medium uppercase tracking-wider"
-                      >
-                        What do you need? *
-                      </label>
+                  <FormField
+                    id="message"
+                    label="What do you need?"
+                    required
+                    error={errors.message}
+                    counter={
                       <span
                         className={`text-[11px] font-mono transition-colors ${
                           formData.message.trim().length >= 10 ? 'text-secondary' : 'text-muted'
@@ -353,7 +318,8 @@ export default function Contact() {
                         {formData.message.length} / 1500 chars
                         {formData.message.trim().length >= 10 && ' · [ READY ]'}
                       </span>
-                    </div>
+                    }
+                  >
                     <textarea
                       id="message"
                       name="message"
@@ -370,12 +336,7 @@ export default function Contact() {
                         errors.message ? 'border-foreground ring-1 ring-foreground/20' : 'border-border hover:border-border-strong'
                       }`}
                     />
-                    {errors.message && (
-                      <p id="message-error" role="alert" className="mt-1.5 text-xs font-mono text-secondary animate-page-in">
-                        {errors.message}
-                      </p>
-                    )}
-                  </div>
+                  </FormField>
 
                   {/* Submit Action */}
                   <div className="pt-4 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -383,23 +344,11 @@ export default function Contact() {
                       Direct delivery · No third-party marketing lists.
                     </p>
 
-                    <button
-                      type="submit"
-                      disabled={submitting}
-                      className="group w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2.5 px-6 py-3 bg-foreground text-page text-xs font-mono font-semibold uppercase tracking-wider rounded-sm hover:bg-secondary active:scale-[0.98] transition-all duration-150 disabled:opacity-60 cursor-pointer shadow-xs"
-                    >
-                      {submitting ? (
-                        <>
-                          <span className="w-3.5 h-3.5 border-2 border-page border-t-transparent rounded-full animate-spin" />
-                          <span>TRANSMITTING TO INBOX...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>TRANSMIT INQUIRY</span>
-                          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 pixel-icon" aria-hidden="true" />
-                        </>
-                      )}
-                    </button>
+                    <SubmitButton
+                      loading={submitting}
+                      label="TRANSMIT INQUIRY"
+                      loadingLabel="TRANSMITTING TO INBOX..."
+                    />
                   </div>
                 </form>
               )}

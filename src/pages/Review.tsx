@@ -1,9 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import { Check, Send, Shield } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import PageHeader from '../components/ui/PageHeader'
 import BackLink from '../components/ui/BackLink'
+import FormField from '../components/form/FormField'
+import FormAlert from '../components/form/FormAlert'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { submitReview, type ReviewSubmissionInput } from '../lib/reviews/reviewService'
 import { PROJECTS } from '../data/projects'
@@ -171,20 +173,14 @@ export default function Review() {
 
               {/* Server-level Error Alert */}
               {serverMessage && (
-                <div
-                  role="alert"
-                  className="p-4 bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-mono rounded-sm"
-                >
+                <FormAlert className="bg-red-500/10 border-red-500/30 text-red-500 font-mono">
                   {serverMessage}
-                </div>
+                </FormAlert>
               )}
 
               {/* Name & Role Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-xs font-mono text-foreground font-semibold uppercase tracking-wider mb-2">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
+                <FormField id="name" label="Full Name" required error={errors.name}>
                   <input
                     id="name"
                     type="text"
@@ -199,17 +195,14 @@ export default function Review() {
                       errors.name ? 'border-red-500' : 'border-border'
                     }`}
                   />
-                  {errors.name && (
-                    <p id="name-error" role="alert" className="mt-1.5 text-xs font-mono text-red-500">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
+                </FormField>
 
-                <div>
-                  <label htmlFor="role" className="block text-xs font-mono text-foreground font-semibold uppercase tracking-wider mb-2">
-                    Role / Position <span className="text-muted text-[10px] lowercase">(optional)</span>
-                  </label>
+                <FormField
+                  id="role"
+                  label="Role / Position"
+                  counter={<span className="text-muted text-[10px] lowercase">(optional)</span>}
+                  error={errors.role}
+                >
                   <input
                     id="role"
                     type="text"
@@ -219,12 +212,7 @@ export default function Review() {
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                     className="w-full px-4 py-2.5 text-sm bg-surface border border-border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors"
                   />
-                  {errors.role && (
-                    <p role="alert" className="mt-1.5 text-xs font-mono text-red-500">
-                      {errors.role}
-                    </p>
-                  )}
-                </div>
+                </FormField>
               </div>
 
               {/* Company & Relationship Row */}
@@ -316,15 +304,17 @@ export default function Review() {
               </div>
 
               {/* Review Textarea */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label htmlFor="review" className="text-xs font-mono text-foreground font-semibold uppercase tracking-wider">
-                    Review / Testimonial <span className="text-red-500">*</span>
-                  </label>
+              <FormField
+                id="review"
+                label="Review / Testimonial"
+                required
+                error={errors.review}
+                counter={
                   <span className="text-[10px] font-mono text-muted">
                     {formData.review.length} / 1000 CHARS
                   </span>
-                </div>
+                }
+              >
                 <textarea
                   id="review"
                   required
@@ -339,12 +329,7 @@ export default function Review() {
                     errors.review ? 'border-red-500' : 'border-border'
                   }`}
                 />
-                {errors.review && (
-                  <p id="review-error" role="alert" className="mt-1.5 text-xs font-mono text-red-500">
-                    {errors.review}
-                  </p>
-                )}
-              </div>
+              </FormField>
 
               {/* Consent to Publish Checkbox */}
               <div className="pt-2">

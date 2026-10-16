@@ -1,6 +1,6 @@
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import ProjectCard from '../components/ProjectCard'
-import Reveal from '../components/Reveal'
+import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
 import { PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'

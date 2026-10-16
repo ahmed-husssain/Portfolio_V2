@@ -1,6 +1,6 @@
 import { ArrowLeft, Home } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
-import Container from '../components/Container'
+import Container from '../components/ui/Container'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export default function NotFound() {

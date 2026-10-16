@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import ScrambleText from './ScrambleText'
+import ScrambleText from '../motion/ScrambleText'
 
 interface SectionHeadingProps {
   index?: string
