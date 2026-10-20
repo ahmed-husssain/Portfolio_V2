@@ -18,10 +18,10 @@ export default function Writing() {
         <PageHeader
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">// TECHNICAL ESSAYS & FIELD NOTES</span>
+              <span className="text-foreground font-semibold shrink-0">TECHNICAL ESSAYS & FIELD NOTES</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="shrink-0">
-                [ {publishedArticles.length < 10 ? `0${publishedArticles.length}` : publishedArticles.length} ESSAYS PUBLISHED ]
+                {publishedArticles.length < 10 ? `0${publishedArticles.length}` : publishedArticles.length} ESSAYS PUBLISHED
               </span>
             </>
           }
@@ -99,7 +99,7 @@ export default function Writing() {
               <div className="max-w-2xl">
                 <div className="flex items-center gap-2 text-micro-caps text-muted mb-4">
                   <Notebook className="w-4 h-4 text-foreground pixel-icon" aria-hidden="true" />
-                  <span className="text-foreground font-semibold">// PUBLICATION PIPELINE</span>
+                  <span className="text-foreground font-semibold">PUBLICATION PIPELINE</span>
                 </div>
 
                 <h2 className="text-title-2 text-foreground mb-4">
@@ -113,7 +113,7 @@ export default function Writing() {
                 <div className="flex items-start gap-3 p-4 bg-page border border-border rounded-xs text-xs font-mono text-secondary mb-8 pixel-corners">
                   <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
                   <span className="leading-relaxed">
-                    HONEST PUBLICATION POLICY // No synthetic reading times, fabricated publication dates, or placeholder articles. Pieces are published only when fully tested and ready for production scrutiny.
+                    HONEST PUBLICATION POLICY · No synthetic reading times, fabricated publication dates, or placeholder articles. Pieces are published only when fully tested and ready for production scrutiny.
                   </span>
                 </div>
 

@@ -87,7 +87,7 @@ export default function ProjectDetail() {
         <header className="border-b border-border pb-10 sm:pb-14 mb-12 sm:mb-16">
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-muted uppercase tracking-wider mb-4">
             <div className="flex items-center gap-2">
-              <span className="text-foreground font-semibold">// PROJECT CASE STUDY</span>
+              <span className="text-foreground font-semibold">PROJECT CASE STUDY</span>
               <span>·</span>
               <span>{project.category}</span>
             </div>
@@ -188,7 +188,7 @@ export default function ProjectDetail() {
           {overview && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// OVERVIEW</span>
+                <span className="text-foreground font-semibold">OVERVIEW</span>
                 <span className="uppercase tracking-wider">PROJECT INTENT & CONTEXT</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -204,7 +204,7 @@ export default function ProjectDetail() {
           {problem && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 01</span>
+                <span className="text-foreground font-semibold">01</span>
                 <span className="uppercase tracking-wider">THE PROBLEM & CONTEXT</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -220,7 +220,7 @@ export default function ProjectDetail() {
           {solution && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 02</span>
+                <span className="text-foreground font-semibold">02</span>
                 <span className="uppercase tracking-wider">WHAT I BUILT</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -236,7 +236,7 @@ export default function ProjectDetail() {
           {highlights && highlights.length > 0 && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 03</span>
+                <span className="text-foreground font-semibold">03</span>
                 <span className="uppercase tracking-wider">KEY DELIVERABLES & FEATURES</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -257,7 +257,7 @@ export default function ProjectDetail() {
           {architecture && architecture.length > 0 && (
             <section className="space-y-6">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 04</span>
+                <span className="text-foreground font-semibold">04</span>
                 <span className="uppercase tracking-wider">DATA FLOW & DESIGN CHOICES</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -299,7 +299,7 @@ export default function ProjectDetail() {
           {challenges && challenges.length > 0 && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 05</span>
+                <span className="text-foreground font-semibold">05</span>
                 <span className="uppercase tracking-wider">TECHNICAL HURDLES</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -320,7 +320,7 @@ export default function ProjectDetail() {
           {outcome && (
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// 06</span>
+                <span className="text-foreground font-semibold">06</span>
                 <span className="uppercase tracking-wider">RESULTS & CURRENT STATUS</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -365,7 +365,7 @@ export default function ProjectDetail() {
                     </div>
                     <div className="p-3 border-t border-border/60 bg-surface flex items-center justify-between text-xs font-mono">
                       <span className="text-muted text-[11px] uppercase tracking-wider">
-                        SPECIFICATION // SLIDE 0{idx + 1}
+                        SPECIFICATION · SLIDE 0{idx + 1}
                       </span>
                       <span className="text-foreground font-medium text-[11px]">
                         {project.slug === 'online-art-gallery' && idx === 0 && 'Hero & 3D Artwork Showcase'}

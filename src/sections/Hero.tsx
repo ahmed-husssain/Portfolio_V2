@@ -2,7 +2,6 @@ import { FileText, ExternalLink } from 'pixelarticons/react'
 import Container from '../components/ui/Container'
 import Button from '../components/ui/Button'
 import KineticHeadline from '../components/motion/KineticHeadline'
-import CursorTelemetry from '../components/motion/CursorTelemetry'
 import KarachiClock from '../components/KarachiClock'
 import { useSplash } from '../components/SplashLoader'
 
@@ -27,11 +26,11 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
       />
 
       <Container>
-        {/* ─── Eyebrow / Terminal Status Pill ─── */}
+        {/* ─── Eyebrow / Availability Status ─── */}
         <div className={`flex flex-wrap items-center justify-between gap-2.5 text-micro-caps text-secondary mb-5 sm:mb-8 ${isRevealed ? 'animate-hero-in' : 'opacity-0'}`}>
           <div className="flex items-center gap-2">
             <span className="pixel-beacon shrink-0" aria-hidden="true" />
-            <span className="text-foreground font-semibold text-[10px] sm:text-micro-caps tracking-wide">// STATUS: AVAILABLE FOR ROLES & CONTRACTS</span>
+            <span className="text-foreground font-semibold text-[10px] sm:text-micro-caps tracking-wide">STATUS: AVAILABLE FOR ROLES & CONTRACTS</span>
             <span className="text-border-strong hidden sm:inline" aria-hidden="true">·</span>
             <span className="hidden sm:inline">KARACHI, PK (REMOTE & LOCAL)</span>
           </div>
@@ -140,7 +139,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
           </div>
 
           <div className="flex items-center gap-2 text-micro-caps text-muted font-mono">
-            <span>// C# · ASP.NET CORE · SQL SERVER · REACT</span>
+            <span>C# · ASP.NET CORE · SQL SERVER · REACT</span>
           </div>
         </div>
 
@@ -151,7 +150,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              // FULL-STACK
+              FULL-STACK
             </span>
             <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               End-to-End Apps
@@ -166,7 +165,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              // DATA INTEGRITY
+              DATA INTEGRITY
             </span>
             <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               Reliable Databases
@@ -181,7 +180,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              // PROBLEM SOLVING
+              PROBLEM SOLVING
             </span>
             <span className="text-sm sm:text-lg font-bold font-mono text-emerald-500 tracking-tight leading-tight">
               Edge Cases
@@ -196,7 +195,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
             <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              // WORK ETHIC
+              WORK ETHIC
             </span>
             <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
               Clean Execution
@@ -207,18 +206,17 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
           </div>
         </div>
 
-        {/* ─── Bottom Telemetry & Studio HUD Bar ─── */}
+        {/* ─── Bottom Status & Local Time Bar ─── */}
         <div className={`border-t border-border mt-8 sm:mt-10 pt-4 flex flex-wrap items-center justify-between gap-3 text-micro-caps text-muted font-mono ${isRevealed ? 'animate-hero-in delay-240' : 'opacity-0'}`}>
-          <div className="flex items-center gap-4">
-            <CursorTelemetry />
-            <span className="text-border-strong hidden sm:inline" aria-hidden="true">|</span>
-            <span className="hidden sm:inline text-secondary">VIEWPORT TELEMETRY</span>
+          <div className="flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+            <span className="text-secondary font-medium">KARACHI, PAKISTAN</span>
+            <span className="text-border-strong hidden sm:inline" aria-hidden="true">·</span>
+            <span className="hidden sm:inline text-muted">AVAILABLE FOR REMOTE & ON-SITE ROLES</span>
           </div>
 
           <div className="flex items-center gap-3">
             <KarachiClock showIcon format="full" />
-            <span className="text-border-strong" aria-hidden="true">·</span>
-            <span className="text-secondary">SYSTEM V2.0</span>
           </div>
         </div>
       </Container>

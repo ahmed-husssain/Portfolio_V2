@@ -104,7 +104,7 @@ export default function Contact() {
           titleSize="display"
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">// INITIATE CONTACT</span>
+              <span className="text-foreground font-semibold shrink-0">INITIATE CONTACT</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <Badge variant="status">AVAILABLE FOR ROLES</Badge>
             </>
@@ -130,7 +130,7 @@ export default function Contact() {
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="pixel-beacon bg-emerald-500 shrink-0" aria-hidden="true" />
                   <span className="text-foreground font-semibold uppercase tracking-wider truncate">
-                    // PROJECT INQUIRY
+                    PROJECT INQUIRY
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-[11px] shrink-0">
@@ -158,12 +158,12 @@ export default function Contact() {
                       <Shield className="w-4 h-4 text-emerald-500 pixel-icon" aria-hidden="true" />
                       <span className="text-foreground font-semibold">
                         {submissionResult.mode === 'delivered'
-                          ? 'TRANSMISSION CONFIRMED // DELIVERED'
-                          : 'INQUIRY PREPARED // CLIENT FALLBACK'}
+                          ? 'TRANSMISSION CONFIRMED · DELIVERED'
+                          : 'INQUIRY PREPARED · CLIENT FALLBACK'}
                       </span>
                     </div>
                     <span className="text-[11px] text-muted font-mono">
-                      [ {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} PKT ]
+                      {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} PKT
                     </span>
                   </div>
 
@@ -391,7 +391,7 @@ export default function Contact() {
             {/* Professional Profiles */}
             <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider pb-3 mb-5 border-b border-border">
-                <span className="text-foreground font-semibold">// PROFESSIONAL LINKS</span>
+                <span className="text-foreground font-semibold">PROFESSIONAL LINKS</span>
               </div>
 
               <div className="space-y-4">

@@ -107,7 +107,7 @@ export default function ArticleDetail() {
           <div className="max-w-2xl mx-auto border border-border bg-surface rounded-sm p-8 sm:p-12 text-center pixel-corners">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">
               <Notebook className="w-4 h-4 text-muted pixel-icon" />
-              <span>// ARTICLE NOT FOUND</span>
+              <span>ARTICLE NOT FOUND</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mb-4">
               Article Not Available
@@ -142,7 +142,7 @@ export default function ArticleDetail() {
               <span>BACK TO WRITING</span>
             </Link>
             <span className="text-muted hidden sm:inline-block tracking-wider uppercase">
-              // WRITING / {article.slug}
+              WRITING · {article.slug}
             </span>
           </nav>
 
@@ -208,7 +208,7 @@ export default function ArticleDetail() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
               <div>
                 <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1">
-                  AUTHOR // ARCHITECTURE & SYSTEMS
+                  AUTHOR · ARCHITECTURE & SYSTEMS
                 </p>
                 <h3 className="text-base sm:text-lg font-semibold text-foreground">
                   Ahmed Hussain

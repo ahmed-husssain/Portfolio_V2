@@ -185,7 +185,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Section label */}
             <div className="px-4 py-2 border-b border-border flex items-center gap-2 text-[10px] font-mono text-muted tracking-widest uppercase bg-surface-subtle/40">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
-              // TECHNICAL IMPLEMENTATION HIGHLIGHTS
+              TECHNICAL IMPLEMENTATION HIGHLIGHTS
             </div>
             {/* Architecture items — one per row, no wrapping surprises */}
             <ul className="divide-y divide-border/50">

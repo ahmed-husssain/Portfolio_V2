@@ -12,7 +12,7 @@ export default function NotFound() {
         <div className="border border-border bg-surface rounded-sm p-8 sm:p-14 max-w-2xl pixel-corners">
           <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-4">
             <span className="pixel-beacon bg-red-500" aria-hidden="true" />
-            <span>ERROR 404 // ROUTE UNRESOLVED</span>
+            <span>ERROR 404 · ROUTE NOT FOUND</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-semibold text-foreground tracking-tight mb-4">

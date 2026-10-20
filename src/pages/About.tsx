@@ -76,7 +76,7 @@ export default function About() {
           titleSize="display"
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">// ABOUT AHMED</span>
+              <span className="text-foreground font-semibold shrink-0">ABOUT AHMED</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="shrink-0">BACKEND-FOCUSED .NET DEVELOPER</span>
             </>
@@ -90,7 +90,7 @@ export default function About() {
           <section className="mb-16 sm:mb-24">
             <div className="max-w-3xl space-y-6 text-secondary text-sm sm:text-base leading-relaxed">
               <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <span className="text-foreground font-semibold">// PERSPECTIVE</span>
+                <span className="text-foreground font-semibold">PERSPECTIVE</span>
                 <span className="text-micro-caps text-secondary">HOW I BUILD SOFTWARE</span>
               </div>
 
@@ -142,7 +142,7 @@ export default function About() {
           <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
             <div className="mb-8 max-w-2xl">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
-                <span className="text-foreground font-semibold">// RECOGNITION</span>
+                <span className="text-foreground font-semibold">RECOGNITION</span>
                 <span>·</span>
                 <span>KEY ACHIEVEMENT</span>
               </div>
@@ -173,7 +173,7 @@ export default function About() {
           <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
             <div className="mb-10 sm:mb-12 max-w-2xl">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
-                <span className="text-foreground font-semibold">// WORKFLOW</span>
+                <span className="text-foreground font-semibold">WORKFLOW</span>
                 <span>·</span>
                 <span>ENGINEERING APPROACH</span>
               </div>
@@ -213,7 +213,7 @@ export default function About() {
           <section className="mb-16 sm:mb-24 pt-12 border-t border-border">
             <div className="mb-10 sm:mb-12 max-w-2xl">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
-                <span className="text-foreground font-semibold">// PRINCIPLES</span>
+                <span className="text-foreground font-semibold">PRINCIPLES</span>
                 <span>·</span>
                 <span>CORE PILLARS</span>
               </div>
@@ -255,7 +255,7 @@ export default function About() {
               <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
                 <div className="flex items-center gap-2 pb-3 mb-6 border-b border-border text-xs font-mono text-muted">
                   <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
-                  <span className="text-foreground font-semibold">// DEVELOPER METADATA</span>
+                  <span className="text-foreground font-semibold">DEVELOPER METADATA</span>
                 </div>
 
                 <dl className="space-y-4 text-xs font-mono">

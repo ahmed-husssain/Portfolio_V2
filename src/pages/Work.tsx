@@ -16,9 +16,9 @@ export default function Work() {
         <PageHeader
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">// WORK CATALOG</span>
+              <span className="text-foreground font-semibold shrink-0">WORK CATALOG</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="shrink-0">[ {PROJECTS.length.toString().padStart(2, '0')} SYSTEMS DOCUMENTED ]</span>
+              <span className="shrink-0">{PROJECTS.length.toString().padStart(2, '0')} SYSTEMS DOCUMENTED</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="text-emerald-500 font-semibold shrink-0">ORDERED BY LATEST PRODUCTION CODE</span>
             </>

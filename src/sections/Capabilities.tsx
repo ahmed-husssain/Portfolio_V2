@@ -17,10 +17,10 @@ export default function Capabilities() {
       <Container>
         {/* ─── Section Header ─── */}
         <SectionHeading
-          index="// 02"
+          index="02"
           title="Capabilities"
           subtitle="A clear breakdown of the core technical domains, backend frameworks, and engineering tools I use to build production software."
-          meta="[ 04 DOMAINS // INTERACTIVE CODE SPECS ]"
+          meta="04 DOMAINS · CODE SPECIFICATIONS"
         />
 
         {/* ─── 2x2 Technical Grid ─── */}

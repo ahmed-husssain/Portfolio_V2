@@ -72,10 +72,10 @@ export default function Reviews() {
       <Container>
         {/* ─── Section Header ─── */}
         <SectionHeading
-          index="// 03"
+          index="03"
           title="Client Endorsement"
           subtitle="Direct feedback from clinical operations leadership on production software delivery."
-          meta="[ 01 VERIFIED CLIENT · PRODUCTION SYSTEM ]"
+          meta="01 VERIFIED CLIENT · PRODUCTION SYSTEM"
         />
 
         {/* ─── High-Trust Client Endorsement Spotlight ─── */}

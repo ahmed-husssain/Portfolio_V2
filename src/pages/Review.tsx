@@ -84,7 +84,7 @@ export default function Review() {
           className="mb-12 sm:mb-16 pb-8 border-b border-border"
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">// REVIEWS</span>
+              <span className="text-foreground font-semibold shrink-0">REVIEWS</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="shrink-0">SHARE YOUR COLLABORATIVE EXPERIENCE</span>
             </>
@@ -99,7 +99,7 @@ export default function Review() {
             <div className="border border-border bg-surface rounded-sm p-8 sm:p-12 animate-page-in pixel-corners">
               <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider mb-4">
                 <Check className="w-4 h-4 pixel-icon" aria-hidden="true" />
-                <span>SUBMISSION RECEIVED // PENDING APPROVAL</span>
+                <span>SUBMISSION RECEIVED · PENDING APPROVAL</span>
               </div>
 
               <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mb-4">

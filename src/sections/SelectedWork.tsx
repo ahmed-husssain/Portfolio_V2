@@ -14,10 +14,10 @@ export default function SelectedWork() {
     <section id="work" className="py-12 sm:py-16 md:py-20 border-b border-border">
       <Container>
         <SectionHeading
-          index="// 01"
+          index="01"
           title="Selected Work"
           subtitle="Web applications and APIs built with a focus on clean code, database integrity, and practical problem solving."
-          meta={`[ ${featuredProjects.length.toString().padStart(2, '0')} FEATURED OF ${PROJECTS.length.toString().padStart(2, '0')} TOTAL ]`}
+          meta={`${featuredProjects.length.toString().padStart(2, '0')} FEATURED · ${PROJECTS.length.toString().padStart(2, '0')} TOTAL`}
         />
 
         {/* ─── Aptech Vision 2025 Recognition ─── */}
