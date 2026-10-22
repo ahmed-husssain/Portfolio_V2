@@ -462,13 +462,22 @@ export default function ProjectDetail() {
                 {nextProject.shortDescription}
               </p>
 
-              <Link
-                to={`/work/${nextProject.slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary transition-colors"
-              >
-                <span>READ NEXT CASE STUDY ({nextProject.title})</span>
-                <span aria-hidden="true">→</span>
-              </Link>
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  to={`/work/${nextProject.slug}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all"
+                >
+                  <span>READ NEXT CASE STUDY ({nextProject.title})</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-4 py-2 border border-border bg-page text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
+                >
+                  <span>DISCUSS THIS ARCHITECTURE</span>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
             </div>
           </nav>
         </div>

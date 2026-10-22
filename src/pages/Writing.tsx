@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
+import ContinuityBridge from '../components/ui/ContinuityBridge'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
 
@@ -137,19 +138,15 @@ export default function Writing() {
           </Reveal>
         )}
 
-        {/* Bottom Contact Prompt */}
-        <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-micro-caps text-secondary">
-            HAVE A QUESTION ABOUT THESE ARTICLES OR CODE EXAMPLES?
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground hover:underline transition-colors group"
-          >
-            <span>SUGGEST A TOPIC / GET IN TOUCH</span>
-            <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
-        </div>
+        {/* Forward Continuity Bridge to Contact */}
+        <ContinuityBridge
+          kicker="INITIATE CONTACT"
+          title="Let's Build Something Useful Together"
+          description="Open for software engineering roles, contracts, and backend architectural discussions. Directly accessible by email or inquiry form."
+          to="/contact"
+          actionLabel="GET IN TOUCH"
+          className="mt-14 sm:mt-20"
+        />
       </Container>
     </div>
   )

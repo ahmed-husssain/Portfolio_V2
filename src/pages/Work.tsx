@@ -2,6 +2,7 @@ import Container from '../components/ui/Container'
 import ProjectCard from '../components/ProjectCard'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
+import ContinuityBridge from '../components/ui/ContinuityBridge'
 import { PROJECTS } from '../data/projects'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { useRankedProjects } from '../lib/github/ranking.ts'
@@ -35,6 +36,16 @@ export default function Work() {
             </Reveal>
           ))}
         </div>
+
+        {/* ─── Forward Continuity Bridge to About ─── */}
+        <ContinuityBridge
+          kicker="ENGINEERING BACKGROUND"
+          title="How I Approach Building Software"
+          description="Read about my engineering principles, Aptech Vision recognition, and full-stack background in C# & ASP.NET Core."
+          to="/about"
+          actionLabel="READ ABOUT AHMED"
+          className="mt-14 sm:mt-20"
+        />
       </Container>
     </div>
   )

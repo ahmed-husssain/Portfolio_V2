@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
+import ContinuityBridge from '../components/ui/ContinuityBridge'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export default function About() {
@@ -287,6 +288,16 @@ export default function About() {
             </div>
           </section>
         </Reveal>
+
+        {/* ─── 7. Forward Continuity Bridge to Writing ─── */}
+        <ContinuityBridge
+          kicker="FIELD NOTES & ESSAYS"
+          title="Technical Essays & Architecture Notes"
+          description="Read practical field notes on database design, backend concurrency, and clean API development."
+          to="/writing"
+          actionLabel="READ TECHNICAL WRITING"
+          className="mt-14 sm:mt-20"
+        />
       </Container>
     </div>
   )
