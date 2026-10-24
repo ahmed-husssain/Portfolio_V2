@@ -273,9 +273,11 @@ export default function Navbar() {
             type="button"
             onClick={() => setMenuOpen(true)}
             aria-label="Open navigation menu"
-            className="text-xs font-medium uppercase tracking-wider text-foreground px-3.5 py-1.5 rounded-full border border-border bg-page/80 backdrop-blur-xs active:scale-95 transition-transform"
+            className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-foreground px-3.5 py-1.5 rounded-full border border-border bg-surface/90 hover:border-border-strong active:scale-95 transition-all shadow-2xs"
+            style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            Menu
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+            <span>Menu</span>
           </button>
         </div>
       </header>
@@ -324,17 +326,41 @@ export default function Navbar() {
         </MagneticItem>
       </div>
 
-      {/* ─── 3. FULL-SCREEN EDITORIAL MENU OVERLAY (Dennis Snellenberg Style) ─── */}
+      {/* ─── 3. AMBIENT BACKDROP SCRIM ─── */}
       <div
-        className={`fixed inset-0 z-40 bg-page/98 backdrop-blur-2xl flex flex-col justify-between p-6 sm:p-12 md:p-16 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          menuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+        onClick={() => setMenuOpen(false)}
+        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
+        aria-hidden="true"
+      />
+
+      {/* ─── 4. EDITORIAL SLIDE-OVER DRAWER (Dennis Snellenberg Style) ─── */}
+      <aside
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
+        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[480px] md:w-[540px] bg-page border-l border-border/80 shadow-2xl flex flex-col justify-between p-6 sm:p-10 md:p-12 transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
+        style={{
+          transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(calc(100% + 100px), 0, 0)',
+        }}
       >
+        {/* Trailing Organic Curved SVG Edge (Dennis Snellenberg signature) */}
+        <div
+          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none overflow-hidden select-none -mr-px hidden sm:block"
+          style={{ color: 'var(--bg-page)' }}
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 100 1000"
+            fill="currentColor"
+            preserveAspectRatio="none"
+            className="w-full h-full"
+          >
+            <path d="M100,0 L100,1000 Q0,500 100,0 Z" />
+          </svg>
+        </div>
+
         {/* Top Header of the Overlay */}
         <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-4 sm:pb-6 pr-12 sm:pr-16">
           <div className="flex items-center gap-2.5">
@@ -347,30 +373,39 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Center: High-Fashion Typographic Navigation */}
-        <nav className="flex flex-col gap-2.5 sm:gap-4 my-auto py-4" aria-label="Overlay navigation links">
+        {/* Center: High-Fashion Typographic Navigation with Staggered Slide-Up */}
+        <nav className="flex flex-col gap-2 sm:gap-3.5 my-auto py-4" aria-label="Overlay navigation links">
           {(() => {
             const isHomeActive = location.pathname === '/'
             return (
-              <Link
-                to="/"
-                onClick={() => setMenuOpen(false)}
-                className={`group flex items-baseline gap-4 sm:gap-6 py-1.5 transition-transform duration-200 hover:translate-x-2 active:scale-[0.98] ${
-                  isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
-                }`}
-              >
-                <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
-                  isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
-                }`}>
-                  01
-                </span>
-                <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
-                  <span>Home</span>
-                  {isHomeActive && (
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
-                  )}
-                </span>
-              </Link>
+              <div className="overflow-hidden py-1">
+                <Link
+                  to="/"
+                  onClick={() => setMenuOpen(false)}
+                  className={`group flex items-baseline gap-4 sm:gap-6 py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                    isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
+                  }`}
+                  style={{
+                    transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
+                    opacity: menuOpen ? 1 : 0,
+                    transition: menuOpen
+                      ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, opacity 400ms ease 120ms'
+                      : 'transform 250ms ease-in, opacity 200ms ease-in',
+                  }}
+                >
+                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
+                    isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
+                  }`}>
+                    01
+                  </span>
+                  <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
+                    <span>Home</span>
+                    {isHomeActive && (
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
+                    )}
+                  </span>
+                </Link>
+              </div>
             )
           })()}
 
@@ -378,37 +413,55 @@ export default function Navbar() {
             const active = isActiveRoute(item.href)
             const iconConfig = NAV_ICON_MAP[item.href]
             const IconComponent = iconConfig?.icon
+            const delay = (idx + 1) * 55 + 120
 
             return (
-              <Link
-                key={item.href}
-                to={item.href}
-                onClick={() => setMenuOpen(false)}
-                className={`group flex items-baseline gap-4 sm:gap-6 py-1.5 transition-transform duration-200 hover:translate-x-2 active:scale-[0.98] ${
-                  active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
-                }`}
-              >
-                <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
-                  active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
-                }`}>
-                  0{idx + 2}
-                </span>
-                <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
-                  <span>{item.label}</span>
-                  {active && (
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
-                  )}
-                  {IconComponent && !active && (
-                    <IconComponent className="w-5 h-5 pixel-icon text-muted opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline-block" aria-hidden="true" />
-                  )}
-                </span>
-              </Link>
+              <div key={item.href} className="overflow-hidden py-1">
+                <Link
+                  to={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`group flex items-baseline gap-4 sm:gap-6 py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                    active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
+                  }`}
+                  style={{
+                    transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
+                    opacity: menuOpen ? 1 : 0,
+                    transition: menuOpen
+                      ? `transform 550ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 400ms ease ${delay}ms`
+                      : 'transform 250ms ease-in, opacity 200ms ease-in',
+                  }}
+                >
+                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
+                    active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
+                  }`}>
+                    0{idx + 2}
+                  </span>
+                  <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
+                    <span>{item.label}</span>
+                    {active && (
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
+                    )}
+                    {IconComponent && !active && (
+                      <IconComponent className="w-5 h-5 pixel-icon text-muted opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline-block" aria-hidden="true" />
+                    )}
+                  </span>
+                </Link>
+              </div>
             )
           })}
         </nav>
 
         {/* Bottom: Socials & Direct Connect (Zero Mid-Word Splitting) */}
-        <div className="pt-5 border-t border-border flex flex-col gap-3.5 text-xs font-mono text-muted">
+        <div
+          className="pt-5 border-t border-border flex flex-col gap-3.5 text-xs font-mono text-muted"
+          style={{
+            transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
+            opacity: menuOpen ? 1 : 0,
+            transition: menuOpen
+              ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 400ms, opacity 400ms ease 400ms'
+              : 'transform 200ms ease-in, opacity 180ms ease-in',
+          }}
+        >
           {/* Row 1: Direct Email on its own line */}
           <div className="flex items-center justify-between gap-2">
             <span className="text-[10px] text-muted tracking-wider uppercase">// CONTACT</span>
@@ -450,7 +503,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      </div>
+      </aside>
     </>
   )
 }
