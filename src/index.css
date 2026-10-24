@@ -205,6 +205,25 @@ button, a, input, select, textarea {
   outline-offset: 2px;
 }
 
+/* ─── Lenis Smooth Scrolling Engine (Dennis Snellenberg Feel) ─── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Low-end hardware optimization: disable hover recalculations while scrolling */
+body.is-scrolling * {
+  pointer-events: none !important;
+}
+
 /* ─── Motion Design Tokens & Keyframes ─── */
 @keyframes pageFadeIn {
   from {
