@@ -197,19 +197,19 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div className="flex items-center justify-between gap-2 text-micro-caps">
             <div className="flex items-center gap-1.5 min-w-0">
               {index !== undefined && (
-                <span className="text-emerald-500 font-bold shrink-0">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
                   #{index.toString().padStart(2, '0')}
                 </span>
               )}
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="text-emerald-500 font-semibold truncate font-mono text-[10px]">
+              <span className="text-emerald-600 dark:text-emerald-400 font-semibold truncate font-mono text-[10px]">
                 {categoryTag}
               </span>
             </div>
 
             {commitLabel && (
               <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0">
-                <GitCommit className="w-3 h-3 pixel-icon text-emerald-500 shrink-0" />
+                <GitCommit className="w-3 h-3 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span className="text-foreground font-semibold">{formatCompactDate(commitLabel)}</span>
               </span>
             )}
@@ -275,7 +275,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
           {/* Emerald Hairline Architectural Safeguard */}
           <div className="border-l-2 border-emerald-500 pl-3 py-1.5 bg-emerald-500/[0.04] rounded-r-xs flex flex-col gap-0.5">
-            <span className="text-[9px] font-mono text-emerald-500 font-bold uppercase tracking-wider">
+            <span className="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider">
               // {safeguardLabel}
             </span>
             <span className="text-xs text-foreground/90 font-mono leading-relaxed">
@@ -286,7 +286,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           {/* Verified Outcome */}
           {project.outcome && (
             <div className="flex items-start gap-2 text-xs font-mono">
-              <span className="text-emerald-500 font-bold shrink-0 text-[10px] uppercase tracking-wider pt-px">
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0 text-[10px] uppercase tracking-wider pt-px">
                 OUTCOME:
               </span>
               <span className="text-secondary leading-snug">
@@ -325,7 +325,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.97] transition-all cursor-pointer select-none"
                 title="Inspect real sequence and concurrency flow"
               >
-                <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span>SYSTEM FLOW</span>
               </button>
             ) : project.liveUrl ? (
@@ -335,10 +335,10 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 rel="noopener noreferrer"
                 data-cursor-text="LIVE DEMO ↗"
                 className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.97] transition-all"
-                aria-label={`Visit live site for ${project.title}`}
+                aria-label={`LIVE DEMO: Visit live site for ${project.title}`}
               >
                 <span>LIVE DEMO</span>
-                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" aria-hidden="true" />
+                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" aria-hidden="true" />
               </a>
             ) : (
               <div className="flex items-center justify-center text-[10px] font-mono text-muted border border-border/50 rounded-xs bg-page/50">
@@ -350,7 +350,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               to={`/work/${project.slug}`}
               data-cursor-text="CASE STUDY ↗"
               className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-bold rounded-xs bg-foreground text-page hover:bg-foreground/90 active:scale-[0.97] transition-all group/cta shadow-xs"
-              aria-label={`Read case study for ${project.title}`}
+              aria-label={`CASE STUDY: Read case study for ${project.title}`}
             >
               <span>CASE STUDY</span>
               <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
@@ -442,7 +442,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div className="flex items-center justify-between gap-2 border-b border-border pb-3 text-micro-caps">
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               {index !== undefined && (
-                <span className="text-emerald-500 font-bold shrink-0">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
                   #{index.toString().padStart(2, '0')}
                 </span>
               )}
@@ -460,7 +460,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
                 title={`Last commit: ${commitLabel}`}
               >
-                <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
                 <span className="text-muted">COMMIT:</span>
                 <span className="text-foreground font-semibold">{commitLabel}</span>
               </span>
@@ -512,7 +512,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               )}
               {project.outcome && (
                 <div className="p-3 flex items-start gap-3 bg-surface-subtle/40 border-t border-border">
-                  <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
+                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
                     VERIFIED OUTCOME
                   </span>
                   <span className="text-foreground font-medium leading-relaxed">
@@ -532,7 +532,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 )}
                 {project.outcome && (
                   <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                    <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">OUTCOME</span>
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-widest block">OUTCOME</span>
                     <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
                   </div>
                 )}
@@ -581,7 +581,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 to={`/work/${project.slug}`}
                 data-cursor-text="CASE STUDY ↗"
                 className="inline-flex items-center gap-1 text-foreground font-semibold hover:text-emerald-500 active:scale-[0.96] transition-colors group/cta"
-                aria-label={`Read case study for ${project.title}`}
+                aria-label={`CASE STUDY: Read full case study for ${project.title}`}
               >
                 <span>CASE STUDY</span>
                 <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />

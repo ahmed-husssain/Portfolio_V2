@@ -1,9 +1,9 @@
-import { isAllowedRepo, parseRepoSlug } from '../src/lib/github/config.ts'
+import { isAllowedRepo, parseRepoSlug } from './config.ts'
 import {
   getDurableCommitsReadOnly,
   performScheduledRefresh,
   verifyCronAuthorization,
-} from '../src/lib/github/commitService.ts'
+} from './commitService.ts'
 
 const CACHE_CONTROL_HEADER = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400'
 

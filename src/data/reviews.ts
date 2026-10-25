@@ -40,7 +40,7 @@ export const REVIEWS: Review[] = [
     projectSlug: 'shifamanagement',
     verificationType: 'client',
     verificationUrl: 'https://shifahomehealthcare.org/',
-    avatar: '/projects/shifamanagement/shifa-logo.jpg',
+    avatar: '/projects/shifamanagement/shifa-logo.webp',
     deliverables: [
       '3-Month Project Delivery',
       'Clinical Intake & Billing Engine',

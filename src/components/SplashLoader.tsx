@@ -68,7 +68,7 @@ export function SplashProvider({ children }: SplashProviderProps) {
     if (isDone || shouldSkip) return
 
     let frame = 0
-    const totalFrames = 12
+    const totalFrames = 6
     const interval = setInterval(() => {
       frame++
       const progressRatio = frame / totalFrames
@@ -89,12 +89,12 @@ export function SplashProvider({ children }: SplashProviderProps) {
         clearInterval(interval)
         setSubtitle(TARGET_SUBTITLE)
       }
-    }, 24)
+    }, 18)
 
     return () => clearInterval(interval)
   }, [isDone, shouldSkip])
 
-  // Snappy RAF progress counter (700ms instead of 1600ms)
+  // Snappy RAF progress counter (320ms for instant entrance)
   useEffect(() => {
     if (isDone || shouldSkip) return
 
@@ -109,7 +109,7 @@ export function SplashProvider({ children }: SplashProviderProps) {
     }
 
     const startTime = performance.now()
-    const duration = 700
+    const duration = 320
     let animId: number
 
     const updateCounter = (now: number) => {
@@ -138,8 +138,8 @@ export function SplashProvider({ children }: SplashProviderProps) {
       setTimeout(() => {
         setIsDone(true)
         document.body.style.overflow = ''
-      }, 300)
-    }, 450)
+      }, 250)
+    }, 340)
 
     return () => {
       cancelAnimationFrame(animId)
@@ -165,10 +165,10 @@ export function SplashProvider({ children }: SplashProviderProps) {
       const finishTimer = setTimeout(() => {
         setIsDone(true)
         document.body.style.overflow = ''
-      }, 650)
+      }, 420)
 
       return () => clearTimeout(finishTimer)
-    }, 120)
+    }, 40)
 
     return () => clearTimeout(holdTimer)
   }, [progress, isDone])
@@ -238,7 +238,7 @@ export function SplashProvider({ children }: SplashProviderProps) {
             backgroundColor: 'var(--bg-page)',
             color: 'var(--text-primary)',
             transform: isExiting ? 'translateY(calc(-100% - 150px))' : 'translateY(0)',
-            transition: 'transform 850ms cubic-bezier(0.76, 0, 0.24, 1)',
+            transition: 'transform 480ms cubic-bezier(0.76, 0, 0.24, 1)',
             boxShadow: isExiting ? '0 40px 90px -15px rgba(0,0,0,0.5)' : 'none',
             willChange: 'transform',
           }}
@@ -249,9 +249,13 @@ export function SplashProvider({ children }: SplashProviderProps) {
               isExiting ? 'opacity-0 -translate-y-10 scale-95' : 'opacity-100 translate-y-0 scale-100'
             }`}
           >
-            <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight uppercase leading-none font-sans select-none">
+            <div
+              role="heading"
+              aria-level={2}
+              className="text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] font-bold tracking-tight uppercase leading-none font-sans select-none"
+            >
               AHMED
-            </h1>
+            </div>
             <span
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl italic mt-1 sm:mt-2 select-none tracking-normal font-serif text-secondary"
               style={{ fontFamily: '"Instrument Serif", Georgia, Cambria, serif' }}

@@ -2,7 +2,7 @@ import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import mdx from '@mdx-js/rollup'
-import githubCommitsHandler from './api/github-commits.ts'
+import githubCommitsHandler from './src/lib/github/apiHandler.ts'
 
 function githubCommitsDevPlugin(): Plugin {
   return {

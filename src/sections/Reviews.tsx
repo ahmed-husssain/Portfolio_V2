@@ -94,6 +94,10 @@ export default function Reviews() {
                     <img
                       src={item.avatar}
                       alt={item.company || item.name}
+                      width={88}
+                      height={40}
+                      loading="lazy"
+                      decoding="async"
                       className="h-10 sm:h-12 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
                     />
                   ) : (

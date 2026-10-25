@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && npm run build:api",
+    "build:api": "esbuild src/lib/github/apiHandler.ts --bundle --platform=node --format=esm --target=node20 --outfile=api/github-commits.js",
     "lint": "oxlint",
     "test": "node --experimental-strip-types --test --test-concurrency=1 tests/github-commits.test.ts",
     "preview": "vite preview"
@@ -27,6 +28,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "esbuild": "^0.28.2",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"

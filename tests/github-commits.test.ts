@@ -18,7 +18,7 @@ import {
   releaseRefreshLock,
   isRefreshLocked,
 } from '../src/lib/github/commitService.ts'
-import handler from '../api/github-commits.ts'
+import handler from '../api/github-commits.js'
 import { commitStore } from '../src/lib/github/commitStore.ts'
 import {
   rankProjects,

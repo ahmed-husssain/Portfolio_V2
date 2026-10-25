@@ -55,8 +55,9 @@
 - **Database Schema Design & Query Optimization**: Schema modeling, index tuning, and transaction safety audits.
 
 ## Canonical Links
-- Portfolio: https://ahmedhusssain.vercel.app/
-- Projects: https://ahmedhusssain.vercel.app/work
-- About: https://ahmedhusssain.vercel.app/about
-- Contact: https://ahmedhusssain.vercel.app/contact
-- Full LLM Reference: https://ahmedhusssain.vercel.app/llms-full.txt
+- [Portfolio Homepage](https://ahmedhusssain.vercel.app/): Main portfolio site showcasing software engineering work.
+- [Work & Projects](https://ahmedhusssain.vercel.app/work): Production systems, architecture flows, and case studies.
+- [About Me](https://ahmedhusssain.vercel.app/about): Technical trajectory, core stack, and engineering philosophy.
+- [Contact](https://ahmedhusssain.vercel.app/contact): Direct communication and hiring inquiries.
+- [Full LLM Reference](https://ahmedhusssain.vercel.app/llms-full.txt): Comprehensive developer profile for LLM ingestion.
+
