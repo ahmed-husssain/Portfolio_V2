@@ -1,9 +1,11 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, lazy, Suspense } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/react'
 import type { Project } from '../data/projects'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
-import ArchitectureModal from './ArchitectureModal'
+
+// Lazy-load heavy simulation engine only when requested
+const ArchitectureModal = lazy(() => import('./ArchitectureModal'))
 
 /** Shorten a category string to a compact label for the header bar */
 function shortCategory(cat: string): string {
@@ -239,7 +241,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               <img
                 src={project.image}
                 alt={`${project.title} screenshot preview`}
-                loading="lazy"
+                loading={index === 1 ? 'eager' : 'lazy'}
+                fetchPriority={index === 1 ? 'high' : 'auto'}
+                decoding="async"
+                width="640"
+                height="400"
                 className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
               />
             ) : (
@@ -370,7 +376,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               <img
                 src={project.image}
                 alt={`${project.title} screenshot preview`}
-                loading="lazy"
+                loading={index === 1 ? 'eager' : 'lazy'}
+                fetchPriority={index === 1 ? 'high' : 'auto'}
+                decoding="async"
+                width="640"
+                height="400"
                 className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
               />
             ) : (
@@ -583,14 +593,16 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       </div>
     </article>
 
-    {/* Architecture Inspection Modal */}
-    {hasArchitectureInspector && (
-      <ArchitectureModal
-        isOpen={isArchModalOpen}
-        onClose={() => setIsArchModalOpen(false)}
-        projectSlug={project.slug}
-        initialFlowId={project.slug === 'shifamanagement' ? 'shifa-architecture' : 'auction-concurrency'}
-      />
+    {/* Architecture Inspection Modal (Loaded on Demand) */}
+    {hasArchitectureInspector && isArchModalOpen && (
+      <Suspense fallback={null}>
+        <ArchitectureModal
+          isOpen={isArchModalOpen}
+          onClose={() => setIsArchModalOpen(false)}
+          projectSlug={project.slug}
+          initialFlowId={project.slug === 'shifamanagement' ? 'shifa-architecture' : 'auction-concurrency'}
+        />
+      </Suspense>
     )}
     </>
   )

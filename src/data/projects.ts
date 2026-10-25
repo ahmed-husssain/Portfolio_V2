@@ -47,13 +47,13 @@ export const PROJECTS: Project[] = [
     lastCommitLabel: 'Oct 8, 2026',
     role: 'Cross-Platform Systems Developer',
     githubUrl: 'https://github.com/ahmed-husssain/ShifaMangementSystem',
-    image: '/projects/shifamanagement/preview.png',
+    image: '/projects/shifamanagement/preview.webp',
     gallery: [
-      '/projects/shifamanagement/slide-1.png',
-      '/projects/shifamanagement/slide-2.png',
-      '/projects/shifamanagement/slide-3.png',
-      '/projects/shifamanagement/slide-4.png',
-      '/projects/shifamanagement/slide-5.png',
+      '/projects/shifamanagement/slide-1.webp',
+      '/projects/shifamanagement/slide-2.webp',
+      '/projects/shifamanagement/slide-3.webp',
+      '/projects/shifamanagement/slide-4.webp',
+      '/projects/shifamanagement/slide-5.webp',
     ],
     architecture: [
       'Multi-platform Flutter architecture with Riverpod reactive state management',
@@ -92,10 +92,10 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack .NET Developer',
     liveUrl: 'https://gallrex.runasp.net',
     githubUrl: 'https://github.com/ahmed-husssain/Online-Art-Gallery',
-    image: '/projects/online-art-gallery/preview.png',
+    image: '/projects/online-art-gallery/preview.webp',
     gallery: [
-      '/projects/online-art-gallery/slide-1.png',
-      '/projects/online-art-gallery/slide-2.png',
+      '/projects/online-art-gallery/slide-1.webp',
+      '/projects/online-art-gallery/slide-2.webp',
     ],
     architecture: [
       'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing live bid collisions',
@@ -130,7 +130,7 @@ export const PROJECTS: Project[] = [
     role: 'Lead Full-Stack Developer',
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
-    image: '/projects/mockrithm/preview.png',
+    image: '/projects/mockrithm/preview.webp',
     architecture: [
       'Real-time voice and conversational interview simulator with speech-to-text',
       'In-browser code editor with syntax highlighting for technical problem solving',
@@ -163,7 +163,7 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack Developer & Database Architect',
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
-    image: '/projects/amber-property-corner/preview.png',
+    image: '/projects/amber-property-corner/preview.webp',
     architecture: [
       'Relational PostgreSQL schema with normalized property and inquiry models',
       'Prisma ORM for type-safe database access and automated migrations',
@@ -189,7 +189,7 @@ export const PROJECTS: Project[] = [
     role: 'Backend & Web Developer',
     liveUrl: 'https://readly.gt.tc/User/Pages/home.php',
     githubUrl: 'https://github.com/ahmed-husssain/E-books',
-    image: '/projects/e-books/cover.webp',
+    image: '/projects/e-books/preview.webp',
     architecture: [
       'Modular PHP backend with secure session handling and user authentication',
       'Normalized MySQL relational database schema managing user collections and book data',
