@@ -267,10 +267,35 @@ export default function ArchitectureVisualizer({
     setActiveStep(0)
   }
 
+  // Mobile horizontal swipe gestures (Apple fluid physics)
+  const touchStartX = useRef<number | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const diffX = touchStartX.current - e.changedTouches[0].clientX
+    const threshold = 45 // 45px swipe distance
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && activeStep < flow.steps.length - 1) {
+        selectStep(activeStep + 1) // Swipe left -> forward
+      } else if (diffX < 0 && activeStep > 0) {
+        selectStep(activeStep - 1) // Swipe right -> backward
+      }
+    }
+    touchStartX.current = null
+  }
+
   const currentStep = flow.steps[activeStep] || flow.steps[0]
 
   return (
-    <div className={`p-3 sm:p-5 flex flex-col gap-2.5 sm:gap-3 font-sans text-foreground text-left select-none ${className}`}>
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className={`p-3 sm:p-5 flex flex-col gap-2.5 sm:gap-3 font-sans text-foreground text-left select-none ${className}`}
+    >
       {/* ─── 1. Header Line ─── */}
       <div className="flex items-center justify-between gap-2 text-xs">
         <p className="text-secondary text-[11px] sm:text-xs font-medium truncate">
@@ -417,7 +442,7 @@ export default function ArchitectureVisualizer({
                 key={step.id}
                 type="button"
                 onClick={() => selectStep(idx)}
-                className={`py-1.5 px-0.5 sm:px-1 rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer ${
+                className={`py-1.5 px-0.5 sm:px-1 min-h-[42px] sm:min-h-[36px] rounded-2xs text-center transition-all flex flex-col items-center justify-center gap-0.5 border cursor-pointer active:scale-95 ${
                   isSelected
                     ? 'bg-foreground text-page border-foreground shadow-2xs font-semibold'
                     : isPast
@@ -483,14 +508,15 @@ export default function ArchitectureVisualizer({
               <span>{currentStep.metric}</span>
             </span>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-mono text-muted sm:hidden mr-1">Swipe ← →</span>
               <button
                 type="button"
                 onClick={() => {
                   if (activeStep > 0) selectStep(activeStep - 1)
                 }}
                 disabled={activeStep === 0}
-                className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"
+                className="p-1.5 sm:p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed active:scale-95"
                 title="Previous step"
                 aria-label="Previous step"
               >
@@ -502,7 +528,7 @@ export default function ArchitectureVisualizer({
                   if (activeStep < flow.steps.length - 1) selectStep(activeStep + 1)
                 }}
                 disabled={activeStep === flow.steps.length - 1}
-                className="p-1 rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed"
+                className="p-1.5 sm:p-1 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-2xs border border-border bg-surface text-secondary hover:text-foreground disabled:opacity-30 transition-colors cursor-pointer disabled:cursor-not-allowed active:scale-95"
                 title="Next step"
                 aria-label="Next step"
               >
@@ -541,7 +567,7 @@ export default function ArchitectureVisualizer({
                     key={sim.id}
                     type="button"
                     onClick={() => runSimulation(sim)}
-                    className={`w-full text-left px-2 py-1.5 rounded-2xs border transition-all text-[11px] font-mono flex items-center justify-between cursor-pointer ${
+                    className={`w-full text-left px-2.5 py-2 sm:py-1.5 min-h-[38px] rounded-2xs border transition-all text-[11px] font-mono flex items-center justify-between cursor-pointer active:scale-[0.99] ${
                       isActive
                         ? 'border-foreground bg-page font-bold text-foreground shadow-2xs'
                         : 'border-border bg-page/70 text-secondary hover:text-foreground hover:border-border-strong'

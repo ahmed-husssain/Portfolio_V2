@@ -64,7 +64,7 @@ export default function ArchitectureModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-xs border border-border text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer shrink-0 ml-2"
+            className="p-2 sm:p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xs border border-border text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer shrink-0 ml-2 active:scale-95"
             aria-label="Close modal"
           >
             <Close className="w-4 h-4 pixel-icon" />
