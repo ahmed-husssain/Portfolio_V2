@@ -26,36 +26,42 @@ export function SplashProvider({ children }: SplashProviderProps) {
     location.pathname.startsWith(path)
   )
 
-  const [progress, setProgress] = useState(0)
-  const [subtitle, setSubtitle] = useState('Experience')
-  const [isExiting, setIsExiting] = useState(false)
-  const [isDone, setIsDone] = useState(false)
-  const [isRevealed, setIsRevealed] = useState(false)
+  // Ponytail: Read sessionStorage synchronously to avoid any flash on return navigation
+  const hasSeenSplash = typeof window !== 'undefined' && Boolean(sessionStorage.getItem('portfolio_intro_seen'))
+  const shouldSkip = isOtherPage || hasSeenSplash
 
-  // Skip splash immediately only if user lands directly on a dedicated subpage
+  const [progress, setProgress] = useState(shouldSkip ? 100 : 0)
+  const [subtitle, setSubtitle] = useState('Experience')
+  const [isExiting, setIsExiting] = useState(shouldSkip)
+  const [isDone, setIsDone] = useState(shouldSkip)
+  const [isRevealed, setIsRevealed] = useState(shouldSkip)
+
+  // Skip splash immediately if already seen or landing directly on subpage
   useEffect(() => {
-    if (isOtherPage) {
+    if (shouldSkip) {
       setIsRevealed(true)
       setIsDone(true)
+      setIsExiting(true)
+      setProgress(100)
     }
-  }, [isOtherPage])
+  }, [shouldSkip])
 
-  // Disable background scroll during active splash
+  // Disable background scroll only during active first-time splash
   useEffect(() => {
-    if (!isDone && !isOtherPage) {
+    if (!isDone && !shouldSkip) {
       document.body.style.overflow = 'hidden'
       return () => {
         document.body.style.overflow = ''
       }
     }
-  }, [isDone, isOtherPage])
+  }, [isDone, shouldSkip])
 
-  // Subtitle decode / scramble micro-effect inspired by AUGE Experience reference
+  // Subtitle decode / scramble micro-effect
   useEffect(() => {
-    if (isDone || isOtherPage) return
+    if (isDone || shouldSkip) return
 
     let frame = 0
-    const totalFrames = 16
+    const totalFrames = 12
     const interval = setInterval(() => {
       frame++
       const progressRatio = frame / totalFrames
@@ -76,24 +82,33 @@ export function SplashProvider({ children }: SplashProviderProps) {
         clearInterval(interval)
         setSubtitle(TARGET_SUBTITLE)
       }
-    }, 28)
+    }, 24)
 
     return () => clearInterval(interval)
-  }, [isDone, isOtherPage])
+  }, [isDone, shouldSkip])
 
-  // High-precision RAF progress counter (000 -> 100)
+  // Snappy RAF progress counter (700ms instead of 1600ms)
   useEffect(() => {
-    if (isDone || isOtherPage) return
+    if (isDone || shouldSkip) return
 
-    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersReducedMotion =
+      typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      setProgress(100)
+      setIsRevealed(true)
+      setIsDone(true)
+      return
+    }
+
     const startTime = performance.now()
-    const duration = prefersReducedMotion ? 800 : 1600
+    const duration = 700
     let animId: number
 
     const updateCounter = (now: number) => {
       const elapsed = now - startTime
       const rawRatio = Math.min(1, elapsed / duration)
-      // Ease-out deceleration as it approaches 100
+      // Ease-out deceleration
       const eased = 1 - Math.pow(1 - rawRatio, 2.5)
       const current = Math.min(100, Math.floor(eased * 100))
 
@@ -111,32 +126,71 @@ export function SplashProvider({ children }: SplashProviderProps) {
     return () => {
       cancelAnimationFrame(animId)
     }
-  }, [isDone, isOtherPage])
+  }, [isDone, shouldSkip])
 
-  // Trigger curtain sweep and synchronous hero pop-up once counter reaches 100
+  // Fast curtain lift once counter reaches 100
   useEffect(() => {
     if (progress < 100 || isDone) return
 
-    // Hold at 100 for visual satisfaction before lifting curtain
     const holdTimer = setTimeout(() => {
       setIsExiting(true)
-      setIsRevealed(true) // Synchronously starts the hero section popping up underneath
+      setIsRevealed(true)
 
-      // Curtain sweep finishes, unmount overlay completely
+      // Persist in sessionStorage so returning to Home is 100% instant
+      try {
+        sessionStorage.setItem('portfolio_intro_seen', '1')
+      } catch {
+        // Ignore private mode quota errors
+      }
+
       const finishTimer = setTimeout(() => {
         setIsDone(true)
         document.body.style.overflow = ''
-      }, 850)
+      }, 650)
 
       return () => clearTimeout(finishTimer)
-    }, 180)
+    }, 120)
 
     return () => clearTimeout(holdTimer)
   }, [progress, isDone])
 
-  // Expose replay hook on window for dev verification & interactive preview
+  // Click or Keypress to Skip instantly
+  const handleSkip = () => {
+    if (isDone) return
+    setProgress(100)
+    setIsExiting(true)
+    setIsRevealed(true)
+    try {
+      sessionStorage.setItem('portfolio_intro_seen', '1')
+    } catch {
+      // Ignore
+    }
+    setTimeout(() => {
+      setIsDone(true)
+      document.body.style.overflow = ''
+    }, 350)
+  }
+
+  // Keyboard shortcut to skip (Esc, Space, Enter)
+  useEffect(() => {
+    if (isDone || shouldSkip) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        handleSkip()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isDone, shouldSkip])
+
+  // Expose replay hook for dev verification
   useEffect(() => {
     ;(window as unknown as { __replaySplash?: () => void }).__replaySplash = () => {
+      try {
+        sessionStorage.removeItem('portfolio_intro_seen')
+      } catch {
+        // Ignore
+      }
       setIsDone(false)
       setIsExiting(false)
       setIsRevealed(false)
@@ -152,12 +206,13 @@ export function SplashProvider({ children }: SplashProviderProps) {
 
       {!isOtherPage && (
         <aside
+          onClick={handleSkip}
           data-splash-state={isDone ? 'done' : isExiting ? 'exiting' : 'loading'}
           data-splash-progress={progress}
           aria-label="Portfolio Introduction Screen"
           role="dialog"
           aria-modal="true"
-          className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none ${
+          className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center select-none cursor-pointer ${
             isDone ? 'pointer-events-none hidden' : 'pointer-events-auto'
           }`}
           style={{
