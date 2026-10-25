@@ -542,5 +542,12 @@ body.is-scrolling * {
   }
 }
 
+/* ─── Dennis Snellenberg Precise Sibling Focus (Zero Blank Space Dimming) ─── */
+@media (hover: hover) and (pointer: fine) {
+  .cards-focus-group:has(.project-card:hover) .project-card:not(:hover) {
+    opacity: 0.4;
+  }
+}
+
 
 

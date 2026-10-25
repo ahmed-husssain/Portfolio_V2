@@ -29,7 +29,7 @@ export default function Work() {
         />
 
         {/* ─── Project List (Elevated Cards with Luminous Hairlines) ─── */}
-        <div className="flex flex-col gap-10 sm:gap-14 group/cards">
+        <div className="flex flex-col gap-10 sm:gap-14 cards-focus-group">
           {projects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 40}>
               <ProjectCard project={project} index={index + 1} />

@@ -77,7 +77,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-cursor-text="VIEW CASE STUDY ↗"
-      className={`group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row group-hover/cards:opacity-40 hover:!opacity-100 pixel-corners ${
+      className={`project-card group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row pixel-corners ${
         isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
       } ${className}`}
       style={{ boxShadow: 'var(--hairline-top)' }}
