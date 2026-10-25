@@ -30,7 +30,7 @@ export default function SelectedWork() {
           </Badge>
         </div>
 
-        <div className="flex flex-col gap-10 sm:gap-14">
+        <div className="flex flex-col gap-10 sm:gap-14 group/cards">
           {featuredProjects.map((project, index) => (
             <ProjectCard key={project.slug} project={project} index={index + 1} />
           ))}
