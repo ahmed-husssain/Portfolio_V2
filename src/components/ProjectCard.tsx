@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/react'
 import type { Project } from '../data/projects'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
@@ -45,6 +45,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, className = '', index }: ProjectCardProps) {
+  const navigate = useNavigate()
   const isFlagship = Boolean(project.featured)
   const [isArchModalOpen, setIsArchModalOpen] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -69,15 +70,25 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     })
   }
 
+  const handleCardClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement
+    // Ignore clicks on child links, buttons, or action triggers
+    if (target.closest('a, button, input, [role="button"], [data-no-card-click]')) {
+      return
+    }
+    navigate(`/work/${project.slug}`)
+  }
+
   return (
     <>
     <article
       ref={cardRef}
+      onClick={handleCardClick}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-cursor-text="VIEW CASE STUDY ↗"
-      className={`project-card group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row pixel-corners ${
+      className={`project-card group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row pixel-corners cursor-pointer ${
         isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
       } ${className}`}
       style={{ boxShadow: 'var(--hairline-top)' }}
