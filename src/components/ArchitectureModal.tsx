@@ -45,7 +45,13 @@ export default function ArchitectureModal({
       />
 
       {/* Modal Card - 100% fits on screen, zero scrollbars on desktop/tablet, smooth scroll if small phone */}
-      <div className="relative w-full max-w-3xl bg-surface border border-border-strong rounded-sm shadow-2xl z-10 overflow-hidden flex flex-col max-h-[96dvh] pixel-corners">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        data-no-cursor
+        className="relative w-full max-w-3xl bg-surface border border-border-strong rounded-sm shadow-2xl z-10 overflow-hidden flex flex-col max-h-[96dvh] pixel-corners"
+      >
         {/* Header Bar */}
         <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-5 border-b border-border bg-surface-subtle/70 shrink-0">
           <div className="flex items-center gap-2 text-xs font-mono min-w-0">

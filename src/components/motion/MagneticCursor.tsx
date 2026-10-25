@@ -33,9 +33,14 @@ export default function MagneticCursor() {
       const target = e.target as HTMLElement | null
       if (!target) return
 
-      // Hide custom cursor completely over navbar so no black dot covers navlinks
-      const isNavbar = Boolean(target.closest('header, nav, [data-no-cursor]'))
-      if (isNavbar) {
+      // Hide custom cursor completely over navbar, form fields, editable text, and dialog modals
+      // to ensure native text insertion I-beam, caret, and modal controls are never obscured
+      const shouldHide = Boolean(
+        target.closest(
+          'header, nav, input, textarea, select, [contenteditable="true"], [role="dialog"], dialog, [data-no-cursor], [data-cursor-hide]'
+        )
+      )
+      if (shouldHide) {
         setCursorText('')
         setIsHoveringLink(false)
         if (cursorRef.current) cursorRef.current.style.opacity = '0'
@@ -62,6 +67,20 @@ export default function MagneticCursor() {
       }
     }
 
+    // Hide cursor during active keyboard typing in inputs/textareas
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.altKey || e.metaKey) return
+      const active = document.activeElement
+      if (
+        active &&
+        (active.tagName === 'INPUT' ||
+          active.tagName === 'TEXTAREA' ||
+          active.getAttribute('contenteditable') === 'true')
+      ) {
+        if (cursorRef.current) cursorRef.current.style.opacity = '0'
+      }
+    }
+
     const handleMouseLeave = () => {
       isVisibleRef.current = false
       if (cursorRef.current) {
@@ -85,11 +104,13 @@ export default function MagneticCursor() {
     }
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
+    window.addEventListener('keydown', handleKeyDown, { passive: true })
     document.addEventListener('mouseleave', handleMouseLeave)
     rafId.current = requestAnimationFrame(render)
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('mouseleave', handleMouseLeave)
       if (rafId.current !== null) cancelAnimationFrame(rafId.current)
     }
@@ -110,7 +131,8 @@ export default function MagneticCursor() {
             : 'w-3 h-3 rounded-full bg-foreground'
       }`}
       style={{
-        transition: 'width 180ms cubic-bezier(0.16, 1, 0.3, 1), height 180ms cubic-bezier(0.16, 1, 0.3, 1), padding 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease-out',
+        transition:
+          'opacity 150ms ease-out, width 180ms cubic-bezier(0.16, 1, 0.3, 1), height 180ms cubic-bezier(0.16, 1, 0.3, 1), padding 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease-out',
       }}
       aria-hidden="true"
     >
