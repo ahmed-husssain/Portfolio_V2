@@ -38,6 +38,78 @@ function formatCompactDate(label?: string): string {
   return trimmed
 }
 
+/** Editorial serif italic subtitle accent (Snellenberg boutique design) */
+function getProjectEditorialSubtitle(slug: string): string {
+  switch (slug) {
+    case 'online-art-gallery':
+      return 'Live Concurrency'
+    case 'shifamanagement':
+      return 'Atomic Billing'
+    case 'mockrithm':
+      return 'Aptech Vision Runner-Up'
+    case 'amber-property-corner':
+      return 'Indexed Queries'
+    case 'e-books':
+      return 'Relational Library'
+    default:
+      return 'Production System'
+  }
+}
+
+/** Live status telemetry badge text */
+function getProjectLiveBadge(project: Project): string {
+  switch (project.slug) {
+    case 'online-art-gallery':
+      return 'SignalR WebSocket Stream'
+    case 'shifamanagement':
+      return 'PostgreSQL Row-Level Security'
+    case 'mockrithm':
+      return 'Aptech Vision 2025 Runner-Up'
+    case 'amber-property-corner':
+      return 'Indexed PostgreSQL Engine'
+    case 'e-books':
+      return 'MySQL Relational Schema'
+    default:
+      return shortCategory(project.category)
+  }
+}
+
+/** Micro-tag for mobile cover vignette */
+function getProjectCategoryTag(project: Project): string {
+  switch (project.slug) {
+    case 'online-art-gallery':
+      return '// CONCURRENCY & STREAMING ENGINE'
+    case 'shifamanagement':
+      return '// CLINICAL OPERATIONS & RLS'
+    case 'mockrithm':
+      return '// AI CONVERSATIONAL SIMULATOR'
+    case 'amber-property-corner':
+      return '// INDEXED SEARCH ENGINE'
+    case 'e-books':
+      return '// NORMALIZED RELATIONAL LIBRARY'
+    default:
+      return `// ${shortCategory(project.category)}`
+  }
+}
+
+/** Micro safeguard headline */
+function getSafeguardLabel(slug: string): string {
+  switch (slug) {
+    case 'online-art-gallery':
+      return 'CONCURRENCY SAFEGUARD'
+    case 'shifamanagement':
+      return 'ATOMIC SAFEGUARD'
+    case 'mockrithm':
+      return 'SYSTEM SPECIFICATION'
+    case 'amber-property-corner':
+      return 'DATABASE TUNING'
+    case 'e-books':
+      return 'RELATIONAL ARCHITECTURE'
+    default:
+      return 'CORE SAFEGUARD'
+  }
+}
+
 interface ProjectCardProps {
   project: Project
   className?: string
@@ -79,6 +151,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     navigate(`/work/${project.slug}`)
   }
 
+  const editorialSubtitle = getProjectEditorialSubtitle(project.slug)
+  const liveBadgeText = getProjectLiveBadge(project)
+  const categoryTag = getProjectCategoryTag(project)
+  const safeguardLabel = getSafeguardLabel(project.slug)
+
   return (
     <>
     <article
@@ -93,9 +170,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       } ${className}`}
       style={{ boxShadow: 'var(--hairline-top)' }}
     >
-      {/* ─── Ambient Spotlight Glow ─── */}
+      {/* ─── Ambient Spotlight Glow (Desktop Hover) ─── */}
       <div
-        className="pointer-events-none absolute -inset-px rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+        className="pointer-events-none absolute -inset-px rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden lg:block"
         style={{
           background: isHovered
             ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.06), transparent 70%)`
@@ -104,20 +181,20 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         aria-hidden="true"
       />
 
-      {/* ─── LEFT COLUMN: Authentic Screenshot Preview (Dennis Snellenberg Visual Anchor) ─── */}
-      <div className="lg:w-5/12 bg-surface-subtle/50 border-b lg:border-b-0 lg:border-r border-border relative overflow-hidden flex flex-col justify-between p-4 sm:p-6 z-20">
-        <Link
-          to={`/work/${project.slug}`}
-          className="relative w-full aspect-[16/10] sm:aspect-[4/3] rounded-xs overflow-hidden border border-border/80 bg-page block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
-          tabIndex={-1}
-          aria-hidden="true"
-        >
+      {/* ══════════════════════════════════════════════════════════════════
+          MOBILE VIEW (<1024px): Option 3 + 1 Snellenberg Editorial Hybrid
+          Atmospheric full-bleed cover, Instrument Serif italic accent,
+          emerald hairline safeguard (no squished 96px tables), and unified footer dock.
+         ══════════════════════════════════════════════════════════════════ */}
+      <div className="lg:hidden w-full flex flex-col">
+        {/* Full-Bleed Cover Image with Ambient Vignette Overlay */}
+        <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] bg-black/40 overflow-hidden">
           {project.image ? (
             <img
               src={project.image}
               alt={`${project.title} screenshot preview`}
               loading="lazy"
-              className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
             />
           ) : (
             <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
@@ -125,211 +202,362 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             </div>
           )}
 
-          {/* Ambient subtle vignette */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+          {/* Ambient gradient vignette */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
 
-          {/* Dynamic Technical Status Badge over image */}
-          <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold uppercase tracking-wider select-none">
-            {project.slug === 'online-art-gallery' && '● SignalR WebSocket Stream'}
-            {project.slug === 'shifamanagement' && '● PostgreSQL Row-Level Security'}
-            {project.slug === 'mockrithm' && '★ Aptech Vision 2025 Runner-Up'}
-            {project.slug === 'amber-property-corner' && '● Indexed PostgreSQL Engine'}
-            {project.slug === 'e-books' && '● MySQL Relational Schema'}
-            {!['online-art-gallery', 'shifamanagement', 'mockrithm', 'amber-property-corner', 'e-books'].includes(project.slug) && (
-              `● ${shortCategory(project.category)}`
-            )}
+          {/* Top Telemetry Floating Row (Option 1 Touch) */}
+          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 z-10 pointer-events-none">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono font-semibold uppercase tracking-wider text-emerald-400 shadow-xs">
+              <span className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                project.slug === 'mockrithm' ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
+              }`} />
+              <span className="truncate max-w-[190px] sm:max-w-none">{liveBadgeText}</span>
+            </div>
+
+            <div className="inline-flex items-center gap-1 px-2 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono text-zinc-300 shadow-xs shrink-0">
+              {index !== undefined && (
+                <span className="text-emerald-400 font-bold">
+                  #{index.toString().padStart(2, '0')}
+                </span>
+              )}
+              {commitLabel && (
+                <>
+                  <span className="text-white/30" aria-hidden="true">·</span>
+                  <span>{formatCompactDate(commitLabel)}</span>
+                </>
+              )}
+            </div>
           </div>
-        </Link>
 
-        {/* Live Deployment Links Bar */}
-        <div className="mt-4 flex items-center justify-between text-xs font-mono pt-1">
-          {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor-text="LIVE DEMO ↗"
-              className="inline-flex items-center gap-1.5 text-foreground hover:text-emerald-500 font-semibold active:scale-95 transition-all group/live"
-              aria-label={`Visit live site for ${project.title}`}
-            >
-              <span>LIVE PRODUCTION</span>
-              <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-500 transition-transform duration-150 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
-            </a>
-          ) : (
-            <span className="text-muted text-[11px] font-mono">
-              ● INTERNAL / PROD DEPLOYED
-            </span>
-          )}
-
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor-text="SRC CODE ↗"
-              className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-colors"
-              aria-label={`View source code for ${project.title}`}
-            >
-              <Github className="w-3.5 h-3.5 pixel-icon" />
-              <span>SOURCE CODE</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          )}
-        </div>
-      </div>
-
-      {/* ─── RIGHT COLUMN: Engineering Datasheet (The Source of Truth) ─── */}
-      <div className="lg:w-7/12 p-5 sm:p-7 flex flex-col justify-between gap-5 relative z-20">
-
-        {/* ── Header: Index + Slug + Verified Commit ── */}
-        <div className="flex items-center justify-between gap-2 border-b border-border pb-3 text-micro-caps">
-          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 overflow-hidden">
-            {index !== undefined && (
-              <span className="text-emerald-500 font-bold shrink-0">
-                #{index.toString().padStart(2, '0')}
+          {/* Bottom Vignette Typography (Option 3 Dominant) */}
+          <div className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 sm:px-5 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none z-10">
+            <div className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider mb-0.5">
+              {categoryTag}
+            </div>
+            <h3 className="font-bold text-white text-lg sm:text-xl leading-snug tracking-tight">
+              {project.title}{' '}
+              <span className="font-serif italic font-normal text-zinc-300">
+                {editorialSubtitle}
               </span>
-            )}
-            <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-            <span className="text-foreground font-semibold truncate">/{project.slug}</span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 text-muted shrink-0">
-              <span className="text-border-strong" aria-hidden="true">·</span>
-              <span>{shortCategory(project.category)}</span>
-            </span>
+            </h3>
           </div>
-
-          {/* Verified Commit Telemetry Badge */}
-          {commitLabel && (
-            <span
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
-              title={`Last commit: ${commitLabel}`}
-            >
-              <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
-              <span className="text-muted hidden md:inline">COMMIT:</span>
-              <span className="text-foreground font-semibold sm:hidden">{formatCompactDate(commitLabel)}</span>
-              <span className="text-foreground font-semibold hidden sm:inline">{commitLabel}</span>
-            </span>
-          )}
         </div>
 
-        {/* ── Title + Short Description ── */}
-        <div className="space-y-1.5">
-          <Link
-            to={`/work/${project.slug}`}
-            className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
-          >
-            <h3
-              className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:text-emerald-500 transition-colors ${
-                isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
-              }`}
-            >
-              {project.title}
-            </h3>
-          </Link>
+        {/* Mobile Body Content */}
+        <div className="p-4 sm:p-5 flex flex-col gap-3.5 z-20">
           <p className="font-mono text-xs text-muted leading-relaxed">
             {project.shortDescription}
           </p>
-        </div>
 
-        {/* ── Architecture Specification Table (Proof Points) ── */}
-        {isFlagship && project.architecture && project.architecture.length > 0 ? (
-          <div className="rounded-xs border border-border bg-page/50 divide-y divide-border/60 text-xs font-mono overflow-hidden">
-            <div className="p-3 flex items-start gap-3">
-              <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
-                {project.slug === 'online-art-gallery' ? 'CONCURRENCY' : 'SAFEGUARD'}
+          {/* Emerald Hairline Architectural Safeguard (Option 3 — Replaces Squished 96px Table) */}
+          <div className="border-l-2 border-emerald-500 pl-3 py-1.5 bg-emerald-500/[0.04] rounded-r-xs flex flex-col gap-0.5">
+            <span className="text-[9px] font-mono text-emerald-500 font-bold uppercase tracking-wider">
+              // {safeguardLabel}
+            </span>
+            <span className="text-xs text-foreground/90 font-mono leading-relaxed">
+              {project.architecture ? project.architecture[0] : (project.role || project.shortDescription)}
+            </span>
+          </div>
+
+          {/* Verified Outcome */}
+          {project.outcome && (
+            <div className="flex items-start gap-2 text-xs font-mono">
+              <span className="text-emerald-500 font-bold shrink-0 text-[10px] uppercase tracking-wider pt-px">
+                OUTCOME:
               </span>
-              <span className="text-secondary leading-relaxed">
-                {project.architecture[0]}
+              <span className="text-secondary leading-snug">
+                {project.outcome}
               </span>
             </div>
-            {project.architecture[1] && (
-              <div className="p-3 flex items-start gap-3">
-                <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
-                  {project.slug === 'online-art-gallery' ? 'IDEMPOTENCY' : 'ARCHITECTURE'}
+          )}
+
+          {/* Mobile Unified Footer Action Dock (Option 1 + Option 3) */}
+          <div className="pt-2.5 border-t border-border flex items-center justify-between gap-2 mt-1 text-xs font-mono">
+            {/* Tech Chips */}
+            <div className="flex flex-wrap items-center gap-1 min-w-0">
+              {project.technologies.slice(0, 3).map((tech) => (
+                <span
+                  key={tech}
+                  className="font-mono text-[10px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
+                >
+                  {tech}
                 </span>
-                <span className="text-secondary leading-relaxed">
-                  {project.architecture[1]}
+              ))}
+              {project.technologies.length > 3 && (
+                <span className="font-mono text-[10px] text-muted shrink-0">
+                  +{project.technologies.length - 3}
                 </span>
+              )}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex items-center gap-2 shrink-0">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor-text="LIVE DEMO ↗"
+                  className="inline-flex items-center justify-center min-h-[38px] min-w-[38px] px-2 text-muted hover:text-emerald-500 border border-border bg-page hover:bg-surface-subtle rounded-xs active:scale-[0.96] transition-colors"
+                  aria-label={`Visit live site for ${project.title}`}
+                  title="Live Production"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                </a>
+              )}
+              {hasArchitectureInspector && (
+                <button
+                  type="button"
+                  onClick={() => setIsArchModalOpen(true)}
+                  data-cursor-text="SYSTEM FLOW ⚙"
+                  className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 min-h-[38px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer select-none"
+                  title="Inspect real sequence and concurrency flow"
+                >
+                  <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                  <span>FLOW ⚙</span>
+                </button>
+              )}
+              <Link
+                to={`/work/${project.slug}`}
+                data-cursor-text="CASE STUDY ↗"
+                className="inline-flex items-center justify-center gap-1 px-3 py-1.5 min-h-[38px] text-[11px] font-mono font-semibold rounded-xs bg-foreground text-page hover:bg-foreground/90 active:scale-[0.96] transition-all group/cta shadow-xs"
+                aria-label={`Read case study for ${project.title}`}
+              >
+                <span>CASE STUDY</span>
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-0.5" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          DESKTOP VIEW (>=1024px): 2-Column Editorial Datasheet
+          Preserves the 2-column layout with enhanced Instrument Serif typography.
+         ══════════════════════════════════════════════════════════════════ */}
+      <div className="hidden lg:flex w-full flex-row">
+        {/* ─── LEFT COLUMN: Screenshot Preview + Deployment Bar ─── */}
+        <div className="lg:w-5/12 bg-surface-subtle/50 border-r border-border relative overflow-hidden flex flex-col justify-between p-6 z-20">
+          <Link
+            to={`/work/${project.slug}`}
+            className="relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 bg-page block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+            tabIndex={-1}
+            aria-hidden="true"
+          >
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={`${project.title} screenshot preview`}
+                loading="lazy"
+                className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              />
+            ) : (
+              <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
+                <span>{project.title}</span>
               </div>
             )}
-            {project.outcome && (
-              <div className="p-3 flex items-start gap-3 bg-surface-subtle/40 border-t border-border">
-                <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
-                  VERIFIED OUTCOME
-                </span>
-                <span className="text-foreground font-medium leading-relaxed">
-                  {project.outcome}
-                </span>
-              </div>
+
+            {/* Ambient subtle vignette */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+            {/* Dynamic Technical Status Badge over image */}
+            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold uppercase tracking-wider select-none">
+              ● {liveBadgeText}
+            </div>
+          </Link>
+
+          {/* Live Deployment Links Bar */}
+          <div className="mt-4 flex items-center justify-between text-xs font-mono pt-1">
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor-text="LIVE DEMO ↗"
+                className="inline-flex items-center gap-1.5 text-foreground hover:text-emerald-500 font-semibold active:scale-95 transition-all group/live"
+                aria-label={`Visit live site for ${project.title}`}
+              >
+                <span>LIVE PRODUCTION</span>
+                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-500 transition-transform duration-150 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
+              </a>
+            ) : (
+              <span className="text-muted text-[11px] font-mono">
+                ● INTERNAL / PROD DEPLOYED
+              </span>
+            )}
+
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor-text="SRC CODE ↗"
+                className="inline-flex items-center gap-1 text-muted hover:text-foreground active:scale-95 transition-colors"
+                aria-label={`View source code for ${project.title}`}
+              >
+                <Github className="w-3.5 h-3.5 pixel-icon" />
+                <span>SOURCE CODE</span>
+                <span aria-hidden="true">↗</span>
+              </a>
             )}
           </div>
-        ) : (
-          (project.role || project.outcome) && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-xs border border-border overflow-hidden text-xs font-mono bg-border">
-              {project.role && (
-                <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                  <span className="text-[10px] text-muted uppercase tracking-widest block">ROLE</span>
-                  <span className="text-foreground font-medium leading-snug block">{project.role}</span>
+        </div>
+
+        {/* ─── RIGHT COLUMN: Engineering Datasheet ─── */}
+        <div className="lg:w-7/12 p-7 flex flex-col justify-between gap-5 relative z-20">
+
+          {/* ── Header: Index + Slug + Verified Commit ── */}
+          <div className="flex items-center justify-between gap-2 border-b border-border pb-3 text-micro-caps">
+            <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+              {index !== undefined && (
+                <span className="text-emerald-500 font-bold shrink-0">
+                  #{index.toString().padStart(2, '0')}
+                </span>
+              )}
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="text-foreground font-semibold truncate">/{project.slug}</span>
+              <span className="inline-flex items-center gap-1.5 text-muted shrink-0">
+                <span className="text-border-strong" aria-hidden="true">·</span>
+                <span>{shortCategory(project.category)}</span>
+              </span>
+            </div>
+
+            {/* Verified Commit Telemetry Badge */}
+            {commitLabel && (
+              <span
+                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
+                title={`Last commit: ${commitLabel}`}
+              >
+                <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                <span className="text-muted">COMMIT:</span>
+                <span className="text-foreground font-semibold">{commitLabel}</span>
+              </span>
+            )}
+          </div>
+
+          {/* ── Title + Editorial Serif Italic Accent + Short Description ── */}
+          <div className="space-y-1.5">
+            <Link
+              to={`/work/${project.slug}`}
+              className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+            >
+              <h3
+                className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:text-emerald-500 transition-colors ${
+                  isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
+                }`}
+              >
+                {project.title}{' '}
+                <span className="font-serif italic font-normal text-muted group-hover/title:text-emerald-500/80 transition-colors">
+                  {editorialSubtitle}
+                </span>
+              </h3>
+            </Link>
+            <p className="font-mono text-xs text-muted leading-relaxed">
+              {project.shortDescription}
+            </p>
+          </div>
+
+          {/* ── Architecture Specification Table (Proof Points) ── */}
+          {isFlagship && project.architecture && project.architecture.length > 0 ? (
+            <div className="rounded-xs border border-border bg-page/50 divide-y divide-border/60 text-xs font-mono overflow-hidden">
+              <div className="p-3 flex items-start gap-3">
+                <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
+                  {project.slug === 'online-art-gallery' ? 'CONCURRENCY' : 'SAFEGUARD'}
+                </span>
+                <span className="text-secondary leading-relaxed">
+                  {project.architecture[0]}
+                </span>
+              </div>
+              {project.architecture[1] && (
+                <div className="p-3 flex items-start gap-3">
+                  <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
+                    {project.slug === 'online-art-gallery' ? 'IDEMPOTENCY' : 'ARCHITECTURE'}
+                  </span>
+                  <span className="text-secondary leading-relaxed">
+                    {project.architecture[1]}
+                  </span>
                 </div>
               )}
               {project.outcome && (
-                <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                  <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">OUTCOME</span>
-                  <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
+                <div className="p-3 flex items-start gap-3 bg-surface-subtle/40 border-t border-border">
+                  <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
+                    VERIFIED OUTCOME
+                  </span>
+                  <span className="text-foreground font-medium leading-relaxed">
+                    {project.outcome}
+                  </span>
                 </div>
               )}
             </div>
-          )
-        )}
+          ) : (
+            (project.role || project.outcome) && (
+              <div className="grid grid-cols-2 gap-px rounded-xs border border-border overflow-hidden text-xs font-mono bg-border">
+                {project.role && (
+                  <div className="bg-page/60 px-4 py-3 space-y-0.5">
+                    <span className="text-[10px] text-muted uppercase tracking-widest block">ROLE</span>
+                    <span className="text-foreground font-medium leading-snug block">{project.role}</span>
+                  </div>
+                )}
+                {project.outcome && (
+                  <div className="bg-page/60 px-4 py-3 space-y-0.5">
+                    <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-widest block">OUTCOME</span>
+                    <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
+                  </div>
+                )}
+              </div>
+            )
+          )}
 
-        {/* ── Footer: Stack Chips + CTAs ── */}
-        <div className="pt-2 border-t border-border flex flex-wrap items-center justify-between gap-3 mt-auto text-xs font-mono">
-          {/* Tech chips */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5">
-              STACK:
-            </span>
-            {project.technologies.slice(0, 4).map((tech) => (
-              <span
-                key={tech}
-                className="font-mono text-[11px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
+          {/* ── Footer: Stack Chips + CTAs ── */}
+          <div className="pt-2 border-t border-border flex flex-wrap items-center justify-between gap-3 mt-auto text-xs font-mono">
+            {/* Tech chips */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5">
+                STACK:
+              </span>
+              {project.technologies.slice(0, 4).map((tech) => (
+                <span
+                  key={tech}
+                  className="font-mono text-[11px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
+                >
+                  {tech}
+                </span>
+              ))}
+              {project.technologies.length > 4 && (
+                <span className="font-mono text-[10px] text-muted">
+                  +{project.technologies.length - 4}
+                </span>
+              )}
+            </div>
+
+            {/* Action CTAs */}
+            <div className="flex items-center gap-2.5 shrink-0">
+              {hasArchitectureInspector && (
+                <button
+                  type="button"
+                  onClick={() => setIsArchModalOpen(true)}
+                  data-cursor-text="SYSTEM FLOW ⚙"
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer select-none"
+                  title="Inspect real sequence and concurrency flow"
+                >
+                  <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                  <span>VIEW SYSTEM FLOW</span>
+                </button>
+              )}
+
+              <Link
+                to={`/work/${project.slug}`}
+                data-cursor-text="CASE STUDY ↗"
+                className="inline-flex items-center gap-1 text-foreground font-semibold hover:text-emerald-500 active:scale-[0.96] transition-colors group/cta"
+                aria-label={`Read case study for ${project.title}`}
               >
-                {tech}
-              </span>
-            ))}
-            {project.technologies.length > 4 && (
-              <span className="font-mono text-[10px] text-muted">
-                +{project.technologies.length - 4}
-              </span>
-            )}
+                <span>CASE STUDY</span>
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-2.5 shrink-0">
-            {hasArchitectureInspector && (
-              <button
-                type="button"
-                onClick={() => setIsArchModalOpen(true)}
-                data-cursor-text="SYSTEM FLOW ⚙"
-                className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer select-none"
-                title="Inspect real sequence and concurrency flow"
-              >
-                <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
-                <span>VIEW SYSTEM FLOW</span>
-              </button>
-            )}
-
-            <Link
-              to={`/work/${project.slug}`}
-              data-cursor-text="CASE STUDY ↗"
-              className="inline-flex items-center gap-1 text-foreground font-semibold hover:text-emerald-500 active:scale-[0.96] transition-colors group/cta"
-              aria-label={`Read case study for ${project.title}`}
-            >
-              <span>CASE STUDY</span>
-              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
-            </Link>
-          </div>
         </div>
-
       </div>
     </article>
 
@@ -345,3 +573,4 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     </>
   )
 }
+
