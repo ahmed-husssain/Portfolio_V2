@@ -182,74 +182,92 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
       />
 
       {/* ══════════════════════════════════════════════════════════════════
-          MOBILE VIEW (<1024px): Option 3 + 1 Snellenberg Editorial Hybrid
-          Atmospheric full-bleed cover, Instrument Serif italic accent,
-          emerald hairline safeguard (no squished 96px tables), and unified footer dock.
+          MOBILE VIEW (<1024px): Apple Design Clean Frame (Zero-Overlap)
+          1. Header + Title + Italic Accent in dedicated typographic whitespace
+          2. Pure Screenshot Preview Window (no text fighting screenshot text)
+          3. Hairline Safeguard Callout with full-width text wrapping
+          4. Dedicated Tech Stack Chips Row (no button collision)
+          5. Generous 40px Touch Action Dock (50/50 split, zero overlapping)
          ══════════════════════════════════════════════════════════════════ */}
       <div className="lg:hidden w-full flex flex-col">
-        {/* Full-Bleed Cover Image with Ambient Vignette Overlay */}
-        <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] bg-black/40 overflow-hidden">
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={`${project.title} screenshot preview`}
-              loading="lazy"
-              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            />
-          ) : (
-            <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
-              <span>{project.title}</span>
-            </div>
-          )}
-
-          {/* Ambient gradient vignette */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
-
-          {/* Top Telemetry Floating Row (Option 1 Touch) */}
-          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 z-10 pointer-events-none">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono font-semibold uppercase tracking-wider text-emerald-400 shadow-xs">
-              <span className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
-                project.slug === 'mockrithm' ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
-              }`} />
-              <span className="truncate max-w-[190px] sm:max-w-none">{liveBadgeText}</span>
-            </div>
-
-            <div className="inline-flex items-center gap-1 px-2 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/15 text-[10px] font-mono text-zinc-300 shadow-xs shrink-0">
+        {/* ── Top Header Bar (Dedicated Whitespace, Zero Text Overlap) ── */}
+        <div className="p-4 pb-3 flex flex-col gap-1.5 border-b border-border/60 bg-surface">
+          <div className="flex items-center justify-between gap-2 text-micro-caps">
+            <div className="flex items-center gap-1.5 min-w-0">
               {index !== undefined && (
-                <span className="text-emerald-400 font-bold">
+                <span className="text-emerald-500 font-bold shrink-0">
                   #{index.toString().padStart(2, '0')}
                 </span>
               )}
-              {commitLabel && (
-                <>
-                  <span className="text-white/30" aria-hidden="true">·</span>
-                  <span>{formatCompactDate(commitLabel)}</span>
-                </>
-              )}
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="text-emerald-500 font-semibold truncate font-mono text-[10px]">
+                {categoryTag}
+              </span>
             </div>
+
+            {commitLabel && (
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0">
+                <GitCommit className="w-3 h-3 pixel-icon text-emerald-500 shrink-0" />
+                <span className="text-foreground font-semibold">{formatCompactDate(commitLabel)}</span>
+              </span>
+            )}
           </div>
 
-          {/* Bottom Vignette Typography (Option 3 Dominant) */}
-          <div className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-4 sm:px-5 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none z-10">
-            <div className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider mb-0.5">
-              {categoryTag}
-            </div>
-            <h3 className="font-bold text-white text-lg sm:text-xl leading-snug tracking-tight">
+          {/* Project Title + Editorial Italic Accent */}
+          <Link
+            to={`/work/${project.slug}`}
+            className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+          >
+            <h3 className="font-bold text-foreground text-xl leading-snug tracking-tight mt-0.5 group-hover/title:text-emerald-500 transition-colors">
               {project.title}{' '}
-              <span className="font-serif italic font-normal text-zinc-300">
+              <span className="font-serif italic font-normal text-muted group-hover/title:text-emerald-500/80 transition-colors">
                 {editorialSubtitle}
               </span>
             </h3>
-          </div>
+          </Link>
         </div>
 
-        {/* Mobile Body Content */}
-        <div className="p-4 sm:p-5 flex flex-col gap-3.5 z-20">
+        {/* ── Pure Screenshot Preview Window (Dedicated Bezel, Zero Text Colliding Over Preview) ── */}
+        <div className="px-4 pt-3.5 bg-surface-subtle/30">
+          <Link
+            to={`/work/${project.slug}`}
+            className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xs border border-border/80 bg-page block overflow-hidden group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+            tabIndex={-1}
+            aria-hidden="true"
+          >
+            {project.image ? (
+              <img
+                src={project.image}
+                alt={`${project.title} screenshot preview`}
+                loading="lazy"
+                className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              />
+            ) : (
+              <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
+                <span>{project.title}</span>
+              </div>
+            )}
+
+            {/* Subtle bottom vignette to frame the screenshot cleanly */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+
+            {/* Floating Live Telemetry Badge inside screenshot bezel */}
+            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-2xs bg-black/85 backdrop-blur-md border border-white/15 text-[9px] font-mono font-semibold uppercase tracking-wider text-emerald-400 shadow-xs flex items-center gap-1.5">
+              <span className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
+                project.slug === 'mockrithm' ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
+              }`} />
+              <span className="truncate max-w-[200px]">{liveBadgeText}</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* ── Mobile Body Content ── */}
+        <div className="p-4 flex flex-col gap-3.5 z-20 bg-surface">
           <p className="font-mono text-xs text-muted leading-relaxed">
             {project.shortDescription}
           </p>
 
-          {/* Emerald Hairline Architectural Safeguard (Option 3 — Replaces Squished 96px Table) */}
+          {/* Emerald Hairline Architectural Safeguard */}
           <div className="border-l-2 border-emerald-500 pl-3 py-1.5 bg-emerald-500/[0.04] rounded-r-xs flex flex-col gap-0.5">
             <span className="text-[9px] font-mono text-emerald-500 font-bold uppercase tracking-wider">
               // {safeguardLabel}
@@ -271,62 +289,66 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             </div>
           )}
 
-          {/* Mobile Unified Footer Action Dock (Option 1 + Option 3) */}
-          <div className="pt-2.5 border-t border-border flex items-center justify-between gap-2 mt-1 text-xs font-mono">
-            {/* Tech Chips */}
-            <div className="flex flex-wrap items-center gap-1 min-w-0">
-              {project.technologies.slice(0, 3).map((tech) => (
-                <span
-                  key={tech}
-                  className="font-mono text-[10px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
-                >
-                  {tech}
-                </span>
-              ))}
-              {project.technologies.length > 3 && (
-                <span className="font-mono text-[10px] text-muted shrink-0">
-                  +{project.technologies.length - 3}
-                </span>
-              )}
-            </div>
-
-            {/* CTAs */}
-            <div className="flex items-center gap-2 shrink-0">
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cursor-text="LIVE DEMO ↗"
-                  className="inline-flex items-center justify-center min-h-[38px] min-w-[38px] px-2 text-muted hover:text-emerald-500 border border-border bg-page hover:bg-surface-subtle rounded-xs active:scale-[0.96] transition-colors"
-                  aria-label={`Visit live site for ${project.title}`}
-                  title="Live Production"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                </a>
-              )}
-              {hasArchitectureInspector && (
-                <button
-                  type="button"
-                  onClick={() => setIsArchModalOpen(true)}
-                  data-cursor-text="SYSTEM FLOW ⚙"
-                  className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 min-h-[38px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer select-none"
-                  title="Inspect real sequence and concurrency flow"
-                >
-                  <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
-                  <span>FLOW ⚙</span>
-                </button>
-              )}
-              <Link
-                to={`/work/${project.slug}`}
-                data-cursor-text="CASE STUDY ↗"
-                className="inline-flex items-center justify-center gap-1 px-3 py-1.5 min-h-[38px] text-[11px] font-mono font-semibold rounded-xs bg-foreground text-page hover:bg-foreground/90 active:scale-[0.96] transition-all group/cta shadow-xs"
-                aria-label={`Read case study for ${project.title}`}
+          {/* Dedicated Stack Chips Row (Full Width, Zero Collision with Buttons!) */}
+          <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+            <span className="text-[9px] font-mono text-muted tracking-widest uppercase mr-0.5">
+              STACK:
+            </span>
+            {project.technologies.slice(0, 4).map((tech) => (
+              <span
+                key={tech}
+                className="font-mono text-[10px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
               >
-                <span>CASE STUDY</span>
-                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-0.5" aria-hidden="true" />
-              </Link>
-            </div>
+                {tech}
+              </span>
+            ))}
+            {project.technologies.length > 4 && (
+              <span className="font-mono text-[10px] text-muted">
+                +{project.technologies.length - 4}
+              </span>
+            )}
+          </div>
+
+          {/* Dedicated Bottom Action Dock (Full Width Grid, 40px Touch Targets, Zero Overlap) */}
+          <div className="pt-3 border-t border-border grid grid-cols-2 gap-2 text-xs font-mono mt-1">
+            {hasArchitectureInspector ? (
+              <button
+                type="button"
+                onClick={() => setIsArchModalOpen(true)}
+                data-cursor-text="SYSTEM FLOW ⚙"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.97] transition-all cursor-pointer select-none"
+                title="Inspect real sequence and concurrency flow"
+              >
+                <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+                <span>SYSTEM FLOW</span>
+              </button>
+            ) : project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor-text="LIVE DEMO ↗"
+                className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.97] transition-all"
+                aria-label={`Visit live site for ${project.title}`}
+              >
+                <span>LIVE DEMO</span>
+                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" aria-hidden="true" />
+              </a>
+            ) : (
+              <div className="flex items-center justify-center text-[10px] font-mono text-muted border border-border/50 rounded-xs bg-page/50">
+                ● PROD DEPLOYED
+              </div>
+            )}
+
+            <Link
+              to={`/work/${project.slug}`}
+              data-cursor-text="CASE STUDY ↗"
+              className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-bold rounded-xs bg-foreground text-page hover:bg-foreground/90 active:scale-[0.97] transition-all group/cta shadow-xs"
+              aria-label={`Read case study for ${project.title}`}
+            >
+              <span>CASE STUDY</span>
+              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </div>
