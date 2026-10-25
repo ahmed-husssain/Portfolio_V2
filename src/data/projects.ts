@@ -1,3 +1,10 @@
+export interface ProjectSlide {
+  image: string
+  title: string
+  description?: string
+  tag?: string
+}
+
 export interface Project {
   slug: string
   title: string
@@ -14,6 +21,7 @@ export interface Project {
   githubUrl?: string
   image?: string
   gallery?: string[]
+  gallerySlides?: ProjectSlide[]
   role?: string
   problem?: string
   solution?: string
@@ -54,6 +62,43 @@ export const PROJECTS: Project[] = [
       '/projects/shifamanagement/slide-3.webp',
       '/projects/shifamanagement/slide-4.webp',
       '/projects/shifamanagement/slide-5.webp',
+    ],
+    gallerySlides: [
+      {
+        image: '/projects/shifamanagement/slide-1.webp',
+        title: 'Clinical Operations Dashboard (System 2.0)',
+        tag: 'CLINICAL CORE',
+        description:
+          'Cross-platform Flutter operating dashboard tracking active patients, 14-day renewal alerts, and real-time clinical activity logs.',
+      },
+      {
+        image: '/projects/shifamanagement/slide-2.webp',
+        title: '1-Click WhatsApp Invoice Dispatch',
+        tag: 'AUTOMATION PIPELINE',
+        description:
+          'Automated invoice PDF generation with instantaneous WhatsApp API dispatch and verified delivery status.',
+      },
+      {
+        image: '/projects/shifamanagement/slide-3.webp',
+        title: 'Intelligent Care Alerts & Expiration Monitoring',
+        tag: 'REACTIVE CDC ENGINE',
+        description:
+          'PostgreSQL CDC replication stream monitoring 7-day care plan expirations with priority clinician notifications.',
+      },
+      {
+        image: '/projects/shifamanagement/slide-4.webp',
+        title: 'Atomic Soft-Delete & Audit History',
+        tag: 'COMPLIANCE & AUDIT',
+        description:
+          'Row Level Security-governed patient records with immutable audit logs preventing accidental medical data loss.',
+      },
+      {
+        image: '/projects/shifamanagement/slide-5.webp',
+        title: 'Zero-Cost Spark Serverless Architecture',
+        tag: 'INFRASTRUCTURE',
+        description:
+          'High-availability Supabase and PostgreSQL 15 configuration maintaining zero infrastructure operational costs.',
+      },
     ],
     architecture: [
       'Multi-platform Flutter architecture with Riverpod reactive state management',
@@ -96,6 +141,22 @@ export const PROJECTS: Project[] = [
     gallery: [
       '/projects/online-art-gallery/slide-1.webp',
       '/projects/online-art-gallery/slide-2.webp',
+    ],
+    gallerySlides: [
+      {
+        image: '/projects/online-art-gallery/slide-1.webp',
+        title: 'Hero & Curated Artwork Showcase',
+        tag: 'VISUAL SHOWCASE',
+        description:
+          'Interactive artwork discovery stage built with responsive layouts, high-fidelity image delivery, and sub-millisecond catalog caching.',
+      },
+      {
+        image: '/projects/online-art-gallery/slide-2.webp',
+        title: 'Curated Catalog & Live Bidding Arena',
+        tag: 'CONCURRENCY ENGINE',
+        description:
+          'Real-time WebSocket auction floor powered by ASP.NET Core SignalR and Optimistic Concurrency Control (OCC) preventing bid collisions.',
+      },
     ],
     architecture: [
       'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing live bid collisions',
@@ -190,6 +251,42 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://readly.gt.tc/User/Pages/home.php',
     githubUrl: 'https://github.com/ahmed-husssain/E-books',
     image: '/projects/e-books/preview.webp',
+    gallery: [
+      '/projects/e-books/slide-1.webp',
+      '/projects/e-books/slide-2.webp',
+      '/projects/e-books/slide-3.webp',
+      '/projects/e-books/slide-4.webp',
+    ],
+    gallerySlides: [
+      {
+        image: '/projects/e-books/slide-1.webp',
+        title: 'Hero & Reading Community Portal',
+        tag: 'DISCOVERY PORTAL',
+        description:
+          'Reader acquisition landing page featuring clean typography, direct book discovery pathways, and reading competition gateway.',
+      },
+      {
+        image: '/projects/e-books/slide-2.webp',
+        title: 'Faceted Catalog Search & Filtering',
+        tag: 'INDEXED QUERY ENGINE',
+        description:
+          'Multi-category faceted navigation across genres (History, Fiction, Islamic, Education) with real-time format toggles (PDF, CD, Hardcopy) and price filters.',
+      },
+      {
+        image: '/projects/e-books/slide-3.webp',
+        title: 'Book Specification & Inventory Allocation',
+        tag: 'COMMERCE PIPELINE',
+        description:
+          'Granular book specification sheet featuring multi-format selection (Hardcover $55.00), real-time stock allocation (77 available), and cart checkout pipeline.',
+      },
+      {
+        image: '/projects/e-books/slide-4.webp',
+        title: 'Platform Story & Community Milestones',
+        tag: 'COMMUNITY & IMPACT',
+        description:
+          'About section detailing platform mission, community growth metrics (Founded 2020, 62 active readers, 46 titles), and digital library vision.',
+      },
+    ],
     architecture: [
       'Modular PHP backend with secure session handling and user authentication',
       'Normalized MySQL relational database schema managing user collections and book data',

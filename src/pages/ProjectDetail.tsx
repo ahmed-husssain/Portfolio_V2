@@ -18,6 +18,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import ArchitectureVisualizer from '../components/ArchitectureVisualizer'
 import BackLink from '../components/ui/BackLink'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
+import ProjectCarousel from '../components/ProjectCarousel'
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -76,6 +77,17 @@ export default function ProjectDetail() {
   const challenges = caseStudy?.challenges || project.challenges
   const outcome = caseStudy?.outcome || project.outcome
   const overview = caseStudy?.overview
+
+  const carouselSlides =
+    project.gallerySlides ||
+    (project.gallery
+      ? project.gallery.map((img, i) => ({
+          image: img,
+          title: `System Specification Slide 0${i + 1}`,
+          description: `Architectural and interface workflow preview for ${project.title}.`,
+          tag: 'SPECIFICATION PREVIEW',
+        }))
+      : [])
 
   return (
     <article className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
@@ -335,11 +347,16 @@ export default function ProjectDetail() {
           )}
 
           {/* ─── 9. Visual Architecture & Specification Gallery ─── */}
-          {project.gallery && project.gallery.length > 0 && (
+          {carouselSlides.length > 0 && (
             <section className="space-y-6 pt-6 border-t border-border">
-              <div className="flex items-center gap-2 text-xs font-mono text-muted pb-2 border-b border-border">
-                <Image className="w-4 h-4 pixel-icon" aria-hidden="true" />
-                <span className="text-foreground font-semibold uppercase">SYSTEM WORKFLOWS & INTERFACE PREVIEWS</span>
+              <div className="flex items-center justify-between pb-2 border-b border-border text-xs font-mono">
+                <div className="flex items-center gap-2 text-muted">
+                  <Image className="w-4 h-4 pixel-icon" aria-hidden="true" />
+                  <span className="text-foreground font-semibold uppercase">SYSTEM WORKFLOWS & INTERFACE PREVIEWS</span>
+                </div>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold hidden sm:inline">
+                  {carouselSlides.length} INTERACTIVE SCREENS
+                </span>
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
@@ -349,38 +366,8 @@ export default function ProjectDetail() {
                   Feature walkthroughs, database-backed user flows, and core UI interfaces.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                {project.gallery.map((imgSrc, idx) => (
-                  <div
-                    key={idx}
-                    className="group rounded-sm overflow-hidden border border-border bg-surface hover:border-border-strong transition-all flex flex-col pixel-corners"
-                  >
-                    <div className="aspect-[16/10] w-full overflow-hidden bg-page flex items-center justify-center">
-                      <img
-                        src={imgSrc}
-                        alt={`${project.title} Architectural Specification Slide ${idx + 1}`}
-                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-3 border-t border-border/60 bg-surface flex items-center justify-between text-xs font-mono">
-                      <span className="text-muted text-[11px] uppercase tracking-wider">
-                        SPECIFICATION · SLIDE 0{idx + 1}
-                      </span>
-                      <span className="text-foreground font-medium text-[11px]">
-                        {project.slug === 'online-art-gallery' && idx === 0 && 'Hero & 3D Artwork Showcase'}
-                        {project.slug === 'online-art-gallery' && idx === 1 && 'Curated Artwork Catalog & Bidding'}
-                        {project.slug === 'shifamanagement' && idx === 0 && 'System 2.0 Dashboard'}
-                        {project.slug === 'shifamanagement' && idx === 1 && '1-Click WhatsApp Dispatch'}
-                        {project.slug === 'shifamanagement' && idx === 2 && 'Intelligent Care Alerts'}
-                        {project.slug === 'shifamanagement' && idx === 3 && 'Atomic Soft-Delete & Audit'}
-                        {project.slug === 'shifamanagement' && idx === 4 && 'Zero-Cost Spark Architecture'}
-                        {project.slug !== 'online-art-gallery' && project.slug !== 'shifamanagement' && `System Slide ${idx + 1}`}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+
+              <ProjectCarousel slides={carouselSlides} projectTitle={project.title} />
             </section>
           )}
 
