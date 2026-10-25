@@ -266,8 +266,12 @@ export default function Navbar() {
           />
         </nav>
 
-        {/* Mobile Minimal Menu Trigger (At Top of Page) */}
-        <div className="flex items-center gap-3 md:hidden pointer-events-auto h-8">
+        {/* Mobile Minimal Menu Trigger (At Top of Page) - Gracefully fades out when drawer is open */}
+        <div
+          className={`flex items-center gap-3 md:hidden pointer-events-auto h-8 transition-opacity duration-200 ${
+            menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+        >
           <ThemeToggle />
           <button
             type="button"
@@ -390,7 +394,7 @@ export default function Navbar() {
                     opacity: menuOpen ? 1 : 0,
                     transition: menuOpen
                       ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, opacity 400ms ease 120ms'
-                      : 'transform 250ms ease-in, opacity 200ms ease-in',
+                      : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
                   }}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
@@ -428,7 +432,7 @@ export default function Navbar() {
                     opacity: menuOpen ? 1 : 0,
                     transition: menuOpen
                       ? `transform 550ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 400ms ease ${delay}ms`
-                      : 'transform 250ms ease-in, opacity 200ms ease-in',
+                      : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
                   }}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
@@ -459,7 +463,7 @@ export default function Navbar() {
             opacity: menuOpen ? 1 : 0,
             transition: menuOpen
               ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 400ms, opacity 400ms ease 400ms'
-              : 'transform 200ms ease-in, opacity 180ms ease-in',
+              : 'transform 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 150ms ease-out',
           }}
         >
           {/* Row 1: Direct Email on its own line */}
