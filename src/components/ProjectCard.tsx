@@ -112,6 +112,38 @@ function getSafeguardLabel(slug: string): string {
   }
 }
 
+/** Specification table Row 1 label */
+function getSpecLabel1(slug: string): string {
+  switch (slug) {
+    case 'online-art-gallery':
+      return 'CONCURRENCY'
+    case 'mockrithm':
+      return 'AI SIMULATOR'
+    case 'amber-property-corner':
+      return 'DATA MODEL'
+    case 'e-books':
+      return 'AUTH & SESSIONS'
+    default:
+      return 'SAFEGUARD'
+  }
+}
+
+/** Specification table Row 2 label */
+function getSpecLabel2(slug: string): string {
+  switch (slug) {
+    case 'online-art-gallery':
+      return 'IDEMPOTENCY'
+    case 'mockrithm':
+      return 'EVALUATION'
+    case 'amber-property-corner':
+      return 'INDEX TUNING'
+    case 'e-books':
+      return 'SCHEMA KERNEL'
+    default:
+      return 'ARCHITECTURE'
+  }
+}
+
 interface ProjectCardProps {
   project: Project
   className?: string
@@ -438,7 +470,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         {/* ─── RIGHT COLUMN: Engineering Datasheet ─── */}
         <div className="lg:w-7/12 p-7 flex flex-col justify-between gap-5 relative z-20">
 
-          {/* ── Header: Index + Slug + Verified Commit ── */}
+          {/* ── Header: Index + Slug + Telemetry Badges ── */}
           <div className="flex items-center justify-between gap-2 border-b border-border pb-3 text-micro-caps">
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               {index !== undefined && (
@@ -454,17 +486,34 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               </span>
             </div>
 
-            {/* Verified Commit Telemetry Badge */}
-            {commitLabel && (
-              <span
-                className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
-                title={`Last commit: ${commitLabel}`}
-              >
-                <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
-                <span className="text-muted">COMMIT:</span>
-                <span className="text-foreground font-semibold">{commitLabel}</span>
-              </span>
-            )}
+            {/* Right Telemetry Badges: System Flow Trigger + Commit */}
+            <div className="flex items-center gap-2 shrink-0">
+              {hasArchitectureInspector && (
+                <button
+                  type="button"
+                  onClick={() => setIsArchModalOpen(true)}
+                  data-cursor-text="SYSTEM FLOW ⚙"
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
+                  title="Inspect real sequence and concurrency flow"
+                  aria-label={`SYSTEM FLOW: Inspect real sequence and concurrency flow for ${project.title}`}
+                >
+                  <Cpu className="w-3 h-3 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>SYSTEM FLOW</span>
+                  <span className="text-[9px]" aria-hidden="true">↗</span>
+                </button>
+              )}
+
+              {commitLabel && (
+                <span
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
+                  title={`Last commit: ${commitLabel}`}
+                >
+                  <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span className="text-muted">COMMIT:</span>
+                  <span className="text-foreground font-semibold">{commitLabel}</span>
+                </span>
+              )}
+            </div>
           </div>
 
           {/* ── Title + Editorial Serif Italic Accent + Short Description ── */}
@@ -473,11 +522,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               to={`/work/${project.slug}`}
               className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
             >
-              <h3
-                className={`font-bold text-foreground tracking-tight leading-tight group-hover/title:text-emerald-500 transition-colors ${
-                  isFlagship ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'
-                }`}
-              >
+              <h3 className="font-bold text-foreground text-2xl sm:text-3xl tracking-tight leading-tight group-hover/title:text-emerald-500 transition-colors">
                 {project.title}{' '}
                 <span className="font-serif italic font-normal text-muted group-hover/title:text-emerald-500/80 transition-colors">
                   {editorialSubtitle}
@@ -490,11 +535,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           </div>
 
           {/* ── Architecture Specification Table (Proof Points) ── */}
-          {isFlagship && project.architecture && project.architecture.length > 0 ? (
+          {project.architecture && project.architecture.length > 0 ? (
             <div className="rounded-xs border border-border bg-page/50 divide-y divide-border/60 text-xs font-mono overflow-hidden">
               <div className="p-3 flex items-start gap-3">
                 <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
-                  {project.slug === 'online-art-gallery' ? 'CONCURRENCY' : 'SAFEGUARD'}
+                  {getSpecLabel1(project.slug)}
                 </span>
                 <span className="text-secondary leading-relaxed">
                   {project.architecture[0]}
@@ -503,7 +548,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               {project.architecture[1] && (
                 <div className="p-3 flex items-start gap-3">
                   <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
-                    {project.slug === 'online-art-gallery' ? 'IDEMPOTENCY' : 'ARCHITECTURE'}
+                    {getSpecLabel2(project.slug)}
                   </span>
                   <span className="text-secondary leading-relaxed">
                     {project.architecture[1]}
@@ -540,11 +585,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )
           )}
 
-          {/* ── Footer: Stack Chips + CTAs ── */}
-          <div className="pt-2 border-t border-border flex flex-wrap items-center justify-between gap-3 mt-auto text-xs font-mono">
+          {/* ── Footer: Stack Chips + Case Study CTA (Single-Line Disciplined Rhythm) ── */}
+          <div className="pt-2 border-t border-border flex items-center justify-between gap-3 mt-auto text-xs font-mono">
             {/* Tech chips */}
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5">
+            <div className="flex flex-wrap items-center gap-1.5 min-w-0">
+              <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5 shrink-0">
                 STACK:
               </span>
               {project.technologies.slice(0, 4).map((tech) => (
@@ -556,37 +601,22 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 </span>
               ))}
               {project.technologies.length > 4 && (
-                <span className="font-mono text-[10px] text-muted">
+                <span className="font-mono text-[10px] text-muted shrink-0">
                   +{project.technologies.length - 4}
                 </span>
               )}
             </div>
 
-            {/* Action CTAs */}
-            <div className="flex items-center gap-2.5 shrink-0">
-              {hasArchitectureInspector && (
-                <button
-                  type="button"
-                  onClick={() => setIsArchModalOpen(true)}
-                  data-cursor-text="SYSTEM FLOW ⚙"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer select-none"
-                  title="Inspect real sequence and concurrency flow"
-                >
-                  <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
-                  <span>VIEW SYSTEM FLOW</span>
-                </button>
-              )}
-
-              <Link
-                to={`/work/${project.slug}`}
-                data-cursor-text="CASE STUDY ↗"
-                className="inline-flex items-center gap-1 text-foreground font-semibold hover:text-emerald-500 active:scale-[0.96] transition-colors group/cta"
-                aria-label={`CASE STUDY: Read full case study for ${project.title}`}
-              >
-                <span>CASE STUDY</span>
-                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
-              </Link>
-            </div>
+            {/* Action CTA */}
+            <Link
+              to={`/work/${project.slug}`}
+              data-cursor-text="CASE STUDY ↗"
+              className="inline-flex items-center gap-1.5 text-foreground font-semibold hover:text-emerald-500 active:scale-[0.96] transition-all group/cta shrink-0 px-2 py-1 rounded-xs hover:bg-surface-subtle"
+              aria-label={`CASE STUDY: Read full case study for ${project.title}`}
+            >
+              <span>CASE STUDY</span>
+              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
+            </Link>
           </div>
 
         </div>
