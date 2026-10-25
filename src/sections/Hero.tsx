@@ -15,7 +15,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
 
   return (
     <section
-      className={`pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 border-b border-border relative overflow-hidden bg-page transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 border-b border-border relative overflow-hidden bg-page transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         isRevealed ? 'animate-hero-pop' : 'opacity-0 pointer-events-none translate-y-10 scale-[0.98]'
       }`}
     >
@@ -86,7 +86,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
         </div>
 
         {/* ─── Mobile Action Group (Touch-Native & Balanced) ─── */}
-        <div className={`flex lg:hidden flex-col gap-2.5 mb-8 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
+        <div className={`flex lg:hidden flex-col gap-2.5 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
           <Button
             href="#work"
             variant="primary"
@@ -118,7 +118,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
         </div>
 
         {/* ─── Desktop Fast Actions (Contact & Resume) ─── */}
-        <div className={`hidden lg:flex items-center justify-between gap-4 mb-8 sm:mb-10 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
+        <div className={`hidden lg:flex items-center justify-between gap-4 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
           <div className="flex items-center gap-3">
             <Button href="/contact" variant="primary" size="md">
               Contact
@@ -140,83 +140,6 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
 
           <div className="flex items-center gap-2 text-micro-caps text-muted font-mono">
             <span>C# · ASP.NET CORE · SQL SERVER · REACT</span>
-          </div>
-        </div>
-
-        {/* ─── Client Value & Practical Pillars (Responsive 2x2 on Mobile, 4x1 on Desktop) ─── */}
-        <div className={`border-t border-border pt-6 sm:pt-8 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 ${isRevealed ? 'animate-hero-in delay-180' : 'opacity-0'}`}>
-          <div
-            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
-            style={{ boxShadow: 'var(--hairline-top)' }}
-          >
-            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              FULL-STACK
-            </span>
-            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
-              End-to-End Apps
-            </span>
-            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
-              ASP.NET Core APIs, SQL Server & modern UI
-            </span>
-          </div>
-
-          <div
-            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
-            style={{ boxShadow: 'var(--hairline-top)' }}
-          >
-            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              DATA INTEGRITY
-            </span>
-            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
-              Reliable Databases
-            </span>
-            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
-              Normalized schemas & ACID transactions
-            </span>
-          </div>
-
-          <div
-            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
-            style={{ boxShadow: 'var(--hairline-top)' }}
-          >
-            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              PROBLEM SOLVING
-            </span>
-            <span className="text-sm sm:text-lg font-bold font-mono text-emerald-500 tracking-tight leading-tight">
-              Edge Cases
-            </span>
-            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
-              Concurrency tokens & error recovery
-            </span>
-          </div>
-
-          <div
-            className="p-3 sm:p-4 rounded-xs border border-border bg-surface flex flex-col gap-1 sm:gap-1.5 transition-[transform,border-color] duration-150 ease-out hover:-translate-y-0.5 hover:border-border-strong shadow-2xs pixel-corners"
-            style={{ boxShadow: 'var(--hairline-top)' }}
-          >
-            <span className="text-[10px] sm:text-micro-caps text-muted font-mono">
-              WORK ETHIC
-            </span>
-            <span className="text-sm sm:text-lg font-bold font-mono text-foreground tracking-tight leading-tight">
-              Clean Execution
-            </span>
-            <span className="text-[10px] sm:text-[11px] font-mono text-secondary leading-snug">
-              Readable code, tests & clear updates
-            </span>
-          </div>
-        </div>
-
-        {/* ─── Bottom Status & Local Time Bar ─── */}
-        <div className={`border-t border-border mt-8 sm:mt-10 pt-4 flex flex-wrap items-center justify-between gap-3 text-micro-caps text-muted font-mono ${isRevealed ? 'animate-hero-in delay-240' : 'opacity-0'}`}>
-          <div className="flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-            <span className="text-secondary font-medium">KARACHI, PAKISTAN</span>
-            <span className="text-border-strong hidden sm:inline" aria-hidden="true">·</span>
-            <span className="hidden sm:inline text-muted">AVAILABLE FOR REMOTE & ON-SITE ROLES</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <KarachiClock showIcon format="full" />
           </div>
         </div>
       </Container>
