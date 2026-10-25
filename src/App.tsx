@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
-import ScrollToTop from './components/layout/ScrollToTop'
 import PageTransition from './components/layout/PageTransition'
 import ScrollProgress from './components/layout/ScrollProgress'
 import SmoothScroll from './components/layout/SmoothScroll'
@@ -42,7 +41,6 @@ export default function App() {
       <BrowserRouter>
         <SmoothScroll>
           <SplashProvider>
-            <ScrollToTop />
             <div className="min-h-screen bg-page text-foreground flex flex-col selection:bg-accent-bg selection:text-accent-text">
               {/* ─── Ambient Scroll Progress Indicator (Flow Theory) ─── */}
               <ScrollProgress />
