@@ -256,6 +256,7 @@ export const PROJECTS: Project[] = [
       '/projects/e-books/slide-2.webp',
       '/projects/e-books/slide-3.webp',
       '/projects/e-books/slide-4.webp',
+      '/projects/e-books/slide-5.webp',
     ],
     gallerySlides: [
       {
@@ -285,6 +286,13 @@ export const PROJECTS: Project[] = [
         tag: 'COMMUNITY & IMPACT',
         description:
           'About section detailing platform mission, community growth metrics (Founded 2020, 62 active readers, 46 titles), and digital library vision.',
+      },
+      {
+        image: '/projects/e-books/slide-5.webp',
+        title: 'Relational MySQL Schema & 9-Table Architecture',
+        tag: 'DATABASE KERNEL',
+        description:
+          'Normalized relational schema hosted on InfinityFree MySQL (InnoDB) managing users, books, orders, submissions, categories, and competition winners with zero redundancy.',
       },
     ],
     architecture: [
