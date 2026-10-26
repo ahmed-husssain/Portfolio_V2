@@ -1,0 +1,99 @@
+export const metadata = {
+  slug: 'probabilistic-filters',
+  title: 'From Bloom to Binary Fuse: The Evolution of Probabilistic Filters',
+  description:
+    'A field breakdown of Bloom, Cuckoo, XOR, and Binary Fuse filters—how space efficiency, CPU cache locality, and deletion trade-offs evolved to near-theoretical limits.',
+  date: '2026-10-26',
+  tags: ['System Design', 'Databases', 'Algorithms', 'Backend'],
+  published: true,
+  type: 'learning',
+  readTime: '5 MIN READ',
+  takeaway: 'Use Cuckoo filters when dynamic deletions are required; use Binary Fuse filters for immutable lookups where you need maximum query speed at 1.12 bits per key.',
+  image: '/writing/probabilistic-filters-comparison.svg',
+  imageAlt: 'Probabilistic Membership Filters Comparative Architecture Diagram',
+}
+
+# From Bloom to Binary Fuse: The Evolution of Probabilistic Filters
+
+In high-throughput storage engines (such as RocksDB, Cassandra, and PostgreSQL LSM trees), the slowest operation is reading from disk to discover that a requested key **does not exist**.
+
+To avoid unnecessary disk seeks, databases place a **Probabilistic Membership Filter** (an Approximate Membership Query data structure) in memory. If the filter returns `false`, the item is guaranteed not to exist—allowing the system to skip the disk I/O entirely.
+
+Over the last 50 years, the design of these filters underwent a radical evolution from simple bit arrays to linear-system peeling algorithms.
+
+<Figure
+  src="/writing/probabilistic-filters-comparison.svg"
+  alt="Probabilistic Membership Filters: Bloom vs Cuckoo vs XOR vs Binary Fuse"
+  caption="FIG 1.0 — Architectural layout, memory access patterns, and deletion mechanics across all 4 generations."
+/>
+
+---
+
+## 1. Bloom Filters (1970) — The Standard Pioneer
+
+A Bloom filter is an array of `m` bits initially set to zero. To insert an element, it is hashed with `k` independent hash functions, and the bits at indices `h1(x), h2(x), ... hk(x)` are set to `1`.
+
+* **The Query**: Check if all `k` bit positions are `1`. If any bit is `0`, the element is definitely not in the set.
+* **The Fatal Flaw**: **You cannot delete items.** Clearing a bit could accidentally delete another key that shared that hashed position.
+* **CPU Cache Penalty**: Checking `k` random bit indices scattered across a large array causes up to `k` independent CPU cache-line misses per query.
+
+---
+
+## 2. Cuckoo Filters (2014) — Dynamic Deletions & Better Locality
+
+Cuckoo filters replaced the raw bit array with an array of buckets storing short **fingerprints** (e.g., 8 to 12 bits) of items using Cuckoo Hashing:
+
+```text
+bucket_1 = hash(x)
+bucket_2 = bucket_1 ⊕ hash(fingerprint(x))
+```
+
+* **Why it wins**: 
+  1. **O(1) Deletions**: Deleting an item merely requires removing its fingerprint from one of its two candidate buckets.
+  2. **Cache Locality**: A lookup inspects at most **two contiguous buckets** in memory, dramatically reducing CPU cache misses compared to a Bloom filter.
+  3. **Space Efficiency**: For false positive rates under 3%, Cuckoo filters use fewer bits per item than Bloom filters.
+
+---
+
+## 3. XOR Filters (2019) — Faster Lookups for Immutable Data
+
+In 2019, Daniel Lemire and Martin Dietzfelbinger published the **XOR Filter**. It departs from hash tables entirely and models filter construction as solving a system of linear equations over GF(2):
+
+```text
+B[h0(x)] ⊕ B[h1(x)] ⊕ B[h2(x)] == fingerprint(x)
+```
+
+* **The Mechanism**: Construction uses a graph "peeling" algorithm. If the graph contains a vertex of degree 1, it is peeled and assigned a value so the XOR equality holds.
+* **The Trade-off**: It is **immutable** (static). You construct it once from a known batch of keys.
+* **The Advantage**: Lookups take exactly **3 memory reads** and 2 XOR operations. It is ~20% smaller than a Bloom filter and measurably faster in production.
+
+---
+
+## 4. Binary Fuse Filters (2020) — Near-Theoretical Space Efficiency
+
+Introduced by Thomas Mueller Graf and Daniel Lemire in 2020, **Binary Fuse Filters** represent the modern state of the art in static membership testing.
+
+Instead of dividing the array into three disjoint sections (as XOR filters do), Binary Fuse filters use **overlapping segment windows** with fuse parameters:
+
+* **Information-Theoretic Efficiency**: Approaches the theoretical limit of `~1.12 * log2(1 / epsilon)` bits per key. For a 1% false positive rate, it uses just ~9 bits per item, compared to ~10 bits in Bloom and ~9.8 bits in XOR.
+* **Linear Time Construction**: Construction is significantly faster and uses less memory overhead than standard XOR filters.
+
+---
+
+## Engineering Decision Matrix
+
+| Dimension | Bloom Filter | Cuckoo Filter | XOR Filter | Binary Fuse Filter |
+| :--- | :--- | :--- | :--- | :--- |
+| **Year** | 1970 | 2014 | 2019 | 2020 |
+| **Supports Deletions?** | No | Yes (O(1)) | No (Static) | No (Static) |
+| **Dynamic Inserts?** | Yes | Yes (Until full) | No (Batch build) | No (Batch build) |
+| **Bits / Key (at 1% FPR)**| ~9.6 – 10.0 | ~8.4 – 9.0 | ~9.8 | ~8.9 – 9.1 |
+| **Memory Accesses** | k random seeks | At most 2 buckets | Exactly 3 seeks | Exactly 3 seeks |
+| **Best Production Fit** | Legacy systems / streaming data | Active write workloads with deletions | Immutable read tables | Static SSTables & read-only indexes |
+
+---
+
+## The Practitioner's Rule of Thumb
+
+1. **If your dataset requires dynamic writes and deletions**: Use **Cuckoo Filters**. It gives you clean deletions and high CPU cache locality without wasting 4x memory on Counting Bloom Filters.
+2. **If your dataset is immutable (e.g. RocksDB SSTables, static indexes, pre-computed search indices)**: Use **Binary Fuse Filters**. It gives you the lowest memory consumption, instantaneous batch construction, and blazing-fast 3-read lookups.

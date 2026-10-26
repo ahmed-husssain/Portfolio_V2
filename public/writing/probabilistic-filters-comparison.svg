@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      .bg { fill: #0A0A0C; }
+      .grid-line { stroke: #18181E; stroke-width: 1; stroke-dasharray: 4 4; }
+      .card-bg { fill: #111116; stroke: #262630; stroke-width: 1.5; }
+      .card-accent { fill: #14141B; stroke: #EDEDED; stroke-width: 1.5; }
+      .label-mono { font-family: 'Geist Mono', monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.08em; }
+      .title-mono { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
+      .badge-tag { fill: #1F1F27; stroke: #2E2E3C; }
+      .badge-text { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #D4D4D8; }
+      .text-desc { font-family: 'Geist', sans-serif; font-size: 11px; fill: #A1A1AA; line-height: 1.4; }
+      .stat-val { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; fill: #EDEDED; }
+      .stat-lbl { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #71717A; }
+      .bit-box { fill: #1E1E26; stroke: #333342; stroke-width: 1; }
+      .bit-active { fill: #EDEDED; stroke: #FFFFFF; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="920" height="540" class="bg" />
+
+  <!-- Grid Lines -->
+  <line x1="40" y1="0" x2="40" y2="540" class="grid-line" />
+  <line x1="460" y1="0" x2="460" y2="540" class="grid-line" />
+  <line x1="880" y1="0" x2="880" y2="540" class="grid-line" />
+  <line x1="0" y1="50" x2="920" y2="50" class="grid-line" />
+  <line x1="0" y1="490" x2="920" y2="490" class="grid-line" />
+
+  <!-- Header Telemetry -->
+  <text x="50" y="32" class="label-mono">ALGORITHMS // AMQ DATA STRUCTURES</text>
+  <text x="50" y="70" class="title-mono">PROBABILISTIC MEMBERSHIP FILTERS: THE 50-YEAR EVOLUTION</text>
+  <text x="50" y="88" class="text-desc">Comparative architectural analysis of space-efficiency, cache locality, and deletion trade-offs.</text>
+
+  <!-- 1. BLOOM FILTER (1970) -->
+  <g transform="translate(50, 115)">
+    <rect width="395" height="165" rx="3" class="card-bg" />
+    <rect x="12" y="12" width="55" height="16" rx="2" class="badge-tag" />
+    <text x="17" y="23" class="badge-text">CLASSIC</text>
+    <text x="75" y="24" class="title-mono">1. Bloom Filter (1970)</text>
+
+    <!-- Visual Bit Array representation -->
+    <g transform="translate(12, 42)">
+      <rect x="0" y="0" width="22" height="18" rx="1" class="bit-box" />
+      <rect x="25" y="0" width="22" height="18" rx="1" class="bit-box bit-active" />
+      <rect x="50" y="0" width="22" height="18" rx="1" class="bit-box" />
+      <rect x="75" y="0" width="22" height="18" rx="1" class="bit-box bit-active" />
+      <rect x="100" y="0" width="22" height="18" rx="1" class="bit-box" />
+      <rect x="125" y="0" width="22" height="18" rx="1" class="bit-box bit-active" />
+      <rect x="150" y="0" width="22" height="18" rx="1" class="bit-box" />
+      <text x="180" y="13" class="label-mono">Bit Array + k Hashes</text>
+    </g>
+
+    <text x="12" y="82" class="text-desc">• Checks k random bit positions across the array.</text>
+    <text x="12" y="98" class="text-desc">• Fatal Flaw: Cannot delete keys (causes false negatives).</text>
+    <text x="12" y="114" class="text-desc">• Cache penalty: k random memory seeks per lookup.</text>
+
+    <!-- Stats -->
+    <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
+    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~10.0</tspan></text>
+    <text x="125" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO</tspan></text>
+    <text x="235" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">k (High)</tspan></text>
+  </g>
+
+  <!-- 2. CUCKOO FILTER (2014) -->
+  <g transform="translate(475, 115)">
+    <rect width="395" height="165" rx="3" class="card-bg" />
+    <rect x="12" y="12" width="70" height="16" rx="2" class="badge-tag" />
+    <text x="17" y="23" class="badge-text">MUTABLE</text>
+    <text x="90" y="24" class="title-mono">2. Cuckoo Filter (2014)</text>
+
+    <!-- Visual Cuckoo Bucket representation -->
+    <g transform="translate(12, 42)">
+      <rect x="0" y="0" width="45" height="18" rx="1" class="bit-box bit-active" />
+      <rect x="48" y="0" width="45" height="18" rx="1" class="bit-box" />
+      <text x="105" y="13" class="label-mono">2 Buckets (Cuckoo Hashing)</text>
+    </g>
+
+    <text x="12" y="82" class="text-desc">• Stores variable-length fingerprints in bucket slots.</text>
+    <text x="12" y="98" class="text-desc">• Supports O(1) dynamic deletions via alternate hashing.</text>
+    <text x="12" y="114" class="text-desc">• High locality: Only checks 2 contiguous bucket locations.</text>
+
+    <!-- Stats -->
+    <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
+    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~8.4 – 9.0</tspan></text>
+    <text x="150" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">YES (O(1))</tspan></text>
+    <text x="275" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">2 max</tspan></text>
+  </g>
+
+  <!-- 3. XOR FILTER (2019) -->
+  <g transform="translate(50, 305)">
+    <rect width="395" height="165" rx="3" class="card-bg" />
+    <rect x="12" y="12" width="60" height="16" rx="2" class="badge-tag" />
+    <text x="17" y="23" class="badge-text">STATIC</text>
+    <text x="80" y="24" class="title-mono">3. XOR Filter (2019)</text>
+
+    <!-- Visual XOR 3-segment representation -->
+    <g transform="translate(12, 42)">
+      <rect x="0" y="0" width="40" height="18" rx="1" class="bit-box" />
+      <text x="44" y="13" class="label-mono">⊕</text>
+      <rect x="56" y="0" width="40" height="18" rx="1" class="bit-box bit-active" />
+      <text x="100" y="13" class="label-mono">⊕</text>
+      <rect x="112" y="0" width="40" height="18" rx="1" class="bit-box" />
+      <text x="165" y="13" class="label-mono">== fp(x)</text>
+    </g>
+
+    <text x="12" y="82" class="text-desc">• Static immutable structure based on linear peeling.</text>
+    <text x="12" y="98" class="text-desc">• Evaluates B[h0] ⊕ B[h1] ⊕ B[h2] == fingerprint.</text>
+    <text x="12" y="114" class="text-desc">• ~20% smaller than Bloom with faster lookup speed.</text>
+
+    <!-- Stats -->
+    <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
+    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~9.8</tspan></text>
+    <text x="125" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO (Immutable)</tspan></text>
+    <text x="260" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">3 max</tspan></text>
+  </g>
+
+  <!-- 4. BINARY FUSE FILTER (2020) -->
+  <g transform="translate(475, 305)">
+    <rect width="395" height="165" rx="3" class="card-accent" />
+    <rect x="12" y="12" width="75" height="16" rx="2" class="badge-tag" />
+    <text x="17" y="23" class="badge-text">OPTIMAL</text>
+    <text x="95" y="24" class="title-mono">4. Binary Fuse (2020)</text>
+
+    <!-- Visual Binary Fuse representation -->
+    <g transform="translate(12, 42)">
+      <rect x="0" y="0" width="30" height="18" rx="1" class="bit-box bit-active" />
+      <rect x="25" y="0" width="30" height="18" rx="1" class="bit-box" />
+      <rect x="50" y="0" width="30" height="18" rx="1" class="bit-box bit-active" />
+      <text x="95" y="13" class="label-mono">Overlapping Fuse Windows</text>
+    </g>
+
+    <text x="12" y="82" class="text-desc">• The state of the art in static membership testing.</text>
+    <text x="12" y="98" class="text-desc">• Overlapping segment windows; peels in linear O(N) time.</text>
+    <text x="12" y="114" class="text-desc">• Reaches near-theoretical minimum space at 1.12 bits/key.</text>
+
+    <!-- Stats -->
+    <line x1="12" y1="128" x2="383" y2="128" stroke="#2E2E3C" />
+    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~8.9 – 9.1</tspan></text>
+    <text x="135" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO (Immutable)</tspan></text>
+    <text x="270" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">3 (Locality-tuned)</tspan></text>
+  </g>
+
+  <!-- Footer Telemetry Rule -->
+  <text x="50" y="515" class="label-mono">ENGINEERING VERDICT: USE CUCKOO FOR ACTIVE WRITE WORKLOADS; USE BINARY FUSE FOR READ-HEAVY STATIC SSTABLES</text>
+</svg>

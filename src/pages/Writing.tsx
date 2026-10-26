@@ -7,11 +7,13 @@ import PageHeader from '../components/ui/PageHeader'
 import ContinuityBridge from '../components/ui/ContinuityBridge'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
+import ImageLightboxModal from '../components/ui/ImageLightboxModal'
 
 export default function Writing() {
   useDocumentTitle('Field Notes & Writing — Syed Ahmed Hussain | Software Developer')
 
   const [selectedTag, setSelectedTag] = useState<string>('ALL')
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt?: string; caption?: string } | null>(null)
   const publishedArticles = getPublishedArticles()
   const topics = ['ALL', ...getWritingTopics()]
 
@@ -127,21 +129,30 @@ export default function Writing() {
                         </div>
                       </div>
 
-                      {/* Side-by-side Image Thumbnail (if present) */}
+                      {/* Side-by-side Image Thumbnail with smooth zoom on click */}
                       {article.image && (
-                        <Link
-                          to={`/writing/${article.slug}`}
-                          className="shrink-0 w-full md:w-56 lg:w-64 aspect-[16/10] border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners group/thumb transition-colors"
-                          tabIndex={-1}
-                          aria-hidden="true"
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setLightboxImage({
+                              src: article.image!,
+                              alt: article.imageAlt || article.title,
+                              caption: `${article.title} — Architecture data flow diagram`,
+                            })
+                          }
+                          className="shrink-0 w-full md:w-56 lg:w-64 aspect-[16/10] border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners group/thumb transition-colors relative cursor-zoom-in text-left block"
+                          title="Click to view full diagram"
                         >
                           <img
                             src={article.image}
                             alt={article.imageAlt || article.title}
-                            className="w-full h-full object-cover group-hover/thumb:scale-[1.02] transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover/thumb:scale-[1.03] transition-transform duration-300"
                             loading="lazy"
                           />
-                        </Link>
+                          <div className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white rounded-2xs opacity-0 group-hover/thumb:opacity-100 transition-opacity">
+                            EXPAND ↗
+                          </div>
+                        </button>
                       )}
                     </div>
                   </article>
@@ -170,6 +181,15 @@ export default function Writing() {
           to="/contact"
           actionLabel="GET IN TOUCH"
           className="mt-14 sm:mt-20"
+        />
+
+        {/* Smooth Lightbox Modal */}
+        <ImageLightboxModal
+          isOpen={!!lightboxImage}
+          onClose={() => setLightboxImage(null)}
+          src={lightboxImage?.src || ''}
+          alt={lightboxImage?.alt}
+          caption={lightboxImage?.caption}
         />
       </Container>
     </div>

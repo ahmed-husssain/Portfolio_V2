@@ -4,11 +4,14 @@ import { ArrowLeft, ArrowRight, Calendar, Label, Message, Notebook, Check, Copy,
 import Container from '../components/ui/Container'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
+import ImageLightboxModal from '../components/ui/ImageLightboxModal'
 
 // Dynamic component loaders isolated to this route-level chunk
 const articleLoaders = import.meta.glob<{ default: React.ComponentType<{ components?: any }> }>(
   '../content/writing/*.mdx'
 )
+
+const LightboxContext = React.createContext<(data: { src: string; alt?: string; caption?: string }) => void>(() => {})
 
 // MDX Code block with tactile 1-click Copy button
 function CodeBlock(props: React.HTMLAttributes<HTMLPreElement>) {
@@ -63,25 +66,35 @@ const TwoColumn = ({ children, className = '' }: { children?: React.ReactNode; c
   </div>
 )
 
-const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: string }) => (
-  <figure className="my-6">
-    <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners">
-      {src && (
-        <img
-          src={src}
-          alt={alt || caption || ''}
-          className="w-full h-auto object-cover block"
-          loading="lazy"
-        />
+const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: string }) => {
+  const openLightbox = React.useContext(LightboxContext)
+  return (
+    <figure className="my-6">
+      <div
+        onClick={() => src && openLightbox({ src, alt, caption })}
+        className="border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners cursor-zoom-in relative group transition-colors"
+        title="Click to view full diagram"
+      >
+        {src && (
+          <img
+            src={src}
+            alt={alt || caption || ''}
+            className="w-full h-auto object-cover block group-hover:scale-[1.01] transition-transform duration-200"
+            loading="lazy"
+          />
+        )}
+        <div className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white rounded-2xs opacity-0 group-hover:opacity-100 transition-opacity">
+          EXPAND ↗
+        </div>
+      </div>
+      {caption && (
+        <figcaption className="text-micro-caps text-muted text-center mt-2.5 font-mono">
+          {caption}
+        </figcaption>
       )}
-    </div>
-    {caption && (
-      <figcaption className="text-micro-caps text-muted text-center mt-2.5 font-mono">
-        {caption}
-      </figcaption>
-    )}
-  </figure>
-)
+    </figure>
+  )
+}
 
 // Precision Variant C typography components for MDX rendering
 const mdxComponents = {
@@ -149,6 +162,7 @@ export default function ArticleDetail() {
   const [MdxContent, setMdxContent] = useState<React.ComponentType<{ components?: any }> | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [activeLightbox, setActiveLightbox] = useState<{ src: string; alt?: string; caption?: string } | null>(null)
 
   useEffect(() => {
     if (!slug || !article) {
@@ -212,149 +226,160 @@ export default function ArticleDetail() {
   const isOpinion = article.type === 'opinion'
 
   return (
-    <article className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
-      <Container>
-        <div className="max-w-3xl mx-auto">
-          {/* Top Breadcrumb Navigation */}
-          <nav className="mb-10 sm:mb-14 flex items-center justify-between gap-4 text-xs font-mono">
-            <Link
-              to="/writing"
-              className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors group"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" />
-              <span>BACK TO FIELD NOTES</span>
-            </Link>
-            <span className="text-muted hidden sm:inline-block tracking-wider uppercase">
-              WRITING · {article.slug}
-            </span>
-          </nav>
-
-          {/* Article Header */}
-          <header className="mb-12 sm:mb-16 pb-8 border-b border-border">
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted mb-4">
-              <span className="px-2 py-0.5 bg-surface border border-border text-foreground font-semibold rounded-2xs">
-                {isOpinion ? 'ENGINEERING OPINION' : 'PRODUCTION LEARNING'}
+    <LightboxContext.Provider value={setActiveLightbox}>
+      <article className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            {/* Top Breadcrumb Navigation */}
+            <nav className="mb-10 sm:mb-14 flex items-center justify-between gap-4 text-xs font-mono">
+              <Link
+                to="/writing"
+                className="inline-flex items-center gap-1.5 text-muted hover:text-foreground transition-colors group"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-1" />
+                <span>BACK TO FIELD NOTES</span>
+              </Link>
+              <span className="text-muted hidden sm:inline-block tracking-wider uppercase">
+                WRITING · {article.slug}
               </span>
-              <span className="text-border-strong">·</span>
-              <span className="text-secondary">{article.readTime || '4 MIN READ'}</span>
-              <span className="text-border-strong">·</span>
-              <div className="flex items-center gap-1.5 text-secondary">
-                <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                <time dateTime={article.date}>{article.date}</time>
-              </div>
-            </div>
+            </nav>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-6">
-              {article.title}
-            </h1>
-
-            {/* Core Takeaway Box (if present) */}
-            {article.takeaway && (
-              <div className="my-6 p-4 sm:p-5 bg-surface border-l-2 border-foreground rounded-r-xs font-mono text-xs sm:text-sm text-foreground leading-relaxed pixel-corners">
-                <div className="text-micro-caps text-muted font-semibold mb-1 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
-                  <span>CORE TAKEAWAY / VERDICT</span>
-                </div>
-                <p className="text-foreground/95 font-medium">
-                  "{article.takeaway}"
-                </p>
-              </div>
-            )}
-
-            <p className="text-secondary text-base sm:text-lg leading-relaxed mb-6">
-              {article.description}
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-border">
-              <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
-              {article.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2.5 py-0.5 text-xs font-mono bg-surface border border-border text-secondary rounded-sm"
-                >
-                  {tag}
+            {/* Article Header */}
+            <header className="mb-12 sm:mb-16 pb-8 border-b border-border">
+              <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-muted mb-4">
+                <span className="px-2 py-0.5 bg-surface border border-border text-foreground font-semibold rounded-2xs">
+                  {isOpinion ? 'ENGINEERING OPINION' : 'PRODUCTION LEARNING'}
                 </span>
-              ))}
+                <span className="text-border-strong">·</span>
+                <span className="text-secondary">{article.readTime || '4 MIN READ'}</span>
+                <span className="text-border-strong">·</span>
+                <div className="flex items-center gap-1.5 text-secondary">
+                  <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                  <time dateTime={article.date}>{article.date}</time>
+                </div>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground tracking-tight leading-tight mb-6">
+                {article.title}
+              </h1>
+
+              {/* Core Takeaway Box (if present) */}
+              {article.takeaway && (
+                <div className="my-6 p-4 sm:p-5 bg-surface border-l-2 border-foreground rounded-r-xs font-mono text-xs sm:text-sm text-foreground leading-relaxed pixel-corners">
+                  <div className="text-micro-caps text-muted font-semibold mb-1 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
+                    <span>CORE TAKEAWAY / VERDICT</span>
+                  </div>
+                  <p className="text-foreground/95 font-medium">
+                    "{article.takeaway}"
+                  </p>
+                </div>
+              )}
+
+              <p className="text-secondary text-base sm:text-lg leading-relaxed mb-6">
+                {article.description}
+              </p>
+
+              {/* Tags */}
+              <div className="flex flex-wrap items-center gap-2 pt-4 border-t border-border">
+                <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
+                {article.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-0.5 text-xs font-mono bg-surface border border-border text-secondary rounded-sm"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </header>
+
+            {/* MDX Article Body */}
+            <div className="min-h-[200px]">
+              {loading && (
+                <div className="py-12 flex items-center justify-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
+                  <span className="pixel-beacon bg-foreground" />
+                  <span>LOADING NOTE CONTENT...</span>
+                </div>
+              )}
+
+              {error && (
+                <div className="border border-border bg-surface rounded-sm p-6 text-center text-xs font-mono text-secondary pixel-corners">
+                  {error}
+                </div>
+              )}
+
+              {!loading && !error && MdxContent && (
+                <div className="prose-monochrome">
+                  <MdxContent components={mdxComponents} />
+                </div>
+              )}
             </div>
-          </header>
 
-          {/* MDX Article Body */}
-          <div className="min-h-[200px]">
-            {loading && (
-              <div className="py-12 flex items-center justify-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
-                <span className="pixel-beacon bg-foreground" />
-                <span>LOADING NOTE CONTENT...</span>
+            {/* Author Callout & Feedback Card */}
+            <div className="mt-16 sm:mt-20 border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <div>
+                  <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1">
+                    AUTHOR · SOFTWARE DEVELOPER
+                  </p>
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground">
+                    Syed Ahmed Hussain
+                  </h3>
+                  <p className="text-xs sm:text-sm text-secondary mt-1 max-w-md">
+                    Software Developer (Remote) @ Shifa Healthcare Karachi. Building resilient backend systems, relational schemas, high-throughput APIs, and pragmatic web applications.
+                  </p>
+                </div>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong active:scale-[0.97] transition-all shrink-0 group cursor-pointer"
+                >
+                  <Message className="w-3.5 h-3.5 pixel-icon" />
+                  <span>DISCUSS THIS NOTE</span>
+                </Link>
               </div>
-            )}
+            </div>
 
-            {error && (
-              <div className="border border-border bg-surface rounded-sm p-6 text-center text-xs font-mono text-secondary pixel-corners">
-                {error}
-              </div>
-            )}
-
-            {!loading && !error && MdxContent && (
-              <div className="prose-monochrome">
-                <MdxContent components={mdxComponents} />
-              </div>
-            )}
-          </div>
-
-          {/* Author Callout & Feedback Card */}
-          <div className="mt-16 sm:mt-20 border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <div>
-                <p className="text-xs font-mono text-muted uppercase tracking-wider mb-1">
-                  AUTHOR · SOFTWARE DEVELOPER
-                </p>
-                <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                  Syed Ahmed Hussain
-                </h3>
-                <p className="text-xs sm:text-sm text-secondary mt-1 max-w-md">
-                  Software Developer (Remote) @ Shifa Healthcare Karachi. Building resilient backend systems, relational schemas, high-throughput APIs, and pragmatic web applications.
-                </p>
-              </div>
+            {/* Next Article / Footer Navigation */}
+            <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong active:scale-[0.97] transition-all shrink-0 group cursor-pointer"
+                to="/writing"
+                className="inline-flex items-center gap-2 text-xs font-mono text-secondary hover:text-foreground transition-colors group"
               >
-                <Message className="w-3.5 h-3.5 pixel-icon" />
-                <span>DISCUSS THIS NOTE</span>
+                <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-0.5" />
+                <span>ALL FIELD NOTES</span>
               </Link>
+
+              {nextArticle ? (
+                <Link
+                  to={`/writing/${nextArticle.slug}`}
+                  className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
+                >
+                  <span>NEXT: {nextArticle.title}</span>
+                  <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              ) : (
+                <Link
+                  to="/work"
+                  className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
+                >
+                  <span>EXPLORE SELECTED WORK</span>
+                  <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              )}
             </div>
           </div>
+        </Container>
+      </article>
 
-          {/* Next Article / Footer Navigation */}
-          <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-            <Link
-              to="/writing"
-              className="inline-flex items-center gap-2 text-xs font-mono text-secondary hover:text-foreground transition-colors group"
-            >
-              <ArrowLeft className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:-translate-x-0.5" />
-              <span>ALL FIELD NOTES</span>
-            </Link>
-
-            {nextArticle ? (
-              <Link
-                to={`/writing/${nextArticle.slug}`}
-                className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
-              >
-                <span>NEXT: {nextArticle.title}</span>
-                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            ) : (
-              <Link
-                to="/work"
-                className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-foreground hover:text-secondary transition-colors group text-right"
-              >
-                <span>EXPLORE SELECTED WORK</span>
-                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            )}
-          </div>
-        </div>
-      </Container>
-    </article>
+      {/* Smooth Image Lightbox Viewer */}
+      <ImageLightboxModal
+        isOpen={!!activeLightbox}
+        onClose={() => setActiveLightbox(null)}
+        src={activeLightbox?.src || ''}
+        alt={activeLightbox?.alt}
+        caption={activeLightbox?.caption}
+      />
+    </LightboxContext.Provider>
   )
 }
