@@ -3,10 +3,10 @@ import {
   FileText,
   Calendar,
   Github,
-  Mail,
   User,
-  Cpu,
+  ArrowRight,
 } from 'pixelarticons/react'
+import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
@@ -87,9 +87,9 @@ export default function About() {
           description="Software Developer currently working remotely for Shifa Healthcare Karachi. Specialized in C# / .NET 8, relational database architecture, and verified full-stack systems."
         />
 
-        {/* ─── 2. Current Status & Vitals HUD (Open & Immediate, Zero Hidden Tabs) ─── */}
+        {/* ─── 2. Current Status & Vitals HUD (Open & Immediate) ─── */}
         <Reveal>
-          <section className="mb-10 sm:mb-14">
+          <section className="mb-14 sm:mb-20">
             <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners shadow-sm">
               <div className="flex items-center justify-between border-b border-border bg-surface-subtle/50 px-4 py-2.5">
                 <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted uppercase tracking-wider">
@@ -175,13 +175,13 @@ export default function About() {
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xs border border-border bg-page text-foreground font-semibold hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer"
                   />
 
-                  <a
-                    href="mailto:ahmedhusssain.dev@gmail.com"
+                  <Link
+                    to="/contact"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xs border border-border bg-page text-secondary hover:text-foreground font-semibold hover:border-border-strong active:scale-[0.96] transition-all"
                   >
-                    <Mail className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-                    <span>ahmedhusssain.dev@gmail.com</span>
-                  </a>
+                    <span>CONTACT FORM</span>
+                    <ArrowRight className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
+                  </Link>
 
                   <a
                     href="https://github.com/ahmed-husssain"
@@ -199,67 +199,7 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 3. Proven Technical Arsenal (Fully Open, Scannable in 5s) ─── */}
-        <Reveal>
-          <section className="mb-14 sm:mb-20">
-            <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners shadow-sm">
-              <div className="flex items-center justify-between border-b border-border bg-surface-subtle/50 px-4 py-2.5">
-                <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted uppercase tracking-wider">
-                  <Cpu className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-                  <span className="text-foreground font-semibold">TECH ARSENAL</span>
-                  <span className="text-border-strong">·</span>
-                  <span>VERIFIED STACK BY DEPTH</span>
-                </div>
-                <span className="text-[10px] font-mono text-muted uppercase">PRODUCTION GRADE</span>
-              </div>
-
-              <div className="p-6 sm:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-                  <div className="p-4 rounded-xs border border-border bg-page/50 space-y-2">
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
-                      // BACKEND & RUNTIMES
-                    </span>
-                    <ul className="space-y-1.5 text-secondary text-xs">
-                      <li>• C# (.NET 8 runtime)</li>
-                      <li>• ASP.NET Core MVC & Web API</li>
-                      <li>• MediatR & CQRS architecture</li>
-                      <li>• EF Core 8 & LINQ optimization</li>
-                      <li>• SignalR WebSocket streaming</li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-xs border border-border bg-page/50 space-y-2">
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
-                      // DATA & INTEGRITY
-                    </span>
-                    <ul className="space-y-1.5 text-secondary text-xs">
-                      <li>• SQL Server (T-SQL, Stored Procs)</li>
-                      <li>• PostgreSQL 15 & Supabase RLS</li>
-                      <li>• OCC RowVersion byte[]</li>
-                      <li>• Covering B-Tree indexing</li>
-                      <li>• ACID transaction row-locking</li>
-                    </ul>
-                  </div>
-
-                  <div className="p-4 rounded-xs border border-border bg-page/50 space-y-2">
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider block">
-                      // CLIENTS & DELIVERY
-                    </span>
-                    <ul className="space-y-1.5 text-secondary text-xs">
-                      <li>• Flutter 3.27+ (Cross-Platform)</li>
-                      <li>• Riverpod reactive state</li>
-                      <li>• React 19 & TypeScript</li>
-                      <li>• WhatsApp API dispatch pipeline</li>
-                      <li>• Windows terminal & Git CLI</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
-        {/* ─── 4. Verifiable Career & Credential Timeline ─── */}
+        {/* ─── 3. Verifiable Career & Credential Timeline ─── */}
         <Reveal>
           <section className="mb-16 sm:mb-24">
             <div className="mb-8">
@@ -327,7 +267,7 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 5. Direct Action & Verification Dock ─── */}
+        {/* ─── 4. Direct Action & Verification Dock ─── */}
         <Reveal>
           <section className="mb-14 sm:mb-20 pt-8 border-t border-border">
             <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners">
@@ -363,20 +303,20 @@ export default function About() {
                     className="inline-flex items-center gap-2 px-4 py-2.5 border border-border bg-page text-foreground font-semibold rounded-xs hover:border-border-strong active:scale-[0.96] transition-all cursor-pointer"
                   />
 
-                  <a
-                    href="mailto:ahmedhusssain.dev@gmail.com"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 border border-border bg-page text-secondary hover:text-foreground font-semibold rounded-xs hover:border-border-strong active:scale-[0.96] transition-all"
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 border border-border bg-page text-secondary hover:text-foreground font-semibold hover:border-border-strong active:scale-[0.96] transition-all"
                   >
-                    <Mail className="w-4 h-4 pixel-icon text-emerald-500" />
-                    <span>EMAIL DIRECTLY</span>
-                  </a>
+                    <span>CONTACT FORM</span>
+                    <ArrowRight className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
+                  </Link>
                 </div>
               </div>
             </div>
           </section>
         </Reveal>
 
-        {/* ─── 6. Forward Continuity Bridge to Work ─── */}
+        {/* ─── 5. Forward Continuity Bridge to Work ─── */}
         <ContinuityBridge
           kicker="PROJECT CATALOG"
           title="Explore Production Systems & Case Studies"
