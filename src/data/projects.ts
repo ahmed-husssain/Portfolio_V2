@@ -248,7 +248,7 @@ export const PROJECTS: Project[] = [
     lastCommitDate: '2024-11-15T09:00:00Z',
     lastCommitLabel: 'Nov 15, 2024',
     role: 'Backend & Web Developer',
-    liveUrl: 'https://readly.gt.tc/User/Pages/home.php',
+    liveUrl: 'https://eboooks.infinityfree.io',
     githubUrl: 'https://github.com/ahmed-husssain/E-books',
     image: '/projects/e-books/preview.webp',
     gallery: [
