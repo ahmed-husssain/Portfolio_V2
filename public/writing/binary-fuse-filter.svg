@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      .bg { fill: #0A0A0C; }
+      .grid { stroke: #16161D; stroke-width: 1; stroke-dasharray: 4 4; }
+      .box-panel { fill: #111116; stroke: #23232E; stroke-width: 1.5; }
+      .mono-head { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.12em; }
+      .mono-title { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 15px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
+      .mono-sub { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; fill: #A1A1AA; }
+      .code-font { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; fill: #C4B5FD; }
+      .text-desc { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11.5px; fill: #CBD5E1; }
+      .window-box { fill: #1E1B4B; stroke: #6366F1; stroke-width: 1.5; }
+      .window-overlap { fill: #2E1065; stroke: #A78BFA; stroke-width: 1.5; stroke-dasharray: 3 3; }
+      .stat-val { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; font-weight: 600; fill: #EDEDED; }
+      .stat-lbl { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 9.5px; fill: #64748B; }
+      .fuse-bracket { stroke: #818CF8; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="860" height="460" class="bg" />
+
+  <line x1="30" y1="0" x2="30" y2="460" class="grid" />
+  <line x1="830" y1="0" x2="830" y2="460" class="grid" />
+  <line x1="0" y1="45" x2="860" y2="45" class="grid" />
+  <line x1="0" y1="415" x2="860" y2="415" class="grid" />
+
+  <!-- Header -->
+  <text x="40" y="28" class="mono-head">FIG 4.0 // STATE-OF-THE-ART AMQ ARCHITECTURE</text>
+  <text x="40" y="70" class="mono-title">BINARY FUSE FILTER (2020) — OVERLAPPING WINDOWS &amp; OPTIMAL SPACE</text>
+  <text x="40" y="90" class="mono-sub">Replaces disjoint partitions with overlapping sliding segment windows. Approaches the 1.12 bits/key theoretical bound.</text>
+
+  <!-- LEFT PANEL: Overlapping Sliding Fuse Windows -->
+  <g transform="translate(40, 115)">
+    <rect width="400" height="275" rx="4" class="box-panel" />
+    <text x="16" y="26" class="mono-head" fill="#A78BFA">SLIDING OVERLAPPING SEGMENT WINDOWS</text>
+
+    <!-- Visual Overlapping Windows -->
+    <g transform="translate(16, 45)">
+      <!-- Window 0 (Segments 0..2) -->
+      <g transform="translate(0, 0)">
+        <rect width="180" height="32" rx="2" fill="#1E1B4B" stroke="#4F46E5" />
+        <text x="10" y="20" class="code-font" font-size="10.5px">Window A (Seg 0, 1, 2)</text>
+      </g>
+
+      <!-- Window 1 (Segments 1..3 - Overlapping with A!) -->
+      <g transform="translate(90, 40)">
+        <rect width="180" height="32" rx="2" fill="#2E1065" stroke="#7C3AED" />
+        <text x="10" y="20" class="code-font" font-size="10.5px">Window B (Seg 1, 2, 3)</text>
+      </g>
+
+      <!-- Window 2 (Segments 2..4 - Overlapping with B!) -->
+      <g transform="translate(180, 80)">
+        <rect width="180" height="32" rx="2" fill="#3B0764" stroke="#9333EA" />
+        <text x="10" y="20" class="code-font" font-size="10.5px">Window C (Seg 2, 3, 4)</text>
+      </g>
+
+      <!-- Fuse Indicator bracket -->
+      <path d="M 90 32 L 90 40 L 180 40 L 180 32" class="fuse-bracket" />
+      <text x="108" y="38" class="stat-lbl" font-size="8.5px" fill="#A78BFA">Shared Fuse Boundary</text>
+    </g>
+
+    <text x="16" y="180" class="text-desc">• Slots are indexed within sliding window of size 3·L.</text>
+    <text x="16" y="200" class="text-desc">• Locality Guarantee: All 3 reads stay clustered in RAM.</text>
+    <text x="16" y="220" class="text-desc">• Eliminates the 23% capacity waste of standard XOR.</text>
+    <text x="16" y="240" class="text-desc">• Construction operates in strict linear O(N) time.</text>
+  </g>
+
+  <!-- RIGHT PANEL: Theoretical Limit Comparison -->
+  <g transform="translate(460, 115)">
+    <rect width="360" height="275" rx="4" class="box-panel" />
+    <text x="20" y="26" class="mono-head" fill="#C4B5FD">INFORMATION-THEORETIC BOUND COMPARISON</text>
+
+    <!-- Space Comparison Bars -->
+    <g transform="translate(20, 48)">
+      <!-- Bloom: 10.0 bits -->
+      <text x="0" y="14" class="stat-lbl">Bloom Filter (1970)</text>
+      <rect x="0" y="20" width="280" height="20" rx="2" fill="#1E293B" stroke="#3B82F6" />
+      <text x="290" y="34" class="code-font" fill="#60A5FA" font-size="10.5px">10.0 bits</text>
+
+      <!-- XOR: 9.8 bits -->
+      <text x="0" y="60" class="stat-lbl">XOR Filter (2019)</text>
+      <rect x="0" y="66" width="245" height="20" rx="2" fill="#451A03" stroke="#F59E0B" />
+      <text x="255" y="80" class="code-font" fill="#F59E0B" font-size="10.5px">9.8 bits</text>
+
+      <!-- Binary Fuse: 8.9 bits -->
+      <text x="0" y="106" class="stat-lbl">Binary Fuse 8 (2020)</text>
+      <rect x="0" y="112" width="215" height="20" rx="2" fill="#2E1065" stroke="#A78BFA" />
+      <text x="225" y="126" class="code-font" fill="#C4B5FD" font-size="10.5px">~8.9 bits (Optimal)</text>
+
+      <!-- Theoretical Shannon Limit -->
+      <text x="0" y="152" class="stat-lbl" fill="#10B981">Theoretical Lower Bound (log2(1/ε))</text>
+      <line x1="0" y1="168" x2="195" y2="168" stroke="#10B981" stroke-width="2" stroke-dasharray="3 3" />
+      <text x="205" y="172" class="code-font" fill="#10B981" font-size="10.5px">~6.64 bits (Limit)</text>
+    </g>
+
+    <!-- Telemetry Stats row -->
+    <line x1="20" y1="235" x2="340" y2="235" stroke="#22222E" />
+    <text x="20" y="255" class="stat-lbl">SPACE: <tspan class="stat-val">~8.9 bits (Near limit)</tspan></text>
+    <text x="180" y="255" class="stat-lbl">READS: <tspan class="stat-val">3 Locality-tuned</tspan></text>
+  </g>
+
+  <!-- Bottom Telemetry Footer -->
+  <text x="40" y="440" class="mono-head">VERDICT // THE MODERN BENCHMARK FOR STATIC STORAGE ENGINES · USED IN PRODUCTION LSM TREES AND ROCKSDB SSTABLES</text>
+</svg>

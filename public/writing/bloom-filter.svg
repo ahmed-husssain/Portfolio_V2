@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 460" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      .bg { fill: #0A0A0C; }
+      .grid { stroke: #16161D; stroke-width: 1; stroke-dasharray: 4 4; }
+      .box-panel { fill: #111116; stroke: #23232E; stroke-width: 1.5; }
+      .mono-head { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.12em; }
+      .mono-title { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 15px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
+      .mono-sub { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; fill: #A1A1AA; }
+      .code-font { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; fill: #93C5FD; }
+      .text-desc { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11.5px; fill: #CBD5E1; }
+      .bit-slot { fill: #171720; stroke: #2E2E3E; stroke-width: 1; }
+      .bit-set { fill: #3B82F6; stroke: #60A5FA; stroke-width: 1.5; }
+      .bit-txt { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; font-weight: 600; text-anchor: middle; }
+      .stat-val { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 11px; font-weight: 600; fill: #EDEDED; }
+      .stat-lbl { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 9.5px; fill: #64748B; }
+      .hash-arrow { stroke: #3B82F6; stroke-width: 1.5; stroke-dasharray: 3 3; }
+    </style>
+  </defs>
+
+  <rect width="860" height="460" class="bg" />
+
+  <!-- Grid Blueprint lines -->
+  <line x1="30" y1="0" x2="30" y2="460" class="grid" />
+  <line x1="830" y1="0" x2="830" y2="460" class="grid" />
+  <line x1="0" y1="45" x2="860" y2="45" class="grid" />
+  <line x1="0" y1="415" x2="860" y2="415" class="grid" />
+
+  <!-- Header -->
+  <text x="40" y="28" class="mono-head">FIG 1.0 // CLASSIC AMQ DATA STRUCTURE</text>
+  <text x="40" y="70" class="mono-title">BLOOM FILTER (1970) — ARCHITECTURE &amp; CACHE DYNAMICS</text>
+  <text x="40" y="90" class="mono-sub">An m-bit array with k hash functions. Fast set insertion, but high cache penalties and irreversible state.</text>
+
+  <!-- LEFT PANEL: Insert & Hash Pipeline -->
+  <g transform="translate(40, 115)">
+    <rect width="240" height="275" rx="4" class="box-panel" />
+    <text x="16" y="26" class="mono-head" fill="#60A5FA">INSERTION PIPELINE</text>
+
+    <!-- Key Item -->
+    <rect x="16" y="44" width="208" height="34" rx="3" fill="#1E293B" stroke="#3B82F6" />
+    <text x="28" y="65" class="code-font">Key "user:1094"</text>
+
+    <!-- 3 Hashes -->
+    <g transform="translate(16, 95)">
+      <line x1="104" y1="0" x2="30" y2="25" class="hash-arrow" />
+      <line x1="104" y1="0" x2="104" y2="25" class="hash-arrow" />
+      <line x1="104" y1="0" x2="178" y2="25" class="hash-arrow" />
+
+      <rect x="0" y="25" width="60" height="26" rx="2" fill="#1E1E28" stroke="#333342" />
+      <text x="8" y="42" class="code-font" font-size="10px">h1(x)=2</text>
+
+      <rect x="74" y="25" width="60" height="26" rx="2" fill="#1E1E28" stroke="#333342" />
+      <text x="82" y="42" class="code-font" font-size="10px">h2(x)=7</text>
+
+      <rect x="148" y="25" width="60" height="26" rx="2" fill="#1E1E28" stroke="#333342" />
+      <text x="156" y="42" class="code-font" font-size="10px">h3(x)=12</text>
+    </g>
+
+    <text x="16" y="185" class="text-desc">• Each hash outputs an index</text>
+    <text x="16" y="205" class="text-desc">• Independent seed per hash</text>
+    <text x="16" y="225" class="text-desc">• Sets corresponding bit to 1</text>
+    <text x="16" y="245" class="text-desc">• Bit collisions share slots</text>
+  </g>
+
+  <!-- RIGHT PANEL: m-Bit Array Layout & Architectural Tradeoffs -->
+  <g transform="translate(300, 115)">
+    <rect width="520" height="275" rx="4" class="box-panel" />
+    <text x="20" y="26" class="mono-head" fill="#93C5FD">BIT ARRAY REPRESENTATION (m = 16 slots)</text>
+
+    <!-- The Bit Array -->
+    <g transform="translate(20, 45)">
+      <!-- 16 bit slots -->
+      <!-- slot 0 -->
+      <g transform="translate(0, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">0</text>
+      </g>
+      <!-- slot 1 -->
+      <g transform="translate(30, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">1</text>
+      </g>
+      <!-- slot 2 (SET BY h1) -->
+      <g transform="translate(60, 0)">
+        <rect width="28" height="36" rx="2" class="bit-set" />
+        <text x="14" y="22" class="bit-txt" fill="#FFFFFF">1</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle" fill="#60A5FA">2*</text>
+      </g>
+      <!-- slot 3 -->
+      <g transform="translate(90, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">3</text>
+      </g>
+      <!-- slot 4 -->
+      <g transform="translate(120, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">4</text>
+      </g>
+      <!-- slot 5 -->
+      <g transform="translate(150, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">5</text>
+      </g>
+      <!-- slot 6 -->
+      <g transform="translate(180, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">6</text>
+      </g>
+      <!-- slot 7 (SET BY h2) -->
+      <g transform="translate(210, 0)">
+        <rect width="28" height="36" rx="2" class="bit-set" />
+        <text x="14" y="22" class="bit-txt" fill="#FFFFFF">1</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle" fill="#60A5FA">7*</text>
+      </g>
+      <!-- slot 8 -->
+      <g transform="translate(240, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">8</text>
+      </g>
+      <!-- slot 9 -->
+      <g transform="translate(270, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">9</text>
+      </g>
+      <!-- slot 10 -->
+      <g transform="translate(300, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">10</text>
+      </g>
+      <!-- slot 11 -->
+      <g transform="translate(330, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">11</text>
+      </g>
+      <!-- slot 12 (SET BY h3) -->
+      <g transform="translate(360, 0)">
+        <rect width="28" height="36" rx="2" class="bit-set" />
+        <text x="14" y="22" class="bit-txt" fill="#FFFFFF">1</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle" fill="#60A5FA">12*</text>
+      </g>
+      <!-- slot 13 -->
+      <g transform="translate(390, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">13</text>
+      </g>
+      <!-- slot 14 -->
+      <g transform="translate(420, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">14</text>
+      </g>
+      <!-- slot 15 -->
+      <g transform="translate(450, 0)">
+        <rect width="28" height="36" rx="2" class="bit-slot" />
+        <text x="14" y="22" class="bit-txt" fill="#64748B">0</text>
+        <text x="14" y="50" class="stat-lbl" text-anchor="middle">15</text>
+      </g>
+    </g>
+
+    <!-- Two Architectural Flaws Callout -->
+    <g transform="translate(20, 125)">
+      <!-- Flaw 1: No Deletions -->
+      <rect x="0" y="0" width="230" height="90" rx="3" fill="#181822" stroke="#2D2D3D" />
+      <text x="12" y="20" class="mono-head" fill="#EF4444">FATAL FLAW #1: NO DELETIONS</text>
+      <text x="12" y="40" class="text-desc">Cannot clear bits on key delete.</text>
+      <text x="12" y="58" class="text-desc">Other keys sharing index 2, 7, 12</text>
+      <text x="12" y="76" class="text-desc">would produce false negatives.</text>
+
+      <!-- Flaw 2: Cache Misses -->
+      <rect x="245" y="0" width="235" height="90" rx="3" fill="#181822" stroke="#2D2D3D" />
+      <text x="12" y="20" class="mono-head" fill="#F59E0B">FATAL FLAW #2: CPU CACHE MISS</text>
+      <text x="12" y="40" class="text-desc">Indices 2, 7, 12 reside in</text>
+      <text x="12" y="58" class="text-desc">separate memory cache lines.</text>
+      <text x="12" y="76" class="text-desc">Causes up to k memory stalls.</text>
+    </g>
+
+    <!-- Telemetry strip -->
+    <line x1="20" y1="235" x2="500" y2="235" stroke="#22222E" />
+    <text x="20" y="255" class="stat-lbl">OPTIMAL BITS: <tspan class="stat-val">~9.6 to 10.0 / key</tspan></text>
+    <text x="200" y="255" class="stat-lbl">LOOKUP: <tspan class="stat-val">k random accesses</tspan></text>
+    <text x="375" y="255" class="stat-lbl">DELETIONS: <tspan class="stat-val" fill="#EF4444">Impossible</tspan></text>
+  </g>
+
+  <!-- Bottom Telemetry footer -->
+  <text x="40" y="440" class="mono-head">VERDICT // EXCELLENT FOR APPEND-ONLY STREAMING · UNUSABLE IF RECORDS EXPIRE OR NEED PURGING</text>
+</svg>
