@@ -5,7 +5,10 @@ export const metadata = {
     'A field breakdown of read-through versus cache-aside data retrieval, cache invalidation strategies, and thundering herd mitigations in web systems.',
   date: '2026-09-15',
   tags: ['System Design', 'Caching', 'Databases'],
-  published: false,
+  published: true,
+  type: 'learning',
+  readTime: '4 MIN READ',
+  takeaway: 'Updating caches on write causes silent race conditions. Invalidate (delete) keys on write and let the authoritative database cleanly repopulate them on read.',
 }
 
 # Understanding the Cache-Aside Pattern in Practice
