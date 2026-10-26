@@ -9,6 +9,8 @@ export const metadata = {
   type: 'learning',
   readTime: '4 MIN READ',
   takeaway: 'Updating caches on write causes silent race conditions. Invalidate (delete) keys on write and let the authoritative database cleanly repopulate them on read.',
+  image: '/writing/cache-aside-flow.svg',
+  imageAlt: 'Cache-Aside Pattern Data Flow Architecture Diagram',
 }
 
 # Understanding the Cache-Aside Pattern in Practice
@@ -17,12 +19,19 @@ In high-read web applications, the database is often the primary latency bottlen
 
 ## The Cache-Aside Flow
 
-In the Cache-Aside (or Lazy Loading) pattern, the application code directly orchestrates both the cache and the primary database:
+<TwoColumn>
+  <div>
+    In the Cache-Aside (or Lazy Loading) pattern, the application code directly orchestrates both the cache and the primary database:
 
-1. **Read Request**: The application queries the cache first.
-2. **Cache Hit**: The cache returns the cached data immediately.
-3. **Cache Miss**: The application falls back to querying the database, writes the result back into the cache with a Time-To-Live (TTL), and returns the payload to the client.
-4. **Write Request**: The application updates the database and explicitly invalidates (deletes) the corresponding cache entry.
+    1. **Read Request**: The application queries the cache first.
+    2. **Cache Hit**: The cache returns the cached data immediately.
+    3. **Cache Miss**: The application falls back to querying the database, writes the result back into the cache with a Time-To-Live (TTL), and returns the payload to the client.
+    4. **Write Request**: The application updates the database and explicitly invalidates (deletes) the corresponding cache entry.
+  </div>
+  <div>
+    <Figure src="/writing/cache-aside-flow.svg" alt="Cache-Aside Pattern Data Flow Diagram" caption="FIG 1.0 — Cache-Aside read/write lifecycle and TTL invalidation flow." />
+  </div>
+</TwoColumn>
 
 ```typescript
 async function getListingById(id: string): Promise<Listing> {

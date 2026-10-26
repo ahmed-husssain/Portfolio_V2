@@ -69,60 +69,80 @@ export default function Writing() {
               return (
                 <Reveal key={article.slug} delay={index * 50}>
                   <article className="py-8 sm:py-10 group transition-colors">
-                    {/* Telemetry metadata row */}
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs font-mono text-muted mb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-foreground font-semibold uppercase tracking-wider">
-                          {isOpinion ? 'OPINION' : 'LEARNING'}
-                        </span>
-                        <span className="text-border-strong" aria-hidden="true">·</span>
-                        <span className="text-secondary">{article.readTime || '4 MIN READ'}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-muted">
-                        <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                        <time dateTime={article.date}>{article.date}</time>
-                      </div>
-                    </div>
+                    <div className="flex flex-col md:flex-row md:items-start gap-6 sm:gap-8">
+                      <div className="flex-1 min-w-0">
+                        {/* Telemetry metadata row */}
+                        <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-muted mb-3">
+                          <span className="text-foreground font-semibold uppercase tracking-wider">
+                            {isOpinion ? 'OPINION' : 'LEARNING'}
+                          </span>
+                          <span className="text-border-strong" aria-hidden="true">·</span>
+                          <span className="text-secondary">{article.readTime || '4 MIN READ'}</span>
+                          <span className="text-border-strong" aria-hidden="true">·</span>
+                          <div className="flex items-center gap-1.5 text-muted">
+                            <Calendar className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                            <time dateTime={article.date}>{article.date}</time>
+                          </div>
+                        </div>
 
-                    {/* Headline */}
-                    <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 leading-snug">
-                      <Link
-                        to={`/writing/${article.slug}`}
-                        className="inline-flex items-center gap-2 hover:text-foreground group-hover:underline underline-offset-4 decoration-border transition-colors"
-                      >
-                        <span>{article.title}</span>
-                        <ArrowRight className="w-4 h-4 pixel-icon text-muted group-hover:text-foreground opacity-60 group-hover:opacity-100 transition-all -translate-x-1 group-hover:translate-x-0 shrink-0" />
-                      </Link>
-                    </h2>
-
-                    {/* Description Excerpt */}
-                    <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6 max-w-3xl font-normal">
-                      {article.description}
-                    </p>
-
-                    {/* Tags & Action Link */}
-                    <div className="flex flex-wrap items-center justify-between gap-4">
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
-                        {article.tags.map((tag) => (
-                          <button
-                            key={tag}
-                            type="button"
-                            onClick={() => setSelectedTag(tag)}
-                            className="px-2 py-0.5 text-micro-caps bg-surface border border-border text-secondary hover:text-foreground hover:border-border-strong rounded-2xs font-mono transition-colors cursor-pointer"
+                        {/* Headline */}
+                        <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 leading-snug">
+                          <Link
+                            to={`/writing/${article.slug}`}
+                            className="inline-flex items-center gap-2 hover:text-foreground group-hover:underline underline-offset-4 decoration-border transition-colors"
                           >
-                            {tag}
-                          </button>
-                        ))}
+                            <span>{article.title}</span>
+                            <ArrowRight className="w-4 h-4 pixel-icon text-muted group-hover:text-foreground opacity-60 group-hover:opacity-100 transition-all -translate-x-1 group-hover:translate-x-0 shrink-0" />
+                          </Link>
+                        </h2>
+
+                        {/* Description Excerpt */}
+                        <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                          {article.description}
+                        </p>
+
+                        {/* Tags & Action Link */}
+                        <div className="flex flex-wrap items-center justify-between gap-4">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <Label className="w-3.5 h-3.5 text-muted mr-1 pixel-icon" aria-hidden="true" />
+                            {article.tags.map((tag) => (
+                              <button
+                                key={tag}
+                                type="button"
+                                onClick={() => setSelectedTag(tag)}
+                                className="px-2 py-0.5 text-micro-caps bg-surface border border-border text-secondary hover:text-foreground hover:border-border-strong rounded-2xs font-mono transition-colors cursor-pointer"
+                              >
+                                {tag}
+                              </button>
+                            ))}
+                          </div>
+
+                          <Link
+                            to={`/writing/${article.slug}`}
+                            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-foreground hover:underline transition-colors"
+                          >
+                            <span>READ ESSAY</span>
+                            <ArrowRight className="w-3.5 h-3.5 pixel-icon" />
+                          </Link>
+                        </div>
                       </div>
 
-                      <Link
-                        to={`/writing/${article.slug}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-foreground hover:underline transition-colors"
-                      >
-                        <span>READ ESSAY</span>
-                        <ArrowRight className="w-3.5 h-3.5 pixel-icon" />
-                      </Link>
+                      {/* Side-by-side Image Thumbnail (if present) */}
+                      {article.image && (
+                        <Link
+                          to={`/writing/${article.slug}`}
+                          className="shrink-0 w-full md:w-56 lg:w-64 aspect-[16/10] border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners group/thumb transition-colors"
+                          tabIndex={-1}
+                          aria-hidden="true"
+                        >
+                          <img
+                            src={article.image}
+                            alt={article.imageAlt || article.title}
+                            className="w-full h-full object-cover group-hover/thumb:scale-[1.02] transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </Link>
+                      )}
                     </div>
                   </article>
                 </Reveal>

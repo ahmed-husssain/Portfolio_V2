@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%" fill="none">
+  <defs>
+    <style>
+      .bg { fill: #0A0A0C; }
+      .grid-pattern { stroke: #1A1A20; stroke-width: 1; stroke-dasharray: 4 4; }
+      .box { fill: #121216; stroke: #2E2E38; stroke-width: 1.5; }
+      .box-accent { fill: #17171E; stroke: #EDEDED; stroke-width: 1.5; }
+      .label-mono { font-family: 'Geist Mono', 'JetBrains Mono', monospace; font-size: 11px; fill: #71717A; letter-spacing: 0.08em; }
+      .title-mono { font-family: 'Geist Mono', 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.05em; }
+      .text-desc { font-family: 'Geist', sans-serif; font-size: 11px; fill: #A1A1AA; }
+      .flow-line { stroke: #52525B; stroke-width: 1.5; stroke-dasharray: 4 4; }
+      .flow-line-active { stroke: #EDEDED; stroke-width: 1.5; }
+      .badge { fill: #222228; stroke: #33333E; }
+      .badge-text { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #D4D4D8; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#EDEDED" />
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#52525B" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="480" class="bg" />
+
+  <!-- Background Grid Lines -->
+  <line x1="40" y1="0" x2="40" y2="480" class="grid-pattern" />
+  <line x1="200" y1="0" x2="200" y2="480" class="grid-pattern" />
+  <line x1="400" y1="0" x2="400" y2="480" class="grid-pattern" />
+  <line x1="600" y1="0" x2="600" y2="480" class="grid-pattern" />
+  <line x1="760" y1="0" x2="760" y2="480" class="grid-pattern" />
+
+  <line x1="0" y1="40" x2="800" y2="40" class="grid-pattern" />
+  <line x1="0" y1="240" x2="800" y2="240" class="grid-pattern" />
+  <line x1="0" y1="440" x2="800" y2="440" class="grid-pattern" />
+
+  <!-- Diagram Title Header -->
+  <text x="50" y="55" class="label-mono">ARCHITECTURE PATTERN // 01</text>
+  <text x="50" y="80" class="title-mono">CACHE-ASIDE (LAZY LOADING) DATA FLOW</text>
+
+  <!-- Component 1: Client / Consumer -->
+  <g transform="translate(60, 160)">
+    <rect width="180" height="210" rx="4" class="box" />
+    <rect x="12" y="14" width="70" height="18" rx="2" class="badge" />
+    <text x="18" y="27" class="badge-text">CLIENT APP</text>
+    <text x="14" y="60" class="title-mono">Application Node</text>
+    <text x="14" y="80" class="text-desc">Express / ASP.NET API</text>
+    
+    <line x1="14" y1="100" x2="166" y2="100" stroke="#222228" />
+
+    <text x="14" y="125" class="label-mono">RESPONSIBILITY:</text>
+    <text x="14" y="145" class="text-desc">• Checks Cache First</text>
+    <text x="14" y="165" class="text-desc">• Queries Primary DB</text>
+    <text x="14" y="185" class="text-desc">• Sets TTL Expirations</text>
+  </g>
+
+  <!-- Component 2: Cache Layer (Redis) -->
+  <g transform="translate(310, 160)">
+    <rect width="190" height="210" rx="4" class="box-accent" />
+    <rect x="12" y="14" width="85" height="18" rx="2" class="badge" />
+    <text x="18" y="27" class="badge-text">FAST IN-MEMORY</text>
+    <text x="14" y="60" class="title-mono">Redis Cache Layer</text>
+    <text x="14" y="80" class="text-desc">Key-Value Store (TTL: 1h)</text>
+
+    <line x1="14" y1="100" x2="176" y2="100" stroke="#2E2E38" />
+
+    <text x="14" y="125" class="label-mono">METRICS:</text>
+    <text x="14" y="145" class="text-desc">Latency: ~0.8ms</text>
+    <text x="14" y="165" class="text-desc">Hit Ratio: ~94.2%</text>
+    <text x="14" y="185" class="text-desc">Invalidation: Key Deletion</text>
+  </g>
+
+  <!-- Component 3: Database (PostgreSQL) -->
+  <g transform="translate(560, 160)">
+    <rect width="180" height="210" rx="4" class="box" />
+    <rect x="12" y="14" width="90" height="18" rx="2" class="badge" />
+    <text x="18" y="27" class="badge-text">AUTHORITATIVE</text>
+    <text x="14" y="60" class="title-mono">PostgreSQL DB</text>
+    <text x="14" y="80" class="text-desc">Relational Store (B-Tree)</text>
+
+    <line x1="14" y1="100" x2="166" y2="100" stroke="#222228" />
+
+    <text x="14" y="125" class="label-mono">METRICS:</text>
+    <text x="14" y="145" class="text-desc">Latency: ~22ms</text>
+    <text x="14" y="165" class="text-desc">ACID Guaranteed</text>
+    <text x="14" y="185" class="text-desc">Cold Query Fallback</text>
+  </g>
+
+  <!-- Flow 1: Read Request Cache Check -->
+  <path d="M 240 200 L 302 200" class="flow-line-active" marker-end="url(#arrow)" />
+  <rect x="245" y="180" width="55" height="16" rx="2" fill="#0A0A0C" stroke="#33333E" />
+  <text x="250" y="192" class="label-mono">1. GET</text>
+
+  <!-- Flow 2: Cache Miss Fallback to DB -->
+  <path d="M 240 310 C 350 430, 470 430, 552 310" class="flow-line-active" marker-end="url(#arrow)" />
+  <rect x="345" y="405" width="120" height="18" rx="2" fill="#0A0A0C" stroke="#EDEDED" />
+  <text x="355" y="418" class="badge-text">2. DB FALLBACK ON MISS</text>
+
+  <!-- Flow 3: Re-populate Cache -->
+  <path d="M 240 240 L 302 240" class="flow-line-active" marker-end="url(#arrow)" />
+  <rect x="245" y="245" width="58" height="16" rx="2" fill="#0A0A0C" stroke="#33333E" />
+  <text x="248" y="257" class="label-mono">3. SETEX</text>
+
+  <!-- Flow 4: Write Invalidation -->
+  <path d="M 560 210 L 508 210" class="flow-line" marker-end="url(#arrow-muted)" />
+  <rect x="510" y="195" width="50" height="14" rx="2" fill="#0A0A0C" stroke="#33333E" />
+  <text x="515" y="205" class="badge-text">DEL KEY</text>
+
+  <!-- Bottom Telemetry Bar -->
+  <line x1="50" y1="440" x2="750" y2="440" stroke="#222228" />
+  <text x="50" y="460" class="label-mono">SPEC: LAZY POPULATION · TTL EXPIRATION · HARD KEY INVALIDATION ON MUTATION</text>
+</svg>

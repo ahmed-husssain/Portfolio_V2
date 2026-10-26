@@ -57,8 +57,36 @@ function CodeBlock(props: React.HTMLAttributes<HTMLPreElement>) {
   )
 }
 
+const TwoColumn = ({ children, className = '' }: { children?: React.ReactNode; className?: string }) => (
+  <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 my-8 items-start ${className}`}>
+    {children}
+  </div>
+)
+
+const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: string }) => (
+  <figure className="my-6">
+    <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners">
+      {src && (
+        <img
+          src={src}
+          alt={alt || caption || ''}
+          className="w-full h-auto object-cover block"
+          loading="lazy"
+        />
+      )}
+    </div>
+    {caption && (
+      <figcaption className="text-micro-caps text-muted text-center mt-2.5 font-mono">
+        {caption}
+      </figcaption>
+    )}
+  </figure>
+)
+
 // Precision Variant C typography components for MDX rendering
 const mdxComponents = {
+  TwoColumn,
+  Figure,
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mt-10 mb-4" {...props} />
   ),
@@ -93,6 +121,14 @@ const mdxComponents = {
     }
     return <code className={className} {...props} />
   },
+  img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img
+      className={`rounded-sm border border-border bg-surface w-full h-auto my-6 pixel-corners ${className || ''}`}
+      alt={alt || ''}
+      loading="lazy"
+      {...props}
+    />
+  ),
   hr: () => <hr className="my-10 border-border" />,
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-foreground underline decoration-border hover:decoration-foreground underline-offset-4 transition-colors" {...props} />

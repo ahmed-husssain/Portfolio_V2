@@ -9,6 +9,8 @@ export interface ArticleMetadata {
   type?: 'learning' | 'opinion'
   readTime?: string
   takeaway?: string
+  image?: string
+  imageAlt?: string
 }
 
 // Eagerly import only the metadata export for fast listing without loading MDX component bodies
