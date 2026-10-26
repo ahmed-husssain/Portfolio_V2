@@ -59,6 +59,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     })
 
     lenisRef.current = lenis
+    if (typeof window !== 'undefined') {
+      ;(window as any).__lenis = lenis
+    }
 
     // Delta-time independent animation frame loop
     let rafId: number
@@ -109,6 +112,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       document.removeEventListener('click', handleAnchorClick)
       lenis.destroy()
       lenisRef.current = null
+      if (typeof window !== 'undefined') {
+        delete (window as any).__lenis
+      }
       if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
         window.history.scrollRestoration = 'auto'
       }

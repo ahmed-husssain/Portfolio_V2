@@ -5,13 +5,13 @@
       .grid-line { stroke: #18181E; stroke-width: 1; stroke-dasharray: 4 4; }
       .card-bg { fill: #111116; stroke: #262630; stroke-width: 1.5; }
       .card-accent { fill: #14141B; stroke: #EDEDED; stroke-width: 1.5; }
-      .label-mono { font-family: 'Geist Mono', monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.08em; }
-      .title-mono { font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
+      .label-mono { font-family: 'Geist Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.08em; }
+      .title-mono { font-family: 'Geist Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
       .badge-tag { fill: #1F1F27; stroke: #2E2E3C; }
-      .badge-text { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #D4D4D8; }
-      .text-desc { font-family: 'Geist', sans-serif; font-size: 11px; fill: #A1A1AA; line-height: 1.4; }
-      .stat-val { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; fill: #EDEDED; }
-      .stat-lbl { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #71717A; }
+      .badge-text { font-family: 'Geist Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace; font-size: 9px; fill: #D4D4D8; }
+      .text-desc { font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 11px; fill: #A1A1AA; }
+      .stat-val { font-family: 'Geist Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace; font-size: 10.5px; font-weight: 600; fill: #EDEDED; }
+      .stat-lbl { font-family: 'Geist Mono', 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace; font-size: 9.5px; fill: #71717A; }
       .bit-box { fill: #1E1E26; stroke: #333342; stroke-width: 1; }
       .bit-active { fill: #EDEDED; stroke: #FFFFFF; }
     </style>
@@ -57,9 +57,9 @@
 
     <!-- Stats -->
     <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
-    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~10.0</tspan></text>
-    <text x="125" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO</tspan></text>
-    <text x="235" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">k (High)</tspan></text>
+    <text x="14" y="146" class="stat-lbl">SPACE: <tspan class="stat-val">~10.0 bits</tspan></text>
+    <text x="140" y="146" class="stat-lbl">MUTABLE: <tspan class="stat-val">No</tspan></text>
+    <text x="245" y="146" class="stat-lbl">LOOKUP: <tspan class="stat-val">k cache misses</tspan></text>
   </g>
 
   <!-- 2. CUCKOO FILTER (2014) -->
@@ -82,9 +82,9 @@
 
     <!-- Stats -->
     <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
-    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~8.4 – 9.0</tspan></text>
-    <text x="150" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">YES (O(1))</tspan></text>
-    <text x="275" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">2 max</tspan></text>
+    <text x="14" y="146" class="stat-lbl">SPACE: <tspan class="stat-val">~8.4 – 9.0</tspan></text>
+    <text x="140" y="146" class="stat-lbl">MUTABLE: <tspan class="stat-val">Yes (O(1))</tspan></text>
+    <text x="245" y="146" class="stat-lbl">LOOKUP: <tspan class="stat-val">2 cache misses</tspan></text>
   </g>
 
   <!-- 3. XOR FILTER (2019) -->
@@ -110,9 +110,9 @@
 
     <!-- Stats -->
     <line x1="12" y1="128" x2="383" y2="128" stroke="#22222C" />
-    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~9.8</tspan></text>
-    <text x="125" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO (Immutable)</tspan></text>
-    <text x="260" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">3 max</tspan></text>
+    <text x="14" y="146" class="stat-lbl">SPACE: <tspan class="stat-val">~9.8 bits</tspan></text>
+    <text x="140" y="146" class="stat-lbl">MUTABLE: <tspan class="stat-val">No</tspan></text>
+    <text x="245" y="146" class="stat-lbl">LOOKUP: <tspan class="stat-val">3 cache misses</tspan></text>
   </g>
 
   <!-- 4. BINARY FUSE FILTER (2020) -->
@@ -136,9 +136,9 @@
 
     <!-- Stats -->
     <line x1="12" y1="128" x2="383" y2="128" stroke="#2E2E3C" />
-    <text x="12" y="146" class="stat-lbl">BITS/KEY: <tspan class="stat-val">~8.9 – 9.1</tspan></text>
-    <text x="135" y="146" class="stat-lbl">DELETIONS: <tspan class="stat-val">NO (Immutable)</tspan></text>
-    <text x="270" y="146" class="stat-lbl">CACHE MISSES: <tspan class="stat-val">3 (Locality-tuned)</tspan></text>
+    <text x="14" y="146" class="stat-lbl">SPACE: <tspan class="stat-val">~8.9 – 9.1</tspan></text>
+    <text x="140" y="146" class="stat-lbl">MUTABLE: <tspan class="stat-val">No</tspan></text>
+    <text x="245" y="146" class="stat-lbl">LOOKUP: <tspan class="stat-val">3 misses (tuned)</tspan></text>
   </g>
 
   <!-- Footer Telemetry Rule -->
