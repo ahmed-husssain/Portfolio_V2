@@ -1,117 +1,179 @@
 export const metadata = {
   slug: 'probabilistic-filters',
-  title: 'From Bloom to Binary Fuse: The Evolution of Probabilistic Filters',
+  title: 'From Bloom to Binary Fuse: Why We Replaced a 50-Year-Old Algorithm',
   description:
-    'A field breakdown of Bloom, Cuckoo, XOR, and Binary Fuse filters—how space efficiency, CPU cache locality, and deletion trade-offs evolved to near-theoretical limits.',
+    'Bloom filters ran software for 40 years. Here is why modern databases outgrew them, how Cuckoo filters solved the deletion problem, and why Binary Fuse filters became the new standard.',
   date: '2026-10-26',
   tags: ['System Design', 'Databases', 'Algorithms', 'Backend'],
   published: true,
   type: 'learning',
-  readTime: '6 MIN READ',
-  takeaway: 'Use Cuckoo filters when dynamic deletions are required; use Binary Fuse filters for immutable lookups where you need maximum query speed at 1.12 bits per key.',
+  readTime: '5 MIN READ',
+  takeaway: 'Bloom filters cannot delete items and stall modern CPUs. Use Cuckoo filters when you need live deletions, and Binary Fuse filters for read-heavy static data.',
   image: '/writing/probabilistic-filters-thumb.svg',
   imageAlt: 'Probabilistic Membership Filters: 50-Year Architectural Evolution Timeline',
 }
 
-# From Bloom to Binary Fuse: The Evolution of Probabilistic Filters
+# From Bloom to Binary Fuse: Why We Replaced a 50-Year-Old Algorithm
 
-In high-throughput storage engines (such as RocksDB, Cassandra, and PostgreSQL LSM trees), the slowest operation is reading from disk to discover that a requested key **does not exist**.
+Imagine you run a database with 500 million records stored on disk. 
 
-To avoid unnecessary disk seeks, databases place a **Probabilistic Membership Filter** (an Approximate Membership Query data structure) in memory. If the filter returns `false`, the item is guaranteed not to exist—allowing the system to skip the disk I/O entirely.
+A user asks: *"Does user #849204 exist?"*
 
-Over the last 50 years, the design of these filters underwent a radical evolution from simple bit arrays to linear-system peeling algorithms.
+Checking your disk or cloud storage to find out a record **doesn't exist** is the slowest thing a computer can do. It's like walking down into a dark library basement to look for a book, only to realize after twenty minutes that the library never owned it.
+
+To prevent those wasted trips, databases put a **filter** in front of the disk in fast RAM:
+
+* If the filter says **"Definitely not here"**, the database rejects the request immediately. No slow disk reads, no wasted CPU.
+* If the filter says **"It might be here"**, the database goes to disk to fetch the record.
+
+In **1970**, Burton Bloom invented the **Bloom Filter**. It was a breakthrough: using just a few bits per item, you could protect databases from millions of useless disk reads. For over 40 years, developers treated it like a solved problem.
+
+So why did computer scientists spend the last decade inventing **Cuckoo Filters (2014)**, **XOR Filters (2019)**, and **Binary Fuse Filters (2020)**? 
+
+What was broken with Bloom filters—and why do modern alternatives win?
 
 ---
 
-## 1. Bloom Filters (1970) — The Standard Pioneer
+## 1. Bloom Filters (1970): The Classic Pioneer
 
-A Bloom filter is an array of `m` bits initially set to zero. To insert an element, it is hashed with `k` independent hash functions, and the bits at indices `h1(x), h2(x), ... hk(x)` are set to `1`.
+A Bloom filter is simply a long row of bits, all starting at `0`.
 
-* **The Query**: Check if all `k` bit positions are `1`. If any bit is `0`, the element is definitely not in the set.
-* **The Fatal Flaw**: **You cannot delete items.** Clearing a bit could accidentally delete another key that shared that hashed position.
-* **CPU Cache Penalty**: Checking `k` random bit indices scattered across a large array causes up to `k` independent CPU cache-line misses per query.
+When you insert an item, you run it through several hash functions (say, 3 or 5 of them). Each hash points to a specific slot in the row, and you turn those bits from `0` to `1`.
+
+When someone queries an item, you check those same slots:
+* If **any** of the slots is `0`, the item was never inserted. Guaranteed.
+* If **all** of them are `1`, the item is probably in the set.
 
 <Figure
   src="/writing/bloom-filter.svg"
   alt="Bloom Filter (1970) Bit Array and k-Hash Pipeline Architecture"
-  caption="FIG 1.0 — Bloom Filter: k-hash fanout across an m-bit array, resulting in k random memory seeks."
+  caption="FIG 1.0 — Bloom Filter: k independent hashes flip bits across a large array, leading to random memory access."
 />
+
+### Why Bloom Filters Started Failing in Modern Systems
+
+If Bloom filters worked so well for decades, why do we need replacements? 
+
+Because as software scale grew, two fatal flaws emerged:
+
+1. **You Cannot Delete Anything (The Ghost Record Problem)**  
+   When you insert item $A$, it turns slots 2, 7, and 12 into `1`. Later, item $B$ gets inserted and shares slot 7. If you try to delete item $A$ by flipping slot 7 back to `0`, you just secretly destroyed item $B$!  
+   Because bits are shared, **deletions are impossible**. In systems where users delete accounts, sessions expire, or cache keys change, a Bloom filter slowly fills up with leftover `1`s. Over time, it starts answering "Maybe" to almost every query, rendering it useless.
+
+2. **It Stalls Modern CPUs (The Cache Miss Problem)**  
+   Computers in 1970 had uniform memory speeds. Modern computers don't: CPUs are blindingly fast, but reading from main RAM is painfully slow. Modern chips rely on tiny, super-fast L1 and L2 caches.  
+   To check one item in a Bloom filter, your CPU has to jump to 5 or 8 completely random locations scattered across megabytes of RAM. That forces the CPU to stall and wait for RAM multiple times for a single check.
 
 ---
 
-## 2. Cuckoo Filters (2014) — Dynamic Deletions & Better Locality
+## 2. Cuckoo Filters (2014): Solving the Deletion Problem
 
-Cuckoo filters replaced the raw bit array with an array of buckets storing short **fingerprints** (e.g., 8 to 12 bits) of items using Cuckoo Hashing:
+In 2014, researchers asked a simple question: *What if, instead of scattering single bits all over memory, we stored compact item "fingerprints" in small, organized buckets?*
+
+Enter the **Cuckoo Filter**.
+
+Instead of a raw bit array, a Cuckoo filter is an array of buckets, and each bucket holds small fingerprints (like a 1-byte identity tag). Each item only has **two possible buckets** it can ever live in ($b_1$ and $b_2$), calculated with a clever math trick called *partial-key cuckoo hashing*:
 
 ```text
 bucket_1 = hash(x)
 bucket_2 = bucket_1 ⊕ hash(fingerprint(x))
 ```
 
-* **Why it wins**: 
-  1. **O(1) Deletions**: Deleting an item merely requires removing its fingerprint from one of its two candidate buckets.
-  2. **Cache Locality**: A lookup inspects at most **two contiguous buckets** in memory, dramatically reducing CPU cache misses compared to a Bloom filter.
-  3. **Space Efficiency**: For false positive rates under 3%, Cuckoo filters use fewer bits per item than Bloom filters.
-
 <Figure
   src="/writing/cuckoo-filter.svg"
   alt="Cuckoo Filter (2014) Associative Buckets and O(1) Deletion Workflow"
-  caption="FIG 2.0 — Cuckoo Filter: 2-bucket candidate lookup via partial-key cuckoo hashing with O(1) deletions."
+  caption="FIG 2.0 — Cuckoo Filter: Fingerprints live in 4-slot buckets, allowing O(1) deletions and localized 2-bucket reads."
 />
+
+### Why Cuckoo Filters Win:
+
+* **Instant $O(1)$ Deletions**: Want to delete an item? Calculate its fingerprint and inspect its two candidate buckets. If you find the fingerprint, wipe that one slot. Done! It doesn't break any other key.
+* **Way Better Cache Locality**: Instead of jumping to 7 random memory addresses across RAM, the CPU only checks **two contiguous buckets**. That means at most 2 memory reads—dramatically reducing CPU stalls.
+* **Less Memory**: For false-positive rates below 3%, Cuckoo filters actually use fewer bits per item than a Bloom filter.
+
+**Where to use it**: Any live, active system where records are updated, invalidated, or deleted (e.g. user sessions, network routers, shopping carts, live caches).
 
 ---
 
-## 3. XOR Filters (2019) — Faster Lookups for Immutable Data
+## 3. The Static Data Revelation: Do We Even Need Dynamic Inserts?
 
-In 2019, Daniel Lemire and Martin Dietzfelbinger published the **XOR Filter**. It departs from hash tables entirely and models filter construction as solving a system of linear equations over GF(2):
+Cuckoo filters solved deletions for live workloads. But around 2018, database architects at RocksDB and Cassandra noticed a different pattern:
+
+In modern LSM-tree storage engines, database files (called SSTables) are **immutable**. Once written to disk, they are never edited—only read millions of times, and eventually deleted wholesale during compaction.
+
+If your dataset is fixed and never receives one-by-one inserts, why pay the memory overhead of dynamic bucket collision tables?
+
+That realization gave birth to the **static filter revolution**.
+
+---
+
+## 4. XOR Filters (2019): The Speed Champion for Read-Only Data
+
+In 2019, Daniel Lemire and Martin Dietzfelbinger created the **XOR Filter**.
+
+Instead of hash tables or buckets, XOR filters treat filter lookup as a simple arithmetic equation:
 
 ```text
-B[h0(x)] ⊕ B[h1(x)] ⊕ B[h2(x)] == fingerprint(x)
+Block_0[h0(x)] ⊕ Block_1[h1(x)] ⊕ Block_2[h2(x)] == fingerprint(x)
 ```
 
-* **The Mechanism**: Construction uses a graph "peeling" algorithm. If the graph contains a vertex of degree 1, it is peeled and assigned a value so the XOR equality holds.
-* **The Trade-off**: It is **immutable** (static). You construct it once from a known batch of keys.
-* **The Advantage**: Lookups take exactly **3 memory reads** and 2 XOR operations. It is ~20% smaller than a Bloom filter and measurably faster in production.
+During construction, the filter analyzes the entire batch of keys and solves an assignment puzzle so that when you XOR the values from three specific positions, you get the item's fingerprint.
 
 <Figure
   src="/writing/xor-filter.svg"
   alt="XOR Filter (2019) 3-Way Peeling and GF(2) Linear Solving"
-  caption="FIG 3.0 — XOR Filter: 3-way disjoint partition evaluated as B[h0] ⊕ B[h1] ⊕ B[h2] == fingerprint."
+  caption="FIG 3.0 — XOR Filter: Memory is split into 3 disjoint blocks, guaranteeing lookups finish in exactly 3 reads."
 />
+
+### Why XOR Filters Win:
+
+* **Zero Guessing, Exactly 3 Memory Reads**: The lookup has no loops, no bucket collisions, and no branching. The CPU fetches three spots, XORs them together, and checks the fingerprint in ~12 nanoseconds.
+* **20% Smaller Than Bloom**: For the same 1% error rate, a Bloom filter needs ~10 bits per item. An XOR filter needs only **~9.8 bits**.
+* **The Trade-off**: You must build it all at once from a batch of keys. You cannot add new items to an existing XOR filter on the fly.
 
 ---
 
-## 4. Binary Fuse Filters (2020) — Near-Theoretical Space Efficiency
+## 5. Binary Fuse Filters (2020): Squeezing Space to the Mathematical Limit
 
-Introduced by Thomas Mueller Graf and Daniel Lemire in 2020, **Binary Fuse Filters** represent the modern state of the art in static membership testing.
+While XOR filters were blazing fast, they had one flaw: dividing the array into three separate disjoint blocks left about ~23% of empty slack space during construction.
 
-Instead of dividing the array into three disjoint sections (as XOR filters do), Binary Fuse filters use **overlapping segment windows** with fuse parameters:
+In 2020, Thomas Mueller Graf and Daniel Lemire fixed this with **Binary Fuse Filters**.
 
-* **Information-Theoretic Efficiency**: Approaches the theoretical limit of `~1.12 * log2(1 / epsilon)` bits per key. For a 1% false positive rate, it uses just ~9 bits per item, compared to ~10 bits in Bloom and ~9.8 bits in XOR.
-* **Linear Time Construction**: Construction is significantly faster and uses less memory overhead than standard XOR filters.
+Instead of three isolated blocks, Binary Fuse filters use **overlapping, sliding segment windows** (like shingles on a roof). Keys in adjacent regions share boundary slots.
 
 <Figure
   src="/writing/binary-fuse-filter.svg"
   alt="Binary Fuse Filter (2020) Overlapping Sliding Windows and Optimal Bound"
-  caption="FIG 4.0 — Binary Fuse Filter: Overlapping segment fuse windows reaching ~1.12 bits/key near the theoretical bound."
+  caption="FIG 4.0 — Binary Fuse Filter: Sliding segment windows eliminate wasted capacity, reaching ~1.12 bits/key near the theoretical limit."
 />
 
+### Why Binary Fuse Filters Win:
+
+* **Near-Theoretical Space Limit**: Information theory proves you cannot compress membership testing below $\approx 1.12 \times \log_2(1/\epsilon)$ bits per key. Binary Fuse filters get within ~12% of that mathematical ceiling—using just **~8.9 bits per item** at 1% error rate.
+* **Builds 2x Faster**: Because overlapping windows make the solver's job easier, construction finishes in strict linear time ($O(N)$) and uses very little temporary RAM.
+* **Clustered Memory Reads**: The three lookups happen inside a localized sliding window, preserving CPU cache lines.
+
+Today, Binary Fuse filters are the state-of-the-art choice for read-heavy immutable tables in modern analytic and storage engines.
+
 ---
 
-## Engineering Decision Matrix
+## Summary: Which Filter Should You Actually Use?
 
-| Dimension | Bloom Filter | Cuckoo Filter | XOR Filter | Binary Fuse Filter |
+| Feature | Bloom Filter (1970) | Cuckoo Filter (2014) | XOR Filter (2019) | Binary Fuse Filter (2020) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Year** | 1970 | 2014 | 2019 | 2020 |
-| **Supports Deletions?** | No | Yes (O(1)) | No (Static) | No (Static) |
-| **Dynamic Inserts?** | Yes | Yes (Until full) | No (Batch build) | No (Batch build) |
-| **Bits / Key (at 1% FPR)**| ~9.6 – 10.0 | ~8.4 – 9.0 | ~9.8 | ~8.9 – 9.1 |
-| **Memory Accesses** | k random seeks | At most 2 buckets | Exactly 3 seeks | Exactly 3 seeks |
-| **Best Production Fit** | Legacy systems / streaming data | Active write workloads with deletions | Immutable read tables | Static SSTables & read-only indexes |
+| **Can you delete items?** | ❌ No | ✅ **Yes ($O(1)$)** | ❌ No (Static) | ❌ No (Static) |
+| **Can you add items on the fly?** | ✅ Yes | ✅ Yes (Until full) | ❌ No (Batch build) | ❌ No (Batch build) |
+| **Bits needed per item (at 1% error)** | ~10.0 bits | ~8.4 – 9.0 bits | ~9.8 bits | **~8.9 bits (Smallest)** |
+| **CPU memory stalls per check** | High (5–8 random seeks) | Low (at most 2 buckets) | Fixed (exactly 3 reads) | Fixed (3 clustered reads) |
+| **Best suited for** | Legacy apps / append-only logs | Live caches, expiring sessions | Static read indexes | RocksDB SSTables, static datasets |
 
 ---
 
-## The Practitioner's Rule of Thumb
+### The Plain-English Rule of Thumb
 
-1. **If your dataset requires dynamic writes and deletions**: Use **Cuckoo Filters**. It gives you clean deletions and high CPU cache locality without wasting 4x memory on Counting Bloom Filters.
-2. **If your dataset is immutable (e.g. RocksDB SSTables, static indexes, pre-computed search indices)**: Use **Binary Fuse Filters**. It gives you the lowest memory consumption, instantaneous batch construction, and blazing-fast 3-read lookups.
+1. **Need live updates and deletions?**  
+   Use a **Cuckoo Filter**. It gives you clean $O(1)$ deletions and only checks 2 cache lines, avoiding the memory-destroying flaws of Bloom filters.
+2. **Have static, read-only data?**  
+   Use a **Binary Fuse Filter**. It is constructed once in milliseconds, takes up the least memory physically possible (~8.9 bits/key), and evaluates queries in nanoseconds.
+3. **Only handling streaming append-only logs where items are never removed?**  
+   A classic **Bloom Filter** is still acceptable, but understand that your CPU is paying a cache-miss penalty on every query.
