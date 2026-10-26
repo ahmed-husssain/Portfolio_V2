@@ -11,38 +11,6 @@ export interface ArticleMetadata {
   takeaway?: string
 }
 
-export interface UpcomingArticle {
-  type: 'learning' | 'opinion'
-  status: 'DRAFTING' | 'IN REVIEW' | 'BENCHMARKING'
-  title: string
-  description: string
-  tags: string[]
-}
-
-export const UPCOMING_ARTICLES: UpcomingArticle[] = [
-  {
-    type: 'opinion',
-    status: 'DRAFTING',
-    title: 'Why Premature Microservices Kill Early-Stage Velocity',
-    description: 'The architectural reality of network boundaries, distributed transactions, and why a well-factored monolith wins until proven otherwise.',
-    tags: ['Architecture', 'System Design'],
-  },
-  {
-    type: 'learning',
-    status: 'BENCHMARKING',
-    title: 'Zero-Downtime Schema Migrations in Relational Databases',
-    description: 'Safe column additions, lock timeouts, backwards-compatible rollouts, and avoiding table locks on multi-million row production tables.',
-    tags: ['PostgreSQL', 'Databases'],
-  },
-  {
-    type: 'opinion',
-    status: 'IN REVIEW',
-    title: 'Write Less Code: The Art of Boring, Dependable Tech',
-    description: 'Why standard libraries and boring primitives outperform shiny abstractions when operating long-lived backend systems.',
-    tags: ['Philosophy', 'Backend'],
-  },
-]
-
 // Eagerly import only the metadata export for fast listing without loading MDX component bodies
 const metadataModules = import.meta.glob('../../content/writing/*.mdx', {
   eager: true,
