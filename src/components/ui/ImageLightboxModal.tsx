@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Close } from 'pixelarticons/react'
+import { useEffect, useState, useRef, useCallback } from 'react'
+import { X } from 'lucide-react'
 
 interface ImageLightboxModalProps {
   isOpen: boolean
@@ -16,80 +16,118 @@ export default function ImageLightboxModal({
   alt = '',
   caption,
 }: ImageLightboxModalProps) {
+  const [mounted, setMounted] = useState(false)
+  const [active, setActive] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleClose = useCallback(() => {
+    setActive(false)
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => {
+      onClose()
+      setMounted(false)
+    }, 200)
+  }, [onClose])
+
+  useEffect(() => {
+    if (isOpen) {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      setMounted(true)
+      document.body.style.overflow = 'hidden'
+      const raf1 = requestAnimationFrame(() => {
+        const raf2 = requestAnimationFrame(() => {
+          setActive(true)
+        })
+        return () => cancelAnimationFrame(raf2)
+      })
+      return () => cancelAnimationFrame(raf1)
+    } else {
+      setActive(false)
+      const timer = setTimeout(() => {
+        setMounted(false)
+        document.body.style.overflow = 'unset'
+      }, 200)
+      return () => clearTimeout(timer)
+    }
+  }, [isOpen])
+
+  // ESC key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape' && mounted) {
+        handleClose()
+      }
     }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [mounted, handleClose])
 
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', handleKeyDown)
-    }
-
+  // Cleanup on unmount
+  useEffect(() => {
     return () => {
       document.body.style.overflow = 'unset'
-      window.removeEventListener('keydown', handleKeyDown)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [isOpen, onClose])
+  }, [])
 
-  if (!isOpen || !src) return null
+  if (!mounted || !src) return null
 
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label={alt || 'Image zoom preview'}
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-10 cursor-zoom-out select-none"
+      onClick={handleClose}
     >
-      {/* Backdrop */}
+      {/* Immersive Dark Backdrop with fluid opacity transition */}
       <div
-        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity duration-200 animate-backdrop-in"
-        onClick={onClose}
+        className={`fixed inset-0 bg-black/90 backdrop-blur-md transition-opacity duration-200 ease-out ${
+          active ? 'opacity-100' : 'opacity-0'
+        }`}
         aria-hidden="true"
       />
 
-      {/* Modal Container */}
-      <div className="relative z-10 max-w-5xl w-full max-h-[92vh] flex flex-col bg-surface border border-border-strong rounded-sm overflow-hidden shadow-2xl pixel-corners transition-all duration-200 animate-lightbox-in">
-        {/* Top Telemetry Header */}
-        <div className="flex items-center justify-between px-4 py-2.5 bg-surface-subtle/80 border-b border-border text-xs font-mono shrink-0">
-          <div className="flex items-center gap-2 text-muted truncate pr-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-            <span className="text-foreground font-semibold uppercase tracking-wider">DIAGRAM INSPECTOR</span>
-            <span className="text-border-strong hidden sm:inline">·</span>
-            <span className="text-secondary truncate hidden sm:inline">{alt || 'Full Resolution View'}</span>
-          </div>
+      {/* Floating Minimalist Close Button */}
+      <button
+        type="button"
+        onClick={handleClose}
+        className={`absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 transition-all duration-200 active:scale-95 cursor-pointer shadow-lg ${
+          active ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
+        }`}
+        title="Close (Esc)"
+        aria-label="Close image preview"
+      >
+        <X className="w-5 h-5 stroke-[1.75]" aria-hidden="true" />
+      </button>
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex items-center gap-1.5 px-2 py-1 text-xs font-mono text-secondary hover:text-foreground hover:bg-page border border-transparent hover:border-border rounded-2xs active:scale-[0.96] transition-all cursor-pointer"
-            title="Close (Esc)"
-          >
-            <Close className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-            <span className="hidden sm:inline">ESC</span>
-          </button>
-        </div>
-
-        {/* Image Content Area */}
-        <div
-          className="p-3 sm:p-6 overflow-auto flex items-center justify-center bg-black/40 min-h-[240px] max-h-[75vh]"
-          onClick={onClose}
-        >
-          <img
-            src={src}
-            alt={alt}
-            className="max-h-[70vh] w-auto max-w-full object-contain rounded-xs border border-border/50 shadow-lg cursor-zoom-out"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-
-        {/* Bottom Caption Bar */}
-        {caption && (
-          <div className="px-4 py-2.5 bg-page/90 border-t border-border text-center text-xs font-mono text-muted shrink-0">
-            {caption}
-          </div>
-        )}
+      {/* Hero Image — Zero Box Framing, Zero Chrome, Maximum Optical Room */}
+      <div
+        className={`relative z-10 max-w-full max-h-full flex items-center justify-center transition-all duration-250 pointer-events-auto ${
+          active ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}
+        style={{
+          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
+        onClick={handleClose}
+      >
+        <img
+          src={src}
+          alt={alt}
+          className="max-h-[85vh] sm:max-h-[90vh] max-w-[94vw] w-auto h-auto object-contain rounded-md shadow-2xl drop-shadow-2xl cursor-zoom-out"
+        />
       </div>
+
+      {/* Floating Minimalist Caption (Subtle floating pill, no slicing borders) */}
+      {caption && (
+        <div
+          className={`absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 max-w-[90vw] px-4 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-white/80 text-xs font-mono text-center truncate pointer-events-none transition-all duration-200 shadow-lg ${
+            active ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+          }`}
+        >
+          {caption}
+        </div>
+      )}
     </div>
   )
 }

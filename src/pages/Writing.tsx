@@ -137,21 +137,19 @@ export default function Writing() {
                             setLightboxImage({
                               src: article.image!,
                               alt: article.imageAlt || article.title,
-                              caption: `${article.title} — Architecture data flow diagram`,
+                              caption: article.title,
                             })
                           }
-                          className="shrink-0 w-full md:w-56 lg:w-64 aspect-[16/10] border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners group/thumb transition-colors relative cursor-zoom-in text-left block"
-                          title="Click to view full diagram"
+                          className="shrink-0 w-full md:w-60 lg:w-72 aspect-[16/10] border border-border bg-surface-subtle/50 hover:border-border-strong rounded-sm overflow-hidden pixel-corners group/thumb transition-all duration-200 relative cursor-zoom-in text-left block active:scale-[0.98] p-2"
+                          title="Click to zoom diagram"
+                          aria-label={`Zoom diagram: ${article.title}`}
                         >
                           <img
                             src={article.image}
                             alt={article.imageAlt || article.title}
-                            className="w-full h-full object-cover group-hover/thumb:scale-[1.03] transition-transform duration-300"
+                            className="w-full h-full object-contain group-hover/thumb:scale-[1.02] transition-transform duration-200"
                             loading="lazy"
                           />
-                          <div className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white rounded-2xs opacity-0 group-hover/thumb:opacity-100 transition-opacity">
-                            EXPAND ↗
-                          </div>
                         </button>
                       )}
                     </div>

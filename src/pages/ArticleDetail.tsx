@@ -72,20 +72,17 @@ const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: s
     <figure className="my-6">
       <div
         onClick={() => src && openLightbox({ src, alt, caption })}
-        className="border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners cursor-zoom-in relative group transition-colors"
-        title="Click to view full diagram"
+        className="border border-border bg-surface hover:border-border-strong rounded-sm overflow-hidden pixel-corners cursor-zoom-in relative group transition-colors active:scale-[0.99]"
+        title="Click to zoom diagram"
       >
         {src && (
           <img
             src={src}
             alt={alt || caption || ''}
-            className="w-full h-auto object-cover block group-hover:scale-[1.01] transition-transform duration-200"
+            className="w-full h-auto object-contain block group-hover:scale-[1.01] transition-transform duration-200"
             loading="lazy"
           />
         )}
-        <div className="absolute bottom-2 right-2 px-1.5 py-0.5 bg-black/80 backdrop-blur-xs border border-white/20 text-[10px] font-mono text-white rounded-2xs opacity-0 group-hover:opacity-100 transition-opacity">
-          EXPAND ↗
-        </div>
       </div>
       {caption && (
         <figcaption className="text-micro-caps text-muted text-center mt-2.5 font-mono">
