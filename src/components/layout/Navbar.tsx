@@ -344,7 +344,7 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
-        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[480px] md:w-[540px] bg-page border-l border-border/80 shadow-2xl flex flex-col justify-between p-6 sm:p-10 md:p-12 transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
+        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page border-l border-border/80 shadow-2xl flex flex-col justify-between p-6 sm:p-8 md:p-10 2xl:p-12 transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform overflow-y-auto overflow-x-hidden scrollbar-none"
         style={{
           transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(calc(100% + 100px), 0, 0)',
         }}
@@ -366,7 +366,7 @@ export default function Navbar() {
         </div>
 
         {/* Top Header of the Overlay */}
-        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-4 sm:pb-6 pr-12 sm:pr-16">
+        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-3 sm:pb-4 2xl:pb-6 pr-12 sm:pr-16 shrink-0">
           <div className="flex items-center gap-2.5">
             <span className="text-secondary font-semibold">// NAVIGATION</span>
             <span className="text-border-strong hidden xs:inline" aria-hidden="true">·</span>
@@ -378,15 +378,15 @@ export default function Navbar() {
         </div>
 
         {/* Center: High-Fashion Typographic Navigation with Staggered Slide-Up */}
-        <nav className="flex flex-col gap-2 sm:gap-3.5 my-auto py-4" aria-label="Overlay navigation links">
+        <nav className="flex flex-col justify-center gap-1.5 sm:gap-2.5 2xl:gap-3.5 my-auto py-2 sm:py-3 min-h-0 shrink-0" aria-label="Overlay navigation links">
           {(() => {
             const isHomeActive = location.pathname === '/'
             return (
-              <div className="overflow-hidden py-1">
+              <div className="overflow-hidden py-0.5 sm:py-1">
                 <Link
                   to="/"
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-4 sm:gap-6 py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
                     isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
                   style={{
@@ -402,7 +402,7 @@ export default function Navbar() {
                   }`}>
                     01
                   </span>
-                  <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
+                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3">
                     <span>Home</span>
                     {isHomeActive && (
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
@@ -420,11 +420,11 @@ export default function Navbar() {
             const delay = (idx + 1) * 55 + 120
 
             return (
-              <div key={item.href} className="overflow-hidden py-1">
+              <div key={item.href} className="overflow-hidden py-0.5 sm:py-1">
                 <Link
                   to={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-4 sm:gap-6 py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
                     active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
                   style={{
@@ -440,7 +440,7 @@ export default function Navbar() {
                   }`}>
                     0{idx + 2}
                   </span>
-                  <span className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none flex items-center gap-3">
+                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3">
                     <span>{item.label}</span>
                     {active && (
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
@@ -457,7 +457,7 @@ export default function Navbar() {
 
         {/* Bottom: Socials & Direct Connect (Zero Mid-Word Splitting) */}
         <div
-          className="pt-5 border-t border-border flex flex-col gap-3.5 text-xs font-mono text-muted"
+          className="pt-3.5 sm:pt-4 2xl:pt-5 border-t border-border flex flex-col gap-2.5 sm:gap-3 2xl:gap-3.5 text-xs font-mono text-muted shrink-0"
           style={{
             transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(0, 30px, 0)',
             opacity: menuOpen ? 1 : 0,
