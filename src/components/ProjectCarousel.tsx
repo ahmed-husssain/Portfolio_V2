@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import {
   ChevronLeft,
   ChevronRight,
@@ -65,6 +66,34 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [nextSlide, prevSlide, isLightboxOpen])
 
+  // Scroll and Lenis lock when lightbox is open
+  useEffect(() => {
+    if (isLightboxOpen) {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.stop()
+      }
+      document.documentElement.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden'
+      document.body.style.touchAction = 'none'
+    } else {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.start()
+      }
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+      document.body.style.touchAction = ''
+    }
+
+    return () => {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.start()
+      }
+      document.documentElement.style.overflow = ''
+      document.body.style.overflow = ''
+      document.body.style.touchAction = ''
+    }
+  }, [isLightboxOpen])
+
   // Touch swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null)
@@ -108,8 +137,13 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         onTouchEnd={handleTouchEnd}
         onMouseEnter={() => isPlaying && setIsPlaying(false)}
       >
-        {/* Slide Images Container */}
-        <div className="relative w-full h-full overflow-hidden bg-black/40">
+        {/* Slide Images Container - Click to open full-resolution lightbox */}
+        <div
+          onClick={() => setIsLightboxOpen(true)}
+          data-cursor-text="EXPAND ↗"
+          className="relative w-full h-full overflow-hidden bg-black/40 cursor-zoom-in group/stage"
+          title="Click to view full screen"
+        >
           {slides.map((slide, idx) => {
             const isActive = idx === activeIndex
             return (
@@ -125,7 +159,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
                 <img
                   src={slide.image}
                   alt={`${projectTitle} — ${slide.title}`}
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-top group-hover/stage:scale-[1.015] transition-transform duration-500 ease-out"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                   decoding="async"
                   width="1024"
@@ -134,10 +168,21 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               </div>
             )
           })}
+
+          {/* Hover Expand Badge */}
+          <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/stage:opacity-100 transition-opacity duration-200 pointer-events-none flex items-center justify-center z-15">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/85 text-white border border-white/20 text-xs font-mono font-semibold backdrop-blur-md shadow-lg">
+              <Maximize2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>CLICK TO EXPAND FULLSCREEN</span>
+            </span>
+          </div>
         </div>
 
         {/* Floating Top Header Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none z-20">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none z-20"
+        >
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-foreground font-semibold shadow-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-emerald-400">
@@ -159,7 +204,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
             {/* Play / Pause Toggle */}
             <button
               type="button"
-              onClick={() => setIsPlaying(!isPlaying)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsPlaying(!isPlaying)
+              }}
               className="p-1.5 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/95 active:scale-95 transition-all cursor-pointer"
               aria-label={isPlaying ? 'Pause slideshow' : 'Start slideshow'}
               title={isPlaying ? 'Pause auto-advance' : 'Auto-play slides'}
@@ -174,7 +222,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
             {/* Lightbox Trigger */}
             <button
               type="button"
-              onClick={() => setIsLightboxOpen(true)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsLightboxOpen(true)
+              }}
               className="p-1.5 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/95 active:scale-95 transition-all cursor-pointer"
               aria-label="Inspect screenshot in full screen"
               title="Expand full resolution"
@@ -187,7 +238,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         {/* Previous & Next Floating Buttons */}
         <button
           type="button"
-          onClick={prevSlide}
+          onClick={(e) => {
+            e.stopPropagation()
+            prevSlide()
+          }}
           className="absolute left-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-xs bg-black/75 hover:bg-black/95 backdrop-blur-md border border-white/15 text-white shadow-lg opacity-90 sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 transition-all duration-200 z-20 cursor-pointer"
           aria-label="Previous slide"
         >
@@ -196,7 +250,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
 
         <button
           type="button"
-          onClick={nextSlide}
+          onClick={(e) => {
+            e.stopPropagation()
+            nextSlide()
+          }}
           className="absolute right-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-xs bg-black/75 hover:bg-black/95 backdrop-blur-md border border-white/15 text-white shadow-lg opacity-90 sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 transition-all duration-200 z-20 cursor-pointer"
           aria-label="Next slide"
         >
@@ -204,14 +261,20 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         </button>
 
         {/* Interactive Expanded Pill Indicators */}
-        <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 z-20 pointer-events-auto">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 z-20 pointer-events-auto"
+        >
           {slides.map((_, idx) => {
             const isCurrent = idx === activeIndex
             return (
               <button
                 key={idx}
                 type="button"
-                onClick={() => setActiveIndex(idx)}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveIndex(idx)
+                }}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   isCurrent
                     ? 'w-7 bg-emerald-400 shadow-sm shadow-emerald-400/50'
@@ -264,13 +327,20 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
             <button
               key={slide.image}
               type="button"
-              onClick={() => setActiveIndex(idx)}
+              onClick={() => {
+                if (isCurrent) {
+                  setIsLightboxOpen(true)
+                } else {
+                  setActiveIndex(idx)
+                }
+              }}
+              data-cursor-text={isCurrent ? 'EXPAND ↗' : `SLIDE 0${idx + 1}`}
               className={`group/thumb relative aspect-[16/10] rounded-xs overflow-hidden border text-left transition-all duration-200 cursor-pointer ${
                 isCurrent
                   ? 'border-emerald-500 ring-2 ring-emerald-500/30 shadow-xs'
                   : 'border-border/80 opacity-65 hover:opacity-100 hover:border-border-strong'
               }`}
-              aria-label={`Select slide ${idx + 1}: ${slide.title}`}
+              aria-label={isCurrent ? `Expand slide ${idx + 1}: ${slide.title}` : `Select slide ${idx + 1}: ${slide.title}`}
             >
               <img
                 src={slide.image}
@@ -291,10 +361,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         })}
       </div>
 
-      {/* ── High-Resolution Lightbox Modal ── */}
-      {isLightboxOpen && (
+      {/* ── High-Resolution Lightbox Modal (Portaled directly to document.body) ── */}
+      {isLightboxOpen && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 bg-neutral-950/95 backdrop-blur-2xl select-none"
           role="dialog"
           aria-modal="true"
           aria-label={`${projectTitle} screenshot preview`}
@@ -302,69 +372,102 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         >
           {/* Top Bar Controls */}
           <div
-            className="w-full max-w-5xl flex items-center justify-between pb-3 text-white text-xs font-mono"
+            className="w-full max-w-6xl flex items-center justify-between pb-3 text-white text-xs font-mono border-b border-white/10 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-emerald-400" />
-              <span className="font-bold">{projectTitle}</span>
+            <div className="flex items-center gap-2 truncate pr-4">
+              <Layers className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span className="font-bold tracking-tight text-white">{projectTitle}</span>
               <span className="text-white/40">·</span>
-              <span className="text-emerald-400">
+              <span className="text-emerald-400 font-semibold shrink-0">
                 0{activeIndex + 1} / 0{total}
               </span>
-              <span className="text-white/70 hidden sm:inline">— {currentSlide?.title}</span>
+              <span className="text-white/80 hidden sm:inline truncate">— {currentSlide?.title}</span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsLightboxOpen(false)}
-              className="p-1.5 rounded-xs bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all cursor-pointer"
-              aria-label="Close full resolution viewer"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-[11px] text-white/50 hidden md:inline">
+                [ESC] or click outside to close
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsLightboxOpen(false)}
+                className="p-2 rounded-xs bg-white/10 hover:bg-white/25 active:scale-95 text-white transition-all cursor-pointer flex items-center justify-center border border-white/20"
+                aria-label="Close full resolution viewer"
+                title="Close [ESC]"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Modal Image Display */}
           <div
-            className="relative w-full max-w-5xl aspect-[16/10] sm:aspect-[16/9] rounded-sm overflow-hidden border border-white/15 bg-black shadow-2xl flex items-center justify-center"
+            className="relative w-full max-w-6xl flex-1 my-3 sm:my-4 flex items-center justify-center overflow-hidden min-h-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={currentSlide?.image}
-              alt={currentSlide?.title}
-              className="w-full h-full object-contain"
-            />
+            <div className="relative max-w-full max-h-full rounded-sm overflow-hidden border border-white/15 bg-black shadow-2xl flex items-center justify-center">
+              <img
+                src={currentSlide?.image}
+                alt={currentSlide?.title}
+                className="max-w-full max-h-[72vh] sm:max-h-[78vh] w-auto h-auto object-contain select-none"
+              />
+            </div>
 
             {/* Modal Navigation Arrows */}
             <button
               type="button"
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-xs bg-black/80 hover:bg-black border border-white/20 text-white shadow-lg active:scale-95 transition-all cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation()
+                prevSlide()
+              }}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-3 sm:p-3.5 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white shadow-2xl active:scale-95 transition-all cursor-pointer z-30"
               aria-label="Previous slide"
+              title="Previous [←]"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <button
               type="button"
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-xs bg-black/80 hover:bg-black border border-white/20 text-white shadow-lg active:scale-95 transition-all cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation()
+                nextSlide()
+              }}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-3 sm:p-3.5 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white shadow-2xl active:scale-95 transition-all cursor-pointer z-30"
               aria-label="Next slide"
+              title="Next [→]"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
 
-          {/* Modal Bottom Caption */}
+          {/* Modal Bottom Caption & Indicator Dots */}
           <div
-            className="w-full max-w-5xl pt-3 flex items-center justify-between text-xs font-mono text-white/70"
+            className="w-full max-w-6xl pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-white/80 border-t border-white/10 shrink-0"
             onClick={(e) => e.stopPropagation()}
           >
-            <span>{currentSlide?.description}</span>
-            <span className="text-white/40 hidden sm:inline">Use [←] and [→] keys to navigate · [ESC] to close</span>
+            <span className="text-center sm:text-left text-white/90 line-clamp-2 max-w-3xl">
+              {currentSlide?.description || currentSlide?.title}
+            </span>
+            <div className="flex items-center gap-1.5 shrink-0">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
+                    idx === activeIndex
+                      ? 'w-6 bg-emerald-400'
+                      : 'w-2 bg-white/30 hover:bg-white/60'
+                  }`}
+                  aria-label={`Jump to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )

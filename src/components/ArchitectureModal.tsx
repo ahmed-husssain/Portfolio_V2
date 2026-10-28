@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Close } from 'pixelarticons/react'
 import ArchitectureVisualizer from './ArchitectureVisualizer'
 
@@ -20,23 +21,29 @@ export default function ArchitectureModal({
       if (e.key === 'Escape') onClose()
     }
     if (isOpen) {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.stop()
+      }
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', handleKeyDown)
     }
     return () => {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.start()
+      }
       document.body.style.overflow = 'unset'
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpen, onClose])
 
-  if (!isOpen) return null
+  if (!isOpen || typeof document === 'undefined') return null
 
   const isShifa = projectSlug === 'shifamanagement' || initialFlowId === 'shifa-architecture'
   const title = isShifa ? 'SHIFA HEALTHCARE ARCHITECTURE' : 'GALLREX LIVE ARCHITECTURE'
   const subtitle = isShifa ? 'ATOMIC BILLING & RLS SECURITY ENGINE' : 'CONCURRENCY & WEBSOCKET ENGINE'
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 animate-fadeIn">
+  return createPortal(
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center p-2 sm:p-4 animate-fadeIn">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity"
@@ -76,6 +83,7 @@ export default function ArchitectureModal({
           <ArchitectureVisualizer projectSlug={projectSlug} initialFlowId={initialFlowId} />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }
