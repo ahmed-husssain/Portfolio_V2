@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Briefcase, User, BookOpen, Mail } from 'pixelarticons/react'
+import { Briefcase, User, BookOpen, Mail, Home } from 'pixelarticons/react'
 import ThemeToggle from '../ui/ThemeToggle'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
@@ -10,6 +10,7 @@ const NAV_ICON_MAP: Record<
   string,
   { prefix: string; icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }> }
 > = {
+  '/': { prefix: 'Hom', icon: Home },
   '/work': { prefix: 'Wor', icon: Briefcase },
   '/about': { prefix: 'Abou', icon: User },
   '/writing': { prefix: 'Writin', icon: BookOpen },
@@ -300,28 +301,22 @@ export default function Navbar() {
             type="button"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-surface text-foreground border border-border hover:border-border-strong shadow-lg flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none active:scale-95 transition-all"
+            className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-surface hover:bg-surface-hover text-foreground border border-border hover:border-border-strong shadow-lg flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none active:scale-95 transition-all"
           >
-            {/* Liquid Fill Hover Ring */}
-            <span
-              className="absolute inset-0 rounded-full bg-foreground scale-0 group-hover:scale-100 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              aria-hidden="true"
-            />
-
             {/* Kinetic Hamburger / Close Lines */}
             <div className="relative z-10 w-4 h-3.5 flex flex-col justify-between items-center pointer-events-none">
               <span
-                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`w-4 h-[1.5px] bg-foreground rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   menuOpen ? 'translate-y-[6px] rotate-45' : ''
                 }`}
               />
               <span
-                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`w-4 h-[1.5px] bg-foreground rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   menuOpen ? 'opacity-0 scale-x-0' : 'opacity-100'
                 }`}
               />
               <span
-                className={`w-4 h-[1.5px] bg-foreground group-hover:bg-page rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`w-4 h-[1.5px] bg-foreground rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   menuOpen ? '-translate-y-[6px] -rotate-45' : ''
                 }`}
               />
@@ -344,14 +339,14 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
-        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page border-l border-border/80 shadow-2xl flex flex-col justify-between p-6 sm:p-8 md:p-10 2xl:p-12 transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform overflow-y-auto overflow-x-hidden scrollbar-none"
+        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page border-l border-border/80 shadow-2xl transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
         style={{
           transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(calc(100% + 100px), 0, 0)',
         }}
       >
-        {/* Trailing Organic Curved SVG Edge (Dennis Snellenberg signature) */}
+        {/* Trailing Organic Curved SVG Edge (Dennis Snellenberg signature) - Unclipped outside aside */}
         <div
-          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none overflow-hidden select-none -mr-px hidden sm:block"
+          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none select-none -mr-px hidden sm:block z-20"
           style={{ color: 'var(--bg-page)' }}
           aria-hidden="true"
         >
@@ -359,11 +354,14 @@ export default function Navbar() {
             viewBox="0 0 100 1000"
             fill="currentColor"
             preserveAspectRatio="none"
-            className="w-full h-full"
+            className="w-full h-full drop-shadow-[-10px_0_15px_rgba(0,0,0,0.18)]"
           >
             <path d="M100,0 L100,1000 Q0,500 100,0 Z" />
           </svg>
         </div>
+
+        {/* Inner Scroll-Safe Layout: Perfectly accommodates all devices without clipping the curve */}
+        <div className="relative w-full h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 2xl:p-12 overflow-y-auto overflow-x-hidden scrollbar-none z-10">
 
         {/* Top Header of the Overlay */}
         <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-3 sm:pb-4 2xl:pb-6 pr-12 sm:pr-16 shrink-0">
@@ -386,7 +384,7 @@ export default function Navbar() {
                 <Link
                   to="/"
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 active:scale-[0.98] ${
                     isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
                   style={{
@@ -397,15 +395,22 @@ export default function Navbar() {
                       : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
                   }}
                 >
-                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
-                    isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
+                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
+                    isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'
                   }`}>
                     01
                   </span>
-                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3">
-                    <span>Home</span>
-                    {isHomeActive && (
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
+                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
+                    <span className="relative">
+                      <span>Home</span>
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-emerald-500 to-emerald-500/0 group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
+                    </span>
+                    {isHomeActive ? (
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" aria-label="Current page" />
+                    ) : (
+                      <span className="w-6 h-6 rounded-md bg-surface border border-border/80 flex items-center justify-center shrink-0 opacity-0 -translate-x-2.5 scale-75 rotate-[-8deg] group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 group-hover:rotate-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xs">
+                        <Home className="w-3.5 h-3.5 pixel-icon text-foreground" aria-hidden="true" />
+                      </span>
                     )}
                   </span>
                 </Link>
@@ -424,7 +429,7 @@ export default function Navbar() {
                 <Link
                   to={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 hover:translate-x-2.5 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 active:scale-[0.98] ${
                     active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
                   style={{
@@ -435,18 +440,24 @@ export default function Navbar() {
                       : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
                   }}
                 >
-                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-colors ${
-                    active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-foreground'
+                  <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
+                    active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'
                   }`}>
                     0{idx + 2}
                   </span>
-                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3">
-                    <span>{item.label}</span>
-                    {active && (
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse" aria-label="Current page" />
-                    )}
-                    {IconComponent && !active && (
-                      <IconComponent className="w-5 h-5 pixel-icon text-muted opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline-block" aria-hidden="true" />
+                  <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
+                    <span className="relative">
+                      <span>{item.label}</span>
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-emerald-500 to-emerald-500/0 group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
+                    </span>
+                    {active ? (
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" aria-label="Current page" />
+                    ) : (
+                      IconComponent && (
+                        <span className="w-6 h-6 rounded-md bg-surface border border-border/80 flex items-center justify-center shrink-0 opacity-0 -translate-x-2.5 scale-75 rotate-[-8deg] group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 group-hover:rotate-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xs">
+                          <IconComponent className="w-3.5 h-3.5 pixel-icon text-foreground" aria-hidden="true" />
+                        </span>
+                      )
                     )}
                   </span>
                 </Link>
@@ -506,6 +517,7 @@ export default function Navbar() {
               <span>AVAILABLE FOR ROLES</span>
             </div>
           </div>
+        </div>
         </div>
       </aside>
     </>
