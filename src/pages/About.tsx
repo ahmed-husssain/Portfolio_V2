@@ -279,7 +279,7 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 4. Connect & Direct Channels (4-Column Horizontal Strip) ─── */}
+        {/* ─── 4. Connect & Direct Channels (2x2 Bento Grid) ─── */}
         <Reveal>
           <section id="contact" className="mb-16 sm:mb-24 pt-8 border-t border-border scroll-mt-24">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
@@ -287,7 +287,7 @@ export default function About() {
                 <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-1">
                   <span className="text-emerald-500 font-bold">// 04</span>
                   <span className="text-border-strong">·</span>
-                  <span className="text-foreground font-semibold">DIRECT CHANNELS & CONTACT</span>
+                  <span className="text-foreground font-semibold">CONNECT & DIRECT CHANNELS</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
                   Get in Touch
@@ -303,101 +303,110 @@ export default function About() {
               </div>
             </div>
 
-            {/* 4 Columns Sitting Side-by-Side in 1 Horizontal Line */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
-              {/* Col 1: Direct Email */}
-              <div className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 hover:border-border-strong transition-all">
+            {/* 2x2 Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+              {/* Bento Card 1: Direct Email */}
+              <div className="p-5 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-44 hover:border-border-strong transition-all">
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
-                    <span className="text-foreground">PRIMARY INBOX</span>
-                    <Mail className="w-3.5 h-3.5 text-emerald-500 pixel-icon" aria-hidden="true" />
+                    <span className="text-foreground">PRIMARY DIRECT CHANNEL</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                      <Mail className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                      FASTEST
+                    </span>
                   </div>
-                  <div className="text-xs font-bold text-foreground truncate" title={CONTACT_CONFIG.email}>
+                  <h3 className="text-base font-bold text-foreground tracking-tight">Direct Email</h3>
+                  <p className="text-[11px] text-secondary mt-1 truncate" title={CONTACT_CONFIG.email}>
                     {CONTACT_CONFIG.email}
-                  </div>
-                  <div className="text-[10px] text-secondary mt-1">Direct inquiries & opportunities</div>
+                  </p>
                 </div>
-                <div className="flex items-center gap-2 pt-2 border-t border-border">
+                <div className="flex items-center gap-2 pt-3 border-t border-border">
                   <a
                     href={`mailto:${CONTACT_CONFIG.email}`}
-                    className="flex-1 py-1.5 text-center bg-foreground text-page font-bold text-[11px] rounded-xs hover:bg-secondary transition-colors"
+                    className="flex-1 py-2 text-center bg-foreground text-page font-bold text-xs rounded-xs hover:bg-secondary transition-colors"
                   >
-                    SEND ↗
+                    SEND MAIL ↗
                   </a>
                   <CopyButton
                     text={CONTACT_CONFIG.email}
                     label="COPY"
                     copiedLabel="COPIED ✓"
-                    className="px-2.5 py-1.5 border border-border bg-page text-foreground hover:border-border-strong text-[11px] font-semibold rounded-xs active:scale-95 transition-all cursor-pointer"
+                    className="px-4 py-2 border border-border bg-page text-foreground hover:border-border-strong text-xs font-semibold rounded-xs active:scale-95 transition-all cursor-pointer"
                   />
                 </div>
               </div>
 
-              {/* Col 2: LinkedIn */}
+              {/* Bento Card 2: LinkedIn */}
               <a
                 href={CONTACT_CONFIG.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-border-strong transition-all"
+                className="p-5 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-44 group hover:border-border-strong transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
-                    <span className="text-foreground">LINKEDIN</span>
+                    <span className="text-foreground">RECRUITMENT & NETWORK</span>
                     <span className="text-foreground font-mono font-bold text-xs">in</span>
                   </div>
-                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
-                    {CONTACT_CONFIG.linkedin.handle}
-                  </div>
-                  <div className="text-[10px] text-secondary mt-1">Experience, background & network</div>
+                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                    LinkedIn Profile
+                  </h3>
+                  <p className="text-[11px] text-secondary mt-1">
+                    {CONTACT_CONFIG.linkedin.handle} · Open for full-time backend roles
+                  </p>
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-border text-[11px] text-foreground font-semibold">
-                  <span>Connect on LinkedIn</span>
+                <div className="flex items-center justify-between pt-3 border-t border-border text-xs font-semibold text-foreground">
+                  <span>View Experience & Message</span>
                   <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
-              {/* Col 3: GitHub */}
+              {/* Bento Card 3: GitHub */}
               <a
                 href={CONTACT_CONFIG.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-border-strong transition-all"
+                className="p-5 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-44 group hover:border-border-strong transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
-                    <span className="text-foreground">GITHUB</span>
+                    <span className="text-foreground">CODE & ARCHITECTURE</span>
                     <Github className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
                   </div>
-                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
-                    {CONTACT_CONFIG.github.handle}
-                  </div>
-                  <div className="text-[10px] text-secondary mt-1">Production code & repositories</div>
+                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                    GitHub Repositories
+                  </h3>
+                  <p className="text-[11px] text-secondary mt-1">
+                    {CONTACT_CONFIG.github.handle} · Production code, commits & projects
+                  </p>
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-border text-[11px] text-foreground font-semibold">
-                  <span>Inspect Repositories</span>
+                <div className="flex items-center justify-between pt-3 border-t border-border text-xs font-semibold text-foreground">
+                  <span>Inspect Source Repositories</span>
                   <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
-              {/* Col 4: Official Resume */}
+              {/* Bento Card 4: Official Resume */}
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 border border-emerald-500/20 bg-emerald-500/5 rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-emerald-500/40 transition-all"
+                className="p-5 border border-emerald-500/20 bg-emerald-500/5 rounded-xs pixel-corners flex flex-col justify-between h-44 group hover:border-emerald-500/40 transition-all"
               >
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 font-semibold">
-                    <span>OFFICIAL RESUME</span>
+                    <span>VERIFIED CREDENTIALS</span>
                     <span className="font-mono text-[9px] px-1 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xs">PDF</span>
                   </div>
-                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
-                    syed_ahmed_hussain
-                  </div>
-                  <div className="text-[10px] text-secondary mt-1">C#, .NET 8, SQL Server, PostgreSQL</div>
+                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                    Official Resume (CV)
+                  </h3>
+                  <p className="text-[11px] text-secondary mt-1">
+                    C#, ASP.NET Core, SQL Server, PostgreSQL, Flutter
+                  </p>
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-emerald-500/20 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
-                  <span>Download Official CV</span>
+                <div className="flex items-center justify-between pt-3 border-t border-emerald-500/20 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <span>Download Official PDF</span>
                   <span className="text-xs transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
                 </div>
               </a>
