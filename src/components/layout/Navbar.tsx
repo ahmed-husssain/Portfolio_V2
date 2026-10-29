@@ -60,10 +60,9 @@ function MagneticItem({
       className={`inline-block will-change-transform ${className}`}
       style={{
         transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
-        transition:
-          offset.x === 0 && offset.y === 0
-            ? 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
-            : 'transform 0.1s ease-out',
+        transition: isHovered.current
+          ? 'transform 0.1s ease-out'
+          : 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
       {children}
@@ -380,20 +379,22 @@ export default function Navbar() {
           {(() => {
             const isHomeActive = location.pathname === '/'
             return (
-              <div className="overflow-hidden py-0.5 sm:py-1">
+              <div
+                className="overflow-hidden py-0.5 sm:py-1 will-change-transform"
+                style={{
+                  transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
+                  opacity: menuOpen ? 1 : 0,
+                  transition: menuOpen
+                    ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, opacity 400ms ease 120ms'
+                    : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
+                }}
+              >
                 <Link
                   to="/"
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-colors duration-200 active:scale-[0.98] ${
                     isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
-                  style={{
-                    transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
-                    opacity: menuOpen ? 1 : 0,
-                    transition: menuOpen
-                      ? 'transform 550ms cubic-bezier(0.16, 1, 0.3, 1) 120ms, opacity 400ms ease 120ms'
-                      : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
-                  }}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
                     isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'
@@ -425,20 +426,23 @@ export default function Navbar() {
             const delay = (idx + 1) * 55 + 120
 
             return (
-              <div key={item.href} className="overflow-hidden py-0.5 sm:py-1">
+              <div
+                key={item.href}
+                className="overflow-hidden py-0.5 sm:py-1 will-change-transform"
+                style={{
+                  transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
+                  opacity: menuOpen ? 1 : 0,
+                  transition: menuOpen
+                    ? `transform 550ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 400ms ease ${delay}ms`
+                    : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
+                }}
+              >
                 <Link
                   to={item.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-all duration-300 active:scale-[0.98] ${
+                  className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-colors duration-200 active:scale-[0.98] ${
                     active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
-                  style={{
-                    transform: menuOpen ? 'translate3d(0, 0, 0) rotate(0deg)' : 'translate3d(0, 120%, 0) rotate(3deg)',
-                    opacity: menuOpen ? 1 : 0,
-                    transition: menuOpen
-                      ? `transform 550ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 400ms ease ${delay}ms`
-                      : 'transform 200ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease-out',
-                  }}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
                     active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'

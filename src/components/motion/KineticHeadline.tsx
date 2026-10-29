@@ -59,12 +59,44 @@ export default function KineticHeadline({ className = '', lines }: KineticHeadli
 
     measureChars()
 
+    // Re-measure when web fonts finish loading or layout settles
+    if (typeof document !== 'undefined' && 'fonts' in document) {
+      document.fonts.ready.then(() => {
+        measureChars()
+      })
+    }
+
+    // Re-measure after hero pop-in transitions complete
+    const t1 = setTimeout(measureChars, 150)
+    const t2 = setTimeout(measureChars, 500)
+    const t3 = setTimeout(measureChars, 1000)
+
     const handleResize = () => {
       measureChars()
       resetAllChars()
     }
 
+    const handleScroll = () => {
+      measureChars()
+    }
+
     window.addEventListener('resize', handleResize, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    // ResizeObserver watches for font, viewport or container reflows
+    let ro: ResizeObserver | null = null
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => {
+        measureChars()
+      })
+      ro.observe(container)
+    }
+
+    const handleAnimationOrTransitionEnd = () => {
+      measureChars()
+    }
+    container.addEventListener('animationend', handleAnimationOrTransitionEnd)
+    container.addEventListener('transitionend', handleAnimationOrTransitionEnd)
 
     const handlePointerMove = (e: PointerEvent) => {
       if (rafIdRef.current !== null) {
@@ -72,6 +104,11 @@ export default function KineticHeadline({ className = '', lines }: KineticHeadli
       }
 
       rafIdRef.current = requestAnimationFrame(() => {
+        // If coordinates were never measured or empty, measure on the fly
+        if (charCoordsRef.current.length === 0) {
+          measureChars()
+        }
+
         const mouseX = e.clientX
         const mouseY = e.clientY
         const radius = 135 // Proximity influence radius in px
@@ -125,7 +162,14 @@ export default function KineticHeadline({ className = '', lines }: KineticHeadli
     container.addEventListener('pointerleave', handlePointerLeave, { passive: true })
 
     return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
+      if (ro) ro.disconnect()
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', handleScroll)
+      container.removeEventListener('animationend', handleAnimationOrTransitionEnd)
+      container.removeEventListener('transitionend', handleAnimationOrTransitionEnd)
       container.removeEventListener('pointermove', handlePointerMove)
       container.removeEventListener('pointerenter', handlePointerEnter)
       container.removeEventListener('pointerleave', handlePointerLeave)
