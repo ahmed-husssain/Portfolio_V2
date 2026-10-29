@@ -279,155 +279,128 @@ export default function About() {
           </section>
         </Reveal>
 
-        {/* ─── 4. Connect & Direct Channels (Pixelify Editorial Index) ─── */}
+        {/* ─── 4. Connect & Direct Channels (4-Column Horizontal Strip) ─── */}
         <Reveal>
           <section id="contact" className="mb-16 sm:mb-24 pt-8 border-t border-border scroll-mt-24">
-            <div className="mb-8">
-              <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-2">
-                <span className="text-emerald-500 font-bold">// 04</span>
-                <span className="text-border-strong">·</span>
-                <span className="text-foreground font-semibold">CONNECT & DIRECT CHANNELS</span>
-                <span className="text-border-strong">·</span>
-                <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-bold">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-1">
+                  <span className="text-emerald-500 font-bold">// 04</span>
+                  <span className="text-border-strong">·</span>
+                  <span className="text-foreground font-semibold">DIRECT CHANNELS & CONTACT</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
+                  Get in Touch
+                </h2>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-mono text-muted">
+                <span>📍 {CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country} (PKT / UTC+5)</span>
+                <span className="text-border-strong hidden sm:inline">·</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-2xs flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
-                  ACTIVE INBOX
+                  Active Inbox &lt; 24H
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight">
-                Get in Touch
-              </h2>
-              <p className="text-xs sm:text-sm font-mono text-secondary mt-1.5 max-w-xl leading-relaxed">
-                Available for full-time backend and full-stack software engineering roles, technical architecture, and select contracts.
-              </p>
             </div>
 
-            {/* Editorial Index Rows */}
-            <div className="border-t border-b border-border divide-y divide-border font-mono text-xs">
-              {/* Row 1: Email (Primary Direct) */}
-              <div className="py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:bg-surface/50 transition-colors px-2 sm:px-3 -mx-2 sm:-mx-3 rounded-xs">
-                <div className="flex items-start sm:items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 shrink-0 bg-surface border border-border rounded-xs flex items-center justify-center text-foreground mt-0.5 sm:mt-0 pixel-corners">
-                    <Mail className="w-4 h-4 text-emerald-500 pixel-icon" aria-hidden="true" />
+            {/* 4 Columns Sitting Side-by-Side in 1 Horizontal Line */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono text-xs">
+              {/* Col 1: Direct Email */}
+              <div className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 hover:border-border-strong transition-all">
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
+                    <span className="text-foreground">PRIMARY INBOX</span>
+                    <Mail className="w-3.5 h-3.5 text-emerald-500 pixel-icon" aria-hidden="true" />
                   </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] text-muted uppercase tracking-wider font-semibold">EMAIL (PRIMARY)</span>
-                      <span className="text-[9px] text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-2xs font-semibold">SLA &lt; 24H</span>
-                    </div>
-                    <a
-                      href={`mailto:${CONTACT_CONFIG.email}`}
-                      className="text-sm font-bold text-foreground hover:text-emerald-500 transition-colors block tracking-tight mt-0.5"
-                    >
-                      {CONTACT_CONFIG.email}
-                    </a>
+                  <div className="text-xs font-bold text-foreground truncate" title={CONTACT_CONFIG.email}>
+                    {CONTACT_CONFIG.email}
                   </div>
+                  <div className="text-[10px] text-secondary mt-1">Direct inquiries & opportunities</div>
                 </div>
-
-                <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                <div className="flex items-center gap-2 pt-2 border-t border-border">
+                  <a
+                    href={`mailto:${CONTACT_CONFIG.email}`}
+                    className="flex-1 py-1.5 text-center bg-foreground text-page font-bold text-[11px] rounded-xs hover:bg-secondary transition-colors"
+                  >
+                    SEND ↗
+                  </a>
                   <CopyButton
                     text={CONTACT_CONFIG.email}
                     label="COPY"
                     copiedLabel="COPIED ✓"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-border bg-page hover:border-border-strong text-foreground text-xs font-semibold rounded-xs active:scale-[0.97] transition-all cursor-pointer"
+                    className="px-2.5 py-1.5 border border-border bg-page text-foreground hover:border-border-strong text-[11px] font-semibold rounded-xs active:scale-95 transition-all cursor-pointer"
                   />
-                  <a
-                    href={`mailto:${CONTACT_CONFIG.email}`}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-foreground text-page hover:bg-secondary text-xs font-semibold rounded-xs transition-colors active:scale-[0.97]"
-                  >
-                    <span>SEND MAIL</span>
-                    <ExternalLink className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                  </a>
                 </div>
               </div>
 
-              {/* Row 2: LinkedIn */}
+              {/* Col 2: LinkedIn */}
               <a
                 href={CONTACT_CONFIG.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-4 sm:py-5 flex items-center justify-between gap-3 group hover:bg-surface/50 transition-colors px-2 sm:px-3 -mx-2 sm:-mx-3 rounded-xs"
+                className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-border-strong transition-all"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 shrink-0 bg-surface border border-border rounded-xs flex items-center justify-center font-bold text-xs text-foreground font-mono pixel-corners">
-                    in
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
+                    <span className="text-foreground">LINKEDIN</span>
+                    <span className="text-foreground font-mono font-bold text-xs">in</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-muted uppercase tracking-wider font-semibold block">LINKEDIN PROFILE</span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-emerald-500 transition-colors">
-                      {CONTACT_CONFIG.linkedin.handle}
-                    </span>
-                    <span className="hidden sm:inline text-xs text-secondary ml-2">· Experience, career network & direct messaging</span>
+                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
+                    {CONTACT_CONFIG.linkedin.handle}
                   </div>
+                  <div className="text-[10px] text-secondary mt-1">Experience, background & network</div>
                 </div>
-                <div className="flex items-center gap-1 text-muted group-hover:text-foreground transition-colors text-xs shrink-0 font-medium">
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase">CONNECT</span>
-                  <ExternalLink className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                <div className="flex items-center justify-between pt-2 border-t border-border text-[11px] text-foreground font-semibold">
+                  <span>Connect on LinkedIn</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
-              {/* Row 3: GitHub */}
+              {/* Col 3: GitHub */}
               <a
                 href={CONTACT_CONFIG.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-4 sm:py-5 flex items-center justify-between gap-3 group hover:bg-surface/50 transition-colors px-2 sm:px-3 -mx-2 sm:-mx-3 rounded-xs"
+                className="p-4 border border-border bg-surface rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-border-strong transition-all"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 shrink-0 bg-surface border border-border rounded-xs flex items-center justify-center text-foreground pixel-corners">
-                    <Github className="w-4 h-4 pixel-icon" aria-hidden="true" />
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
+                    <span className="text-foreground">GITHUB</span>
+                    <Github className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
                   </div>
-                  <div>
-                    <span className="text-[10px] text-muted uppercase tracking-wider font-semibold block">GITHUB REPOSITORIES</span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-emerald-500 transition-colors">
-                      {CONTACT_CONFIG.github.handle}
-                    </span>
-                    <span className="hidden sm:inline text-xs text-secondary ml-2">· Production repositories, commit telemetry & open source</span>
+                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
+                    {CONTACT_CONFIG.github.handle}
                   </div>
+                  <div className="text-[10px] text-secondary mt-1">Production code & repositories</div>
                 </div>
-                <div className="flex items-center gap-1 text-muted group-hover:text-foreground transition-colors text-xs shrink-0 font-medium">
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase">INSPECT REPOS</span>
-                  <ExternalLink className="w-3.5 h-3.5 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                <div className="flex items-center justify-between pt-2 border-t border-border text-[11px] text-foreground font-semibold">
+                  <span>Inspect Repositories</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
-              {/* Row 4: Official Resume (PDF) */}
+              {/* Col 4: Official Resume */}
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-4 sm:py-5 flex items-center justify-between gap-3 group hover:bg-surface/50 transition-colors px-2 sm:px-3 -mx-2 sm:-mx-3 rounded-xs"
+                className="p-4 border border-emerald-500/20 bg-emerald-500/5 rounded-xs pixel-corners flex flex-col justify-between h-40 group hover:border-emerald-500/40 transition-all"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 shrink-0 bg-emerald-500/10 border border-emerald-500/30 rounded-xs flex items-center justify-center text-emerald-500 pixel-corners">
-                    <FileText className="w-4 h-4 pixel-icon" aria-hidden="true" />
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 font-semibold">
+                    <span>OFFICIAL RESUME</span>
+                    <span className="font-mono text-[9px] px-1 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xs">PDF</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider font-semibold block">OFFICIAL RESUME (PDF)</span>
-                    <span className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-emerald-500 transition-colors">
-                      syed_ahmed_hussain_resume.pdf
-                    </span>
-                    <span className="hidden sm:inline text-xs text-secondary ml-2">· C#, ASP.NET Core, SQL Server, PostgreSQL, Flutter</span>
+                  <div className="text-xs font-bold text-foreground group-hover:text-emerald-500 transition-colors truncate">
+                    syed_ahmed_hussain
                   </div>
+                  <div className="text-[10px] text-secondary mt-1">C#, .NET 8, SQL Server, PostgreSQL</div>
                 </div>
-                <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 group-hover:text-foreground transition-colors text-xs shrink-0 font-semibold">
-                  <span className="hidden sm:inline text-[11px] tracking-wider uppercase">DOWNLOAD CV</span>
-                  <span className="text-sm transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
+                <div className="flex items-center justify-between pt-2 border-t border-emerald-500/20 text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">
+                  <span>Download Official CV</span>
+                  <span className="text-xs transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
                 </div>
               </a>
-
-              {/* Row 5: Location, Timezone & Remote Policy */}
-              <div className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-muted px-2 sm:px-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs select-none" aria-hidden="true">📍</span>
-                  <span>{CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country}</span>
-                  <span className="text-border-strong" aria-hidden="true">·</span>
-                  <span className="text-foreground font-medium">PKT (UTC+5)</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                  <span>Remote Worldwide & Karachi On-Site</span>
-                </div>
-              </div>
             </div>
           </section>
         </Reveal>
