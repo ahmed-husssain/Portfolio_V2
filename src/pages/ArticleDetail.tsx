@@ -328,7 +328,7 @@ export default function ArticleDetail() {
                   </p>
                 </div>
                 <Link
-                  to="/contact"
+                  to="/about#contact"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-page border border-border text-foreground text-xs font-mono font-medium rounded-sm hover:border-border-strong active:scale-[0.97] transition-all shrink-0 group cursor-pointer"
                 >
                   <Message className="w-3.5 h-3.5 pixel-icon" />

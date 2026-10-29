@@ -98,7 +98,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
           </Button>
 
           <div className="grid grid-cols-2 gap-2.5">
-            <Button href="/contact" variant="secondary" size="md" className="justify-center">
+            <Button href="/about#contact" variant="secondary" size="md" className="justify-center">
               Contact
             </Button>
             <Button
@@ -120,7 +120,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
         {/* ─── Desktop Fast Actions (Contact & Resume) ─── */}
         <div className={`hidden lg:flex items-center justify-between gap-4 ${isRevealed ? 'animate-hero-in delay-120' : 'opacity-0'}`}>
           <div className="flex items-center gap-3">
-            <Button href="/contact" variant="primary" size="md">
+            <Button href="/about#contact" variant="primary" size="md">
               Contact
             </Button>
             <Button

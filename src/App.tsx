@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -20,7 +20,6 @@ const ProjectDetail = lazy(() => import('./pages/ProjectDetail'))
 const About = lazy(() => import('./pages/About'))
 const Writing = lazy(() => import('./pages/Writing'))
 const ArticleDetail = lazy(() => import('./pages/ArticleDetail'))
-const Contact = lazy(() => import('./pages/Contact'))
 const Review = lazy(() => import('./pages/Review'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -63,7 +62,7 @@ export default function App() {
                       <Route path="/about" element={<About />} />
                       <Route path="/writing" element={<Writing />} />
                       <Route path="/writing/:slug" element={<ArticleDetail />} />
-                      <Route path="/contact" element={<Contact />} />
+                      <Route path="/contact" element={<Navigate to="/about#contact" replace />} />
                       <Route path="/review" element={<Review />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>

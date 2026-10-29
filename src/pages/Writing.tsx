@@ -175,8 +175,8 @@ export default function Writing() {
         <ContinuityBridge
           kicker="INITIATE CONTACT"
           title="Let's Build Something Useful Together"
-          description="Open for software engineering roles, contracts, and backend architectural discussions. Directly accessible by email or inquiry form."
-          to="/contact"
+          description="Open for software engineering roles, contracts, and backend architectural discussions. Directly accessible by email or professional channels."
+          to="/about#contact"
           actionLabel="GET IN TOUCH"
           className="mt-14 sm:mt-20"
         />

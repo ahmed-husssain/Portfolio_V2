@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Briefcase, User, BookOpen, Mail, Home } from 'pixelarticons/react'
+import { Briefcase, User, BookOpen, Home } from 'pixelarticons/react'
 import ThemeToggle from '../ui/ThemeToggle'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
@@ -14,7 +14,6 @@ const NAV_ICON_MAP: Record<
   '/work': { prefix: 'Wor', icon: Briefcase },
   '/about': { prefix: 'Abou', icon: User },
   '/writing': { prefix: 'Writin', icon: BookOpen },
-  '/contact': { prefix: 'Contac', icon: Mail },
 }
 
 // Stable module-level nav links list to prevent infinite render loops

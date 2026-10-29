@@ -36,7 +36,7 @@ export default function Footer() {
             <Link to="/writing" className="hover:text-foreground transition-colors">
               WRITING
             </Link>
-            <Link to="/contact" className="text-foreground font-semibold hover:text-secondary transition-colors">
+            <Link to="/about#contact" className="text-foreground font-semibold hover:text-secondary transition-colors">
               CONTACT →
             </Link>
             <a

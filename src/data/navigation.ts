@@ -30,12 +30,6 @@ export const NAV_ITEMS: NavItem[] = [
     description: 'Technical notes & breakdowns',
     index: '04',
   },
-  {
-    label: 'Contact',
-    href: '/contact',
-    description: "Get in touch & inquiries",
-    index: '05',
-  },
 ]
 
 export const AVAILABILITY_STATUS = {

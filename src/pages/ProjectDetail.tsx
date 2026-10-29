@@ -458,7 +458,7 @@ export default function ProjectDetail() {
                   <span aria-hidden="true">→</span>
                 </Link>
                 <Link
-                  to="/contact"
+                  to="/about#contact"
                   className="inline-flex items-center gap-2 px-4 py-2 border border-border bg-page text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
                 >
                   <span>DISCUSS THIS ARCHITECTURE</span>
