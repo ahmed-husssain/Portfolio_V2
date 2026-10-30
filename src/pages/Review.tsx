@@ -86,11 +86,11 @@ export default function Review() {
             <>
               <span className="text-foreground font-semibold shrink-0">REVIEWS</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="shrink-0">SHARE YOUR COLLABORATIVE EXPERIENCE</span>
+              <span className="shrink-0">SHARE YOUR EXPERIENCE</span>
             </>
           }
-          title="Submit a Review or Testimonial"
-          description="If we have worked together on a web application, API system, or consulting engagement, please share your candid experience. Reviews are authenticated and approved before publication to ensure complete credibility."
+          title="Leave a Review"
+          description="If we have worked together on a project, please share your candid experience. Reviews are verified before publication."
         />
 
         {/* Form Container / Success State */}

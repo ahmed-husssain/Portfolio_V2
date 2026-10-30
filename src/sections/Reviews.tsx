@@ -162,10 +162,10 @@ export default function Reviews() {
         <div className="max-w-3xl mx-auto p-5 sm:p-6 border border-border bg-surface rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 pixel-corners">
           <div className="space-y-0.5">
             <h4 className="text-xs sm:text-sm font-semibold text-foreground">
-              Have we collaborated on an API, database system, or web platform?
+              Have we worked together?
             </h4>
             <p className="text-[11px] font-mono text-muted">
-              Submit your candid feedback directly to this portfolio.
+              Share your experience directly on this portfolio.
             </p>
           </div>
 
@@ -173,7 +173,7 @@ export default function Reviews() {
             to="/review"
             className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-all shrink-0 select-none group"
           >
-            <span>SUBMIT AN ENDORSEMENT</span>
+            <span>LEAVE A REVIEW</span>
             <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
