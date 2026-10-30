@@ -86,6 +86,21 @@ export default function MagneticCursor() {
       lastPointer.current = { x: e.clientX, y: e.clientY }
       targetPos.current = { x: e.clientX, y: e.clientY }
 
+      // Hide cursor if pointer touches the outer screen boundary
+      const isAtEdge =
+        e.clientX <= 2 ||
+        e.clientY <= 2 ||
+        e.clientX >= window.innerWidth - 2 ||
+        e.clientY >= window.innerHeight - 2
+
+      if (isAtEdge) {
+        if (isVisibleRef.current) {
+          isVisibleRef.current = false
+          if (cursorRef.current) cursorRef.current.style.opacity = '0'
+        }
+        return
+      }
+
       if (!isVisibleRef.current && cursorRef.current) {
         isVisibleRef.current = true
         cursorRef.current.style.opacity = '1'
@@ -155,7 +170,9 @@ export default function MagneticCursor() {
     window.addEventListener('pointerover', handlePointerOver, { passive: true })
     window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('keydown', handleKeyDown, { passive: true })
+    window.addEventListener('blur', handleMouseLeave)
     document.addEventListener('mouseleave', handleMouseLeave)
+    document.addEventListener('pointerleave', handleMouseLeave)
     rafId.current = requestAnimationFrame(render)
 
     return () => {
@@ -163,7 +180,9 @@ export default function MagneticCursor() {
       window.removeEventListener('pointerover', handlePointerOver)
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('blur', handleMouseLeave)
       document.removeEventListener('mouseleave', handleMouseLeave)
+      document.removeEventListener('pointerleave', handleMouseLeave)
       if (rafId.current !== null) cancelAnimationFrame(rafId.current)
     }
   }, [isActive])

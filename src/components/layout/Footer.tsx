@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="border-t border-border bg-page text-secondary text-xs font-mono py-8 sm:py-10">
       <Container>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          {/* Identity & Status */}
+          {/* Identity & Status (Layout 3: Unified with Year & Terms) */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
               <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
@@ -27,10 +27,20 @@ export default function Footer() {
               </span>
               <span className="text-border-strong">·</span>
               <span className="text-muted">Karachi, PK</span>
+              <span className="text-border-strong">·</span>
+              <span className="text-muted">{currentYear}</span>
             </div>
-            <p className="text-[11px] text-muted">
-              Building reliable full-stack apps and clean APIs.
-            </p>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted">
+              <span>Web, mobile, and backend systems built to last.</span>
+              <span className="text-border-strong" aria-hidden="true">·</span>
+              <button
+                type="button"
+                onClick={showMessage}
+                className="hover:text-foreground transition-colors hover:underline decoration-border-strong underline-offset-4 cursor-pointer focus:outline-none focus-visible:text-foreground"
+              >
+                Terms 🍪
+              </button>
+            </div>
           </div>
 
           {/* Quick Nav & Social Links */}
@@ -57,7 +67,7 @@ export default function Footer() {
               <span>RESUME</span>
               <ExternalLink className="w-3 h-3 text-muted group-hover:text-foreground pixel-icon transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
-            <span className="text-border-strong hidden sm:inline" aria-hidden="true">|</span>
+            <span className="text-border-strong hidden sm:inline" aria-hidden="true">·</span>
             <a
               href={CONTACT_CONFIG.github.url}
               target="_blank"
@@ -75,18 +85,6 @@ export default function Footer() {
               LINKEDIN
             </a>
           </div>
-        </div>
-
-        {/* Bottom Micro-Bar */}
-        <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-muted">
-          <span>SYED AHMED HUSSAIN // {currentYear}</span>
-          <button
-            type="button"
-            onClick={showMessage}
-            className="hover:text-foreground transition-colors uppercase tracking-wider text-muted hover:underline decoration-border-strong underline-offset-4 cursor-pointer focus:outline-none focus-visible:text-foreground"
-          >
-            Terms & Conditions
-          </button>
         </div>
       </Container>
     </footer>
