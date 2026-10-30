@@ -191,7 +191,27 @@ export const PROJECTS: Project[] = [
     role: 'Lead Full-Stack Developer',
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
-    image: '/projects/mockrithm/preview.webp',
+    image: '/projects/mockrithm/slide-1.webp',
+    gallery: [
+      '/projects/mockrithm/slide-1.webp',
+      '/projects/mockrithm/slide-2.webp',
+    ],
+    gallerySlides: [
+      {
+        image: '/projects/mockrithm/slide-1.webp',
+        title: 'Editorial Discovery Stage & Aptech Recognition',
+        tag: 'PLATFORM HERO',
+        description:
+          'Conversational landing page with starry celestial canvas introducing voice-driven mock interviews.',
+      },
+      {
+        image: '/projects/mockrithm/slide-2.webp',
+        title: 'Calibration Dashboard & Competency Scoring',
+        tag: 'ANALYTICS ENGINE',
+        description:
+          'Real-time candidate calibration hub with voice pacing breakdown, filler-word elimination metrics, and code evaluation progression.',
+      },
+    ],
     architecture: [
       'Real-time voice and conversational interview simulator with speech-to-text',
       'In-browser code editor with syntax highlighting for technical problem solving',
@@ -224,7 +244,35 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack Developer & Database Architect',
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
-    image: '/projects/amber-property-corner/preview.webp',
+    image: '/projects/amber-property-corner/slide-1.webp',
+    gallery: [
+      '/projects/amber-property-corner/slide-1.webp',
+      '/projects/amber-property-corner/slide-2.webp',
+      '/projects/amber-property-corner/slide-3.webp',
+    ],
+    gallerySlides: [
+      {
+        image: '/projects/amber-property-corner/slide-1.webp',
+        title: 'Property Discovery & Filter Engine',
+        tag: 'SEARCH ENGINE',
+        description:
+          'Multi-criteria location filtering with indexed PostgreSQL queries and sub-150ms catalog turnaround.',
+      },
+      {
+        image: '/projects/amber-property-corner/slide-2.webp',
+        title: 'Prime Areas & Enclaves Directory',
+        tag: 'REGIONAL DIRECTORY',
+        description:
+          'Interactive Karachi neighborhood guide featuring verified listings across Gulshan, North Nazimabad, and Scheme 33.',
+      },
+      {
+        image: '/projects/amber-property-corner/slide-3.webp',
+        title: 'Agency Credibility & Verified Ownership',
+        tag: 'AGENCY CREDENTIALS',
+        description:
+          'Verified property transfer workflows, legal KDA/MDA title checks, and direct agent inquiry routing.',
+      },
+    ],
     architecture: [
       'Relational PostgreSQL schema with normalized property and inquiry models',
       'Prisma ORM for type-safe database access and automated migrations',
