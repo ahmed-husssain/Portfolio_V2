@@ -1,16 +1,11 @@
 import { useState } from 'react'
-import { Code, ChevronDown, ChevronUp } from 'pixelarticons/react'
+import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import SectionHeading from '../components/ui/SectionHeading'
-import CopyButton from '../components/ui/CopyButton'
-import { CAPABILITY_GROUPS } from '../data/capabilities'
+import { CAPABILITIES } from '../data/capabilities'
 
 export default function Capabilities() {
-  const [expandedIndex, setExpandedIndex] = useState<string | null>(null)
-
-  const toggleSnippet = (index: string) => {
-    setExpandedIndex((prev) => (prev === index ? null : index))
-  }
+  const [hoveredIndex, setHoveredIndex] = useState<string | null>(null)
 
   return (
     <section id="capabilities" className="py-12 sm:py-16 md:py-20 border-b border-border">
@@ -18,105 +13,119 @@ export default function Capabilities() {
         {/* ─── Section Header ─── */}
         <SectionHeading
           index="02"
-          title="Capabilities"
-          subtitle="A clear breakdown of the core technical domains, backend frameworks, and engineering tools I use to build production software."
-          meta="04 DOMAINS · CODE SPECIFICATIONS"
+          title="Tools & Daily Stack"
+          subtitle="No buzzwords. Just the languages, frameworks, and databases I actually write production code in."
+          meta="04 DISCIPLINES · PRODUCTION VERIFIED"
         />
 
-        {/* ─── 2x2 Technical Grid ─── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {CAPABILITY_GROUPS.map((group) => {
-            const isExpanded = expandedIndex === group.index
+        {/* ─── The Silent Monolith: Hairline-Separated Human Stack ─── */}
+        <div
+          className="border-t border-border divide-y divide-border select-none"
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          {CAPABILITIES.map((cap) => {
+            const isHovered = hoveredIndex === cap.index
+            const hasAnyHover = hoveredIndex !== null
 
             return (
-              <article
-                key={group.index}
-                className="border border-border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-0.5 transition-[transform,background-color,border-color] duration-150 ease-out rounded-sm overflow-hidden flex flex-col justify-between p-4 sm:p-8 shadow-2xs pixel-corners"
-                style={{ boxShadow: 'var(--hairline-top)' }}
+              <div
+                key={cap.index}
+                onMouseEnter={() => setHoveredIndex(cap.index)}
+                onFocus={() => setHoveredIndex(cap.index)}
+                onBlur={() => setHoveredIndex(null)}
+                tabIndex={0}
+                className={`py-6 sm:py-8 transition-[opacity,transform,background-color] duration-220 ease-[cubic-bezier(0.16,1,0.3,1)] focus:outline-none focus-visible:bg-surface-subtle/40 rounded-xs px-2 sm:px-4 cursor-default ${
+                  hasAnyHover && !isHovered
+                    ? 'opacity-25 scale-[0.997]'
+                    : 'opacity-100 scale-100 bg-transparent hover:bg-surface-subtle/25'
+                }`}
               >
-                <div>
-                  {/* Domain Header */}
-                  <div className="flex items-center justify-between border-b border-border pb-3 mb-5 text-xs font-mono text-muted">
-                    <div className="flex items-center gap-2">
-                      <span className="text-foreground font-semibold">#{group.index}</span>
-                      <span className="text-border-strong" aria-hidden="true">|</span>
-                      <span className="text-micro-caps text-secondary">{group.subtitle}</span>
-                    </div>
-
-                    {/* Spec Snippet Toggle Button */}
-                    <button
-                      type="button"
-                      onClick={() => toggleSnippet(group.index)}
-                      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-border bg-page text-[10px] font-mono text-secondary hover:text-foreground hover:border-border-strong active:scale-[0.96] transition-[background-color,border-color,transform] duration-150 ease-out cursor-pointer select-none"
-                      title="Inspect implementation code spec"
-                    >
-                      <Code className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-                      <span>{isExpanded ? 'HIDE SPEC' : 'VIEW CODE SPEC'}</span>
-                      {isExpanded ? (
-                        <ChevronUp className="w-3 h-3 pixel-icon" />
-                      ) : (
-                        <ChevronDown className="w-3 h-3 pixel-icon" />
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight mb-3">
-                    {group.title}
-                  </h3>
-
-                  {/* Narrative Description */}
-                  <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-                    {group.description}
-                  </p>
-
-                  {/* Key Focus Note */}
-                  <div className="p-3 rounded-xs border border-border bg-page/50 text-xs font-mono mb-6">
-                    <span className="text-muted uppercase tracking-wider block mb-1">
-                      PRIMARY FOCUS:
-                    </span>
-                    <span className="text-foreground font-medium">
-                      {group.keyFocus}
-                    </span>
-                  </div>
-
-                  {/* Expandable Code Spec Preview */}
-                  {isExpanded && group.specSnippet && (
-                    <div className="mb-6 rounded-sm border border-border bg-page overflow-hidden animate-fadeIn">
-                      <div className="px-3.5 py-2 border-b border-border bg-surface-subtle/70 flex items-center justify-between text-xs font-mono">
-                        <div className="flex items-center gap-1.5 text-foreground font-semibold text-[11px]">
-                          <Code className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
-                          <span>{group.specSnippet.title}</span>
-                        </div>
-                        <CopyButton
-                          text={group.specSnippet.code}
-                          className="inline-flex items-center gap-1 text-[10px] text-muted hover:text-foreground px-2 py-0.5 rounded-xs border border-border bg-page transition-colors cursor-pointer select-none"
-                        />
-                      </div>
-                      <pre className="p-3.5 text-foreground text-[11px] font-mono overflow-x-auto leading-relaxed max-h-[220px]">
-                        <code>{group.specSnippet.code}</code>
-                      </pre>
-                    </div>
-                  )}
-                </div>
-
-                {/* Technologies / Disciplines Tags */}
-                <div className="pt-4 border-t border-border flex flex-wrap items-center gap-2">
-                  <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-1">
-                    ITEMS:
-                  </span>
-                  {group.items.map((item) => (
+                {/* ── Desktop & Tablet Main Row ── */}
+                <div className="flex flex-col lg:flex-row lg:items-baseline justify-between gap-3 sm:gap-4">
+                  {/* Left: Index + Clean Discipline Title */}
+                  <div className="flex items-baseline gap-3 min-w-0">
                     <span
-                      key={item}
-                      className="font-mono text-[11px] px-2.5 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary"
+                      className={`font-mono text-xs font-semibold shrink-0 transition-colors duration-200 ${
+                        isHovered ? 'text-emerald-500' : 'text-muted'
+                      }`}
                     >
-                      {item}
+                      #{cap.index}
                     </span>
-                  ))}
+                    <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+                    <h3
+                      className={`text-xl sm:text-2xl font-semibold tracking-tight transition-colors duration-200 ${
+                        isHovered ? 'text-foreground' : 'text-foreground/90'
+                      }`}
+                    >
+                      {cap.title}
+                    </h3>
+                  </div>
+
+                  {/* Right: Concrete Stack Chips */}
+                  <div className="flex flex-wrap items-center gap-1.5 lg:justify-end">
+                    {cap.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className={`font-mono text-[11px] sm:text-xs px-2.5 py-1 rounded-xs border transition-colors duration-200 ${
+                          isHovered
+                            ? 'border-emerald-500/40 bg-emerald-500/[0.06] text-foreground font-medium'
+                            : 'border-border bg-surface text-secondary'
+                        }`}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </article>
+
+                {/* ── Desktop Zero-Layout-Shift GPU Whisper Reveal ── */}
+                <div
+                  className={`hidden lg:grid transition-all duration-220 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isHovered
+                      ? 'grid-rows-[1fr] opacity-100 mt-3 pt-2.5 border-t border-border/50'
+                      : 'grid-rows-[0fr] opacity-0 mt-0 overflow-hidden'
+                  }`}
+                >
+                  <div className="overflow-hidden flex items-center justify-between gap-4">
+                    <p className="font-serif italic text-sm text-secondary leading-relaxed">
+                      {cap.description}
+                    </p>
+                    <Link
+                      to={`/work/${cap.projectSlug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold hover:underline shrink-0 group/link py-0.5"
+                    >
+                      <span>PROVED IN {cap.projectLabel.toUpperCase()}</span>
+                      <span
+                        className="transition-transform duration-150 group-hover/link:translate-x-0.5"
+                        aria-hidden="true"
+                      >
+                        ↗
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* ── Mobile Direct Explanation (Zero Hover Dependency) ── */}
+                <div className="lg:hidden mt-3 pt-2.5 border-t border-border/40 flex flex-col gap-1.5">
+                  <p className="font-serif italic text-xs text-secondary leading-relaxed">
+                    {cap.description}
+                  </p>
+                  <Link
+                    to={`/work/${cap.projectSlug}`}
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold pt-0.5"
+                  >
+                    <span>PROVED IN {cap.projectLabel.toUpperCase()} ↗</span>
+                  </Link>
+                </div>
+              </div>
             )
           })}
+        </div>
+
+        {/* ─── Understated Footnote ─── */}
+        <div className="mt-8 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-muted">
+          <span>// GROUNDED ARCHITECTURE · ZERO BUZZWORDS</span>
+          <span className="hidden sm:inline">HOVER A DISCIPLINE TO FOCUS</span>
         </div>
       </Container>
     </section>
