@@ -63,7 +63,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 hover:text-foreground transition-colors group"
             >
-              <FileText className="w-3.5 h-3.5 text-emerald-500 pixel-icon" />
+              <FileText className="w-3.5 h-3.5 text-muted group-hover:text-foreground pixel-icon transition-colors" />
               <span>RESUME</span>
               <ExternalLink className="w-3 h-3 text-muted group-hover:text-foreground pixel-icon transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>

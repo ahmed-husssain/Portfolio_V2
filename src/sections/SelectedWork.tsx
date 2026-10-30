@@ -1,9 +1,8 @@
-import { ArrowRight, Trophy } from 'pixelarticons/react'
+import { ArrowRight } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import SectionHeading from '../components/ui/SectionHeading'
 import ProjectCard from '../components/ProjectCard'
-import Badge from '../components/ui/Badge'
 import { PROJECTS } from '../data/projects'
 import { useRankedProjects } from '../lib/github/ranking.ts'
 
@@ -19,16 +18,6 @@ export default function SelectedWork() {
           subtitle="Web applications and APIs built with a focus on clean code, database integrity, and practical problem solving."
           meta={`${featuredProjects.length.toString().padStart(2, '0')} FEATURED · ${PROJECTS.length.toString().padStart(2, '0')} TOTAL`}
         />
-
-        {/* ─── Aptech Vision 2025 Recognition ─── */}
-        <div className="mb-8 -mt-2 flex items-center">
-          <Badge>
-            <Trophy className="w-3.5 h-3.5 pixel-icon text-amber-500 shrink-0" aria-hidden="true" />
-            <span className="text-foreground font-bold">RUNNER-UP AWARD</span>
-            <span className="text-border-strong" aria-hidden="true">·</span>
-            <span className="text-muted">APTECH VISION 2025 (MOCKRITHM)</span>
-          </Badge>
-        </div>
 
         <div className="flex flex-col gap-10 sm:gap-14 cards-focus-group">
           {featuredProjects.map((project, index) => (

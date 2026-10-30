@@ -110,7 +110,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
               className="justify-center"
               aria-label="View official Resume (PDF, opens in new tab)"
             >
-              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 shrink-0" />
+              <FileText className="w-3.5 h-3.5 pixel-icon text-foreground/80 shrink-0" />
               <span>RESUME</span>
               <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
             </Button>
@@ -132,7 +132,7 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
               style={{ boxShadow: 'var(--hairline-top)' }}
               aria-label="View official Resume (PDF, opens in new tab)"
             >
-              <FileText className="w-3.5 h-3.5 pixel-icon text-emerald-500 group-hover:text-black shrink-0 transition-colors" />
+              <FileText className="w-3.5 h-3.5 pixel-icon text-foreground/80 group-hover:text-black shrink-0 transition-colors" />
               <span>RESUME (PDF)</span>
               <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover:text-black shrink-0 transition-colors" />
             </Button>
