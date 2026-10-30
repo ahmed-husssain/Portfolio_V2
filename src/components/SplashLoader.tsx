@@ -264,12 +264,29 @@ export function SplashProvider({ children }: SplashProviderProps) {
             </span>
           </div>
 
-          {/* Bottom Monospace Counter (Reference 001 ... 100) */}
+          {/* Bottom Monospace Counter & 10-Segment Pixel Meter */}
           <div
-            className={`absolute bottom-8 sm:bottom-12 left-0 right-0 flex items-center justify-center font-mono text-xs sm:text-sm tracking-widest transition-opacity duration-300 ${
+            className={`absolute bottom-8 sm:bottom-12 left-0 right-0 flex flex-col items-center justify-center gap-2.5 font-mono text-xs sm:text-sm tracking-widest transition-opacity duration-300 ${
               isExiting ? 'opacity-0' : 'opacity-100'
             }`}
           >
+            {/* Pixel Meter Track */}
+            <div className="flex items-center gap-1 sm:gap-1.5" aria-hidden="true">
+              {Array.from({ length: 10 }).map((_, i) => {
+                const isFilled = i < Math.floor((progress / 100) * 10)
+                return (
+                  <span
+                    key={i}
+                    className={`w-1.5 h-1.5 sm:w-2 sm:h-2 transition-colors duration-75 ${
+                      isFilled
+                        ? 'bg-foreground'
+                        : 'border border-border-strong/70 bg-transparent'
+                    }`}
+                  />
+                )
+              })}
+            </div>
+
             <span className="tabular-nums font-mono font-medium text-foreground">
               {formattedCount}
             </span>
