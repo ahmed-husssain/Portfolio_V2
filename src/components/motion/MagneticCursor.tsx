@@ -127,6 +127,8 @@ export default function MagneticCursor() {
       }
     }
 
+    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0
+
     // Ultra-snappy tracking loop (Apple fluid response - speed of light)
     const render = () => {
       const ease = 0.42
@@ -137,6 +139,13 @@ export default function MagneticCursor() {
         const x = currentPos.current.x.toFixed(2)
         const y = currentPos.current.y.toFixed(2)
         cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
+      }
+
+      // Continuously synchronize element under pointer during smooth scroll inertia frames
+      if (window.scrollY !== lastScrollY && lastPointer.current.x >= 0) {
+        lastScrollY = window.scrollY
+        const el = document.elementFromPoint(lastPointer.current.x, lastPointer.current.y) as HTMLElement | null
+        if (el) updateState(el)
       }
 
       rafId.current = requestAnimationFrame(render)

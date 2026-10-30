@@ -219,11 +219,6 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
-/* Low-end hardware optimization: disable hover recalculations while scrolling */
-body.is-scrolling * {
-  pointer-events: none !important;
-}
-
 /* ─── Motion Design Tokens & Keyframes ─── */
 @keyframes pageFadeIn {
   from {

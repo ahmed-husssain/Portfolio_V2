@@ -71,20 +71,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
     rafId = requestAnimationFrame(raf)
 
-    // CPU optimization for Core 2 Duo / Core i3 / Budget hardware:
-    // Suppress pointer-events during scroll velocity to eliminate thousands of expensive :hover recalculations
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null
+    // Record scroll coordinate for active route key
     const onScroll = () => {
-      // Record scroll coordinate for active route key
       scrollPositions.set(locationKeyRef.current, window.scrollY)
-
-      if (!document.body.classList.contains('is-scrolling')) {
-        document.body.classList.add('is-scrolling')
-      }
-      if (scrollTimeout) clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        document.body.classList.remove('is-scrolling')
-      }, 120)
     }
 
     lenis.on('scroll', onScroll)
@@ -107,8 +96,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
 
     return () => {
       cancelAnimationFrame(rafId)
-      if (scrollTimeout) clearTimeout(scrollTimeout)
-      document.body.classList.remove('is-scrolling')
       document.removeEventListener('click', handleAnchorClick)
       lenis.destroy()
       lenisRef.current = null
