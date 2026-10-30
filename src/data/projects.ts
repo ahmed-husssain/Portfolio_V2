@@ -192,6 +192,10 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
     image: '/projects/mockrithm/preview.webp',
+    gallery: [
+      '/projects/mockrithm/preview.webp',
+      '/projects/mockrithm/cover.webp',
+    ],
     architecture: [
       'Real-time voice and conversational interview simulator with speech-to-text',
       'In-browser code editor with syntax highlighting for technical problem solving',
@@ -225,6 +229,10 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
     image: '/projects/amber-property-corner/preview.webp',
+    gallery: [
+      '/projects/amber-property-corner/preview.webp',
+      '/projects/amber-property-corner/cover.webp',
+    ],
     architecture: [
       'Relational PostgreSQL schema with normalized property and inquiry models',
       'Prisma ORM for type-safe database access and automated migrations',

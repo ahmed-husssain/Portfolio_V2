@@ -1,4 +1,4 @@
-import { useState, useRef, lazy, Suspense } from 'react'
+import { useState, useRef, lazy, Suspense, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/react'
 import type { Project } from '../data/projects'
@@ -157,6 +157,12 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
   const cardRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
+  const [activeImageIdx, setActiveImageIdx] = useState(0)
+
+  const slides = useMemo(() => {
+    const list = [project.image, ...(project.gallery || [])].filter(Boolean) as string[]
+    return Array.from(new Set(list)).slice(0, 4)
+  }, [project.image, project.gallery])
 
   const hasArchitectureInspector =
     project.slug === 'online-art-gallery' || project.slug === 'shifamanagement'
@@ -396,53 +402,114 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           Preserves the 2-column layout with enhanced Instrument Serif typography.
          ══════════════════════════════════════════════════════════════════ */}
       <div className="hidden lg:flex w-full flex-row">
-        {/* ─── LEFT COLUMN: Screenshot Preview + Deployment Bar ─── */}
+        {/* ─── LEFT COLUMN: Screenshot Preview + Gallery Thumbnails + Deployment Bar ─── */}
         <div className="lg:w-5/12 bg-surface-subtle/50 border-r border-border relative overflow-hidden flex flex-col justify-between p-6 z-20">
-          <Link
-            to={`/work/${project.slug}`}
-            className="relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 bg-page block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
-            tabIndex={-1}
-            aria-hidden="true"
-          >
-            {project.image ? (
-              <img
-                src={project.image}
-                alt={`${project.title} screenshot preview`}
-                loading={index === 1 ? 'eager' : 'lazy'}
-                fetchPriority={index === 1 ? 'high' : 'auto'}
-                decoding="async"
-                width="640"
-                height="400"
-                className="w-full h-full object-cover object-top group-hover/img:scale-105 group-hover:scale-105 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              />
-            ) : (
-              <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
-                <span>{project.title}</span>
+          <div>
+            <Link
+              to={`/work/${project.slug}`}
+              className="relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 bg-page block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              {slides.length > 0 ? (
+                slides.map((src, i) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt={`${project.title} screenshot ${i + 1}`}
+                    loading={index === 1 && i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={index === 1 && i === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                    width="640"
+                    height="400"
+                    className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-200 ease-out ${
+                      i === activeImageIdx
+                        ? 'opacity-100 scale-100 z-10 pointer-events-auto'
+                        : 'opacity-0 scale-[0.99] z-0 pointer-events-none'
+                    }`}
+                    style={{
+                      transitionTimingFunction: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                    }}
+                  />
+                ))
+              ) : (
+                <div className="w-full h-full bg-surface flex items-center justify-center text-xs font-mono text-muted">
+                  <span>{project.title}</span>
+                </div>
+              )}
+
+              {/* Ambient subtle vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none z-20" />
+
+              {/* Dynamic Technical Status Badge over image */}
+              <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-foreground font-semibold uppercase tracking-wider select-none z-20">
+                ● {liveBadgeText}
+              </div>
+            </Link>
+
+            {/* Interactive Thumbnail Strip */}
+            {slides.length > 1 && (
+              <div
+                className="mt-3 grid gap-2"
+                style={{
+                  gridTemplateColumns: `repeat(${slides.length}, minmax(0, 1fr))`,
+                }}
+                data-no-card-click
+              >
+                {slides.map((src, i) => {
+                  const isActive = i === activeImageIdx
+                  return (
+                    <button
+                      key={src}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveImageIdx(i)
+                      }}
+                      className={`relative h-12 rounded-xs overflow-hidden border transition-all duration-150 text-left group/thumb cursor-pointer ${
+                        isActive
+                          ? 'border-foreground shadow-xs ring-1 ring-foreground/20 opacity-100'
+                          : 'border-border/80 opacity-50 hover:opacity-90 hover:border-border-strong'
+                      }`}
+                      aria-label={`View slide ${i + 1} for ${project.title}`}
+                      aria-pressed={isActive}
+                    >
+                      <img
+                        src={src}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-full h-full object-cover object-top"
+                      />
+                      <div className="absolute inset-0 bg-black/25 group-hover/thumb:bg-transparent transition-colors" />
+                      <span
+                        className={`absolute bottom-1 left-1.5 font-mono text-[9px] font-bold px-1 rounded-2xs ${
+                          isActive
+                            ? 'bg-foreground text-page'
+                            : 'bg-black/80 text-foreground/80'
+                        }`}
+                      >
+                        0{i + 1}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
             )}
-
-            {/* Ambient subtle vignette */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-            {/* Dynamic Technical Status Badge over image */}
-            <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-emerald-400 font-semibold uppercase tracking-wider select-none">
-              ● {liveBadgeText}
-            </div>
-          </Link>
+          </div>
 
           {/* Live Deployment Links Bar */}
-          <div className="mt-4 flex items-center justify-between text-xs font-mono pt-1">
+          <div className="mt-4 flex items-center justify-between text-xs font-mono pt-3 border-t border-border/60">
             {project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor-text="LIVE DEMO ↗"
-                className="inline-flex items-center gap-1.5 text-foreground hover:text-emerald-500 font-semibold active:scale-95 transition-all group/live"
+                className="inline-flex items-center gap-1.5 text-foreground hover:text-secondary font-semibold active:scale-95 transition-all group/live"
                 aria-label={`Visit live site for ${project.title}`}
               >
                 <span>LIVE PRODUCTION</span>
-                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-emerald-500 transition-transform duration-150 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
+                <ExternalLink className="w-3.5 h-3.5 pixel-icon text-muted group-hover/live:text-foreground transition-transform duration-150 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" aria-hidden="true" />
               </a>
             ) : (
               <span className="text-muted text-[11px] font-mono">
@@ -474,7 +541,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div className="flex items-center justify-between gap-2 border-b border-border pb-3 text-micro-caps">
             <div className="flex items-center gap-2 min-w-0 overflow-hidden">
               {index !== undefined && (
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold shrink-0">
+                <span className="text-foreground font-bold shrink-0">
                   #{index.toString().padStart(2, '0')}
                 </span>
               )}
@@ -493,11 +560,11 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                   type="button"
                   onClick={() => setIsArchModalOpen(true)}
                   data-cursor-text="SYSTEM FLOW ⚙"
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
+                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-border-strong bg-surface hover:bg-surface-subtle text-[10px] font-mono text-foreground font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
                   title="Inspect real sequence and concurrency flow"
                   aria-label={`SYSTEM FLOW: Inspect real sequence and concurrency flow for ${project.title}`}
                 >
-                  <Cpu className="w-3 h-3 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <Cpu className="w-3 h-3 pixel-icon text-foreground shrink-0" />
                   <span>SYSTEM FLOW</span>
                   <span className="text-[9px]" aria-hidden="true">↗</span>
                 </button>
@@ -508,7 +575,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                   className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
                   title={`Last commit: ${commitLabel}`}
                 >
-                  <GitCommit className="w-3.5 h-3.5 pixel-icon text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <GitCommit className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
                   <span className="text-muted">COMMIT:</span>
                   <span className="text-foreground font-semibold">{commitLabel}</span>
                 </span>
@@ -522,9 +589,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               to={`/work/${project.slug}`}
               className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
             >
-              <h3 className="font-bold text-foreground text-2xl sm:text-3xl tracking-tight leading-tight group-hover/title:text-emerald-500 transition-colors">
+              <h3 className="font-bold text-foreground text-2xl sm:text-3xl tracking-tight leading-tight group-hover/title:text-secondary transition-colors">
                 {project.title}{' '}
-                <span className="font-serif italic font-normal text-muted group-hover/title:text-emerald-500/80 transition-colors">
+                <span className="font-serif italic font-normal text-muted group-hover/title:text-muted/80 transition-colors">
                   {editorialSubtitle}
                 </span>
               </h3>
@@ -557,7 +624,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               )}
               {project.outcome && (
                 <div className="p-3 flex items-start gap-3 bg-surface-subtle/40 border-t border-border">
-                  <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
+                  <span className="text-[10px] text-foreground font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
                     VERIFIED OUTCOME
                   </span>
                   <span className="text-foreground font-medium leading-relaxed">
@@ -577,7 +644,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 )}
                 {project.outcome && (
                   <div className="bg-page/60 px-4 py-3 space-y-0.5">
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold uppercase tracking-widest block">OUTCOME</span>
+                    <span className="text-[10px] text-foreground font-bold uppercase tracking-widest block">OUTCOME</span>
                     <span className="text-foreground font-medium leading-snug block">{project.outcome}</span>
                   </div>
                 )}
