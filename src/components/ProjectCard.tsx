@@ -168,6 +168,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
   const hasArchitectureInspector =
     project.slug === 'online-art-gallery' || project.slug === 'shifamanagement'
+  const isShifa = project.slug === 'shifamanagement'
 
   const { commitLabel } = useGitHubCommit(
     project.githubUrl,
@@ -273,7 +274,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         <div className="px-4 pt-3.5 bg-surface-subtle/30">
           <Link
             to={`/work/${project.slug}`}
-            className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xs border border-border/80 bg-page block overflow-hidden group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+            className={`relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xs border border-border/80 block overflow-hidden group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
+              isShifa ? 'bg-white' : 'bg-page'
+            }`}
             tabIndex={-1}
             aria-hidden="true"
           >
@@ -288,7 +291,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                   decoding="async"
                   width="640"
                   height="400"
-                  className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-200 ease-out ${
+                  className={`absolute inset-0 w-full h-full transition-all duration-200 ease-out ${
+                    isShifa ? 'object-contain object-center' : 'object-cover object-top'
+                  } ${
                     i === activeImageIdx
                       ? 'opacity-100 scale-100 z-10 pointer-events-auto'
                       : 'opacity-0 scale-[0.99] z-0 pointer-events-none'
@@ -303,17 +308,6 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 <span>{project.title}</span>
               </div>
             )}
-
-            {/* Subtle bottom vignette to frame the screenshot cleanly */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-20" />
-
-            {/* Floating Live Telemetry Badge inside screenshot bezel */}
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-2xs bg-black/85 backdrop-blur-md border border-white/15 text-[9px] font-mono font-semibold uppercase tracking-wider text-emerald-400 shadow-xs flex items-center gap-1.5 z-20">
-              <span className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${
-                project.slug === 'mockrithm' ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'
-              }`} />
-              <span className="truncate max-w-[200px]">{liveBadgeText}</span>
-            </div>
           </Link>
 
           {/* Interactive Mobile Thumbnail Strip */}
@@ -330,6 +324,8 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                       setActiveImageIdx(i)
                     }}
                     className={`relative w-14 aspect-[16/10] rounded-xs overflow-hidden border transition-all duration-150 text-left cursor-pointer shrink-0 ${
+                      isShifa ? 'bg-white' : 'bg-page'
+                    } ${
                       isActive
                         ? 'border-foreground ring-1 ring-foreground/40 opacity-100 scale-[1.02]'
                         : 'border-border/70 opacity-40 hover:opacity-80'
@@ -341,7 +337,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                       src={src}
                       alt=""
                       aria-hidden="true"
-                      className="w-full h-full object-cover object-top pointer-events-none"
+                      className={`w-full h-full pointer-events-none ${
+                        isShifa ? 'object-contain object-center' : 'object-cover object-top'
+                      }`}
                     />
                   </button>
                 )
@@ -452,7 +450,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div>
             <Link
               to={`/work/${project.slug}`}
-              className="relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 bg-page block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+              className={`relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
+                isShifa ? 'bg-white' : 'bg-page'
+              }`}
               tabIndex={-1}
               aria-hidden="true"
             >
@@ -467,7 +467,9 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                     decoding="async"
                     width="640"
                     height="400"
-                    className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-200 ease-out ${
+                    className={`absolute inset-0 w-full h-full transition-all duration-200 ease-out ${
+                      isShifa ? 'object-contain object-center' : 'object-cover object-top'
+                    } ${
                       i === activeImageIdx
                         ? 'opacity-100 scale-100 z-10 pointer-events-auto'
                         : 'opacity-0 scale-[0.99] z-0 pointer-events-none'
@@ -483,13 +485,17 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 </div>
               )}
 
-              {/* Ambient subtle vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none z-20" />
+              {/* Ambient subtle vignette - only for non-Shifa dark/screenshot previews */}
+              {!isShifa && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none z-20" />
+              )}
 
-              {/* Dynamic Technical Status Badge over image */}
-              <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-foreground font-semibold uppercase tracking-wider select-none z-20">
-                ● {liveBadgeText}
-              </div>
+              {/* Dynamic Technical Status Badge over image - only for non-Shifa cards */}
+              {!isShifa && (
+                <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-2xs bg-black/80 backdrop-blur-xs border border-white/10 text-[9px] font-mono text-foreground font-semibold uppercase tracking-wider select-none z-20">
+                  ● {liveBadgeText}
+                </div>
+              )}
             </Link>
 
             {/* Interactive Thumbnail Strip */}
@@ -507,6 +513,8 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                           setActiveImageIdx(i)
                         }}
                         className={`relative w-20 aspect-[16/10] rounded-xs overflow-hidden border transition-all duration-150 text-left group/thumb cursor-pointer shrink-0 ${
+                          isShifa ? 'bg-white' : 'bg-page'
+                        } ${
                           isActive
                             ? 'border-foreground shadow-xs ring-1 ring-foreground/40 opacity-100 scale-[1.03]'
                             : 'border-border/80 opacity-50 hover:opacity-90 hover:border-foreground/30'
@@ -518,13 +526,17 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                           src={src}
                           alt=""
                           aria-hidden="true"
-                          className="w-full h-full object-cover object-top pointer-events-none"
+                          className={`w-full h-full pointer-events-none ${
+                            isShifa ? 'object-contain object-center' : 'object-cover object-top'
+                          }`}
                         />
                         <div
                           className={`absolute inset-0 transition-colors ${
                             isActive
                               ? 'bg-transparent'
-                              : 'bg-black/30 group-hover/thumb:bg-transparent'
+                              : isShifa
+                                ? 'bg-black/10 group-hover/thumb:bg-transparent'
+                                : 'bg-black/30 group-hover/thumb:bg-transparent'
                           }`}
                         />
                         <span
