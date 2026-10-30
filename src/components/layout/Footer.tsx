@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ExternalLink, FileText } from 'pixelarticons/react'
 import Container from '../ui/Container'
 import { CONTACT_CONFIG } from '../../data/contact'
+import TermsModal from './TermsModal'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+  const [isTermsOpen, setIsTermsOpen] = useState(false)
 
   return (
     <footer className="border-t border-border bg-page text-secondary text-xs font-mono py-8 sm:py-10">
@@ -71,9 +74,18 @@ export default function Footer() {
 
         {/* Bottom Micro-Bar */}
         <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-muted">
-          <span>© {currentYear} Syed Ahmed Hussain. All rights reserved.</span>
-          <span>Built for longevity.</span>
+          <span>SYED AHMED HUSSAIN // {currentYear}</span>
+          <button
+            type="button"
+            onClick={() => setIsTermsOpen(true)}
+            className="hover:text-foreground transition-colors uppercase tracking-wider text-muted hover:underline decoration-border-strong underline-offset-4 cursor-pointer focus:outline-none focus-visible:text-foreground"
+          >
+            TERMS & CONDITIONS
+          </button>
         </div>
+
+        {/* Easter Egg Bottom-Center Terms Modal */}
+        <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
       </Container>
     </footer>
   )
