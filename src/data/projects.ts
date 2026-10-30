@@ -304,10 +304,3 @@ export const PROJECTS: Project[] = [
       'Reliable catalog browsing operating with minimal server memory overhead.',
   },
 ]
-
-/** Projects sorted by last commit date (most recently committed project first) */
-export const SORTED_PROJECTS: Project[] = [...PROJECTS].sort((a, b) => {
-  const timeA = a.lastCommitDate ? new Date(a.lastCommitDate).getTime() : 0
-  const timeB = b.lastCommitDate ? new Date(b.lastCommitDate).getTime() : 0
-  return timeB - timeA
-})

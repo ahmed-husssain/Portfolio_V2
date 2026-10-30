@@ -31,9 +31,3 @@ export const NAV_ITEMS: NavItem[] = [
     index: '04',
   },
 ]
-
-export const AVAILABILITY_STATUS = {
-  active: true,
-  label: 'AVAILABLE FOR ROLES',
-  indicator: 'ONLINE',
-}

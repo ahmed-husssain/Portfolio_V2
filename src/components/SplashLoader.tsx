@@ -295,5 +295,3 @@ export function SplashProvider({ children }: SplashProviderProps) {
     </SplashContext.Provider>
   )
 }
-
-export default SplashProvider

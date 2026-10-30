@@ -1,10 +1,6 @@
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useLocation, useNavigationType } from 'react-router-dom'
 import Lenis from 'lenis'
-
-const LenisContext = createContext<Lenis | null>(null)
-
-export const useLenis = () => useContext(LenisContext)
 
 interface SmoothScrollProps {
   children: ReactNode
@@ -135,9 +131,5 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
   }, [location.key, navigationType])
 
-  return (
-    <LenisContext.Provider value={lenisRef.current}>
-      {children}
-    </LenisContext.Provider>
-  )
+  return children
 }

@@ -127,34 +127,8 @@
   font-feature-settings: "tnum";
 }
 
-.prose-measure {
-  max-width: 65ch;
-}
-
-/* ─── Apple Materials Glassmorphism Layer ─── */
-.material-frosted {
-  background-color: var(--bg-surface);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--hairline-top);
-}
-
 .hairline-card {
   box-shadow: var(--hairline-top);
-}
-
-/* ─── Emil Kowalski Tactile Button Base ─── */
-.tactile-btn {
-  will-change: transform;
-  transition: transform 120ms var(--ease-spring-snappy), 
-              background-color 150ms ease-out, 
-              border-color 150ms ease-out,
-              box-shadow 150ms ease-out;
-}
-
-.tactile-btn:active {
-  transform: scale(0.96) translateY(0.5px);
 }
 
 *, *::before, *::after {
@@ -246,8 +220,6 @@ html.lenis body {
   animation: pageFadeIn 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-
-
 .animate-hero-in {
   opacity: 0;
   animation: heroFadeIn 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -272,35 +244,12 @@ html.lenis body {
   animation: heroPopUp 750ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes headlineMaskUp {
-  0% {
-    transform: translateY(115%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.animate-headline-mask {
-  animation: headlineMaskUp 850ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 .delay-60 {
   animation-delay: 60ms;
 }
 
 .delay-120 {
   animation-delay: 120ms;
-}
-
-.delay-180 {
-  animation-delay: 180ms;
-}
-
-.delay-240 {
-  animation-delay: 240ms;
 }
 
 @keyframes iconRotateIn {
@@ -508,20 +457,6 @@ html.lenis body {
   right: 3px;
 }
 
-/* Pixel tag / telemetry pill accent */
-.pixel-badge {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  border: 1px solid var(--border-subtle);
-  background-color: var(--bg-surface);
-  padding: 2px 6px;
-  display: inline-flex;
-  align-items: center;
-  image-rendering: pixelated;
-}
-
 /* ─── Telemetry SVG Data Bus Stream ─── */
 @keyframes data-flow-dash {
   to {
@@ -545,9 +480,6 @@ html.lenis body {
     opacity: 0.4;
   }
 }
-
-
-
 
 /* ─── Clean Scrollbar Utility ─── */
 .scrollbar-none {
