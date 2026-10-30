@@ -160,8 +160,10 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
   const [activeImageIdx, setActiveImageIdx] = useState(0)
 
   const slides = useMemo(() => {
-    const list = [project.image, ...(project.gallery || [])].filter(Boolean) as string[]
-    return Array.from(new Set(list)).slice(0, 4)
+    if (project.gallery && project.gallery.length > 1) {
+      return project.gallery.slice(0, 4)
+    }
+    return project.image ? [project.image] : []
   }, [project.image, project.gallery])
 
   const hasArchitectureInspector =

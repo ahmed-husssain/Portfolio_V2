@@ -137,7 +137,7 @@ export const PROJECTS: Project[] = [
     role: 'Full-Stack .NET Developer',
     liveUrl: 'https://gallrex.runasp.net',
     githubUrl: 'https://github.com/ahmed-husssain/Online-Art-Gallery',
-    image: '/projects/online-art-gallery/preview.webp',
+    image: '/projects/online-art-gallery/slide-1.webp',
     gallery: [
       '/projects/online-art-gallery/slide-1.webp',
       '/projects/online-art-gallery/slide-2.webp',
@@ -192,10 +192,6 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://mockrithm.me/',
     githubUrl: 'https://github.com/AhapraxAhmed/mockrithm',
     image: '/projects/mockrithm/preview.webp',
-    gallery: [
-      '/projects/mockrithm/preview.webp',
-      '/projects/mockrithm/cover.webp',
-    ],
     architecture: [
       'Real-time voice and conversational interview simulator with speech-to-text',
       'In-browser code editor with syntax highlighting for technical problem solving',
@@ -229,10 +225,6 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://amberpropertycorner.com',
     githubUrl: 'https://github.com/ahmed-husssain/RealEstate-',
     image: '/projects/amber-property-corner/preview.webp',
-    gallery: [
-      '/projects/amber-property-corner/preview.webp',
-      '/projects/amber-property-corner/cover.webp',
-    ],
     architecture: [
       'Relational PostgreSQL schema with normalized property and inquiry models',
       'Prisma ORM for type-safe database access and automated migrations',
@@ -258,7 +250,7 @@ export const PROJECTS: Project[] = [
     role: 'Backend & Web Developer',
     liveUrl: 'https://eboooks.infinityfree.io',
     githubUrl: 'https://github.com/ahmed-husssain/E-books',
-    image: '/projects/e-books/preview.webp',
+    image: '/projects/e-books/slide-1.webp',
     gallery: [
       '/projects/e-books/slide-1.webp',
       '/projects/e-books/slide-2.webp',
