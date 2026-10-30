@@ -15,23 +15,23 @@
 - **Resume**: https://ahmedhusssain.vercel.app/resume.pdf
 
 ## Core Engineering Capabilities & Tech Stack
-- **Backend Languages & Frameworks**: C#, .NET 8, ASP.NET Core (Web API & MVC), Entity Framework Core (EF Core 8), LINQ, CQRS (MediatR), SignalR WebSockets, BackgroundService / PeriodicTimer.
-- **Relational Databases & Persistence**: Microsoft SQL Server, PostgreSQL 15, Supabase, Database Normalization, B-Tree Covering Indexes, Optimistic Concurrency Control (RowVersion / OCC), PostgreSQL row-level locks (`SELECT ... FOR UPDATE`), Row Level Security (RLS).
-- **Mobile & Cross-Platform**: Flutter (3.27+), Dart (3.6+), Riverpod 3.x, Supabase Realtime, Offline-first syncing.
-- **Frontend & Web Development**: React 19, TypeScript, Tailwind CSS, HTML5, CSS3, Vite, RESTful API consumption.
+- **Backend Languages & Frameworks**: C#, .NET, ASP.NET Core (Web API & MVC), Entity Framework Core (EF Core), LINQ, CQRS (MediatR), SignalR WebSockets, BackgroundService / PeriodicTimer.
+- **Relational Databases & Persistence**: Microsoft SQL Server, PostgreSQL, Supabase, Database Normalization, B-Tree Covering Indexes, Optimistic Concurrency Control (RowVersion / OCC), PostgreSQL row-level locks (`SELECT ... FOR UPDATE`), Row Level Security (RLS).
+- **Mobile & Cross-Platform**: Flutter, Dart, Riverpod, Supabase Realtime, Offline-first syncing.
+- **Frontend & Web Development**: React, TypeScript, Tailwind CSS, HTML5, CSS3, Vite, RESTful API consumption.
 - **Security & Identity**: ASP.NET Core Identity, OAuth 2.0 (Google, GitHub, Discord), TOTP Two-Factor Authentication (OtpNet), Role-Based Access Control (RBAC).
 - **Architecture Paradigms**: Clean Architecture, Domain-Driven Design (DDD) principles, Idempotent API design (`X-Idempotency-Key`), Event-driven updates.
 
 ## Verified Production Systems & Projects
 1. **Shifa Management System (SMS)**
    - **Type**: Clinical Operations, Patient Intake & Billing Operating Platform for Shifa Home Health Care.
-   - **Stack**: Flutter 3.27+, Dart, Supabase, PostgreSQL 15 with Row Level Security, Riverpod.
+   - **Stack**: Flutter, Dart, Supabase, PostgreSQL with Row Level Security, Riverpod.
    - **Key Achievements**: Consolidated 14-day dynamic care plan renewals, automated WhatsApp invoice dispatch, zero duplicate financial sequences via PostgreSQL atomic sequence locking (`FOR UPDATE`).
    - **Repository**: https://github.com/ahmed-husssain/ShifaMangementSystem
 
 2. **Gallrax ERP (Online Art Gallery & Real-Time Auction Platform)**
    - **Type**: High-concurrency artwork auctioning and enterprise back-office management.
-   - **Stack**: C#, ASP.NET Core 8, EF Core, SQL Server, SignalR WebSockets, React.
+   - **Stack**: C#, ASP.NET Core, EF Core, SQL Server, SignalR WebSockets, React.
    - **Key Achievements**: Eliminated bid collisions using Optimistic Concurrency Control (`RowVersion`), sub-15s auto-settlement background worker (`PeriodicTimer`), and multi-provider OAuth 2.0 with TOTP 2FA.
    - **Repository**: https://github.com/ahmed-husssain/Online-Art-Gallery-Website
 

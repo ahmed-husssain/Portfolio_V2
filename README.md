@@ -12,7 +12,7 @@ Portfolio V2 is built around an **editorial, content-first, technical design phi
 
 ## 🛠 Tech Stack
 
-- **Framework**: React 19 + TypeScript
+- **Framework**: React + TypeScript
 - **Bundler**: Vite
 - **Styling**: Tailwind CSS v4 + Custom Design Tokens (CSS Variables)
 - **Icons**: Lucide React

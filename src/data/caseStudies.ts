@@ -11,7 +11,7 @@ export interface CaseStudyData {
 export const CASE_STUDIES: Record<string, CaseStudyData> = {
   'online-art-gallery': {
     overview:
-      'Gallrex is a high-concurrency art marketplace and live auction platform built on .NET 8, EF Core, and SQL Server. It features sub-millisecond collision protection via Optimistic Concurrency Control, in-memory network idempotency, live WebSocket multicast, and autonomous background order settlement.',
+      'Gallrex is a high-concurrency art marketplace and live auction platform built on .NET, EF Core, and SQL Server. It features sub-millisecond collision protection via Optimistic Concurrency Control, in-memory network idempotency, live WebSocket multicast, and autonomous background order settlement.',
     problem:
       'Live online auctions suffer from extreme last-second bidding collisions, race conditions, accidental double-clicks, and dormant server issues where expired auctions fail to settle unless a human loads the page.',
     solution:
@@ -129,8 +129,8 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
       '93 Passing Automated Tests: End-to-end verification covering dynamic expiration lifecycles, date calculations, and adversarial edge cases',
     ],
     architecture: [
-      'Multi-platform Flutter 3.27+ with Riverpod 3.x reactive dependency injection and stream providers',
-      'Supabase PostgreSQL 15 with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
+      'Multi-platform Flutter with Riverpod reactive dependency injection and stream providers',
+      'Supabase PostgreSQL with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
       'Responsive single-row inline service editing without wrapping on mobile viewports (320px - 412px)',
       'Real-time PostgreSQL Change Data Capture (CDC) streams for active patient rosters and renewal feeds',
     ],

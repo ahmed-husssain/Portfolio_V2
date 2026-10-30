@@ -11,15 +11,15 @@ export const CAPABILITIES: Capability[] = [
   {
     index: '01',
     title: 'Backend Systems',
-    stack: ['C#', '.NET 8', 'ASP.NET Core', 'SignalR', 'EF Core 8', 'CQRS'],
-    description: 'REST APIs, real-time WebSocket bidding streams, and background tasks in C# and .NET 8.',
+    stack: ['C#', '.NET', 'ASP.NET Core', 'SignalR', 'EF Core', 'CQRS'],
+    description: 'REST APIs, real-time WebSocket bidding streams, and background tasks in C# and .NET.',
     projectSlug: 'online-art-gallery',
     projectLabel: 'Online Art Gallery',
   },
   {
     index: '02',
     title: 'Database Design',
-    stack: ['PostgreSQL 15', 'SQL Server', 'Supabase', 'Row-Level Security', 'B-Tree Indexes'],
+    stack: ['PostgreSQL', 'SQL Server', 'Supabase', 'Row-Level Security', 'B-Tree Indexes'],
     description: 'Relational database schemas, index tuning for fast queries, and Row-Level Security for patient privacy.',
     projectSlug: 'shifamanagement',
     projectLabel: 'ShifaManagement',
@@ -27,7 +27,7 @@ export const CAPABILITIES: Capability[] = [
   {
     index: '03',
     title: 'Client Applications',
-    stack: ['Flutter 3.27+', 'Dart', 'Riverpod', 'React 19', 'TypeScript', 'Tailwind CSS'],
+    stack: ['Flutter', 'Dart', 'Riverpod', 'React', 'TypeScript', 'Tailwind CSS'],
     description: 'Cross-platform mobile apps for iOS and Android in Flutter, and responsive web interfaces in React.',
     projectSlug: 'mockrithm',
     projectLabel: 'Mockrithm',

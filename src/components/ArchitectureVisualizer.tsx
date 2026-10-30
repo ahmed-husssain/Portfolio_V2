@@ -40,7 +40,7 @@ interface FlowData {
 const FLOWS: Record<string, FlowData> = {
   'online-art-gallery': {
     subtitle: 'Live auction pipeline: request validation, concurrency guard, and real-time push.',
-    tag: '.NET 8 & SQL SERVER',
+    tag: '.NET & SQL SERVER',
     guarantee: 'Bid Concurrency Safety',
     guaranteeTech: 'In-Memory Cache · RowVersion OCC · SignalR WebSockets',
     steps: [

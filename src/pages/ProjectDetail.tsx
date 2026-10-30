@@ -288,8 +288,8 @@ export default function ProjectDetail() {
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
                       {project.slug === 'shifamanagement'
-                        ? 'DOCUMENTED SUPABASE & POSTGRESQL 15 FLOW'
-                        : 'DOCUMENTED .NET 8 & SQL SERVER DATA FLOW'}
+                        ? 'DOCUMENTED SUPABASE & POSTGRESQL FLOW'
+                        : 'DOCUMENTED .NET & SQL SERVER DATA FLOW'}
                     </span>
                   </div>
                   <ArchitectureVisualizer projectSlug={project.slug} />

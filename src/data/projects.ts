@@ -97,7 +97,7 @@ export const PROJECTS: Project[] = [
         title: 'Zero-Cost Spark Serverless Architecture',
         tag: 'INFRASTRUCTURE',
         description:
-          'High-availability Supabase and PostgreSQL 15 configuration maintaining zero infrastructure operational costs.',
+          'High-availability Supabase and PostgreSQL configuration maintaining zero infrastructure operational costs.',
       },
     ],
     architecture: [
@@ -119,11 +119,11 @@ export const PROJECTS: Project[] = [
       'High-throughput marketplace engineered with ASP.NET Core and SQL Server. Features optimistic concurrency control (RowVersion), SignalR WebSocket bid streams, and sub-10ms cache idempotency.',
     technologies: [
       'C#',
-      '.NET 8',
+      '.NET',
       'ASP.NET Core MVC',
       'CQRS / MediatR',
       'SignalR WebSockets',
-      'EF Core 8',
+      'EF Core',
       'SQL Server',
       'OAuth 2.0',
       'IMemoryCache',

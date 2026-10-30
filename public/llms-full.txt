@@ -18,26 +18,26 @@ Syed Ahmed Hussain is based in Karachi, Sindh, Pakistan, providing professional 
 
 ## Key Technical Competencies
 ### 1. Backend Engineering & Distributed Web Services
-- Frameworks: ASP.NET Core (.NET 8), .NET Core MVC, Web API.
+- Frameworks: ASP.NET Core (.NET), .NET Core MVC, Web API.
 - Language: C# (C-Sharp) with modern language features (pattern matching, records, primary constructors, async/await).
 - Architectural Patterns: Clean Architecture (Domain, Application, Infrastructure, Presentation layers), CQRS with MediatR, Repository and Unit of Work patterns, Dependency Injection.
 - Reliability & Safety: Idempotency keys (`X-Idempotency-Key` via UUIDs) to prevent double-billing and duplicate state changes; background workers utilizing `PeriodicTimer` for deterministic auto-expiration routines.
 
 ### 2. Relational Database Engineering & Concurrency Control
-- Databases: Microsoft SQL Server (T-SQL), PostgreSQL 15, Supabase (with Row Level Security policies).
+- Databases: Microsoft SQL Server (T-SQL), PostgreSQL, Supabase (with Row Level Security policies).
 - Concurrency Control:
   - Optimistic Concurrency Control (OCC) using `RowVersion` timestamp columns in EF Core, throwing `DbUpdateConcurrencyException` upon conflicting writes.
   - Pessimistic row-locking in PostgreSQL (`SELECT ... FOR UPDATE`) to eliminate concurrent counter increments and sequence duplication in financial transactions.
 - Query Performance: Covering non-clustered indexes (`CREATE NONCLUSTERED INDEX ... INCLUDE (...)`) to avoid expensive table key lookups for high-frequency queries.
 
 ### 3. Mobile & Cross-Platform Development
-- Framework: Flutter 3.27+ with Dart 3.6+.
-- State Management: Riverpod 3.x (AsyncNotifier, StateNotifier).
+- Framework: Flutter with Dart.
+- State Management: Riverpod (AsyncNotifier, StateNotifier).
 - Platform Targets: Android, iOS, Windows desktop, and Web.
 - Realtime & Backend Integration: Supabase Postgres CDC (Change Data Capture) via WebSockets.
 
 ### 4. Frontend & User Interface Engineering
-- Frameworks: React 19, TypeScript, Tailwind CSS, HTML5, CSS3, Vite.
+- Frameworks: React, TypeScript, Tailwind CSS, HTML5, CSS3, Vite.
 - Design Principles: High visual hierarchy, accessibility (ARIA, WCAG 2.1 AA), responsive mobile-first layouts, micro-interactions, dark mode aesthetic.
 
 ### 5. Security & Authentication

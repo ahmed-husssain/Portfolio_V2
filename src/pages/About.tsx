@@ -96,7 +96,7 @@ export default function About() {
             </>
           }
           title="About Ahmed Hussain"
-          description="Software Developer currently working remotely for Shifa Healthcare Karachi. Specialized in C# / .NET 8, relational database architecture, and verified full-stack systems."
+          description="Software Developer currently working remotely for Shifa Healthcare Karachi. Specialized in C# / .NET, relational database architecture, and verified full-stack systems."
         />
 
         {/* ─── 2. Current Status & Vitals HUD (Open & Immediate) ─── */}
