@@ -1,13 +1,15 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ExternalLink, FileText } from 'pixelarticons/react'
+import { toast } from 'sonner'
 import Container from '../ui/Container'
 import { CONTACT_CONFIG } from '../../data/contact'
-import TermsModal from './TermsModal'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
-  const [isTermsOpen, setIsTermsOpen] = useState(false)
+
+  const showMessage = () => {
+    toast.info("🍪 Terms & Conditions: You deserve a cookie! But… it’s a virtual one 😋")
+  }
 
   return (
     <footer className="border-t border-border bg-page text-secondary text-xs font-mono py-8 sm:py-10">
@@ -77,15 +79,12 @@ export default function Footer() {
           <span>SYED AHMED HUSSAIN // {currentYear}</span>
           <button
             type="button"
-            onClick={() => setIsTermsOpen(true)}
+            onClick={showMessage}
             className="hover:text-foreground transition-colors uppercase tracking-wider text-muted hover:underline decoration-border-strong underline-offset-4 cursor-pointer focus:outline-none focus-visible:text-foreground"
           >
-            TERMS & CONDITIONS
+            Terms & Conditions
           </button>
         </div>
-
-        {/* Easter Egg Bottom-Center Terms Modal */}
-        <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
       </Container>
     </footer>
   )
