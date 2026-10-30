@@ -10,7 +10,7 @@ import MagneticCursor from './components/motion/MagneticCursor'
 
 import { SplashProvider } from './components/SplashLoader'
 import { SpeedInsights } from '@vercel/speed-insights/react'
-import { Toaster } from 'sonner'
+import AppToaster from './components/ui/AppToaster'
 
 // Critical Homepage kept in initial bundle
 import Home from './pages/Home'
@@ -74,7 +74,7 @@ export default function App() {
               {/* ─── Global Footer ─── */}
               <Footer />
             </div>
-            <Toaster position="bottom-center" richColors theme="system" />
+            <AppToaster />
             <SpeedInsights />
           </SplashProvider>
         </SmoothScroll>

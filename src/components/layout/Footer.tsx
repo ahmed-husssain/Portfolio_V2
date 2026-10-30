@@ -8,7 +8,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const showMessage = () => {
-    toast.info("🍪 Terms & Conditions: You deserve a cookie! But… it’s a virtual one 😋")
+    toast('🍪 Terms & Conditions', {
+      description: 'You deserve a cookie! But… it’s a virtual one 😋',
+      duration: 2500,
+    })
   }
 
   return (
