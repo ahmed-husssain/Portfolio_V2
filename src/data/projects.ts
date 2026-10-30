@@ -141,6 +141,7 @@ export const PROJECTS: Project[] = [
     gallery: [
       '/projects/online-art-gallery/slide-1.webp',
       '/projects/online-art-gallery/slide-2.webp',
+      '/projects/online-art-gallery/slide-3.webp',
     ],
     gallerySlides: [
       {
@@ -156,6 +157,13 @@ export const PROJECTS: Project[] = [
         tag: 'CONCURRENCY ENGINE',
         description:
           'Real-time WebSocket auction floor powered by ASP.NET Core SignalR and Optimistic Concurrency Control (OCC) preventing bid collisions.',
+      },
+      {
+        image: '/projects/online-art-gallery/slide-3.webp',
+        title: 'Multi-Provider OAuth 2.0 & Identity Gateway',
+        tag: 'IDENTITY & AUTH',
+        description:
+          'Glassmorphic authentication gateway supporting Google OAuth 2.0, secure session persistence, and ASP.NET Core Identity credential store.',
       },
     ],
     architecture: [
