@@ -10,45 +10,42 @@ function checkPointerSupport(): boolean {
 
 export default function MagneticCursor() {
   const [isActive] = useState(() => checkPointerSupport())
-  const [cursorText, setCursorText] = useState('')
-  const [isHoveringLink, setIsHoveringLink] = useState(false)
 
   const cursorRef = useRef<HTMLDivElement>(null)
+  const textRef = useRef<HTMLSpanElement>(null)
   const targetPos = useRef({ x: -100, y: -100 })
   const currentPos = useRef({ x: -100, y: -100 })
+  const lastPointer = useRef({ x: -100, y: -100 })
   const isVisibleRef = useRef(false)
   const rafId = useRef<number | null>(null)
 
   useEffect(() => {
     if (!isActive) return
 
-    const handlePointerMove = (e: PointerEvent) => {
-      targetPos.current = { x: e.clientX, y: e.clientY }
-      if (!isVisibleRef.current && cursorRef.current) {
-        isVisibleRef.current = true
-        cursorRef.current.style.opacity = '1'
-      }
+    let currentMode: 'dot' | 'link' | 'text' | 'hidden' = 'dot'
+    let currentText = ''
 
-      // Context detection via event delegation
-      const target = e.target as HTMLElement | null
-      if (!target) return
+    const updateState = (target: HTMLElement | null) => {
+      const cursor = cursorRef.current
+      const textSpan = textRef.current
+      if (!cursor || !textSpan || !target) return
 
-      // Hide custom cursor completely over navbar, form fields, editable text, and dialog modals
-      // to ensure native text insertion I-beam, caret, and modal controls are never obscured
       const shouldHide = Boolean(
         target.closest(
           'header, nav, input, textarea, select, [contenteditable="true"], [role="dialog"], dialog, [data-no-cursor], [data-cursor-hide]'
         )
       )
+
       if (shouldHide) {
-        setCursorText('')
-        setIsHoveringLink(false)
-        if (cursorRef.current) cursorRef.current.style.opacity = '0'
+        if (currentMode !== 'hidden') {
+          currentMode = 'hidden'
+          cursor.style.opacity = '0'
+        }
         return
       }
 
-      if (cursorRef.current && isVisibleRef.current) {
-        cursorRef.current.style.opacity = '1'
+      if (isVisibleRef.current && currentMode === 'hidden') {
+        cursor.style.opacity = '1'
       }
 
       const textTarget = target.closest('[data-cursor-text]') as HTMLElement | null
@@ -56,15 +53,57 @@ export default function MagneticCursor() {
 
       if (textTarget) {
         const text = textTarget.getAttribute('data-cursor-text') || ''
-        setCursorText(text)
-        setIsHoveringLink(false)
+        if (currentMode !== 'text' || currentText !== text) {
+          currentMode = 'text'
+          currentText = text
+          textSpan.textContent = text
+          textSpan.className = 'font-mono text-[10px] font-bold tracking-wider uppercase whitespace-nowrap select-none'
+          cursor.className =
+            'fixed top-0 left-0 pointer-events-none z-50 will-change-transform flex items-center justify-center px-3.5 py-1.5 rounded-full bg-foreground text-page shadow-lg transition-[width,height,padding,background-color] duration-75 ease-out'
+        }
       } else if (clickableTarget) {
-        setCursorText('')
-        setIsHoveringLink(true)
+        if (currentMode !== 'link') {
+          currentMode = 'link'
+          currentText = ''
+          textSpan.textContent = ''
+          textSpan.className = 'hidden'
+          cursor.className =
+            'fixed top-0 left-0 pointer-events-none z-50 will-change-transform flex items-center justify-center w-10 h-10 rounded-full border border-foreground/60 bg-foreground/10 backdrop-blur-[2px] transition-[width,height,padding,background-color] duration-75 ease-out'
+        }
       } else {
-        setCursorText('')
-        setIsHoveringLink(false)
+        if (currentMode !== 'dot') {
+          currentMode = 'dot'
+          currentText = ''
+          textSpan.textContent = ''
+          textSpan.className = 'hidden'
+          cursor.className =
+            'fixed top-0 left-0 pointer-events-none z-50 will-change-transform flex items-center justify-center w-3 h-3 rounded-full bg-foreground transition-[width,height,padding,background-color] duration-75 ease-out'
+        }
       }
+    }
+
+    const handlePointerMove = (e: PointerEvent) => {
+      lastPointer.current = { x: e.clientX, y: e.clientY }
+      targetPos.current = { x: e.clientX, y: e.clientY }
+
+      if (!isVisibleRef.current && cursorRef.current) {
+        isVisibleRef.current = true
+        cursorRef.current.style.opacity = '1'
+      }
+
+      updateState(e.target as HTMLElement | null)
+    }
+
+    const handlePointerOver = (e: PointerEvent) => {
+      lastPointer.current = { x: e.clientX, y: e.clientY }
+      targetPos.current = { x: e.clientX, y: e.clientY }
+      updateState(e.target as HTMLElement | null)
+    }
+
+    const handleScroll = () => {
+      if (lastPointer.current.x < 0 || lastPointer.current.y < 0) return
+      const el = document.elementFromPoint(lastPointer.current.x, lastPointer.current.y) as HTMLElement | null
+      if (el) updateState(el)
     }
 
     // Hide cursor during active keyboard typing in inputs/textareas
@@ -88,9 +127,9 @@ export default function MagneticCursor() {
       }
     }
 
-    // High performance lerp animation loop (Emil Kowalski / Snellenberg spring feel)
+    // Ultra-snappy tracking loop (Apple fluid response - speed of light)
     const render = () => {
-      const ease = 0.18
+      const ease = 0.42
       currentPos.current.x += (targetPos.current.x - currentPos.current.x) * ease
       currentPos.current.y += (targetPos.current.y - currentPos.current.y) * ease
 
@@ -104,12 +143,16 @@ export default function MagneticCursor() {
     }
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
+    window.addEventListener('pointerover', handlePointerOver, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('keydown', handleKeyDown, { passive: true })
     document.addEventListener('mouseleave', handleMouseLeave)
     rafId.current = requestAnimationFrame(render)
 
     return () => {
       window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerover', handlePointerOver)
+      window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('mouseleave', handleMouseLeave)
       if (rafId.current !== null) cancelAnimationFrame(rafId.current)
@@ -118,29 +161,13 @@ export default function MagneticCursor() {
 
   if (!isActive) return null
 
-  const hasText = Boolean(cursorText)
-
   return (
     <div
       ref={cursorRef}
-      className={`fixed top-0 left-0 pointer-events-none z-50 opacity-0 transition-opacity duration-200 will-change-transform flex items-center justify-center ${
-        hasText
-          ? 'px-3.5 py-1.5 rounded-full bg-foreground text-page shadow-lg'
-          : isHoveringLink
-            ? 'w-10 h-10 rounded-full border border-foreground/60 bg-foreground/10 backdrop-blur-[2px]'
-            : 'w-3 h-3 rounded-full bg-foreground'
-      }`}
-      style={{
-        transition:
-          'opacity 150ms ease-out, width 180ms cubic-bezier(0.16, 1, 0.3, 1), height 180ms cubic-bezier(0.16, 1, 0.3, 1), padding 180ms cubic-bezier(0.16, 1, 0.3, 1), background-color 180ms ease-out',
-      }}
+      className="fixed top-0 left-0 pointer-events-none z-50 opacity-0 will-change-transform flex items-center justify-center w-3 h-3 rounded-full bg-foreground select-none"
       aria-hidden="true"
     >
-      {hasText && (
-        <span className="font-mono text-[10px] font-bold tracking-wider uppercase whitespace-nowrap select-none">
-          {cursorText}
-        </span>
-      )}
+      <span ref={textRef} className="hidden" />
     </div>
   )
 }
