@@ -14,7 +14,7 @@ export default function Capabilities() {
         <SectionHeading
           index="02"
           title="Tools & Daily Stack"
-          subtitle="No buzzwords. Just the languages, frameworks, and databases I actually write production code in."
+          subtitle="Core technologies applied across production systems."
           meta="04 DISCIPLINES · PRODUCTION VERIFIED"
         />
 
@@ -126,7 +126,7 @@ export default function Capabilities() {
 
         {/* ─── Understated Footnote ─── */}
         <div className="mt-8 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-muted">
-          <span>// GROUNDED ARCHITECTURE · ZERO BUZZWORDS</span>
+          <span>// 04 DISCIPLINES · PRODUCTION VERIFIED</span>
           <span className="hidden sm:inline">HOVER A DISCIPLINE TO FOCUS</span>
         </div>
       </Container>

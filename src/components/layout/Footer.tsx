@@ -72,7 +72,7 @@ export default function Footer() {
         {/* Bottom Micro-Bar */}
         <div className="mt-6 pt-6 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-muted">
           <span>© {currentYear} Syed Ahmed Hussain. All rights reserved.</span>
-          <span>Designed with restraint. Built with React & Vite.</span>
+          <span>Built for longevity.</span>
         </div>
       </Container>
     </footer>
