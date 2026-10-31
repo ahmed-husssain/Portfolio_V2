@@ -327,7 +327,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                       isShifa ? 'bg-white' : 'bg-page'
                     } ${
                       isActive
-                        ? 'border-foreground ring-1 ring-foreground/40 opacity-100 scale-[1.02]'
+                        ? 'border-foreground opacity-100'
                         : 'border-border/70 opacity-40 hover:opacity-80'
                     }`}
                     aria-label={`View slide ${i + 1} for ${project.title}`}
@@ -500,70 +500,56 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
             {/* Interactive Thumbnail Strip */}
             {slides.length > 1 && (
-              <div className="mt-3 flex flex-col gap-2" data-no-card-click>
-                <div className="flex items-center gap-2 overflow-x-auto py-0.5 scrollbar-none">
-                  {slides.map((src, i) => {
-                    const isActive = i === activeImageIdx
-                    return (
-                      <button
-                        key={src}
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setActiveImageIdx(i)
-                        }}
-                        className={`relative w-20 aspect-[16/10] rounded-xs overflow-hidden border transition-all duration-150 text-left group/thumb cursor-pointer shrink-0 ${
-                          isShifa ? 'bg-white' : 'bg-page'
-                        } ${
-                          isActive
-                            ? 'border-foreground shadow-xs ring-1 ring-foreground/40 opacity-100 scale-[1.03]'
-                            : 'border-border/80 opacity-50 hover:opacity-90 hover:border-foreground/30'
+              <div className="mt-3 flex items-center gap-2 overflow-x-auto py-0.5 scrollbar-none" data-no-card-click>
+                {slides.map((src, i) => {
+                  const isActive = i === activeImageIdx
+                  return (
+                    <button
+                      key={src}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveImageIdx(i)
+                      }}
+                      className={`relative w-20 aspect-[16/10] rounded-xs overflow-hidden border transition-colors duration-150 text-left group/thumb cursor-pointer shrink-0 ${
+                        isShifa ? 'bg-white' : 'bg-page'
+                      } ${
+                        isActive
+                          ? 'border-foreground opacity-100'
+                          : 'border-border/70 opacity-40 hover:opacity-80 hover:border-foreground/40'
+                      }`}
+                      aria-label={`View slide ${i + 1} for ${project.title}`}
+                      aria-pressed={isActive}
+                    >
+                      <img
+                        src={src}
+                        alt=""
+                        aria-hidden="true"
+                        className={`w-full h-full pointer-events-none ${
+                          isShifa ? 'object-contain object-center' : 'object-cover object-top'
                         }`}
-                        aria-label={`View slide ${i + 1} for ${project.title}`}
-                        aria-pressed={isActive}
+                      />
+                      <div
+                        className={`absolute inset-0 transition-colors ${
+                          isActive
+                            ? 'bg-transparent'
+                            : isShifa
+                              ? 'bg-black/10 group-hover/thumb:bg-transparent'
+                              : 'bg-black/30 group-hover/thumb:bg-transparent'
+                        }`}
+                      />
+                      <span
+                        className={`absolute bottom-1 right-1 font-mono text-[8px] leading-none font-bold px-1 py-0.5 rounded-2xs ${
+                          isActive
+                            ? 'bg-foreground text-page shadow-xs'
+                            : 'bg-black/80 text-foreground/80 backdrop-blur-2xs'
+                        }`}
                       >
-                        <img
-                          src={src}
-                          alt=""
-                          aria-hidden="true"
-                          className={`w-full h-full pointer-events-none ${
-                            isShifa ? 'object-contain object-center' : 'object-cover object-top'
-                          }`}
-                        />
-                        <div
-                          className={`absolute inset-0 transition-colors ${
-                            isActive
-                              ? 'bg-transparent'
-                              : isShifa
-                                ? 'bg-black/10 group-hover/thumb:bg-transparent'
-                                : 'bg-black/30 group-hover/thumb:bg-transparent'
-                          }`}
-                        />
-                        <span
-                          className={`absolute bottom-1 right-1 font-mono text-[8px] leading-none font-bold px-1 py-0.5 rounded-2xs ${
-                            isActive
-                              ? 'bg-foreground text-page shadow-xs'
-                              : 'bg-black/80 text-foreground/80 backdrop-blur-2xs'
-                          }`}
-                        >
-                          0{i + 1}
-                        </span>
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* Active Slide Caption Badge */}
-                {project.gallerySlides && project.gallerySlides[activeImageIdx] && (
-                  <div className="px-2.5 py-1.5 rounded-2xs border border-border/60 bg-surface/80 backdrop-blur-xs flex items-center justify-between gap-2 min-h-[28px]">
-                    <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-foreground shrink-0">
-                      [{project.gallerySlides[activeImageIdx].tag}]
-                    </span>
-                    <span className="font-mono text-[10px] text-muted truncate">
-                      {project.gallerySlides[activeImageIdx].title}
-                    </span>
-                  </div>
-                )}
+                        0{i + 1}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
             )}
           </div>
