@@ -130,7 +130,7 @@
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://ahmedhusssain.vercel.app/writing/solid-principles-thumb.svg</image:loc>
-      <image:title>The SOLID Principles Architectural Blueprint Diagram</image:title>
+      <image:title>The SOLID Principles: Tightly Coupled vs Decoupled C# Architecture</image:title>
     </image:image>
   </url>
 

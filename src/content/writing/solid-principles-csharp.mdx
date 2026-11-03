@@ -10,7 +10,7 @@ export const metadata = {
   readTime: '5 MIN READ',
   takeaway: 'SOLID is not an academic dogma. It is a set of common-sense defensive habits. Use it where code changes frequently; skip it where simple direct code gets the job done.',
   image: '/writing/solid-principles-thumb.svg',
-  imageAlt: 'The SOLID Principles Architectural Blueprint Diagram',
+  imageAlt: 'The SOLID Principles: Tightly Coupled vs Decoupled C# Architecture',
 }
 
 # SOLID Principles in Plain English (With Simple C# Examples)
@@ -22,8 +22,6 @@ That is called **brittle code**.
 In the early 2000s, software engineer Robert C. Martin ("Uncle Bob") grouped together five design habits that keep code flexible, testable, and easy to maintain. Together, their first letters spell **SOLID**.
 
 Here is what each principle means in plain English, with real-life analogies and tiny, practical C# examples.
-
-<SolidCarousel />
 
 ---
 
@@ -245,9 +243,3 @@ SOLID is a tool, not a religion. Blindly applying SOLID everywhere is just as ba
 * **Simple CRUD Features**: If a feature just reads a row from a database and returns JSON, wrapping it in 4 layers of interfaces and factories is pure waste.
 * **One-Time Scripts**: Data import scripts or database migration utilities that run once and are discarded.
 * **Before You Know the Pattern**: Don't create an interface until you actually have a **second** implementation or need to test it (*The Rule of Three*). Duplication is far cheaper than the wrong abstraction!
-
----
-
-## Summary Cheat Sheet
-
-<SolidCheatSheet />

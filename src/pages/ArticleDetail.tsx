@@ -5,8 +5,6 @@ import Container from '../components/ui/Container'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
 import ImageLightboxModal from '../components/ui/ImageLightboxModal'
-import SolidCheatSheet from '../components/writing/SolidCheatSheet'
-import SolidCarousel from '../components/writing/SolidCarousel'
 
 // Dynamic component loaders isolated to this route-level chunk
 const articleLoaders = import.meta.glob<{ default: React.ComponentType<{ components?: any }> }>(
@@ -99,8 +97,6 @@ const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: s
 const mdxComponents = {
   TwoColumn,
   Figure,
-  SolidCheatSheet,
-  SolidCarousel,
   table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
     <div className="overflow-x-auto my-6 border border-border rounded-sm pixel-corners">
       <table className="w-full text-left font-mono text-xs sm:text-sm" {...props} />

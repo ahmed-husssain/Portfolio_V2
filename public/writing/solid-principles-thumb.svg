@@ -1,136 +1,152 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="100%" height="100%" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%" fill="none">
   <defs>
     <style>
       .bg { fill: #0A0A0C; }
-      .grid { stroke: #181822; stroke-width: 1; stroke-dasharray: 4 4; }
-      .card { fill: #111116; stroke: #23232E; stroke-width: 1.5; }
-      .card-emerald { fill: #101513; stroke: #10B981; stroke-width: 1.5; }
-      .mono-head { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; fill: #71717A; letter-spacing: 0.12em; }
-      .mono-title { font-family: 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace; font-size: 16px; font-weight: 600; fill: #EDEDED; letter-spacing: 0.04em; }
-      .mono-sub { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 12px; fill: #A1A1AA; }
-      .letter { font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 700; fill: #10B981; }
-      .principle-title { font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 600; fill: #EDEDED; }
-      .principle-sub { font-family: 'Geist', sans-serif; font-size: 10px; fill: #94A3B8; }
-      .badge-text { font-family: 'Geist Mono', monospace; font-size: 9px; font-weight: 600; fill: #10B981; }
-      .rule-text { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #CBD5E1; }
-      .bottom-note { font-family: 'Geist Mono', monospace; font-size: 10px; fill: #10B981; letter-spacing: 0.08em; }
+      .grid-pattern { stroke: #1A1A20; stroke-width: 1; stroke-dasharray: 4 4; }
+      .box { fill: #111116; stroke: #262632; stroke-width: 1.5; }
+      .box-accent { fill: #0F1722; stroke: #38BDF8; stroke-width: 1.5; }
+      .label-mono { font-family: 'Geist Mono', 'JetBrains Mono', monospace; font-size: 11px; fill: #71717A; letter-spacing: 0.08em; font-weight: 500; }
+      .title-mono { font-family: 'Geist Mono', 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; fill: #F4F4F5; letter-spacing: 0.03em; }
+      .title-accent { font-family: 'Geist Mono', 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; fill: #38BDF8; letter-spacing: 0.03em; }
+      .text-sub { font-family: 'Geist Mono', monospace; font-size: 10px; fill: #94A3B8; }
+      .text-desc { font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; fill: #A1A1AA; line-height: 1.5; }
+      
+      .flow-line { stroke: #52525B; stroke-width: 1.5; stroke-dasharray: 4 4; }
+      .flow-line-active { stroke: #38BDF8; stroke-width: 1.5; }
+      .flow-line-emerald { stroke: #10B981; stroke-width: 1.5; }
+      
+      .badge { fill: #1C1C24; stroke: #2F2F3D; }
+      .badge-accent { fill: #082F49; stroke: #0284C7; }
+      .badge-text { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #D4D4D8; font-weight: 600; }
+      .badge-text-accent { font-family: 'Geist Mono', monospace; font-size: 9px; fill: #38BDF8; font-weight: 700; }
+      
+      .badge-solid { fill: #14141B; stroke: #252533; }
+      .solid-letter { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 700; fill: #EDEDED; }
+      .solid-name { font-family: 'Geist Mono', monospace; font-size: 8.5px; fill: #71717A; }
     </style>
+    
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8" />
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10B981" />
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#52525B" />
+    </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="480" class="bg" />
+  <!-- Dark Background -->
+  <rect width="800" height="480" class="bg" />
 
-  <!-- Blueprint Grid -->
-  <line x1="30" y1="0" x2="30" y2="480" class="grid" />
-  <line x1="850" y1="0" x2="850" y2="480" class="grid" />
-  <line x1="0" y1="50" x2="880" y2="50" class="grid" />
-  <line x1="0" y1="425" x2="880" y2="425" class="grid" />
+  <!-- Blueprint Grid Pattern -->
+  <line x1="40" y1="0" x2="40" y2="480" class="grid-pattern" />
+  <line x1="260" y1="0" x2="260" y2="480" class="grid-pattern" />
+  <line x1="535" y1="0" x2="535" y2="480" class="grid-pattern" />
+  <line x1="760" y1="0" x2="760" y2="480" class="grid-pattern" />
+  <line x1="0" y1="40" x2="800" y2="40" class="grid-pattern" />
+  <line x1="0" y1="435" x2="800" y2="435" class="grid-pattern" />
 
-  <!-- Header -->
-  <text x="40" y="32" class="mono-head">C# BACKEND ENGINEERING // OBJECT-ORIENTED ARCHITECTURE</text>
-  <text x="40" y="80" class="mono-title">THE SOLID PRINCIPLES BLUEPRINT</text>
-  <text x="40" y="102" class="mono-sub">Five defensive engineering habits for resilient, testable, and maintainable C# applications.</text>
+  <!-- Diagram Title Header -->
+  <text x="50" y="55" class="label-mono">ARCHITECTURE PATTERN // 02 · OBJECT-ORIENTED DESIGN</text>
+  <text x="50" y="80" class="title-mono">THE SOLID ARCHITECTURE: DECOUPLED C# SEAMS</text>
 
-  <!-- Pillar 1: S (Single Responsibility) -->
-  <g transform="translate(40, 130)">
-    <rect width="150" height="260" rx="4" class="card-emerald" />
-    <rect x="12" y="12" width="28" height="20" rx="3" fill="#064E3B" />
-    <text x="21" y="26" class="badge-text">S</text>
-    <text x="12" y="55" class="letter">SRP</text>
-    <text x="12" y="78" class="principle-title">Single</text>
-    <text x="12" y="93" class="principle-title">Responsibility</text>
-    
-    <line x1="12" y1="108" x2="138" y2="108" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="128" class="principle-sub">CORE PROMISE:</text>
-    <text x="12" y="145" class="rule-text">One class = One job.</text>
-    <text x="12" y="162" class="rule-text">One reason to change.</text>
-    
-    <line x1="12" y1="185" x2="138" y2="185" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="205" class="principle-sub">ANALOGY:</text>
-    <text x="12" y="222" class="rule-text">Chef cooks;</text>
-    <text x="12" y="239" class="rule-text">Waiter serves.</text>
+  <!-- 5 SOLID Badges Ribbon (Top Right) -->
+  <g transform="translate(510, 52)">
+    <rect x="0" y="0" width="44" height="24" rx="3" class="badge-solid" />
+    <text x="7" y="16" class="solid-letter" fill="#10B981">S</text>
+    <text x="18" y="16" class="solid-name">JOB</text>
+
+    <rect x="48" y="0" width="44" height="24" rx="3" class="badge-solid" />
+    <text x="55" y="16" class="solid-letter" fill="#8B5CF6">O</text>
+    <text x="66" y="16" class="solid-name">SEAM</text>
+
+    <rect x="96" y="0" width="44" height="24" rx="3" class="badge-solid" />
+    <text x="103" y="16" class="solid-letter" fill="#F59E0B">L</text>
+    <text x="114" y="16" class="solid-name">SUB</text>
+
+    <rect x="144" y="0" width="44" height="24" rx="3" class="badge-solid" />
+    <text x="151" y="16" class="solid-letter" fill="#0284C7">I</text>
+    <text x="162" y="16" class="solid-name">LEAN</text>
+
+    <rect x="192" y="0" width="48" height="24" rx="3" class="badge-solid" />
+    <text x="199" y="16" class="solid-letter" fill="#38BDF8">D</text>
+    <text x="211" y="16" class="solid-name">INVERT</text>
   </g>
 
-  <!-- Pillar 2: O (Open/Closed) -->
-  <g transform="translate(202, 130)">
-    <rect width="150" height="260" rx="4" class="card" />
-    <rect x="12" y="12" width="28" height="20" rx="3" fill="#1E293B" />
-    <text x="21" y="26" class="badge-text" fill="#94A3B8">O</text>
-    <text x="12" y="55" class="letter" fill="#E2E8F0">OCP</text>
-    <text x="12" y="78" class="principle-title">Open /</text>
-    <text x="12" y="93" class="principle-title">Closed</text>
+  <!-- ============================================= -->
+  <!-- Component 1: High-Level Client / Controller   -->
+  <!-- ============================================= -->
+  <g transform="translate(50, 135)">
+    <rect width="205" height="240" rx="4" class="box" />
+    <rect x="12" y="14" width="115" height="18" rx="2" class="badge" />
+    <text x="18" y="27" class="badge-text">HIGH-LEVEL CALLER</text>
+    <text x="14" y="58" class="title-mono">OrderController</text>
+    <text x="14" y="78" class="text-sub">ASP.NET Core Web API</text>
     
-    <line x1="12" y1="108" x2="138" y2="108" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="128" class="principle-sub">CORE PROMISE:</text>
-    <text x="12" y="145" class="rule-text">Extend via new code,</text>
-    <text x="12" y="162" class="rule-text">never edit old code.</text>
-    
-    <line x1="12" y1="185" x2="138" y2="185" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="205" class="principle-sub">ANALOGY:</text>
-    <text x="12" y="222" class="rule-text">Phone app store</text>
-    <text x="12" y="239" class="rule-text">vs rewiring chip.</text>
+    <line x1="14" y1="96" x2="191" y2="96" stroke="#222228" />
+
+    <text x="14" y="120" class="label-mono">DISCIPLINES (S + D):</text>
+    <text x="14" y="140" class="text-desc">• One Job: Route Orders (SRP)</text>
+    <text x="14" y="162" class="text-desc">• Zero "new" Dependencies</text>
+    <text x="14" y="184" class="text-desc">• Constructor Injection (DI)</text>
+    <text x="14" y="206" class="text-desc">• 100% Testable in Isolation</text>
   </g>
 
-  <!-- Pillar 3: L (Liskov Substitution) -->
-  <g transform="translate(364, 130)">
-    <rect width="150" height="260" rx="4" class="card" />
-    <rect x="12" y="12" width="28" height="20" rx="3" fill="#1E293B" />
-    <text x="21" y="26" class="badge-text" fill="#94A3B8">L</text>
-    <text x="12" y="55" class="letter" fill="#E2E8F0">LSP</text>
-    <text x="12" y="78" class="principle-title">Liskov</text>
-    <text x="12" y="93" class="principle-title">Substitution</text>
-    
-    <line x1="12" y1="108" x2="138" y2="108" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="128" class="principle-sub">CORE PROMISE:</text>
-    <text x="12" y="145" class="rule-text">Child class must not</text>
-    <text x="12" y="162" class="rule-text">break parent contract.</text>
-    
-    <line x1="12" y1="185" x2="138" y2="185" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="205" class="principle-sub">ANALOGY:</text>
-    <text x="12" y="222" class="rule-text">Real duck vs</text>
-    <text x="12" y="239" class="rule-text">Toy duck in lake.</text>
+  <!-- ============================================= -->
+  <!-- Component 2: Abstraction Seams (Central Hero) -->
+  <!-- ============================================= -->
+  <g transform="translate(298, 135)">
+    <rect width="205" height="240" rx="4" class="box-accent" />
+    <rect x="12" y="14" width="118" height="18" rx="2" class="badge-accent" />
+    <text x="18" y="27" class="badge-text-accent">SOLID ABSTRACTIONS</text>
+    <text x="14" y="58" class="title-accent">«interface» Seams</text>
+    <text x="14" y="78" class="text-sub" fill="#38BDF8">Lean C# Contracts (ISP + OCP)</text>
+
+    <line x1="14" y1="96" x2="191" y2="96" stroke="#1E293B" />
+
+    <text x="14" y="120" class="label-mono" fill="#38BDF8">CORE INTERFACES:</text>
+    <text x="14" y="140" class="text-desc">• IOrderRepository</text>
+    <text x="14" y="162" class="text-desc">• IPaymentGateway</text>
+    <text x="14" y="184" class="text-desc">• INotificationService</text>
+    <text x="14" y="206" class="text-desc">• Open for Extension (OCP)</text>
   </g>
 
-  <!-- Pillar 4: I (Interface Segregation) -->
-  <g transform="translate(526, 130)">
-    <rect width="150" height="260" rx="4" class="card" />
-    <rect x="12" y="12" width="28" height="20" rx="3" fill="#1E293B" />
-    <text x="21" y="26" class="badge-text" fill="#94A3B8">I</text>
-    <text x="12" y="55" class="letter" fill="#E2E8F0">ISP</text>
-    <text x="12" y="78" class="principle-title">Interface</text>
-    <text x="12" y="93" class="principle-title">Segregation</text>
-    
-    <line x1="12" y1="108" x2="138" y2="108" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="128" class="principle-sub">CORE PROMISE:</text>
-    <text x="12" y="145" class="rule-text">Clients implement only</text>
-    <text x="12" y="162" class="rule-text">what they use.</text>
-    
-    <line x1="12" y1="185" x2="138" y2="185" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="205" class="principle-sub">ANALOGY:</text>
-    <text x="12" y="222" class="rule-text">Ordering a drink,</text>
-    <text x="12" y="239" class="rule-text">not the buffet.</text>
+  <!-- ============================================= -->
+  <!-- Component 3: Pluggable Implementations        -->
+  <!-- ============================================= -->
+  <g transform="translate(545, 135)">
+    <rect width="205" height="240" rx="4" class="box" />
+    <rect x="12" y="14" width="118" height="18" rx="2" class="badge" />
+    <text x="18" y="27" class="badge-text">PLUGGABLE DETAILS</text>
+    <text x="14" y="58" class="title-mono">Implementations</text>
+    <text x="14" y="78" class="text-sub">Substitutable Classes (LSP)</text>
+
+    <line x1="14" y1="96" x2="191" y2="96" stroke="#222228" />
+
+    <text x="14" y="120" class="label-mono">PROVIDERS (LSP):</text>
+    <text x="14" y="140" class="text-desc">• SqlDb ⇄ InMemoryMock</text>
+    <text x="14" y="162" class="text-desc">• Stripe ⇄ PayPal ⇄ Crypto</text>
+    <text x="14" y="184" class="text-desc">• SendGrid ⇄ ConsoleLog</text>
+    <text x="14" y="206" class="text-desc">• Zero Consumer Breaking</text>
   </g>
 
-  <!-- Pillar 5: D (Dependency Inversion) -->
-  <g transform="translate(688, 130)">
-    <rect width="150" height="260" rx="4" class="card-emerald" />
-    <rect x="12" y="12" width="28" height="20" rx="3" fill="#064E3B" />
-    <text x="21" y="26" class="badge-text">D</text>
-    <text x="12" y="55" class="letter">DIP</text>
-    <text x="12" y="78" class="principle-title">Dependency</text>
-    <text x="12" y="93" class="principle-title">Inversion</text>
-    
-    <line x1="12" y1="108" x2="138" y2="108" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="128" class="principle-sub">CORE PROMISE:</text>
-    <text x="12" y="145" class="rule-text">Depend on interfaces,</text>
-    <text x="12" y="162" class="rule-text">not concrete classes.</text>
-    
-    <line x1="12" y1="185" x2="138" y2="185" stroke="#1F2937" stroke-width="1" />
-    <text x="12" y="205" class="principle-sub">ANALOGY:</text>
-    <text x="12" y="222" class="rule-text">Wall socket plug</text>
-    <text x="12" y="239" class="rule-text">vs hardwired lamp.</text>
-  </g>
+  <!-- Flow 1: Caller calls Interface -->
+  <path d="M 255 195 L 290 195" class="flow-line-active" marker-end="url(#arrow-cyan)" />
+  <rect x="257" y="177" width="37" height="15" rx="2" fill="#0A0A0C" stroke="#1E293B" />
+  <text x="261" y="188" class="label-mono" font-size="8px" fill="#38BDF8">CALLS</text>
 
-  <!-- Footer Telemetry -->
-  <text x="40" y="450" class="bottom-note">// SENIOR DEV RULE: AVOID PREMATURE ABSTRACTION · CODE READABILITY &gt; DOGMATIC PURITY</text>
+  <!-- Flow 2: Providers Implement Interface (Inversion!) -->
+  <path d="M 545 195 L 510 195" class="flow-line-emerald" marker-end="url(#arrow-emerald)" />
+  <rect x="509" y="177" width="41" height="15" rx="2" fill="#0A0A0C" stroke="#064E3B" />
+  <text x="513" y="188" class="label-mono" font-size="8px" fill="#10B981">INVERTS</text>
+
+  <!-- Flow 3: Unit Testing Mock Swap Curve -->
+  <path d="M 255 315 C 350 415, 450 415, 538 315" class="flow-line" marker-end="url(#arrow-muted)" />
+  <rect x="330" y="392" width="140" height="18" rx="2" fill="#0A0A0C" stroke="#2E2E38" />
+  <text x="340" y="405" class="badge-text">UNIT TEST: MOCK INJECTION</text>
+
+  <!-- Bottom Telemetry Spec Bar -->
+  <line x1="50" y1="440" x2="750" y2="440" stroke="#222228" />
+  <text x="50" y="460" class="label-mono">SPEC: DEPEND ON ABSTRACTIONS · ZERO JIT OVERHEAD (&lt;1ns) · PLUGGABLE EXTENSION</text>
 </svg>
