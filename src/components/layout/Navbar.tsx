@@ -323,46 +323,22 @@ export default function Navbar() {
         </MagneticItem>
       </div>
 
-      {/* ─── 3. AMBIENT BACKDROP SCRIM ─── */}
-      <div
-        onClick={() => setMenuOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        aria-hidden="true"
-      />
-
-      {/* ─── 4. EDITORIAL SLIDE-OVER DRAWER (Dennis Snellenberg Style) ─── */}
+      {/* ─── 3. FULL-SCREEN EDITORIAL OVERLAY MENU (100% Unified Edge-to-Edge Color) ─── */}
       <aside
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
-        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page border-l border-border/80 shadow-2xl transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
-        style={{
-          transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(calc(100% + 100px), 0, 0)',
-        }}
+        className={`fixed inset-0 z-40 w-full h-[100dvh] bg-page transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform ${
+          menuOpen
+            ? 'opacity-100 pointer-events-auto scale-100 translate-y-0'
+            : 'opacity-0 pointer-events-none scale-[0.985] -translate-y-2'
+        }`}
       >
-        {/* Trailing Organic Curved SVG Edge (Dennis Snellenberg signature) - Unclipped outside aside */}
-        <div
-          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none select-none -mr-px hidden sm:block z-20"
-          style={{ color: 'var(--bg-page)' }}
-          aria-hidden="true"
-        >
-          <svg
-            viewBox="0 0 100 1000"
-            fill="currentColor"
-            preserveAspectRatio="none"
-            className="w-full h-full drop-shadow-[-10px_0_15px_rgba(0,0,0,0.18)]"
-          >
-            <path d="M100,0 L100,1000 Q0,500 100,0 Z" />
-          </svg>
-        </div>
-
-        {/* Inner Scroll-Safe Layout: Perfectly accommodates all devices without clipping the curve */}
-        <div className="relative w-full h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 2xl:p-12 overflow-y-auto overflow-x-hidden scrollbar-none z-10">
+        {/* Inner Scroll-Safe Layout: Perfectly centered with balanced margins on both sides */}
+        <div className="relative max-w-4xl mx-auto w-full h-full flex flex-col justify-between p-6 sm:p-8 md:p-10 2xl:p-12 overflow-y-auto overflow-x-hidden scrollbar-none z-10">
 
         {/* Top Header of the Overlay */}
-        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-3 sm:pb-4 2xl:pb-6 pr-12 sm:pr-16 shrink-0">
+        <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted border-b border-border pb-3 sm:pb-4 2xl:pb-6 pr-14 sm:pr-20 shrink-0">
           <div className="flex items-center gap-2.5">
             <span className="text-secondary font-semibold">// NAVIGATION</span>
             <span className="text-border-strong hidden xs:inline" aria-hidden="true">·</span>
