@@ -54,6 +54,11 @@
 - **Healthcare & Business Management Software**: Tailored ERP, clinic management, and operational platforms using Flutter and PostgreSQL.
 - **Database Schema Design & Query Optimization**: Schema modeling, index tuning, and transaction safety audits.
 
+## Published Technical Writing & Field Notes
+1. **SOLID Principles in Plain English (With Simple C# Examples)**: Practical breakdown of the 5 SOLID design habits in modern C#, real-world analogies, JIT performance facts, and rules on when to use vs. skip them. (URL: https://ahmedhusssain.vercel.app/writing/solid-principles-csharp)
+2. **From Bloom to Binary Fuse: Why We Replaced a 50-Year-Old Algorithm**: 50-year evolution of probabilistic filters, CPU cache miss reduction, and Cuckoo deletion mechanics. (URL: https://ahmedhusssain.vercel.app/writing/probabilistic-filters)
+3. **Understanding the Cache-Aside Pattern in Practice**: Read-through versus cache-aside data retrieval, cache invalidation strategies, and thundering herd mitigations. (URL: https://ahmedhusssain.vercel.app/writing/cache-aside)
+
 ## Canonical Links
 - [Portfolio Homepage](https://ahmedhusssain.vercel.app/): Main portfolio site showcasing software engineering work.
 - [Work & Projects](https://ahmedhusssain.vercel.app/work): Production systems, architecture flows, and case studies.

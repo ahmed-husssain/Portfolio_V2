@@ -122,6 +122,18 @@
     </image:image>
   </url>
 
+  <!-- Article: SOLID Principles in C# -->
+  <url>
+    <loc>https://ahmedhusssain.vercel.app/writing/solid-principles-csharp</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://ahmedhusssain.vercel.app/writing/solid-principles-thumb.svg</image:loc>
+      <image:title>The SOLID Principles Architectural Blueprint Diagram</image:title>
+    </image:image>
+  </url>
+
   <!-- Peer & Client Review Submission -->
   <url>
     <loc>https://ahmedhusssain.vercel.app/review</loc>
