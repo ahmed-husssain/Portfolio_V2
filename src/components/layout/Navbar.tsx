@@ -323,10 +323,10 @@ export default function Navbar() {
         </MagneticItem>
       </div>
 
-      {/* ─── 3. AMBIENT BACKDROP SCRIM ─── */}
+      {/* ─── 3. AMBIENT BACKDROP SCRIM (Frosted White in Light Mode, Deep Black in Dark Mode) ─── */}
       <div
         onClick={() => setMenuOpen(false)}
-        className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed inset-0 z-40 bg-white/70 dark:bg-black/60 backdrop-blur-md transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         aria-hidden="true"
@@ -352,7 +352,7 @@ export default function Navbar() {
             viewBox="0 0 100 1000"
             fill="currentColor"
             preserveAspectRatio="none"
-            className="w-full h-full drop-shadow-[-10px_0_15px_rgba(0,0,0,0.18)]"
+            className="w-full h-full drop-shadow-[-8px_0_20px_rgba(0,0,0,0.06)] dark:drop-shadow-[-10px_0_25px_rgba(0,0,0,0.6)]"
           >
             <path d="M100,0 L100,1000 Q0,500 100,0 Z" />
           </svg>
