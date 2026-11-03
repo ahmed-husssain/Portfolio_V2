@@ -346,7 +346,7 @@ export default function ArticleDetail() {
                     Syed Ahmed Hussain
                   </h3>
                   <p className="text-xs sm:text-sm text-secondary mt-1 max-w-md">
-                    Software Developer (Remote) @ Shifa Healthcare Karachi. Building resilient backend systems, relational schemas, high-throughput APIs, and pragmatic web applications.
+                    Software developer working remotely at Shifa Healthcare Karachi. I build reliable backends, clean databases, and fast, practical web apps.
                   </p>
                 </div>
                 <Link

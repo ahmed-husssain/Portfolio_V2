@@ -344,8 +344,8 @@ export default function Navbar() {
       >
         {/* Trailing Organic Curved SVG Edge (Dennis Snellenberg signature) - Unclipped outside aside */}
         <div
-          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none select-none -mr-px hidden sm:block z-20 text-[#969696]"
-          style={{ color: '#969696' }}
+          className="absolute top-0 -left-[79px] sm:-left-[99px] w-[80px] sm:w-[100px] h-full pointer-events-none select-none -mr-px hidden sm:block z-20 text-[#999999]"
+          style={{ color: '#999999' }}
           aria-hidden="true"
         >
           <svg
