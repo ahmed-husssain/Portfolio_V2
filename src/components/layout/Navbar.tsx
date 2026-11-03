@@ -337,7 +337,7 @@ export default function Navbar() {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation Menu"
-        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page border-l border-border/80 sm:border-l-0 shadow-2xl transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
+        className="fixed top-0 right-0 bottom-0 z-40 w-full sm:w-[460px] md:w-[500px] lg:w-[540px] max-h-[100dvh] bg-page transition-transform duration-600 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
         style={{
           transform: menuOpen ? 'translate3d(0, 0, 0)' : 'translate3d(calc(100% + 100px), 0, 0)',
         }}
