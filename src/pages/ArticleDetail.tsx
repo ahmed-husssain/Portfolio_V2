@@ -5,6 +5,7 @@ import Container from '../components/ui/Container'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getArticleBySlug, getNextArticle } from '../lib/writing/writingService'
 import ImageLightboxModal from '../components/ui/ImageLightboxModal'
+import SolidCheatSheet from '../components/writing/SolidCheatSheet'
 
 // Dynamic component loaders isolated to this route-level chunk
 const articleLoaders = import.meta.glob<{ default: React.ComponentType<{ components?: any }> }>(
@@ -97,6 +98,27 @@ const Figure = ({ src, alt, caption }: { src?: string; alt?: string; caption?: s
 const mdxComponents = {
   TwoColumn,
   Figure,
+  SolidCheatSheet,
+  table: (props: React.TableHTMLAttributes<HTMLTableElement>) => (
+    <div className="overflow-x-auto my-6 border border-border rounded-sm pixel-corners">
+      <table className="w-full text-left font-mono text-xs sm:text-sm" {...props} />
+    </div>
+  ),
+  thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className="bg-surface border-b border-border text-foreground font-semibold" {...props} />
+  ),
+  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody className="divide-y divide-border bg-page" {...props} />
+  ),
+  tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
+    <tr className="hover:bg-surface/50 transition-colors" {...props} />
+  ),
+  th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
+    <th className="px-4 py-3 text-micro-caps text-muted font-mono uppercase tracking-wider" {...props} />
+  ),
+  td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
+    <td className="px-4 py-3 text-secondary leading-relaxed" {...props} />
+  ),
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mt-10 mb-4" {...props} />
   ),
