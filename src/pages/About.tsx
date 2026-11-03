@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import {
   ExternalLink,
   FileText,
@@ -6,7 +5,6 @@ import {
   Github,
   Mail,
 } from 'pixelarticons/react'
-import { useLocation } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import Reveal from '../components/motion/Reveal'
 import PageHeader from '../components/ui/PageHeader'
@@ -17,17 +15,6 @@ import { CONTACT_CONFIG } from '../data/contact'
 
 export default function About() {
   useDocumentTitle('About Ahmed — Software & Backend Developer in Karachi')
-
-  const location = useLocation()
-
-  useEffect(() => {
-    if (location.hash === '#contact') {
-      const el = document.getElementById('contact')
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-  }, [location.hash])
 
   const timelineItems = [
     {

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { ExternalLink } from 'pixelarticons/react'
 import { useMagneticHover } from '../../hooks/useMagneticHover'
 
@@ -127,6 +128,23 @@ export default function Button({
   )
 
   if (href !== undefined) {
+    const isInternal = href.startsWith('/') && !href.endsWith('.pdf')
+
+    if (isInternal) {
+      return (
+        <Link
+          to={href}
+          ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLAnchorElement>) : undefined}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className={combinedClasses}
+          {...(props as any)}
+        >
+          {content}
+        </Link>
+      )
+    }
+
     return (
       <a
         href={href}

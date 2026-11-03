@@ -104,10 +104,44 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
   }, [])
 
-  // Intelligent route transition scroll restoration:
+  // Intelligent route transition scroll restoration & hash-anchor navigation:
+  // - If URL has a hash (e.g. /about#contact, /#reviews): Glides directly to the target element with -80px offset.
   // - On "POP" (browser Back/Forward): Restores saved scroll position exactly where the user left off.
-  // - On "PUSH" (new link clicked): Cleanly resets to the top (0,0).
+  // - On "PUSH" / "REPLACE" (new route without hash): Cleanly resets to top (0,0).
   useEffect(() => {
+    if (location.hash) {
+      const hash = location.hash
+      const scrollToHash = () => {
+        const id = hash.replace('#', '')
+        const el = document.getElementById(id) || document.querySelector(hash)
+        if (el) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(el as HTMLElement, { offset: -80, duration: 1.2 })
+          } else {
+            const y = el.getBoundingClientRect().top + window.scrollY - 80
+            window.scrollTo({ top: y, behavior: 'smooth' })
+          }
+          return true
+        }
+        return false
+      }
+
+      // Initial check, then RAF, then fallback timeout in case route component is lazy-loaded
+      let timer: ReturnType<typeof setTimeout> | undefined
+      if (!scrollToHash()) {
+        const raf = requestAnimationFrame(() => {
+          if (!scrollToHash()) {
+            timer = setTimeout(scrollToHash, 120)
+          }
+        })
+        return () => {
+          cancelAnimationFrame(raf)
+          if (timer) clearTimeout(timer)
+        }
+      }
+      return
+    }
+
     if (navigationType === 'POP') {
       const savedY = scrollPositions.get(location.key) ?? 0
       const restore = () => {
@@ -122,14 +156,14 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       const timer = requestAnimationFrame(restore)
       return () => cancelAnimationFrame(timer)
     } else {
-      // PUSH / REPLACE: Navigate to top
+      // PUSH / REPLACE without hash: Navigate to top
       if (lenisRef.current) {
         lenisRef.current.scrollTo(0, { immediate: true })
       } else {
         window.scrollTo(0, 0)
       }
     }
-  }, [location.key, navigationType])
+  }, [location.key, location.hash, navigationType])
 
   return children
 }
