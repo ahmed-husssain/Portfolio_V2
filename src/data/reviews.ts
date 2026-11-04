@@ -34,7 +34,7 @@ export const REVIEWS: Review[] = [
     id: 'rev-shifamanagement-healthcare',
     name: 'Asad',
     role: 'Owner',
-    company: 'ShifaHomeHealthCare',
+    company: 'Shifa Home Health Care',
     relationship: 'Client / Product Owner',
     project: 'ShifaManagement',
     projectSlug: 'shifamanagement',

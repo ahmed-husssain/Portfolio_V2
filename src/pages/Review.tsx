@@ -122,56 +122,58 @@ export default function Review() {
         />
 
         {/* Balanced Two-Column Showcase & Submission Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
           {/* ─── Left Column (lg:col-span-5): Social Proof & Trust ─── */}
           <div className="lg:col-span-5 space-y-6">
             {/* Featured Client Endorsement Spotlight */}
             {featuredReview && (
-              <article className="border border-border bg-surface rounded-sm p-6 sm:p-7 pixel-corners hover:border-border-strong transition-[border-color,box-shadow] duration-200 shadow-2xs">
-                <div className="flex items-center justify-between gap-2 pb-4 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    {featuredReview.avatar ? (
-                      <img
-                        src={featuredReview.avatar}
-                        alt={featuredReview.company || featuredReview.name}
-                        width={88}
-                        height={40}
-                        loading="lazy"
-                        decoding="async"
-                        className="h-10 sm:h-11 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
-                      />
-                    ) : (
-                      <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs pixel-corners">
-                        {featuredReview.name.slice(0, 2).toUpperCase()}
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="font-semibold text-foreground text-sm sm:text-base leading-tight">
-                        {featuredReview.company}
-                      </h3>
-                      <p className="text-[11px] font-mono text-muted">
-                        Clinical Healthcare Organization
-                      </p>
+              <article className="border border-border/80 bg-surface rounded-sm p-6 sm:p-7 pixel-corners hover:border-border-strong transition-[border-color,box-shadow] duration-200 shadow-2xs">
+                {/* Top Row: Logo & Verified Badge */}
+                <div className="flex items-center justify-between gap-3 pb-4 border-b border-border/80">
+                  {featuredReview.avatar ? (
+                    <img
+                      src={featuredReview.avatar}
+                      alt={featuredReview.company || featuredReview.name}
+                      width={88}
+                      height={40}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-10 w-auto object-contain bg-white rounded-xs p-1 border border-border/70 shrink-0 shadow-2xs pixel-corners"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs pixel-corners">
+                      {featuredReview.name.slice(0, 2).toUpperCase()}
                     </div>
-                  </div>
+                  )}
 
                   {featuredReview.verificationUrl && (
                     <a
                       href={featuredReview.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold hover:opacity-85 transition-opacity"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-emerald-500/15 transition-colors"
+                      title="Verify client organization website"
                     >
                       <Check className="w-3 h-3 text-emerald-500 pixel-icon" aria-hidden="true" />
-                      <span>VERIFIED</span>
+                      <span>VERIFIED CLIENT</span>
                       <ExternalLink className="w-2.5 h-2.5 opacity-80 pixel-icon" aria-hidden="true" />
                     </a>
                   )}
                 </div>
 
+                {/* Company Name & Category (Full Width) */}
+                <div className="pt-4">
+                  <h3 className="font-semibold text-foreground text-base sm:text-lg leading-snug">
+                    {featuredReview.company}
+                  </h3>
+                  <p className="text-[11px] font-mono text-muted mt-0.5">
+                    Clinical Healthcare Organization · Enterprise Web System
+                  </p>
+                </div>
+
                 {/* Metric pill */}
                 {featuredReview.highlightMetric && (
-                  <div className="mt-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border bg-page text-[11px] font-mono text-foreground font-semibold">
+                  <div className="mt-3.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border/70 bg-page text-[11px] font-mono text-foreground font-semibold">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
                     <span>{featuredReview.highlightMetric}</span>
                   </div>
@@ -184,22 +186,24 @@ export default function Review() {
 
                 {/* Deliverables summary */}
                 {featuredReview.deliverables && (
-                  <div className="mb-5 p-3.5 bg-page border border-border rounded-xs text-[11px] font-mono space-y-1.5">
-                    <div className="text-secondary font-semibold uppercase text-[10px] tracking-wider mb-1">
-                      DELIVERED CAPABILITIES:
+                  <div className="pt-4 border-t border-border/60">
+                    <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-muted mb-2">
+                      DELIVERED WORKFLOWS:
                     </div>
-                    {featuredReview.deliverables.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-muted">
-                        <span className="w-1 h-1 rounded-full bg-foreground shrink-0" aria-hidden="true" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
+                    <ul className="space-y-1.5 text-xs font-mono text-secondary">
+                      {featuredReview.deliverables.map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-muted">
+                          <span className="w-1 h-1 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
 
                 {/* Card footer */}
-                <div className="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
-                  <div>
+                <div className="pt-4 mt-5 border-t border-border/80 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                  <div className="min-w-0">
                     <span className="font-semibold text-foreground">{featuredReview.name}</span>
                     <span className="text-border-strong mx-1.5">·</span>
                     <span className="text-secondary">{featuredReview.role}, {featuredReview.company}</span>
@@ -218,41 +222,32 @@ export default function Review() {
               </article>
             )}
 
-            {/* LinkedIn Endorsement Bento Card */}
-            <div className="border border-border bg-surface rounded-sm p-5 sm:p-6 pixel-corners flex flex-col justify-between gap-4 shadow-2xs">
-              <div>
-                <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
-                  <span className="text-foreground">PUBLIC SOCIAL PROOF</span>
-                  <span className="text-foreground font-mono font-bold text-xs">in</span>
+            {/* Integrated Minimal Companion Strip (LinkedIn + Privacy Guarantee) */}
+            <div className="border border-border/80 bg-surface/50 rounded-sm p-4 sm:p-5 pixel-corners space-y-3.5 shadow-2xs">
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <div className="flex items-center gap-2">
+                  <span className="text-foreground font-mono font-bold text-xs px-1.5 py-0.5 border border-border bg-page rounded-2xs">
+                    in
+                  </span>
+                  <span className="font-semibold text-foreground text-xs">
+                    Prefer LinkedIn recommendations?
+                  </span>
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-foreground tracking-tight">
-                  Prefer LinkedIn Recommendations?
-                </h4>
-                <p className="text-xs text-secondary mt-1.5 leading-relaxed">
-                  Recommendations on LinkedIn are tied directly to your verified profile and provide public trust for engineering leaders and hiring teams.
-                </p>
+                <a
+                  href={CONTACT_CONFIG.linkedin.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-emerald-500 active:scale-95 transition-all"
+                >
+                  <span>RECOMMEND ON LINKEDIN</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon" aria-hidden="true" />
+                </a>
               </div>
 
-              <a
-                href={CONTACT_CONFIG.linkedin.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-between px-4 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-xs hover:bg-secondary active:scale-[0.98] transition-all group"
-              >
-                <span>RECOMMEND ON LINKEDIN</span>
-                <ExternalLink className="w-3.5 h-3.5 text-emerald-400 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
-              </a>
-            </div>
-
-            {/* Editorial Standard & Privacy Card */}
-            <div className="flex items-start gap-3 p-4 bg-surface border border-border rounded-sm text-xs font-mono text-secondary pixel-corners">
-              <Shield className="w-4 h-4 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
-              <div className="space-y-1">
-                <p className="font-semibold text-foreground uppercase tracking-wider text-[11px]">
-                  VERIFICATION & PRIVACY GUARANTEE
-                </p>
-                <p className="text-[11px] leading-relaxed text-muted">
-                  Submissions are reviewed directly by Ahmed to prevent automated spam. Your email address is kept strictly confidential and will never be published publicly.
+              <div className="pt-3 border-t border-border/60 flex items-start gap-2.5 text-[11px] font-mono text-muted leading-relaxed">
+                <Shield className="w-3.5 h-3.5 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
+                <p>
+                  <span className="font-semibold text-secondary">Privacy standard:</span> Submissions are reviewed directly by Ahmed for spam prevention. Your email is kept strictly private and is never published.
                 </p>
               </div>
             </div>
@@ -275,7 +270,7 @@ export default function Review() {
                   {serverMessage}
                 </p>
 
-                <div className="p-4 bg-page border border-border rounded-sm text-xs font-mono text-muted mb-6 space-y-2 pixel-corners">
+                <div className="p-4 bg-page border border-border/80 rounded-sm text-xs font-mono text-muted mb-6 space-y-2 pixel-corners">
                   <div><span className="text-secondary font-semibold">SUBMITTED AS:</span> {formData.name}</div>
                   {formData.email && <div><span className="text-secondary font-semibold">EMAIL:</span> {formData.email} <span className="text-muted text-[10px]">(Private)</span></div>}
                   {formData.role && <div><span className="text-secondary font-semibold">ROLE:</span> {formData.role}</div>}
@@ -291,7 +286,7 @@ export default function Review() {
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
                   <Link
                     to="/#reviews"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary transition-colors group"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all group"
                   >
                     <Check className="w-4 h-4 text-emerald-400 pixel-icon" aria-hidden="true" />
                     <span>VIEW PREVIEW ON HOMEPAGE</span>
@@ -301,7 +296,7 @@ export default function Review() {
                     href={CONTACT_CONFIG.linkedin.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 border border-border text-foreground hover:bg-surface-subtle transition-colors rounded-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 border border-border text-foreground hover:bg-surface-subtle active:scale-[0.98] transition-all rounded-sm"
                   >
                     <span>ALSO RECOMMEND ON LINKEDIN</span>
                     <ExternalLink className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
@@ -310,15 +305,15 @@ export default function Review() {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="px-4 py-2.5 border border-border text-secondary hover:text-foreground transition-colors rounded-sm cursor-pointer"
+                    className="px-4 py-2.5 border border-border text-secondary hover:text-foreground active:scale-[0.98] transition-all rounded-sm cursor-pointer"
                   >
                     SUBMIT ANOTHER
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="border border-border bg-surface rounded-sm p-6 sm:p-8 pixel-corners shadow-xs">
-                <div className="mb-6 pb-4 border-b border-border">
+              <div className="border border-border/80 bg-surface rounded-sm p-6 sm:p-8 pixel-corners shadow-xs">
+                <div className="mb-6 pb-4 border-b border-border/80">
                   <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-muted">
                     SUBMISSION FORM
                   </span>
@@ -364,8 +359,8 @@ export default function Review() {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         aria-invalid={Boolean(errors.name)}
                         aria-describedby={errors.name ? 'name-error' : undefined}
-                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors ${
-                          errors.name ? 'border-red-500' : 'border-border'
+                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
+                          errors.name ? 'border-red-500' : 'border-border/80'
                         }`}
                       />
                     </FormField>
@@ -384,8 +379,8 @@ export default function Review() {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         aria-invalid={Boolean(errors.email)}
                         aria-describedby={errors.email ? 'email-error' : undefined}
-                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors ${
-                          errors.email ? 'border-red-500' : 'border-border'
+                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
+                          errors.email ? 'border-red-500' : 'border-border/80'
                         }`}
                       />
                     </FormField>
@@ -406,7 +401,7 @@ export default function Review() {
                         placeholder="e.g. Head of Product, Tech Lead"
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors"
+                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
                       />
                     </FormField>
 
@@ -420,10 +415,10 @@ export default function Review() {
                         id="company"
                         type="text"
                         maxLength={80}
-                        placeholder="e.g. ShifaHomeHealthCare, Amber Real Estate"
+                        placeholder="e.g. Shifa Home Health Care, Amber Real Estate"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors"
+                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
                       />
                     </FormField>
                   </div>
@@ -439,7 +434,7 @@ export default function Review() {
                         required
                         value={formData.relationship}
                         onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors cursor-pointer"
+                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 cursor-pointer"
                       >
                         {relationshipOptions.map((opt) => (
                           <option key={opt} value={opt}>
@@ -466,7 +461,7 @@ export default function Review() {
                         placeholder="e.g. Amber Property Corner, Mockrithm"
                         value={formData.project}
                         onChange={(e) => setFormData({ ...formData, project: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors"
+                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
                       />
                       <datalist id="projects-list">
                         {PROJECTS.map((p) => (
@@ -490,8 +485,8 @@ export default function Review() {
                       value={formData.verificationUrl}
                       onChange={(e) => setFormData({ ...formData, verificationUrl: e.target.value })}
                       aria-invalid={Boolean(errors.verificationUrl)}
-                      className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors ${
-                        errors.verificationUrl ? 'border-red-500' : 'border-border'
+                      className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
+                        errors.verificationUrl ? 'border-red-500' : 'border-border/80'
                       }`}
                     />
                   </FormField>
@@ -518,8 +513,8 @@ export default function Review() {
                       onChange={(e) => setFormData({ ...formData, review: e.target.value })}
                       aria-invalid={Boolean(errors.review)}
                       aria-describedby={errors.review ? 'review-error' : undefined}
-                      className={`w-full px-4 py-3 text-sm bg-page border rounded-sm text-foreground focus:outline-none focus:ring-1 focus:ring-foreground transition-colors leading-relaxed ${
-                        errors.review ? 'border-red-500' : 'border-border'
+                      className={`w-full px-4 py-3 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 leading-relaxed ${
+                        errors.review ? 'border-red-500' : 'border-border/80'
                       }`}
                     />
                   </FormField>
@@ -540,11 +535,11 @@ export default function Review() {
                   </div>
 
                   {/* Submit Button & Direct Email Fallback */}
-                  <div className="pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="pt-4 border-t border-border/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary disabled:opacity-50 transition-all cursor-pointer disabled:cursor-not-allowed shadow-2xs"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-2xs"
                     >
                       {isSubmitting ? (
                         <>
