@@ -35,10 +35,10 @@ function VerificationBadge({ review }: { review: Review }) {
           : 'VERIFIED ON LINKEDIN'
 
   const content = (
-    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
-      <Check className="w-3 h-3 text-emerald-500 pixel-icon" aria-hidden="true" />
+    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-border-strong bg-surface-subtle text-foreground text-[10px] font-mono tracking-wider uppercase font-semibold">
+      <Check className="w-3 h-3 text-foreground pixel-icon" aria-hidden="true" />
       <span>{label}</span>
-      {review.verificationUrl && <ExternalLink className="w-2.5 h-2.5 ml-0.5 opacity-80 pixel-icon" aria-hidden="true" />}
+      {review.verificationUrl && <ExternalLink className="w-2.5 h-2.5 ml-0.5 opacity-70 pixel-icon" aria-hidden="true" />}
     </span>
   )
 

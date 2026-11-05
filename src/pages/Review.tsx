@@ -151,12 +151,12 @@ export default function Review() {
                       href={featuredReview.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-emerald-500/15 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border-strong bg-surface-subtle text-foreground text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-surface-hover hover:border-foreground/40 transition-colors"
                       title="Verify client organization website"
                     >
-                      <Check className="w-3 h-3 text-emerald-500 pixel-icon" aria-hidden="true" />
+                      <Check className="w-3 h-3 text-foreground pixel-icon" aria-hidden="true" />
                       <span>VERIFIED CLIENT</span>
-                      <ExternalLink className="w-2.5 h-2.5 opacity-80 pixel-icon" aria-hidden="true" />
+                      <ExternalLink className="w-2.5 h-2.5 opacity-70 pixel-icon" aria-hidden="true" />
                     </a>
                   )}
                 </div>
@@ -174,7 +174,7 @@ export default function Review() {
                 {/* Metric pill */}
                 {featuredReview.highlightMetric && (
                   <div className="mt-3.5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border/70 bg-page text-[11px] font-mono text-foreground font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-foreground" aria-hidden="true" />
                     <span>{featuredReview.highlightMetric}</span>
                   </div>
                 )}
@@ -193,7 +193,7 @@ export default function Review() {
                     <ul className="space-y-1.5 text-xs font-mono text-secondary">
                       {featuredReview.deliverables.map((item, idx) => (
                         <li key={idx} className="flex items-center gap-2 text-muted">
-                          <span className="w-1 h-1 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+                          <span className="w-1 h-1 rounded-full bg-foreground/60 shrink-0" aria-hidden="true" />
                           <span>{item}</span>
                         </li>
                       ))}
@@ -237,10 +237,10 @@ export default function Review() {
                   href={CONTACT_CONFIG.linkedin.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-emerald-500 active:scale-95 transition-all"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:underline active:scale-95 transition-all"
                 >
                   <span>RECOMMEND ON LINKEDIN</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
                 </a>
               </div>
 
@@ -257,7 +257,7 @@ export default function Review() {
           <div className="lg:col-span-7">
             {isSubmitted ? (
               <div className="border border-border bg-surface rounded-sm p-8 sm:p-10 animate-page-in pixel-corners shadow-xs">
-                <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider mb-4 font-semibold">
+                <div className="flex items-center gap-2 text-xs font-mono text-foreground uppercase tracking-wider mb-4 font-semibold">
                   <Check className="w-4 h-4 pixel-icon" aria-hidden="true" />
                   <span>SUBMISSION DELIVERED · SENT TO INBOX</span>
                 </div>
@@ -288,7 +288,7 @@ export default function Review() {
                     to="/#reviews"
                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all group"
                   >
-                    <Check className="w-4 h-4 text-emerald-400 pixel-icon" aria-hidden="true" />
+                    <Check className="w-4 h-4 text-page pixel-icon" aria-hidden="true" />
                     <span>VIEW PREVIEW ON HOMEPAGE</span>
                   </Link>
 
