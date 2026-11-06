@@ -15,6 +15,7 @@ import {
 import { PROJECTS } from '../data/projects'
 import { REVIEWS } from '../data/reviews'
 import { CONTACT_CONFIG } from '../data/contact'
+import { sound } from '../lib/sound/soundEngine'
 
 export default function Review() {
   useDocumentTitle('Reviews & Endorsements — Ahmed | Backend & Full-Stack Developer')
@@ -67,6 +68,7 @@ export default function Review() {
       const result = await submitReview(submissionData)
 
       if (result.success) {
+        sound.playChirp()
         setIsSubmitted(true)
         setServerMessage(result.message)
       } else {
@@ -84,6 +86,7 @@ export default function Review() {
   }
 
   const handleReset = () => {
+    sound.playTap()
     setIsSubmitted(false)
     setFormData({
       name: '',

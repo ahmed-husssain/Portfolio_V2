@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { ExternalLink, FileText } from 'pixelarticons/react'
 import { toast } from 'sonner'
 import Container from '../ui/Container'
+import SoundToggle from '../ui/SoundToggle'
+import { sound } from '../../lib/sound/soundEngine'
 import { CONTACT_CONFIG } from '../../data/contact'
 
 export default function Footer() {
@@ -30,12 +32,17 @@ export default function Footer() {
               <span className="text-border-strong">·</span>
               <span className="text-muted">{currentYear}</span>
             </div>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted">
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-muted">
               <span>Web, mobile, and backend systems built to last.</span>
+              <span className="text-border-strong" aria-hidden="true">·</span>
+              <SoundToggle showLabel={true} />
               <span className="text-border-strong" aria-hidden="true">·</span>
               <button
                 type="button"
-                onClick={showMessage}
+                onClick={() => {
+                  sound.playChirp()
+                  showMessage()
+                }}
                 className="hover:text-foreground transition-colors hover:underline decoration-border-strong underline-offset-4 cursor-pointer focus:outline-none focus-visible:text-foreground"
               >
                 Terms 🍪

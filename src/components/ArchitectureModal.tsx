@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Close } from 'pixelarticons/react'
 import ArchitectureVisualizer from './ArchitectureVisualizer'
+import { sound } from '../lib/sound/soundEngine'
 
 interface ArchitectureModalProps {
   isOpen: boolean
@@ -18,9 +19,13 @@ export default function ArchitectureModal({
 }: ArchitectureModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        sound.playPop()
+        onClose()
+      }
     }
     if (isOpen) {
+      sound.playPop()
       if (typeof window !== 'undefined' && (window as any).__lenis) {
         ;(window as any).__lenis.stop()
       }
@@ -42,12 +47,17 @@ export default function ArchitectureModal({
   const title = isShifa ? 'SHIFA HEALTHCARE ARCHITECTURE' : 'GALLREX LIVE ARCHITECTURE'
   const subtitle = isShifa ? 'ATOMIC BILLING & RLS SECURITY ENGINE' : 'CONCURRENCY & WEBSOCKET ENGINE'
 
+  const handleDismiss = () => {
+    sound.playPop()
+    onClose()
+  }
+
   return createPortal(
     <div className="fixed inset-0 z-[99999] flex items-center justify-center p-2 sm:p-4 animate-fadeIn">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 backdrop-blur-xs transition-opacity"
-        onClick={onClose}
+        onClick={handleDismiss}
         aria-hidden="true"
       />
 
@@ -70,7 +80,7 @@ export default function ArchitectureModal({
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleDismiss}
             className="p-2 sm:p-1.5 min-w-[36px] min-h-[36px] flex items-center justify-center rounded-xs border border-border text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer shrink-0 ml-2 active:scale-95"
             aria-label="Close modal"
           >

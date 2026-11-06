@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
+import { sound } from '../../lib/sound/soundEngine'
 
 interface ImageLightboxModalProps {
   isOpen: boolean
@@ -23,6 +24,7 @@ export default function ImageLightboxModal({
 
   // Fluid dismiss with Apple-style exit transition
   const handleClose = useCallback(() => {
+    sound.playPop()
     setActive(false)
     if (timeoutRef.current) clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => {
@@ -34,6 +36,7 @@ export default function ImageLightboxModal({
   // Mount, scroll lock, Lenis lock, and animation trigger
   useEffect(() => {
     if (isOpen) {
+      sound.playPop()
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       setMounted(true)
 

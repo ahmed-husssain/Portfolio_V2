@@ -9,6 +9,7 @@ import {
   Zap,
   Radio,
 } from 'pixelarticons/react'
+import { sound } from '../lib/sound/soundEngine'
 
 interface Step {
   id: string
@@ -226,6 +227,7 @@ export default function ArchitectureVisualizer({
   }, [])
 
   const selectStep = (idx: number) => {
+    sound.playTap()
     if (simTimerRef.current) clearInterval(simTimerRef.current)
     setIsSimulating(false)
     setActiveSim(null)
@@ -233,6 +235,7 @@ export default function ArchitectureVisualizer({
   }
 
   const runSimulation = (sim: Simulation) => {
+    sound.playChirp()
     if (simTimerRef.current) clearInterval(simTimerRef.current)
     setActiveSim(sim)
     const targetStep = sim.highlightStep - 1
@@ -261,6 +264,7 @@ export default function ArchitectureVisualizer({
   }
 
   const resetSimulation = () => {
+    sound.playTap()
     if (simTimerRef.current) clearInterval(simTimerRef.current)
     setActiveSim(null)
     setIsSimulating(false)

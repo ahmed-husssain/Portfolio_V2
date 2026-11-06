@@ -9,6 +9,7 @@ import {
   Pause,
   Layers,
 } from 'lucide-react'
+import { sound } from '../lib/sound/soundEngine'
 
 export interface CarouselSlide {
   image: string
@@ -55,10 +56,13 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
+        sound.playTap()
         nextSlide()
       } else if (e.key === 'ArrowLeft') {
+        sound.playTap()
         prevSlide()
       } else if (e.key === 'Escape' && isLightboxOpen) {
+        sound.playPop()
         setIsLightboxOpen(false)
       }
     }
@@ -139,7 +143,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
       >
         {/* Slide Images Container - Click to open full-resolution lightbox */}
         <div
-          onClick={() => setIsLightboxOpen(true)}
+          onClick={() => {
+            sound.playPop()
+            setIsLightboxOpen(true)
+          }}
           data-cursor-text="EXPAND ↗"
           className="relative w-full h-full overflow-hidden bg-black/40 cursor-zoom-in group/stage"
           title="Click to view full screen"
@@ -206,6 +213,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
+                sound.playTap()
                 setIsPlaying(!isPlaying)
               }}
               className="p-1.5 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/95 active:scale-95 transition-all cursor-pointer"
@@ -224,6 +232,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
+                sound.playPop()
                 setIsLightboxOpen(true)
               }}
               className="p-1.5 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-white/80 hover:text-white hover:bg-black/95 active:scale-95 transition-all cursor-pointer"
@@ -240,6 +249,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
           type="button"
           onClick={(e) => {
             e.stopPropagation()
+            sound.playTap()
             prevSlide()
           }}
           className="absolute left-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-xs bg-black/75 hover:bg-black/95 backdrop-blur-md border border-white/15 text-white shadow-lg opacity-90 sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 transition-all duration-200 z-20 cursor-pointer"
@@ -252,6 +262,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
           type="button"
           onClick={(e) => {
             e.stopPropagation()
+            sound.playTap()
             nextSlide()
           }}
           className="absolute right-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-xs bg-black/75 hover:bg-black/95 backdrop-blur-md border border-white/15 text-white shadow-lg opacity-90 sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 transition-all duration-200 z-20 cursor-pointer"
@@ -273,6 +284,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation()
+                  sound.playTap()
                   setActiveIndex(idx)
                 }}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
@@ -310,7 +322,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
         <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
           <button
             type="button"
-            onClick={() => setIsLightboxOpen(true)}
+            onClick={() => {
+              sound.playPop()
+              setIsLightboxOpen(true)
+            }}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle active:scale-95 transition-all text-[11px] font-mono font-semibold cursor-pointer"
           >
             <Maximize2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -329,8 +344,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               type="button"
               onClick={() => {
                 if (isCurrent) {
+                  sound.playPop()
                   setIsLightboxOpen(true)
                 } else {
+                  sound.playTap()
                   setActiveIndex(idx)
                 }
               }}
@@ -368,7 +385,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
           role="dialog"
           aria-modal="true"
           aria-label={`${projectTitle} screenshot preview`}
-          onClick={() => setIsLightboxOpen(false)}
+          onClick={() => {
+            sound.playPop()
+            setIsLightboxOpen(false)
+          }}
         >
           {/* Top Bar Controls */}
           <div
@@ -391,7 +411,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               </span>
               <button
                 type="button"
-                onClick={() => setIsLightboxOpen(false)}
+                onClick={() => {
+                  sound.playPop()
+                  setIsLightboxOpen(false)
+                }}
                 className="p-2 rounded-xs bg-white/10 hover:bg-white/25 active:scale-95 text-white transition-all cursor-pointer flex items-center justify-center border border-white/20"
                 aria-label="Close full resolution viewer"
                 title="Close [ESC]"
@@ -419,6 +442,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
+                sound.playTap()
                 prevSlide()
               }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-3 sm:p-3.5 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white shadow-2xl active:scale-95 transition-all cursor-pointer z-30"
@@ -432,6 +456,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               type="button"
               onClick={(e) => {
                 e.stopPropagation()
+                sound.playTap()
                 nextSlide()
               }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 p-3 sm:p-3.5 rounded-full bg-black/85 hover:bg-black border border-white/20 text-white shadow-2xl active:scale-95 transition-all cursor-pointer z-30"
@@ -455,7 +480,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
                 <button
                   key={idx}
                   type="button"
-                  onClick={() => setActiveIndex(idx)}
+                  onClick={() => {
+                    sound.playTap()
+                    setActiveIndex(idx)
+                  }}
                   className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                     idx === activeIndex
                       ? 'w-6 bg-blue-400'

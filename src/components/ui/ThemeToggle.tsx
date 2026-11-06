@@ -1,5 +1,6 @@
 import { Sun, Moon } from 'pixelarticons/react'
 import { useTheme } from '../../lib/theme'
+import { sound } from '../../lib/sound/soundEngine'
 
 interface ThemeToggleProps {
   className?: string
@@ -9,10 +10,15 @@ export default function ThemeToggle({ className = '' }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme()
   const isDark = theme === 'dark'
 
+  const handleClick = () => {
+    sound.playSwitch()
+    toggleTheme()
+  }
+
   return (
     <button
       type="button"
-      onClick={toggleTheme}
+      onClick={handleClick}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       className={`group w-8 h-8 flex items-center justify-center rounded-xs border border-border bg-surface text-secondary hover:text-foreground hover:bg-surface-hover hover:border-border-strong active:scale-95 transition-all duration-150 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer ${className}`}

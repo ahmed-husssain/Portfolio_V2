@@ -8,6 +8,7 @@ import ContinuityBridge from '../components/ui/ContinuityBridge'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingService'
 import ImageLightboxModal from '../components/ui/ImageLightboxModal'
+import { sound } from '../lib/sound/soundEngine'
 
 export default function Writing() {
   useDocumentTitle('Field Notes & Writing — Ahmed Hussain | Software Developer')
@@ -49,7 +50,10 @@ export default function Writing() {
                 <button
                   key={tag}
                   type="button"
-                  onClick={() => setSelectedTag(tag)}
+                  onClick={() => {
+                    sound.playTap()
+                    setSelectedTag(tag)
+                  }}
                   className={`px-3 py-1.5 text-xs font-mono rounded-2xs border transition-[transform,background-color,border-color,color] duration-150 active:scale-[0.97] cursor-pointer ${
                     isActive
                       ? 'bg-foreground text-page border-foreground font-semibold'

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Briefcase, User, BookOpen, Home } from 'pixelarticons/react'
 import ThemeToggle from '../ui/ThemeToggle'
+import SoundToggle from '../ui/SoundToggle'
+import { sound } from '../../lib/sound/soundEngine'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
 
@@ -199,6 +201,10 @@ export default function Navbar() {
                   else linksRef.current.delete(item.href)
                 }}
                 to={item.href}
+                onClick={() => {
+                  sound.playTap()
+                  updateUnderlineToActive()
+                }}
                 onMouseEnter={(e) => {
                   const container = navContainerRef.current
                   if (container) {
@@ -249,7 +255,8 @@ export default function Navbar() {
             )
           })}
 
-          <div className="pl-1 flex items-center h-8">
+          <div className="pl-1 flex items-center h-8 gap-1.5">
+            <SoundToggle />
             <ThemeToggle />
           </div>
 
@@ -267,14 +274,18 @@ export default function Navbar() {
 
         {/* Mobile Minimal Menu Trigger (At Top of Page) - Gracefully fades out when drawer is open */}
         <div
-          className={`flex items-center gap-3 md:hidden pointer-events-auto h-8 transition-opacity duration-200 ${
+          className={`flex items-center gap-2 md:hidden pointer-events-auto h-8 transition-opacity duration-200 ${
             menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
         >
+          <SoundToggle />
           <ThemeToggle />
           <button
             type="button"
-            onClick={() => setMenuOpen(true)}
+            onClick={() => {
+              sound.playTap()
+              setMenuOpen(true)
+            }}
             aria-label="Open navigation menu"
             className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-foreground px-3.5 py-1.5 rounded-full border border-border bg-surface/90 hover:border-border-strong active:scale-95 transition-all shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
@@ -297,7 +308,10 @@ export default function Navbar() {
         <MagneticItem strength={0.35}>
           <button
             type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => {
+              sound.playTap()
+              setMenuOpen(!menuOpen)
+            }}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             className="group relative w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-surface hover:bg-surface-hover text-foreground border border-border hover:border-border-strong shadow-lg flex items-center justify-center overflow-hidden cursor-pointer focus-visible:outline-none active:scale-95 transition-all"
           >
@@ -438,7 +452,10 @@ export default function Navbar() {
               >
                 <Link
                   to={item.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    sound.playTap()
+                    setMenuOpen(false)
+                  }}
                   className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-colors duration-200 active:scale-[0.98] ${
                     active ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}

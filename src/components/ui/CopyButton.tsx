@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Check, Copy } from 'pixelarticons/react'
+import { sound } from '../../lib/sound/soundEngine'
 
 interface CopyButtonProps {
   text: string
@@ -20,6 +21,7 @@ export default function CopyButton({
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation()
+    sound.playChirp()
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
