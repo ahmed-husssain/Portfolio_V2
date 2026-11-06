@@ -1,8 +1,8 @@
-# Syed Ahmed Hussain — Complete Technical & Professional Knowledge Base
+# Ahmed Hussain — Complete Technical & Professional Knowledge Base
 # Standard: /llms-full.txt
 
 ## Primary Entity Profile
-- Name: Syed Ahmed Hussain
+- Name: Ahmed Hussain
 - Common Alias: Ahmed Hussain
 - Occupation: Software Developer, Systems Engineer, Website Developer
 - Base of Operations: Karachi, Sindh, Pakistan
@@ -10,11 +10,11 @@
 - Direct Email: ahmedhusssain.dev@gmail.com
 - Portfolio URL: https://ahmedhusssain.vercel.app
 - GitHub Profile: https://github.com/ahmed-husssain
-- LinkedIn Profile: https://www.linkedin.com/in/syed-ahmed-hussain/
+- LinkedIn Profile: https://linkedin.com/in/ahmed-husssain
 - Official Resume: https://ahmedhusssain.vercel.app/resume.pdf
 
 ## Geographic & Local Presence (Karachi, Pakistan)
-Syed Ahmed Hussain is based in Karachi, Sindh, Pakistan, providing professional software engineering and website development services to local businesses, healthcare organizations, and international clients. He is recognized for delivering clean architecture and data-integrity focused backends.
+Ahmed Hussain is based in Karachi, Sindh, Pakistan, providing professional software engineering and website development services to local businesses, healthcare organizations, and international clients. He is recognized for delivering clean architecture and data-integrity focused backends.
 
 ## Key Technical Competencies
 ### 1. Backend Engineering & Distributed Web Services
@@ -69,4 +69,4 @@ For engineering roles, contract projects, or website development inquiries in Ka
 - Email: ahmedhusssain.dev@gmail.com
 - Direct Contact Page: https://ahmedhusssain.vercel.app/contact
 - GitHub: https://github.com/ahmed-husssain
-- LinkedIn: https://www.linkedin.com/in/syed-ahmed-hussain/
+- LinkedIn: https://linkedin.com/in/ahmed-husssain

@@ -9,8 +9,8 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://ahmedhusssain.vercel.app/og-image.png</image:loc>
-      <image:title>Syed Ahmed Hussain — Software &amp; Website Developer in Karachi</image:title>
-      <image:caption>Portfolio of Syed Ahmed Hussain, software developer based in Karachi, Pakistan specializing in .NET, SQL Server, and Flutter with PostgreSQL.</image:caption>
+      <image:title>Ahmed Hussain — Software &amp; Website Developer in Karachi</image:title>
+      <image:caption>Portfolio of Ahmed Hussain, software developer based in Karachi, Pakistan specializing in .NET, SQL Server, and Flutter with PostgreSQL.</image:caption>
     </image:image>
   </url>
 
@@ -82,7 +82,7 @@
     </image:image>
   </url>
 
-  <!-- About Syed Ahmed Hussain -->
+  <!-- About Ahmed Hussain -->
   <url>
     <loc>https://ahmedhusssain.vercel.app/about</loc>
     <lastmod>2026-11-03</lastmod>

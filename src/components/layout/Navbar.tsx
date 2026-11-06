@@ -279,7 +279,7 @@ export default function Navbar() {
             className="flex items-center gap-2 text-xs font-mono font-medium uppercase tracking-wider text-foreground px-3.5 py-1.5 rounded-full border border-border bg-surface/90 hover:border-border-strong active:scale-95 transition-all shadow-2xs"
             style={{ boxShadow: 'var(--hairline-top)' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" aria-hidden="true" />
             <span>Menu</span>
           </button>
         </div>
@@ -396,17 +396,17 @@ export default function Navbar() {
                   }`}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
-                    isHomeActive ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'
+                    isHomeActive ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-muted group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1'
                   }`}>
                     01
                   </span>
                   <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
                     <span className="relative">
                       <span>Home</span>
-                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-emerald-500 to-emerald-500/0 group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-blue-600 dark:from-blue-400 to-transparent group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
                     </span>
                     {isHomeActive ? (
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" aria-label="Current page" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400 inline-block animate-pulse shrink-0" aria-label="Current page" />
                     ) : (
                       <span className="w-6 h-6 rounded-md bg-surface border border-border/80 flex items-center justify-center shrink-0 opacity-0 -translate-x-2.5 scale-75 rotate-[-8deg] group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 group-hover:rotate-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xs">
                         <Home className="w-3.5 h-3.5 pixel-icon text-foreground" aria-hidden="true" />
@@ -444,17 +444,17 @@ export default function Navbar() {
                   }`}
                 >
                   <span className={`text-xs sm:text-sm font-mono tracking-wider transition-all duration-300 ${
-                    active ? 'text-emerald-500 font-bold' : 'text-muted group-hover:text-emerald-500 group-hover:translate-x-1'
+                    active ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-muted group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1'
                   }`}>
                     0{idx + 2}
                   </span>
                   <span className="text-3xl sm:text-4xl md:text-[clamp(2.25rem,4.8vh,3.75rem)] tracking-tight leading-none flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2">
                     <span className="relative">
                       <span>{item.label}</span>
-                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-emerald-500 to-emerald-500/0 group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
+                      <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-blue-600 dark:from-blue-400 to-transparent group-hover:w-full transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none" aria-hidden="true" />
                     </span>
                     {active ? (
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-pulse shrink-0" aria-label="Current page" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-blue-400 inline-block animate-pulse shrink-0" aria-label="Current page" />
                     ) : (
                       IconComponent && (
                         <span className="w-6 h-6 rounded-md bg-surface border border-border/80 flex items-center justify-center shrink-0 opacity-0 -translate-x-2.5 scale-75 rotate-[-8deg] group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100 group-hover:rotate-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-xs">
@@ -485,7 +485,7 @@ export default function Navbar() {
             <span className="text-[10px] text-muted tracking-wider uppercase">// CONTACT</span>
             <a
               href={`mailto:${CONTACT_CONFIG.email}`}
-              className="text-foreground hover:text-emerald-500 transition-colors text-xs sm:text-sm font-mono font-medium truncate"
+              className="text-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-xs sm:text-sm font-mono font-medium truncate"
             >
               {CONTACT_CONFIG.email}
             </a>
@@ -516,7 +516,7 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-secondary">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse shrink-0" />
               <span>AVAILABLE FOR ROLES</span>
             </div>
           </div>

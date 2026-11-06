@@ -32,7 +32,7 @@ export default function ProjectDetail() {
   )
 
   useDocumentTitle(
-    project ? `${project.title} — Architecture & Case Study | Syed Ahmed Hussain` : 'Project Not Found // 404'
+    project ? `${project.title} — Architecture & Case Study | Ahmed Hussain` : 'Project Not Found // 404'
   )
 
   if (!project) {
@@ -104,7 +104,7 @@ export default function ProjectDetail() {
               <span>{project.category}</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
+              <span className="pixel-beacon" aria-hidden="true" />
               <span>{project.status || 'PRODUCTION'}</span>
               {commitLabel && (
                 <>
@@ -281,7 +281,7 @@ export default function ProjectDetail() {
                 <div className="pt-2 mb-6">
                   <div className="mb-3 flex items-center justify-between text-xs font-mono">
                     <span className="text-foreground font-semibold flex items-center gap-2">
-                      <span className="pixel-beacon bg-emerald-500" />
+                      <span className="pixel-beacon" />
                       {project.slug === 'shifamanagement'
                         ? 'INTERACTIVE CLINICAL DATA FLOW & BILLING SIMULATOR'
                         : 'INTERACTIVE BID CONCURRENCY & DATA FLOW SIMULATOR'}
@@ -354,7 +354,7 @@ export default function ProjectDetail() {
                   <Image className="w-4 h-4 pixel-icon" aria-hidden="true" />
                   <span className="text-foreground font-semibold uppercase">SYSTEM WORKFLOWS & INTERFACE PREVIEWS</span>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold hidden sm:inline">
+                <span className="text-blue-600 dark:text-blue-400 font-bold hidden sm:inline">
                   {carouselSlides.length} INTERACTIVE SCREENS
                 </span>
               </div>

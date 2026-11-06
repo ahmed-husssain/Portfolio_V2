@@ -46,7 +46,7 @@ export default function Capabilities() {
                   <div className="flex items-center gap-3 min-w-0">
                     <span
                       className={`font-mono text-xs font-semibold shrink-0 transition-colors duration-150 ${
-                        isHovered ? 'text-emerald-500' : 'text-muted'
+                        isHovered ? 'text-blue-600 dark:text-blue-400' : 'text-muted'
                       }`}
                     >
                       #{cap.index}
@@ -68,7 +68,7 @@ export default function Capabilities() {
                         key={tech}
                         className={`font-mono text-[11px] sm:text-xs px-2.5 py-1 rounded-xs border transition-colors duration-150 ${
                           isHovered
-                            ? 'border-emerald-500/40 bg-emerald-500/[0.06] text-foreground font-medium'
+                            ? 'border-blue-500/40 bg-blue-500/[0.08] text-foreground font-medium'
                             : 'border-border bg-surface text-secondary'
                         }`}
                       >
@@ -93,7 +93,7 @@ export default function Capabilities() {
                       </p>
                       <Link
                         to={`/work/${cap.projectSlug}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-600 dark:text-emerald-400 hover:underline shrink-0 group/link py-0.5"
+                        className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-blue-600 dark:text-blue-400 hover:underline shrink-0 group/link py-0.5"
                       >
                         <span>PROVED IN {cap.projectLabel.toUpperCase()}</span>
                         <span
@@ -114,7 +114,7 @@ export default function Capabilities() {
                   </p>
                   <Link
                     to={`/work/${cap.projectSlug}`}
-                    className="inline-flex items-center gap-1 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold pt-0.5"
+                    className="inline-flex items-center gap-1 text-[11px] font-mono text-blue-600 dark:text-blue-400 font-semibold pt-0.5"
                   >
                     <span>PROVED IN {cap.projectLabel.toUpperCase()} ↗</span>
                   </Link>

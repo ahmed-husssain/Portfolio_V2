@@ -62,7 +62,7 @@ export default function ArchitectureModal({
         {/* Header Bar */}
         <div className="flex items-center justify-between px-3.5 py-2.5 sm:px-5 border-b border-border bg-surface-subtle/70 shrink-0">
           <div className="flex items-center gap-2 text-xs font-mono min-w-0">
-            <span className="pixel-beacon bg-emerald-500 shrink-0" />
+            <span className="pixel-beacon shrink-0" />
             <span className="text-foreground font-bold tracking-tight truncate">{title}</span>
             <span className="text-border-strong hidden sm:inline">|</span>
             <span className="text-muted hidden sm:inline text-[11px] truncate">{subtitle}</span>

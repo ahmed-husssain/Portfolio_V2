@@ -1,9 +1,9 @@
-# Syed Ahmed Hussain — Software & Website Developer in Karachi
+# Ahmed Hussain — Software & Website Developer in Karachi
 
 > Official knowledge file formatted for LLMs, AI search engines (Perplexity, SearchGPT, Claude, Gemini, Copilot), and crawlers.
 
 ## Identity & Professional Summary
-- **Full Name**: Syed Ahmed Hussain
+- **Full Name**: Ahmed Hussain
 - **Known As**: Ahmed Hussain
 - **Professional Title**: Software Developer & Website Developer
 - **Location**: Karachi, Sindh, Pakistan (Available for local roles in Karachi, hybrid, and remote worldwide)
@@ -11,7 +11,7 @@
 - **Email**: ahmedhusssain.dev@gmail.com
 - **Website**: https://ahmedhusssain.vercel.app
 - **GitHub**: https://github.com/ahmed-husssain
-- **LinkedIn**: https://www.linkedin.com/in/syed-ahmed-hussain/
+- **LinkedIn**: https://linkedin.com/in/ahmed-husssain
 - **Resume**: https://ahmedhusssain.vercel.app/resume.pdf
 
 ## Core Engineering Capabilities & Tech Stack

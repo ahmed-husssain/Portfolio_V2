@@ -126,7 +126,7 @@ export default function ImageLightboxModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2.5 min-w-0 pr-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+          <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
           <span className="text-white/90 text-xs font-mono font-medium tracking-tight truncate">
             {displayTitle}
           </span>

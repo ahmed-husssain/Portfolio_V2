@@ -23,7 +23,7 @@ export default function About() {
       entity: 'Shifa Healthcare Karachi',
       badge: 'CURRENT ROLE · REMOTE',
       points: [
-        'Engineering cross-platform clinical operations, dynamic fee billing, and 14-day renewal alerts.',
+        'Engineering full-stack clinical operations, dynamic fee billing, and 14-day renewal alerts.',
         'Engineered automated WhatsApp invoice PDF generation & verified API dispatch pipeline.',
         'Architected PostgreSQL Row-Level Security (RLS) & atomic row locking for zero duplicate invoices.',
       ],
@@ -67,23 +67,23 @@ export default function About() {
   return (
     <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
       <Container>
-        {/* ─── 1. Header (Direct Dossier Vitals) ─── */}
+        {/* ─── 1. Header (Profile & Vitals) ─── */}
         <PageHeader
           className="mb-8 sm:mb-10 pb-6 border-b border-border"
           titleSize="display"
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">ENGINEER DOSSIER</span>
+              <span className="text-foreground font-semibold shrink-0">ABOUT</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="text-emerald-600 dark:text-emerald-400 font-semibold shrink-0">
-                SYED AHMED HUSSAIN
+              <span className="shrink-0">SOFTWARE DEVELOPER</span>
+              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
+              <span className="text-blue-600 dark:text-blue-400 font-semibold shrink-0">
+                KARACHI, PK (UTC+5)
               </span>
-              <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="shrink-0">KARACHI, PK</span>
             </>
           }
-          title="About Ahmed Hussain"
-          description="Software Developer currently working remotely for Shifa Healthcare Karachi. Specialized in C# / .NET, relational database architecture, and verified full-stack systems."
+          title="Ahmed Hussain"
+          description="Software developer engineering high-integrity backend systems, relational schemas, and full-stack applications. Currently working remotely for Shifa Healthcare Karachi."
         />
 
         {/* ─── 2. Current Status & Vitals HUD (Open & Immediate) ─── */}
@@ -92,12 +92,12 @@ export default function About() {
             <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners shadow-sm">
               <div className="flex items-center justify-between border-b border-border bg-surface-subtle/50 px-4 py-2.5">
                 <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted uppercase tracking-wider">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                   <span className="text-foreground font-semibold">DEVELOPER VITALS</span>
                   <span className="text-border-strong">·</span>
                   <span>CURRENT REMOTE SETUP</span>
                 </div>
-                <span className="text-[10px] font-mono font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-2xs border border-emerald-500/20">
+                <span className="text-[10px] font-mono font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-2xs border border-blue-500/20">
                   ● ACTIVE DEV
                 </span>
               </div>
@@ -111,7 +111,7 @@ export default function About() {
                     <span className="text-foreground font-semibold text-sm block">
                       Software Developer (Remote)
                     </span>
-                    <span className="text-emerald-600 dark:text-emerald-400 text-xs font-medium block">
+                    <span className="text-blue-600 dark:text-blue-400 text-xs font-medium block">
                       Shifa Healthcare Karachi (Apr 2026 – Present)
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export default function About() {
                       EMPLOYMENT AVAILABILITY
                     </span>
                     <span className="text-foreground font-semibold text-sm block flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                       Open for Engineering Roles
                     </span>
                     <span className="text-secondary text-xs block">
@@ -179,7 +179,7 @@ export default function About() {
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xs border border-border bg-page text-secondary hover:text-foreground font-semibold hover:border-border-strong active:scale-[0.96] transition-all"
                   >
                     <span>DIRECT CHANNELS</span>
-                    <span className="text-emerald-500 font-mono">↓</span>
+                    <span className="text-blue-500 font-mono">↓</span>
                   </a>
 
                   <a
@@ -203,7 +203,7 @@ export default function About() {
           <section className="mb-16 sm:mb-24">
             <div className="mb-8">
               <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-1.5">
-                <Calendar className="w-3.5 h-3.5 pixel-icon text-emerald-500" />
+                <Calendar className="w-3.5 h-3.5 pixel-icon text-blue-500" />
                 <span className="text-foreground font-semibold">CAREER TRAJECTORY</span>
                 <span>·</span>
                 <span>VERIFIABLE MILESTONES</span>
@@ -221,7 +221,7 @@ export default function About() {
                   <div
                     className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-3.5 h-3.5 rounded-full border-2 border-page ${
                       idx === 0
-                        ? 'bg-emerald-500 ring-4 ring-emerald-500/20'
+                        ? 'bg-blue-500 ring-4 ring-blue-500/20'
                         : idx === 1
                         ? 'bg-amber-500'
                         : 'bg-border-strong'
@@ -233,7 +233,7 @@ export default function About() {
                   <div className="border border-border bg-surface rounded-sm p-5 sm:p-6 hover:border-border-strong transition-all pixel-corners">
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/70 pb-3 mb-3 text-xs font-mono">
                       <div className="flex items-center gap-2">
-                        <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                        <span className="text-blue-600 dark:text-blue-400 font-bold">
                           {item.period}
                         </span>
                         <span className="text-border-strong">·</span>
@@ -254,7 +254,7 @@ export default function About() {
                     <ul className="space-y-1.5 text-xs font-mono text-secondary">
                       {item.points.map((point) => (
                         <li key={point} className="flex items-start gap-2">
-                          <span className="text-emerald-500 shrink-0 select-none">›</span>
+                          <span className="text-blue-500 shrink-0 select-none">›</span>
                           <span className="leading-relaxed">{point}</span>
                         </li>
                       ))}
@@ -272,7 +272,7 @@ export default function About() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
               <div>
                 <div className="flex items-center gap-2 text-xs font-mono text-muted uppercase tracking-wider mb-1">
-                  <span className="text-emerald-500 font-bold">// 04</span>
+                  <span className="text-blue-500 font-bold">// 04</span>
                   <span className="text-border-strong">·</span>
                   <span className="text-foreground font-semibold">CONNECT & DIRECT CHANNELS</span>
                 </div>
@@ -283,8 +283,8 @@ export default function About() {
               <div className="flex items-center gap-2 text-xs font-mono text-muted">
                 <span>📍 {CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country} (PKT / UTC+5)</span>
                 <span className="text-border-strong hidden sm:inline">·</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-2xs flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+                <span className="text-blue-600 dark:text-blue-400 font-semibold bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-2xs flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" aria-hidden="true" />
                   Active Inbox &lt; 24H
                 </span>
               </div>
@@ -297,7 +297,7 @@ export default function About() {
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
                     <span className="text-foreground">PRIMARY DIRECT CHANNEL</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                    <span className="text-blue-600 dark:text-blue-400 font-bold flex items-center gap-1">
                       <Mail className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                       FASTEST
                     </span>
@@ -335,7 +335,7 @@ export default function About() {
                     <span className="text-foreground">RECRUITMENT & NETWORK</span>
                     <span className="text-foreground font-mono font-bold text-xs">in</span>
                   </div>
-                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                  <h3 className="text-base font-bold text-foreground group-hover:text-blue-500 transition-colors tracking-tight">
                     LinkedIn Profile
                   </h3>
                   <p className="text-[11px] text-secondary mt-1">
@@ -344,7 +344,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-border text-xs font-semibold text-foreground">
                   <span>View Experience & Message</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 text-blue-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
@@ -360,7 +360,7 @@ export default function About() {
                     <span className="text-foreground">CODE & ARCHITECTURE</span>
                     <Github className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
                   </div>
-                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                  <h3 className="text-base font-bold text-foreground group-hover:text-blue-500 transition-colors tracking-tight">
                     GitHub Repositories
                   </h3>
                   <p className="text-[11px] text-secondary mt-1">
@@ -369,7 +369,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-border text-xs font-semibold text-foreground">
                   <span>Inspect Source Repositories</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-emerald-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                  <ExternalLink className="w-3.5 h-3.5 text-blue-500 pixel-icon transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                 </div>
               </a>
 
@@ -378,21 +378,21 @@ export default function About() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 border border-emerald-500/20 bg-emerald-500/5 rounded-xs pixel-corners flex flex-col justify-between h-44 group hover:border-emerald-500/40 transition-all"
+                className="p-5 border border-blue-500/20 bg-blue-500/5 rounded-xs pixel-corners flex flex-col justify-between h-44 group hover:border-blue-500/40 transition-all"
               >
                 <div>
-                  <div className="flex items-center justify-between text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-2 font-semibold">
+                  <div className="flex items-center justify-between text-[10px] text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2 font-semibold">
                     <span>VERIFIED CREDENTIALS</span>
-                    <span className="font-mono text-[9px] px-1 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-2xs">PDF</span>
+                    <span className="font-mono text-[9px] px-1 py-0.5 bg-blue-500/10 border border-blue-500/20 rounded-2xs">PDF</span>
                   </div>
-                  <h3 className="text-base font-bold text-foreground group-hover:text-emerald-500 transition-colors tracking-tight">
+                  <h3 className="text-base font-bold text-foreground group-hover:text-blue-500 transition-colors tracking-tight">
                     Official Resume (CV)
                   </h3>
                   <p className="text-[11px] text-secondary mt-1">
                     C#, ASP.NET Core, SQL Server, PostgreSQL, Flutter
                   </p>
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t border-emerald-500/20 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                <div className="flex items-center justify-between pt-3 border-t border-blue-500/20 text-xs font-semibold text-blue-600 dark:text-blue-400">
                   <span>Download Official PDF</span>
                   <span className="text-xs transition-transform group-hover:translate-y-0.5" aria-hidden="true">↓</span>
                 </div>

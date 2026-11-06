@@ -404,15 +404,15 @@ html.lenis body {
   flex-shrink: 0;
 }
 
-/* Stepped Square Beacon (replacing fuzzy round pulse) */
+/* Stepped Square Beacon (Sapphire Blue Accent) */
 .pixel-beacon {
   width: 7px;
   height: 7px;
-  background-color: #10B981;
+  background-color: #2563EB;
   display: inline-block;
   image-rendering: pixelated;
   position: relative;
-  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
   flex-shrink: 0;
 }
 
@@ -420,9 +420,18 @@ html.lenis body {
   content: '';
   position: absolute;
   inset: -2px;
-  border: 1px solid #10B981;
+  border: 1px solid #2563EB;
   opacity: 0.75;
   animation: pixel-beacon-pulse 2s steps(4) infinite;
+}
+
+.dark .pixel-beacon {
+  background-color: #3B82F6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.5);
+}
+
+.dark .pixel-beacon::after {
+  border-color: #3B82F6;
 }
 
 @keyframes pixel-beacon-pulse {

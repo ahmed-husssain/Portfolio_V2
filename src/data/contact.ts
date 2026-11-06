@@ -28,7 +28,7 @@ export interface ContactConfig {
 }
 
 export const CONTACT_CONFIG: ContactConfig = {
-  name: 'Syed Ahmed Hussain',
+  name: 'Ahmed Hussain',
   title: 'Backend-Focused .NET Developer',
   email: 'ahmedhusssain.dev@gmail.com',
   github: {

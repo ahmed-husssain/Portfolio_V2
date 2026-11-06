@@ -151,12 +151,12 @@ export default function Review() {
                       href={featuredReview.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-blue-500/25 bg-blue-500/10 text-blue-700 dark:text-blue-400 text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-blue-500/15 transition-colors"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-blue-500/40 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors shadow-2xs"
                       title="Verify client organization website"
                     >
                       <Check className="w-3 h-3 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
                       <span>VERIFIED CLIENT</span>
-                      <ExternalLink className="w-2.5 h-2.5 opacity-80 pixel-icon" aria-hidden="true" />
+                      <ExternalLink className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
                     </a>
                   )}
                 </div>

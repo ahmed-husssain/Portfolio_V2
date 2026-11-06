@@ -301,7 +301,7 @@ export default function ArchitectureVisualizer({
         <p className="text-secondary text-[11px] sm:text-xs font-medium truncate">
           {flow.subtitle}
         </p>
-        <span className="inline-flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-xs border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 font-mono text-[9px] sm:text-[10px] font-semibold shrink-0">
+        <span className="inline-flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-xs border border-blue-500/30 bg-blue-500/10 text-blue-500 font-mono text-[9px] sm:text-[10px] font-semibold shrink-0">
           <Radio className="w-3.5 h-3.5 pixel-icon" />
           {flow.tag}
         </span>
@@ -314,13 +314,13 @@ export default function ArchitectureVisualizer({
           <span className="flex items-center gap-1.5">
             <span
               className={`w-1.5 h-1.5 rounded-full ${
-                isSimulating ? 'bg-amber-400 animate-ping' : 'bg-emerald-500'
+                isSimulating ? 'bg-amber-400 animate-ping' : 'bg-blue-500'
               }`}
             />
             <span className="text-foreground font-semibold">BUS TELEMETRY</span>
             <span className="text-secondary hidden xs:inline">· PACKET IN FLIGHT</span>
           </span>
-          <span className="text-emerald-500 font-bold">
+          <span className="text-blue-500 font-bold">
             NODE 0{currentStep.number} ACTIVE · {currentStep.metric}
           </span>
         </div>
@@ -351,7 +351,7 @@ export default function ArchitectureVisualizer({
               y1="14"
               x2={50 + activeStep * 100}
               y2="14"
-              stroke="#10B981"
+              stroke="#3B82F6"
               strokeWidth="2.5"
               strokeDasharray="6 4"
               className="data-flow-active transition-all duration-300 ease-out"
@@ -374,7 +374,7 @@ export default function ArchitectureVisualizer({
                       cx={x}
                       cy="14"
                       r="9"
-                      fill="#10B981"
+                      fill="#3B82F6"
                       fillOpacity="0.25"
                       className="animate-ping"
                     />
@@ -385,8 +385,8 @@ export default function ArchitectureVisualizer({
                     cx={x}
                     cy="14"
                     r={isActive ? '6' : '4'}
-                    fill={isActive || isPassed ? '#10B981' : 'var(--bg-page)'}
-                    stroke={isActive || isPassed ? '#10B981' : 'currentColor'}
+                    fill={isActive || isPassed ? '#3B82F6' : 'var(--bg-page)'}
+                    stroke={isActive || isPassed ? '#3B82F6' : 'currentColor'}
                     strokeOpacity={isActive || isPassed ? '1' : '0.35'}
                     strokeWidth="1.5"
                     className="transition-all duration-200"
@@ -412,7 +412,7 @@ export default function ArchitectureVisualizer({
                 cx="50"
                 cy="14"
                 r="11"
-                fill="#10B981"
+                fill="#3B82F6"
                 fillOpacity="0.18"
                 className="animate-pulse"
               />
@@ -421,7 +421,7 @@ export default function ArchitectureVisualizer({
                 cx="50"
                 cy="14"
                 r="7"
-                stroke="#10B981"
+                stroke="#3B82F6"
                 strokeWidth="1.5"
                 fill="none"
               />
@@ -452,7 +452,7 @@ export default function ArchitectureVisualizer({
               >
                 <span
                   className={`text-[9px] sm:text-[10px] font-mono font-bold leading-none ${
-                    isSelected ? 'text-page' : isPast ? 'text-emerald-500' : 'text-muted'
+                    isSelected ? 'text-page' : isPast ? 'text-blue-500' : 'text-muted'
                   }`}
                 >
                   0{step.number}
@@ -493,7 +493,7 @@ export default function ArchitectureVisualizer({
                 <span className="text-foreground font-medium leading-relaxed">{currentStep.action}</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-emerald-500 font-mono font-bold uppercase text-[10px] shrink-0 pt-0.5">
+                <span className="text-blue-500 font-mono font-bold uppercase text-[10px] shrink-0 pt-0.5">
                   GUARD:
                 </span>
                 <span className="text-secondary leading-relaxed">{currentStep.protection}</span>
@@ -503,7 +503,7 @@ export default function ArchitectureVisualizer({
 
           {/* Step Footer with Metric & Next/Prev Controls */}
           <div className="pt-2 border-t border-border flex items-center justify-between text-xs font-mono">
-            <span className="text-emerald-500 font-bold text-[11px] flex items-center gap-1">
+            <span className="text-blue-500 font-bold text-[11px] flex items-center gap-1">
               <Check className="w-3 h-3 pixel-icon" />
               <span>{currentStep.metric}</span>
             </span>
@@ -585,7 +585,7 @@ export default function ArchitectureVisualizer({
           <div className="p-2 rounded-2xs border border-border bg-page text-[11px] font-mono">
             {activeSim ? (
               <div className="space-y-0.5">
-                <span className="text-emerald-500 font-bold flex items-center gap-1 text-[10px]">
+                <span className="text-blue-500 font-bold flex items-center gap-1 text-[10px]">
                   <Check className="w-3.5 h-3.5 shrink-0 pixel-icon" />
                   <span>RESULT:</span>
                 </span>
@@ -605,7 +605,7 @@ export default function ArchitectureVisualizer({
       {/* ─── 4. Minimal Bottom Guarantee Bar ─── */}
       <div className="pt-2 border-t border-border flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-muted">
         <span className="flex items-center gap-1.5 text-foreground font-medium">
-          <Shield className="w-3.5 h-3.5 text-emerald-500 pixel-icon" />
+          <Shield className="w-3.5 h-3.5 text-blue-500 pixel-icon" />
           <span>{flow.guarantee}</span>
         </span>
         <span className="hidden sm:inline">{flow.guaranteeTech}</span>

@@ -172,8 +172,8 @@ export default function ArticleDetail() {
 
   useDocumentTitle(
     article
-      ? `${article.title} — Syed Ahmed Hussain`
-      : 'Article Not Found — Syed Ahmed Hussain'
+      ? `${article.title} — Ahmed Hussain`
+      : 'Article Not Found — Ahmed Hussain'
   )
 
   const [MdxContent, setMdxContent] = useState<React.ComponentType<{ components?: any }> | null>(null)
@@ -341,7 +341,7 @@ export default function ArticleDetail() {
                     AUTHOR · SOFTWARE DEVELOPER
                   </p>
                   <h3 className="text-base sm:text-lg font-semibold text-foreground">
-                    Syed Ahmed Hussain
+                    Ahmed Hussain
                   </h3>
                   <p className="text-xs sm:text-sm text-secondary mt-1 max-w-md">
                     Software developer working remotely at Shifa Healthcare Karachi. I build reliable backends, clean databases, and fast, practical web apps.

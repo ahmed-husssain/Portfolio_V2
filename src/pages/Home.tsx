@@ -9,7 +9,7 @@ import Container from '../components/ui/Container'
 import ContinuityBridge from '../components/ui/ContinuityBridge'
 
 export default function Home() {
-  useDocumentTitle('Syed Ahmed Hussain — Software & Website Developer in Karachi')
+  useDocumentTitle('Ahmed Hussain — Software & Website Developer in Karachi')
 
   return (
     <>

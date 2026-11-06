@@ -8,7 +8,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { useRankedProjects } from '../lib/github/ranking.ts'
 
 export default function Work() {
-  useDocumentTitle('Projects & Systems — Syed Ahmed Hussain | Software Developer in Karachi')
+  useDocumentTitle('Projects & Systems — Ahmed Hussain | Software Developer in Karachi')
   const { projects } = useRankedProjects({ featuredOnly: false })
 
   return (
@@ -21,7 +21,7 @@ export default function Work() {
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
               <span className="shrink-0">{PROJECTS.length.toString().padStart(2, '0')} SYSTEMS DOCUMENTED</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="text-emerald-500 font-semibold shrink-0">ORDERED BY LATEST PRODUCTION CODE</span>
+              <span className="text-blue-600 dark:text-blue-400 font-semibold shrink-0">ORDERED BY LATEST PRODUCTION CODE</span>
             </>
           }
           title="Featured Projects & Case Studies"

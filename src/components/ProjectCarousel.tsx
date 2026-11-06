@@ -172,7 +172,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
           {/* Hover Expand Badge */}
           <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/stage:opacity-100 transition-opacity duration-200 pointer-events-none flex items-center justify-center z-15">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/85 text-white border border-white/20 text-xs font-mono font-semibold backdrop-blur-md shadow-lg">
-              <Maximize2 className="w-3.5 h-3.5 text-emerald-400" />
+              <Maximize2 className="w-3.5 h-3.5 text-blue-400" />
               <span>CLICK TO EXPAND FULLSCREEN</span>
             </span>
           </div>
@@ -184,8 +184,8 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
           className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none z-20"
         >
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-2xs bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-foreground font-semibold shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="text-blue-400">
               0{activeIndex + 1}
             </span>
             <span className="text-white/40">/</span>
@@ -277,7 +277,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
                 }}
                 className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                   isCurrent
-                    ? 'w-7 bg-emerald-400 shadow-sm shadow-emerald-400/50'
+                    ? 'w-7 bg-blue-400 shadow-sm shadow-blue-400/50'
                     : 'w-2 bg-white/40 hover:bg-white/70'
                 }`}
                 aria-label={`Jump to slide ${idx + 1}`}
@@ -292,7 +292,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
       <div className="p-4 rounded-sm border border-border bg-surface flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono pixel-corners">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">
               SLIDE 0{activeIndex + 1}
             </span>
             <span className="text-border-strong" aria-hidden="true">·</span>
@@ -313,7 +313,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
             onClick={() => setIsLightboxOpen(true)}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle active:scale-95 transition-all text-[11px] font-mono font-semibold cursor-pointer"
           >
-            <Maximize2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <Maximize2 className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>FULL RESOLUTION</span>
           </button>
         </div>
@@ -337,7 +337,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
               data-cursor-text={isCurrent ? 'EXPAND ↗' : `SLIDE 0${idx + 1}`}
               className={`group/thumb relative aspect-[16/10] rounded-xs overflow-hidden border text-left transition-all duration-200 cursor-pointer ${
                 isCurrent
-                  ? 'border-emerald-500 ring-2 ring-emerald-500/30 shadow-xs'
+                  ? 'border-blue-500 ring-2 ring-blue-500/30 shadow-xs'
                   : 'border-border/80 opacity-65 hover:opacity-100 hover:border-border-strong'
               }`}
               aria-label={isCurrent ? `Expand slide ${idx + 1}: ${slide.title}` : `Select slide ${idx + 1}: ${slide.title}`}
@@ -376,10 +376,10 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2 truncate pr-4">
-              <Layers className="w-4 h-4 text-emerald-400 shrink-0" />
+              <Layers className="w-4 h-4 text-blue-400 shrink-0" />
               <span className="font-bold tracking-tight text-white">{projectTitle}</span>
               <span className="text-white/40">·</span>
-              <span className="text-emerald-400 font-semibold shrink-0">
+              <span className="text-blue-400 font-semibold shrink-0">
                 0{activeIndex + 1} / 0{total}
               </span>
               <span className="text-white/80 hidden sm:inline truncate">— {currentSlide?.title}</span>
@@ -458,7 +458,7 @@ export default function ProjectCarousel({ slides, projectTitle }: ProjectCarouse
                   onClick={() => setActiveIndex(idx)}
                   className={`h-1.5 rounded-full transition-all duration-200 cursor-pointer ${
                     idx === activeIndex
-                      ? 'w-6 bg-emerald-400'
+                      ? 'w-6 bg-blue-400'
                       : 'w-2 bg-white/30 hover:bg-white/60'
                   }`}
                   aria-label={`Jump to slide ${idx + 1}`}

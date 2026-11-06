@@ -13,8 +13,8 @@ export default function Badge({
 }: BadgeProps) {
   if (variant === 'status') {
     return (
-      <span className={`text-emerald-500 font-semibold inline-flex items-center gap-1.5 shrink-0 ${className}`}>
-        <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
+      <span className={`text-blue-600 dark:text-blue-400 font-semibold inline-flex items-center gap-1.5 shrink-0 ${className}`}>
+        <span className="pixel-beacon" aria-hidden="true" />
         {children}
       </span>
     )

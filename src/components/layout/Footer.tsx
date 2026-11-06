@@ -21,9 +21,9 @@ export default function Footer() {
           {/* Identity & Status (Layout 3: Unified with Year & Terms) */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2">
-              <span className="pixel-beacon bg-emerald-500" aria-hidden="true" />
+              <span className="pixel-beacon" aria-hidden="true" />
               <span className="text-foreground font-semibold uppercase tracking-wider">
-                Syed Ahmed Hussain
+                Ahmed Hussain
               </span>
               <span className="text-border-strong">·</span>
               <span className="text-muted">Karachi, PK</span>

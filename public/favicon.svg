@@ -3,11 +3,11 @@
     <style>
       .bg { fill: #09090b; stroke: #27272a; stroke-width: 1.5; }
       .glyph { fill: #fafafa; }
-      .beacon { fill: #10b981; }
+      .beacon { fill: #3b82f6; }
       @media (prefers-color-scheme: light) {
         .bg { fill: #ffffff; stroke: #d4d4d8; stroke-width: 1.5; }
         .glyph { fill: #09090b; }
-        .beacon { fill: #059669; }
+        .beacon { fill: #2563eb; }
       }
     </style>
   </defs>
@@ -25,6 +25,6 @@
   <!-- Center Bridge -->
   <rect class="glyph" x="12" y="16" width="8" height="4" />
 
-  <!-- Signature Emerald Beacon Pixel (Status: Available) -->
+  <!-- Signature Sapphire Blue Beacon Pixel (Status: Available) -->
   <rect class="beacon" x="24" y="4" width="4" height="4" />
 </svg>

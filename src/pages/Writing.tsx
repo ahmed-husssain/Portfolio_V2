@@ -10,7 +10,7 @@ import { getPublishedArticles, getWritingTopics } from '../lib/writing/writingSe
 import ImageLightboxModal from '../components/ui/ImageLightboxModal'
 
 export default function Writing() {
-  useDocumentTitle('Field Notes & Writing — Syed Ahmed Hussain | Software Developer')
+  useDocumentTitle('Field Notes & Writing — Ahmed Hussain | Software Developer')
 
   const [selectedTag, setSelectedTag] = useState<string>('ALL')
   const [lightboxImage, setLightboxImage] = useState<{ src: string; alt?: string; caption?: string } | null>(null)

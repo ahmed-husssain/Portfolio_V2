@@ -30,7 +30,7 @@ export default function ContinuityBridge({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5 max-w-xl">
               <div className="flex items-center gap-2 text-micro-caps text-muted font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" aria-hidden="true" />
                 <span className="text-foreground font-semibold">{kicker}</span>
               </div>
               <h3 className="text-lg sm:text-xl font-semibold text-foreground tracking-tight group-hover:text-secondary transition-colors">
