@@ -8,13 +8,11 @@ class SoundEngine {
   private ctx: AudioContext | null = null
   private enabled: boolean = true
   private volume: number = 0.045 // Whisper-quiet 4.5% volume
+  private lastTapTime: number = 0
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('portfolio_sound_enabled')
-      // Default to enabled (unobtrusive, whisper-quiet micro-clicks)
-      this.enabled = stored !== null ? stored === 'true' : true
-    }
+    // Sound is the default native tactile behavior
+    this.enabled = true
   }
 
   public isEnabled(): boolean {
@@ -23,16 +21,10 @@ class SoundEngine {
 
   public setEnabled(enabled: boolean): void {
     this.enabled = enabled
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('portfolio_sound_enabled', String(enabled))
-    }
   }
 
   public toggle(): boolean {
     this.setEnabled(!this.enabled)
-    if (this.enabled) {
-      this.playChirp()
-    }
     return this.enabled
   }
 
@@ -85,6 +77,10 @@ class SoundEngine {
    */
   public playTap(): void {
     if (!this.enabled) return
+    const nowMs = typeof performance !== 'undefined' ? performance.now() : Date.now()
+    if (nowMs - this.lastTapTime < 60) return
+    this.lastTapTime = nowMs
+
     const ac = this.getContext()
     if (!ac) return
 

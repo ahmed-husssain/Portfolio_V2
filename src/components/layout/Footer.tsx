@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { ExternalLink, FileText } from 'pixelarticons/react'
 import { toast } from 'sonner'
 import Container from '../ui/Container'
-import SoundToggle from '../ui/SoundToggle'
 import { sound } from '../../lib/sound/soundEngine'
 import { CONTACT_CONFIG } from '../../data/contact'
 
@@ -35,8 +34,6 @@ export default function Footer() {
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] text-muted">
               <span>Web, mobile, and backend systems built to last.</span>
               <span className="text-border-strong" aria-hidden="true">·</span>
-              <SoundToggle showLabel={true} />
-              <span className="text-border-strong" aria-hidden="true">·</span>
               <button
                 type="button"
                 onClick={() => {
@@ -52,16 +49,16 @@ export default function Footer() {
 
           {/* Quick Nav & Social Links */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
-            <Link to="/work" className="hover:text-foreground transition-colors">
+            <Link to="/work" onClick={() => sound.playTap()} className="hover:text-foreground transition-colors">
               WORK
             </Link>
-            <Link to="/about" className="hover:text-foreground transition-colors">
+            <Link to="/about" onClick={() => sound.playTap()} className="hover:text-foreground transition-colors">
               ABOUT
             </Link>
-            <Link to="/writing" className="hover:text-foreground transition-colors">
+            <Link to="/writing" onClick={() => sound.playTap()} className="hover:text-foreground transition-colors">
               WRITING
             </Link>
-            <Link to="/about#contact" className="text-foreground font-semibold hover:text-secondary transition-colors">
+            <Link to="/about#contact" onClick={() => sound.playTap()} className="text-foreground font-semibold hover:text-secondary transition-colors">
               CONTACT →
             </Link>
             <a

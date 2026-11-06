@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Briefcase, User, BookOpen, Home } from 'pixelarticons/react'
 import ThemeToggle from '../ui/ThemeToggle'
-import SoundToggle from '../ui/SoundToggle'
 import { sound } from '../../lib/sound/soundEngine'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
@@ -165,6 +164,7 @@ export default function Navbar() {
         <div className="pointer-events-auto flex items-center h-8">
           <Link
             to="/"
+            onClick={() => sound.playTap()}
             className="group flex items-center gap-1.5 h-8 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
           >
             <span className="text-muted font-normal select-none flex items-center leading-none">©</span>
@@ -255,8 +255,7 @@ export default function Navbar() {
             )
           })}
 
-          <div className="pl-1 flex items-center h-8 gap-1.5">
-            <SoundToggle />
+          <div className="pl-1 flex items-center h-8">
             <ThemeToggle />
           </div>
 
@@ -278,7 +277,6 @@ export default function Navbar() {
             menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
           }`}
         >
-          <SoundToggle />
           <ThemeToggle />
           <button
             type="button"
@@ -404,7 +402,10 @@ export default function Navbar() {
               >
                 <Link
                   to="/"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    sound.playTap()
+                    setMenuOpen(false)
+                  }}
                   className={`group flex items-baseline gap-3 sm:gap-5 2xl:gap-6 py-0.5 sm:py-1 transition-colors duration-200 active:scale-[0.98] ${
                     isHomeActive ? 'text-foreground font-semibold' : 'text-foreground/75 hover:text-foreground'
                   }`}
