@@ -7,7 +7,7 @@ import { PROJECTS } from '../data/projects'
 import { useRankedProjects } from '../lib/github/ranking.ts'
 
 export default function SelectedWork() {
-  const { projects: featuredProjects } = useRankedProjects({ featuredOnly: true })
+  const { projects: featuredProjects } = useRankedProjects({ featuredOnly: true, limit: 3 })
 
   return (
     <section id="work" className="py-12 sm:py-16 md:py-20 border-b border-border">

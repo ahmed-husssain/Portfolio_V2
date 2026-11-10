@@ -63,6 +63,7 @@ export function rankProjects(
 
 export interface UseRankedProjectsOptions {
   featuredOnly?: boolean
+  limit?: number
 }
 
 export interface UseRankedProjectsResult {
@@ -94,8 +95,9 @@ export function useRankedProjects(options: UseRankedProjectsOptions = {}): UseRa
 
   const ranked = useMemo(() => {
     const all = rankProjects(PROJECTS, commits)
-    return options.featuredOnly ? all.filter((p) => p.featured) : all
-  }, [commits, options.featuredOnly])
+    const filtered = options.featuredOnly ? all.filter((p) => p.featured) : all
+    return typeof options.limit === 'number' ? filtered.slice(0, options.limit) : filtered
+  }, [commits, options.featuredOnly, options.limit])
 
   return { projects: ranked, isLive }
 }

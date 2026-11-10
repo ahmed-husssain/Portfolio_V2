@@ -724,7 +724,7 @@ test('Phase 2.4: Updated Ranking: dynamically reorders projects upon successful 
       JSON.stringify([
         {
           sha: 'newest-sha',
-          commit: { committer: { date: '2026-10-11T07:36:14Z' } },
+          commit: { committer: { date: '2026-11-05T07:36:14Z' } },
         },
       ]),
       { status: 200 }
@@ -742,7 +742,7 @@ test('Phase 2.4: Updated Ranking: dynamically reorders projects upon successful 
 
   // Re-rank with updated snapshot: Project One becomes #01
   const updatedRanked = rankProjects(projectsToRank, refreshResult.commits || {})
-  assert.equal(updatedRanked[0]?.slug, 'project-one') // #01 (Oct 11)
+  assert.equal(updatedRanked[0]?.slug, 'project-one') // #01 (Nov 5)
   assert.equal(updatedRanked[1]?.slug, 'project-two') // #02 (Oct 5)
 })
 
