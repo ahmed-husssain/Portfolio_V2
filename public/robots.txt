@@ -1,4 +1,4 @@
-# Robots.txt for Ahmed Hussain Portfolio (https://ahmedhusssain.vercel.app)
+# Robots.txt for Ahmed Hussain Portfolio (https://ahmedev.web.app)
 # Designed for Traditional Search Engines (Google, Bing) and AI Answer Engines (GEO/LLMs)
 
 User-agent: *
@@ -44,5 +44,5 @@ User-agent: Bytespider
 Allow: /
 
 # ─── XML Sitemap & AI Knowledge File ───
-Sitemap: https://ahmedhusssain.vercel.app/sitemap.xml
-# AI Knowledge Reference: https://ahmedhusssain.vercel.app/llms.txt
+Sitemap: https://ahmedev.web.app/sitemap.xml
+# AI Knowledge Reference: https://ahmedev.web.app/llms.txt

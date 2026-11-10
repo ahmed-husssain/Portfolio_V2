@@ -3,12 +3,12 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Homepage -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/</loc>
+    <loc>https://ahmedev.web.app/</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/og-image.png</image:loc>
+      <image:loc>https://ahmedev.web.app/og-image.png</image:loc>
       <image:title>Ahmed Hussain — Software &amp; Website Developer in Karachi</image:title>
       <image:caption>Portfolio of Ahmed Hussain, software developer based in Karachi, Pakistan specializing in .NET, SQL Server, and Flutter with PostgreSQL.</image:caption>
     </image:image>
@@ -16,7 +16,7 @@
 
   <!-- Work Catalog -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work</loc>
+    <loc>https://ahmedev.web.app/work</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -24,67 +24,67 @@
 
   <!-- Project: ShifaManagement -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work/shifamanagement</loc>
+    <loc>https://ahmedev.web.app/work/shifamanagement</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/projects/shifamanagement/preview.webp</image:loc>
+      <image:loc>https://ahmedev.web.app/projects/shifamanagement/preview.webp</image:loc>
       <image:title>Shifa Management System — Healthcare Platform</image:title>
     </image:image>
   </url>
 
   <!-- Project: Gallrax ERP (Online Art Gallery) -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work/online-art-gallery</loc>
+    <loc>https://ahmedev.web.app/work/online-art-gallery</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/projects/online-art-gallery/slide-1.webp</image:loc>
+      <image:loc>https://ahmedev.web.app/projects/online-art-gallery/slide-1.webp</image:loc>
       <image:title>Gallrax ERP — Online Art Gallery &amp; Auction Platform</image:title>
     </image:image>
   </url>
 
   <!-- Project: Mockrithm -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work/mockrithm</loc>
+    <loc>https://ahmedev.web.app/work/mockrithm</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/projects/mockrithm/slide-1.webp</image:loc>
+      <image:loc>https://ahmedev.web.app/projects/mockrithm/slide-1.webp</image:loc>
       <image:title>Mockrithm — AI Interview Simulator &amp; Code Evaluation</image:title>
     </image:image>
   </url>
 
   <!-- Project: Amber Property Corner -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work/amber-property-corner</loc>
+    <loc>https://ahmedev.web.app/work/amber-property-corner</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/projects/amber-property-corner/slide-1.webp</image:loc>
+      <image:loc>https://ahmedev.web.app/projects/amber-property-corner/slide-1.webp</image:loc>
       <image:title>Amber Property Corner — Real Estate Discovery Platform</image:title>
     </image:image>
   </url>
 
   <!-- Project: E-Books -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/work/e-books</loc>
+    <loc>https://ahmedev.web.app/work/e-books</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/projects/e-books/slide-1.webp</image:loc>
+      <image:loc>https://ahmedev.web.app/projects/e-books/slide-1.webp</image:loc>
       <image:title>E-Books Platform — Digital Library &amp; Session Management</image:title>
     </image:image>
   </url>
 
   <!-- About Ahmed Hussain -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/about</loc>
+    <loc>https://ahmedev.web.app/about</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -92,7 +92,7 @@
 
   <!-- Technical Writing & Engineering Notes Catalog -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/writing</loc>
+    <loc>https://ahmedev.web.app/writing</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
@@ -100,43 +100,43 @@
 
   <!-- Article: Probabilistic Filters -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/writing/probabilistic-filters</loc>
+    <loc>https://ahmedev.web.app/writing/probabilistic-filters</loc>
     <lastmod>2026-10-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/writing/probabilistic-filters-thumb.svg</image:loc>
+      <image:loc>https://ahmedev.web.app/writing/probabilistic-filters-thumb.svg</image:loc>
       <image:title>Probabilistic Membership Filters: 50-Year Architectural Evolution Timeline</image:title>
     </image:image>
   </url>
 
   <!-- Article: Cache-Aside Pattern -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/writing/cache-aside</loc>
+    <loc>https://ahmedev.web.app/writing/cache-aside</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/writing/cache-aside-flow.svg</image:loc>
+      <image:loc>https://ahmedev.web.app/writing/cache-aside-flow.svg</image:loc>
       <image:title>Cache-Aside Pattern Data Flow Architecture Diagram</image:title>
     </image:image>
   </url>
 
   <!-- Article: SOLID Principles in C# -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/writing/solid-principles-csharp</loc>
+    <loc>https://ahmedev.web.app/writing/solid-principles-csharp</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://ahmedhusssain.vercel.app/writing/solid-principles-thumb.svg</image:loc>
+      <image:loc>https://ahmedev.web.app/writing/solid-principles-thumb.svg</image:loc>
       <image:title>The SOLID Principles: Tightly Coupled vs Decoupled C# Architecture</image:title>
     </image:image>
   </url>
 
   <!-- Peer & Client Review Submission -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/review</loc>
+    <loc>https://ahmedev.web.app/review</loc>
     <lastmod>2026-11-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
@@ -144,7 +144,7 @@
 
   <!-- Official Resume PDF -->
   <url>
-    <loc>https://ahmedhusssain.vercel.app/resume.pdf</loc>
+    <loc>https://ahmedev.web.app/resume.pdf</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
