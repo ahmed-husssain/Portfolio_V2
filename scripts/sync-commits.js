@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '..')
 const snapshotPath = path.join(rootDir, 'src', 'data', 'github-commits-snapshot.json')
+const publicSnapshotPath = path.join(rootDir, 'public', 'data', 'github-commits.json')
 
 const REPOSITORIES = [
   { owner: 'ahmed-husssain', repo: 'Online-Art-Gallery', branch: 'main' },
@@ -63,14 +64,19 @@ async function sync() {
         const dateStr = data[0].commit.committer?.date || data[0].commit.author?.date
         const sha = (data[0].sha || '').slice(0, 7)
         if (dateStr && sha) {
+          const prev = existing.commits && existing.commits[key]
+          if (!prev || prev.sha !== sha || prev.isoDate !== dateStr) {
+            anyUpdated = true
+            console.log(`[sync] NEW COMMIT detected for ${key} -> ${sha} (${dateStr})`)
+          } else {
+            console.log(`[sync] ${key} is up to date (${sha})`)
+          }
           updatedCommits[key] = {
             sha,
             isoDate: dateStr,
             label: formatCommitDate(dateStr),
             branch: repo.branch,
           }
-          anyUpdated = true
-          console.log(`[sync] ${key} -> ${sha} (${dateStr})`)
         }
       }
     } catch (err) {
@@ -78,13 +84,22 @@ async function sync() {
     }
   }
 
-  if (anyUpdated || Object.keys(updatedCommits).length > 0) {
+  const publicMissing = !fs.existsSync(publicSnapshotPath)
+
+  if (anyUpdated || publicMissing) {
     const output = {
       commits: updatedCommits,
       lastRefreshed: Date.now(),
     }
+    fs.mkdirSync(path.dirname(snapshotPath), { recursive: true })
     fs.writeFileSync(snapshotPath, JSON.stringify(output, null, 2) + '\n', 'utf-8')
-    console.log(`[sync] Successfully updated snapshot at ${snapshotPath}`)
+
+    fs.mkdirSync(path.dirname(publicSnapshotPath), { recursive: true })
+    fs.writeFileSync(publicSnapshotPath, JSON.stringify(output, null, 2) + '\n', 'utf-8')
+
+    console.log(`[sync] Successfully updated snapshots at:\n  - ${snapshotPath}\n  - ${publicSnapshotPath}`)
+  } else {
+    console.log(`[sync] No new commits detected across any repository. Snapshot untouched.`)
   }
 }
 

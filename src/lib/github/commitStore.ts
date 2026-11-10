@@ -1,4 +1,5 @@
 import { parseRepoSlug, formatCommitDate } from './config.ts'
+import bundledSnapshot from '../../data/github-commits-snapshot.json' with { type: 'json' }
 
 export interface ClientCommitData {
   sha: string
@@ -23,7 +24,22 @@ class CommitStore {
   private hasInitializedFromStorage = false
 
   constructor() {
+    this.seedFromBundledSnapshot()
     this.hydrateFromStorage()
+  }
+
+  private seedFromBundledSnapshot() {
+    if (bundledSnapshot && typeof bundledSnapshot === 'object' && 'commits' in bundledSnapshot) {
+      const commits = (bundledSnapshot as { commits?: Record<string, ClientCommitData> }).commits
+      if (commits && typeof commits === 'object') {
+        Object.entries(commits).forEach(([key, data]) => {
+          if (data?.isoDate) {
+            this.memoryCache.set(key.toLowerCase(), data)
+          }
+        })
+        this.updateSnapshot()
+      }
+    }
   }
 
   private updateSnapshot() {
@@ -136,13 +152,35 @@ class CommitStore {
 
     this.inFlightPromise = (async () => {
       try {
-        const res = await fetch('/api/github-commits', {
-          headers: {
-            Accept: 'application/json',
-          },
-        })
+        let res: Response | null = null
 
-        if (!res.ok) return
+        // 1. Static JSON endpoint on Firebase Hosting CDN
+        try {
+          const staticRes = await fetch('/data/github-commits.json', {
+            headers: { Accept: 'application/json' },
+          })
+          if (staticRes.ok && staticRes.headers.get('content-type')?.includes('application/json')) {
+            res = staticRes
+          }
+        } catch {
+          // ignore static fallback error
+        }
+
+        // 2. Fallback to API route (Vercel serverless or local preview)
+        if (!res) {
+          try {
+            const apiRes = await fetch('/api/github-commits', {
+              headers: { Accept: 'application/json' },
+            })
+            if (apiRes.ok && apiRes.headers.get('content-type')?.includes('application/json')) {
+              res = apiRes
+            }
+          } catch {
+            // ignore API fallback error
+          }
+        }
+
+        if (!res) return
 
         const json = (await res.json()) as {
           commits?: Record<string, ClientCommitData>
