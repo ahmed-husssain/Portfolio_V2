@@ -1,85 +1,88 @@
 import { useState, type FormEvent } from 'react'
-import { Check, Send, Shield, ExternalLink, ArrowRight, Mail } from 'pixelarticons/react'
+import { Check, ExternalLink, ArrowRight, Trash, Send } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import PageHeader from '../components/ui/PageHeader'
 import BackLink from '../components/ui/BackLink'
-import FormField from '../components/form/FormField'
-import FormAlert from '../components/form/FormAlert'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import {
+  getApprovedReviews,
   submitReview,
-  createReviewMailtoUrl,
+  deleteLocalReview,
   type ReviewSubmissionInput,
 } from '../lib/reviews/reviewService'
-import { PROJECTS } from '../data/projects'
-import { REVIEWS } from '../data/reviews'
+import type { Review as ReviewType } from '../data/reviews'
 import { CONTACT_CONFIG } from '../data/contact'
 import { sound } from '../lib/sound/soundEngine'
 
 export default function Review() {
-  useDocumentTitle('Reviews & Endorsements — Ahmed | Backend & Full-Stack Developer')
+  useDocumentTitle('Recommendations & Feedback — Ahmed Hussain')
 
-  const [formData, setFormData] = useState<ReviewSubmissionInput>({
+  const [reviewsList, setReviewsList] = useState<ReviewType[]>(() => getApprovedReviews())
+
+  // Frictionless direct note state
+  const [formData, setFormData] = useState<{
+    name: string
+    role: string
+    review: string
+    honeypot: string
+  }>({
     name: '',
-    email: '',
     role: '',
-    company: '',
-    relationship: 'Client / Product Owner',
     review: '',
-    project: '',
-    verificationUrl: '',
-    consentToPublish: true,
     honeypot: '',
   })
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [serverMessage, setServerMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const relationshipOptions = [
-    'Client / Product Owner',
-    'Engineering Teammate / Peer',
-    'Technical Lead / Engineering Manager',
-    'Open Source Collaborator',
-    'Consulting / Contract Client',
-    'Other Project Collaboration',
-  ]
-
-  const featuredReview = REVIEWS.find((r) => r.id === 'rev-shifamanagement-healthcare') || REVIEWS[0]
+  const handleDeleteLocal = (id: string) => {
+    sound.playTap()
+    deleteLocalReview(id)
+    setReviewsList(getApprovedReviews())
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    setErrorMessage('')
+
+    const trimmedName = formData.name.trim()
+    const trimmedReview = formData.review.trim()
+
+    if (!trimmedName) {
+      setErrorMessage('Please enter your name.')
+      return
+    }
+
+    if (!trimmedReview || trimmedReview.length < 10) {
+      setErrorMessage('Please write a brief note (at least 10 characters).')
+      return
+    }
+
     setIsSubmitting(true)
-    setErrors({})
-    setServerMessage('')
 
     try {
-      const selectedProj = PROJECTS.find(
-        (p) =>
-          p.title.toLowerCase() === formData.project?.trim().toLowerCase() ||
-          p.slug === formData.project?.trim().toLowerCase()
-      )
-      const submissionData = {
-        ...formData,
-        projectSlug: selectedProj?.slug,
+      const payload: ReviewSubmissionInput = {
+        name: trimmedName,
+        role: formData.role.trim() || undefined,
+        relationship: 'Collaborator',
+        review: trimmedReview,
+        consentToPublish: true,
+        honeypot: formData.honeypot,
       }
-      const result = await submitReview(submissionData)
+
+      const result = await submitReview(payload)
 
       if (result.success) {
         sound.playChirp()
         setIsSubmitted(true)
-        setServerMessage(result.message)
+        setReviewsList(getApprovedReviews())
       } else {
-        if (result.errors) {
-          setErrors(result.errors)
-        } else {
-          setServerMessage(result.message)
-        }
+        setErrorMessage(result.message || 'Unable to deliver note. Please try again or recommend on LinkedIn.')
       }
     } catch {
-      setServerMessage('An unexpected network error occurred. Please try again or use the direct email link.')
+      setErrorMessage('A network error occurred. Please try again or recommend on LinkedIn.')
     } finally {
       setIsSubmitting(false)
     }
@@ -88,24 +91,12 @@ export default function Review() {
   const handleReset = () => {
     sound.playTap()
     setIsSubmitted(false)
-    setFormData({
-      name: '',
-      email: '',
-      role: '',
-      company: '',
-      relationship: 'Client / Product Owner',
-      review: '',
-      project: '',
-      verificationUrl: '',
-      consentToPublish: true,
-      honeypot: '',
-    })
-    setErrors({})
-    setServerMessage('')
+    setFormData({ name: '', role: '', review: '', honeypot: '' })
+    setErrorMessage('')
   }
 
   return (
-    <div className="pt-16 sm:pt-20 md:pt-24 pb-12 sm:pb-16 md:pb-20">
+    <div className="pt-16 sm:pt-20 md:pt-24 pb-16 sm:pb-20 md:pb-24">
       <Container>
         {/* Back Link */}
         <BackLink to="/" label="BACK TO HOMEPAGE" />
@@ -115,225 +106,201 @@ export default function Review() {
           className="mb-10 sm:mb-14 pb-8 border-b border-border"
           eyebrow={
             <>
-              <span className="text-foreground font-semibold shrink-0">REVIEWS</span>
+              <span className="text-foreground font-semibold shrink-0">FEEDBACK</span>
               <span className="text-border-strong shrink-0" aria-hidden="true">·</span>
-              <span className="shrink-0">SOCIAL PROOF & ENDORSEMENTS</span>
+              <span className="shrink-0">WORKING TOGETHER</span>
             </>
           }
-          title="Reviews & Endorsements"
-          description="Verified client testimonials from production software deliveries, engineering leadership feedback, and direct review submission."
+          title="Recommendations"
+          description="Direct notes from clients, product owners, and collaborators on software delivery, backend architecture, and communication."
         />
 
-        {/* Balanced Two-Column Showcase & Submission Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
-          {/* ─── Left Column (lg:col-span-5): Social Proof & Trust ─── */}
-          <div className="lg:col-span-5 space-y-6">
-            {/* Featured Client Endorsement Spotlight */}
-            {featuredReview && (
-              <article className="border border-border/80 bg-surface rounded-sm p-6 sm:p-7 pixel-corners hover:border-border-strong transition-[border-color,box-shadow] duration-200 shadow-2xs">
-                {/* Top Row: Logo & Verified Badge */}
-                <div className="flex items-center justify-between gap-3 pb-4 border-b border-border/80">
-                  {featuredReview.avatar ? (
+        {/* ─── Wall of Recommendations ─── */}
+        <div className="space-y-6 max-w-4xl">
+          {reviewsList.map((item) => (
+            <article
+              key={item.id}
+              className={`relative p-6 sm:p-8 rounded-sm border bg-surface hover:border-border-strong transition-all duration-200 pixel-corners ${
+                item.isLocalSubmission ? 'border-amber-500/40 shadow-xs' : 'border-border/80'
+              }`}
+            >
+              {/* Top Row: Author & Verification */}
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/70">
+                <div className="flex items-center gap-3">
+                  {item.avatar ? (
                     <img
-                      src={featuredReview.avatar}
-                      alt={featuredReview.company || featuredReview.name}
+                      src={item.avatar}
+                      alt={item.company || item.name}
                       width={88}
                       height={40}
                       loading="lazy"
                       decoding="async"
-                      className="h-10 w-auto object-contain bg-white rounded-xs p-1 border border-border/70 shrink-0 shadow-2xs pixel-corners"
+                      className="h-9 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
                     />
                   ) : (
-                    <div className="w-10 h-10 rounded-sm border border-border bg-surface-subtle flex items-center justify-center font-mono font-bold text-xs text-foreground shrink-0 shadow-2xs pixel-corners">
-                      {featuredReview.name.slice(0, 2).toUpperCase()}
+                    <div className="w-9 h-9 rounded-xs bg-surface-subtle border border-border flex items-center justify-center font-mono font-bold text-xs text-blue-600 dark:text-blue-400 shrink-0">
+                      {item.name.slice(0, 2).toUpperCase()}
                     </div>
                   )}
 
-                  {featuredReview.verificationUrl && (
+                  <div>
+                    <div className="font-semibold text-foreground text-sm sm:text-base leading-snug">
+                      {item.name}
+                    </div>
+                    {(item.role || item.company) && (
+                      <div className="text-xs text-muted font-mono mt-0.5">
+                        {[item.role, item.company].filter(Boolean).join(' · ')}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {item.isLocalSubmission ? (
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
+                        <span className="pixel-beacon bg-amber-500" aria-hidden="true" />
+                        <span>LOCAL PREVIEW</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteLocal(item.id)}
+                        className="p-1 text-muted hover:text-red-500 transition-colors cursor-pointer"
+                        title="Delete this local preview note"
+                        aria-label="Delete local note"
+                      >
+                        <Trash className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                      </button>
+                    </div>
+                  ) : item.verificationUrl ? (
                     <a
-                      href={featuredReview.verificationUrl}
+                      href={item.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-blue-500/40 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-[10px] font-mono tracking-wider uppercase font-semibold whitespace-nowrap shrink-0 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors shadow-2xs"
-                      title="Verify client organization website"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xs border border-blue-500/30 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-mono font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors shadow-2xs"
+                      title={`Verify ${item.company || item.name}`}
                     >
                       <Check className="w-3 h-3 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
-                      <span>VERIFIED CLIENT</span>
+                      <span className="truncate max-w-[140px] sm:max-w-none">
+                        {item.verificationUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                      </span>
                       <ExternalLink className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
                     </a>
-                  )}
+                  ) : item.highlightMetric ? (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border/80 bg-page text-[10px] font-mono font-semibold text-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" aria-hidden="true" />
+                      <span>{item.highlightMetric}</span>
+                    </span>
+                  ) : null}
                 </div>
-
-                {/* Company Name & Category (Full Width) */}
-                <div className="pt-4">
-                  <h3 className="font-semibold text-foreground text-base sm:text-lg leading-snug">
-                    {featuredReview.company}
-                  </h3>
-                  <p className="text-[11px] font-mono text-muted mt-0.5">
-                    Clinical Healthcare Organization · Enterprise Web System
-                  </p>
-                </div>
-
-                {/* Metric pill */}
-                {featuredReview.highlightMetric && (
-                  <div className="mt-3.5 inline-flex items-center gap-2 px-2.5 py-1 rounded-xs border border-border/70 bg-page text-[11px] font-mono text-foreground font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.4)]" aria-hidden="true" />
-                    <span>{featuredReview.highlightMetric}</span>
-                  </div>
-                )}
-
-                {/* Review quote */}
-                <blockquote className="my-5 text-foreground text-sm sm:text-base leading-relaxed">
-                  &ldquo;{featuredReview.review}&rdquo;
-                </blockquote>
-
-                {/* Deliverables summary */}
-                {featuredReview.deliverables && (
-                  <div className="pt-4 border-t border-border/60">
-                    <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-muted mb-2">
-                      DELIVERED WORKFLOWS:
-                    </div>
-                    <ul className="space-y-1.5 text-xs font-mono text-secondary">
-                      {featuredReview.deliverables.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-muted">
-                          <span className="w-1 h-1 rounded-full bg-blue-600 dark:bg-blue-400 shrink-0" aria-hidden="true" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Card footer */}
-                <div className="pt-4 mt-5 border-t border-border/80 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                  <div className="min-w-0">
-                    <span className="font-semibold text-foreground">{featuredReview.name}</span>
-                    <span className="text-border-strong mx-1.5">·</span>
-                    <span className="text-secondary">{featuredReview.role}, {featuredReview.company}</span>
-                  </div>
-
-                  {featuredReview.projectSlug && (
-                    <Link
-                      to={`/work/${featuredReview.projectSlug}`}
-                      className="inline-flex items-center gap-1.5 font-semibold text-foreground hover:underline active:scale-95 transition-all group shrink-0"
-                    >
-                      <span>INSPECT CASE STUDY</span>
-                      <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
-                    </Link>
-                  )}
-                </div>
-              </article>
-            )}
-
-            {/* Integrated Minimal Companion Strip (LinkedIn + Privacy Guarantee) */}
-            <div className="border border-border/80 bg-surface/50 rounded-sm p-4 sm:p-5 pixel-corners space-y-3.5 shadow-2xs">
-              <div className="flex items-center justify-between gap-3 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <span className="text-foreground font-mono font-bold text-xs px-1.5 py-0.5 border border-border bg-page rounded-2xs">
-                    in
-                  </span>
-                  <span className="font-semibold text-foreground text-xs">
-                    Prefer LinkedIn recommendations?
-                  </span>
-                </div>
-                <a
-                  href={CONTACT_CONFIG.linkedin.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-foreground hover:text-blue-600 dark:hover:text-blue-400 active:scale-95 transition-all"
-                >
-                  <span>RECOMMEND ON LINKEDIN</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
-                </a>
               </div>
 
-              <div className="pt-3 border-t border-border/60 flex items-start gap-2.5 text-[11px] font-mono text-muted leading-relaxed">
-                <Shield className="w-3.5 h-3.5 text-foreground shrink-0 mt-0.5 pixel-icon" aria-hidden="true" />
-                <p>
-                  <span className="font-semibold text-secondary">Privacy standard:</span> Submissions are reviewed directly by Ahmed for spam prevention. Your email is kept strictly private and is never published.
-                </p>
-              </div>
+              {/* Quote Body */}
+              <blockquote className="my-5 sm:my-6 text-foreground text-sm sm:text-base leading-relaxed">
+                &ldquo;{item.review}&rdquo;
+              </blockquote>
+
+              {/* Project Link Footer */}
+              {item.projectSlug && (
+                <div className="pt-3.5 border-t border-border/60 flex items-center justify-between text-xs font-mono text-muted">
+                  <div className="flex items-center gap-2 truncate">
+                    <span className="text-secondary font-semibold shrink-0">CONTEXT:</span>
+                    <span className="truncate">{item.project || 'Production Delivery'}</span>
+                  </div>
+                  <Link
+                    to={`/work/${item.projectSlug}`}
+                    className="inline-flex items-center gap-1 font-semibold text-foreground hover:underline active:scale-95 transition-all shrink-0 ml-3"
+                  >
+                    <span>Case Study</span>
+                    <ArrowRight className="w-3 h-3 pixel-icon" aria-hidden="true" />
+                  </Link>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+
+        {/* ─── Collaboration & Recommendation Pathways ─── */}
+        <div className="border-t border-border mt-14 sm:mt-16 pt-10 sm:pt-14 max-w-4xl space-y-8">
+          <div>
+            <div className="text-xs font-mono uppercase tracking-wider text-muted mb-1">
+              HAVE WE WORKED TOGETHER?
             </div>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+              Leave a Note or Recommendation
+            </h2>
+            <p className="text-secondary text-sm mt-1 max-w-xl leading-relaxed">
+              If we&apos;ve collaborated on a project, team, or contract, you can write a recommendation directly on LinkedIn or send a direct note below.
+            </p>
           </div>
 
-          {/* ─── Right Column (lg:col-span-7): Submission Form ─── */}
-          <div className="lg:col-span-7">
-            {isSubmitted ? (
-              <div className="border border-border bg-surface rounded-sm p-8 sm:p-10 animate-page-in pixel-corners shadow-xs">
-                <div className="flex items-center gap-2 text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-4 font-semibold">
-                  <Check className="w-4 h-4 pixel-icon" aria-hidden="true" />
-                  <span>SUBMISSION DELIVERED · SENT TO INBOX</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+            {/* ─── Card 1: Recommend on LinkedIn (md:col-span-5) ─── */}
+            <div className="md:col-span-5 p-6 rounded-sm border border-border/80 bg-surface flex flex-col justify-between space-y-5 pixel-corners shadow-2xs">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-xs font-mono font-semibold text-blue-600 dark:text-blue-400">
+                  <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 shadow-[0_0_8px_rgba(59,130,246,0.5)]" aria-hidden="true" />
+                  <span>RECOMMENDED METHOD</span>
                 </div>
-
-                <h2 className="text-2xl sm:text-3xl font-semibold text-foreground tracking-tight mb-3">
-                  Thank You, {formData.name.trim()}
-                </h2>
-
-                <p className="text-secondary text-sm sm:text-base leading-relaxed mb-6">
-                  {serverMessage}
+                <h3 className="font-semibold text-foreground text-base leading-snug">
+                  Recommend on LinkedIn
+                </h3>
+                <p className="text-xs text-secondary leading-relaxed">
+                  The gold standard in tech. Your recommendation links directly to your verified profile and appears on Ahmed&apos;s LinkedIn profile and portfolio.
                 </p>
+              </div>
 
-                <div className="p-4 bg-page border border-border/80 rounded-sm text-xs font-mono text-muted mb-6 space-y-2 pixel-corners">
-                  <div><span className="text-secondary font-semibold">SUBMITTED AS:</span> {formData.name}</div>
-                  {formData.email && <div><span className="text-secondary font-semibold">EMAIL:</span> {formData.email} <span className="text-muted text-[10px]">(Private)</span></div>}
-                  {formData.role && <div><span className="text-secondary font-semibold">ROLE:</span> {formData.role}</div>}
-                  {formData.company && <div><span className="text-secondary font-semibold">ORGANIZATION:</span> {formData.company}</div>}
-                  <div><span className="text-secondary font-semibold">RELATIONSHIP:</span> {formData.relationship}</div>
-                  {formData.project && <div><span className="text-secondary font-semibold">PROJECT:</span> {formData.project}</div>}
-                  <div className="pt-2 border-t border-border mt-2">
-                    <span className="text-secondary font-semibold block mb-1">TESTIMONIAL:</span>
-                    <p className="text-foreground italic leading-relaxed">&ldquo;{formData.review}&rdquo;</p>
+              <a
+                href={CONTACT_CONFIG.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-sm bg-foreground text-page font-mono text-xs font-semibold hover:bg-secondary active:scale-[0.98] transition-all cursor-pointer shadow-2xs"
+              >
+                <span>RECOMMEND ON LINKEDIN</span>
+                <ExternalLink className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+              </a>
+            </div>
+
+            {/* ─── Card 2: Direct Note Form (md:col-span-7) ─── */}
+            <div className="md:col-span-7 p-6 rounded-sm border border-border/80 bg-surface pixel-corners shadow-2xs">
+              {isSubmitted ? (
+                <div className="py-4 space-y-4 animate-page-in">
+                  <div className="flex items-center gap-2 text-xs font-mono text-blue-600 dark:text-blue-400 uppercase tracking-wider font-semibold">
+                    <Check className="w-4 h-4 pixel-icon" aria-hidden="true" />
+                    <span>NOTE DELIVERED TO INBOX</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground">
+                    Thank You, {formData.name}!
+                  </h3>
+                  <p className="text-secondary text-sm leading-relaxed">
+                    Your note was sent straight to Ahmed&apos;s inbox and has been added to your local preview on this page.
+                  </p>
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="px-4 py-2 border border-border text-xs font-mono text-secondary hover:text-foreground active:scale-[0.98] transition-all rounded-sm cursor-pointer"
+                    >
+                      SEND ANOTHER NOTE
+                    </button>
                   </div>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                  <div className="pb-3 border-b border-border/70">
+                    <h3 className="font-semibold text-foreground text-sm">
+                      Direct Note
+                    </h3>
+                    <p className="text-xs text-muted mt-0.5">
+                      Delivered straight to Ahmed&apos;s private inbox. No public spam, no HR paperwork.
+                    </p>
+                  </div>
 
-                <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-                  <Link
-                    to="/#reviews"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all group"
-                  >
-                    <Check className="w-4 h-4 text-page pixel-icon" aria-hidden="true" />
-                    <span>VIEW PREVIEW ON HOMEPAGE</span>
-                  </Link>
-
-                  <a
-                    href={CONTACT_CONFIG.linkedin.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 border border-border text-foreground hover:bg-surface-subtle active:scale-[0.98] transition-all rounded-sm"
-                  >
-                    <span>ALSO RECOMMEND ON LINKEDIN</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
-                  </a>
-
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="px-4 py-2.5 border border-border text-secondary hover:text-foreground active:scale-[0.98] transition-all rounded-sm cursor-pointer"
-                  >
-                    SUBMIT ANOTHER
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="border border-border/80 bg-surface rounded-sm p-6 sm:p-8 pixel-corners shadow-xs">
-                <div className="mb-6 pb-4 border-b border-border/80">
-                  <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-muted">
-                    SUBMISSION FORM
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight mt-1">
-                    Leave a Testimonial
-                  </h3>
-                  <p className="text-xs sm:text-sm text-secondary mt-1">
-                    Share your experience regarding code quality, communication, technical execution, and project reliability.
-                  </p>
-                </div>
-
-                <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                  {/* Honeypot Spam Trap (Hidden) */}
+                  {/* Hidden Spam Trap */}
                   <div className="sr-only" aria-hidden="true">
-                    <label htmlFor="website_url_hp">Leave this empty</label>
+                    <label htmlFor="hp_note">Leave blank</label>
                     <input
-                      id="website_url_hp"
+                      id="hp_note"
                       type="text"
                       tabIndex={-1}
                       autoComplete="off"
@@ -342,233 +309,87 @@ export default function Review() {
                     />
                   </div>
 
-                  {/* Server-level Error Alert */}
-                  {serverMessage && (
-                    <FormAlert className="bg-red-500/10 border-red-500/30 text-red-500 font-mono text-xs">
-                      {serverMessage}
-                    </FormAlert>
+                  {errorMessage && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-mono rounded-sm">
+                      {errorMessage}
+                    </div>
                   )}
 
-                  {/* Name & Email Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <FormField id="name" label="Full Name" required error={errors.name}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div>
+                      <label htmlFor="note_name" className="block text-[11px] font-mono text-muted mb-1 uppercase tracking-wider">
+                        YOUR NAME <span className="text-red-500">*</span>
+                      </label>
                       <input
-                        id="name"
+                        id="note_name"
                         type="text"
                         required
                         maxLength={80}
-                        placeholder="e.g. Asad or Sarah Jenkins"
+                        placeholder="e.g. Asad or Sarah"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        aria-invalid={Boolean(errors.name)}
-                        aria-describedby={errors.name ? 'name-error' : undefined}
-                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
-                          errors.name ? 'border-red-500' : 'border-border/80'
-                        }`}
+                        className="w-full px-3.5 py-2 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground transition-colors"
                       />
-                    </FormField>
+                    </div>
 
-                    <FormField
-                      id="email"
-                      label="Email Address"
-                      counter={<span className="text-muted text-[10px] lowercase">(private)</span>}
-                      error={errors.email}
-                    >
+                    <div>
+                      <label htmlFor="note_role" className="block text-[11px] font-mono text-muted mb-1 uppercase tracking-wider">
+                        ROLE &amp; COMPANY <span className="text-muted lowercase text-[10px]">(optional)</span>
+                      </label>
                       <input
-                        id="email"
-                        type="email"
-                        placeholder="e.g. sarah@company.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        aria-invalid={Boolean(errors.email)}
-                        aria-describedby={errors.email ? 'email-error' : undefined}
-                        className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
-                          errors.email ? 'border-red-500' : 'border-border/80'
-                        }`}
-                      />
-                    </FormField>
-                  </div>
-
-                  {/* Role & Company Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <FormField
-                      id="role"
-                      label="Role / Position"
-                      counter={<span className="text-muted text-[10px] lowercase">(optional)</span>}
-                      error={errors.role}
-                    >
-                      <input
-                        id="role"
+                        id="note_role"
                         type="text"
                         maxLength={80}
-                        placeholder="e.g. Head of Product, Tech Lead"
+                        placeholder="e.g. Owner, Shifa Health"
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
+                        className="w-full px-3.5 py-2 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground transition-colors"
                       />
-                    </FormField>
-
-                    <FormField
-                      id="company"
-                      label="Company / Organization"
-                      counter={<span className="text-muted text-[10px] lowercase">(optional)</span>}
-                      error={errors.company}
-                    >
-                      <input
-                        id="company"
-                        type="text"
-                        maxLength={80}
-                        placeholder="e.g. Shifa Home Health Care, Amber Real Estate"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
-                      />
-                    </FormField>
-                  </div>
-
-                  {/* Relationship & Project Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label htmlFor="relationship" className="block text-xs font-mono text-foreground font-semibold uppercase tracking-wider mb-2">
-                        Working Relationship <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="relationship"
-                        required
-                        value={formData.relationship}
-                        onChange={(e) => setFormData({ ...formData, relationship: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 cursor-pointer"
-                      >
-                        {relationshipOptions.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.relationship && (
-                        <p role="alert" className="mt-1.5 text-xs font-mono text-red-500">
-                          {errors.relationship}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label htmlFor="project" className="block text-xs font-mono text-foreground font-semibold uppercase tracking-wider mb-2">
-                        Project Involved <span className="text-muted text-[10px] lowercase">(optional)</span>
-                      </label>
-                      <input
-                        id="project"
-                        type="text"
-                        list="projects-list"
-                        maxLength={80}
-                        placeholder="e.g. Amber Property Corner, Mockrithm"
-                        value={formData.project}
-                        onChange={(e) => setFormData({ ...formData, project: e.target.value })}
-                        className="w-full px-4 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150"
-                      />
-                      <datalist id="projects-list">
-                        {PROJECTS.map((p) => (
-                          <option key={p.slug} value={p.title} />
-                        ))}
-                      </datalist>
                     </div>
                   </div>
 
-                  {/* LinkedIn / Website Profile Row */}
-                  <FormField
-                    id="verificationUrl"
-                    label="LinkedIn Profile or Website"
-                    counter={<span className="text-muted text-[10px] lowercase">(optional)</span>}
-                    error={errors.verificationUrl}
-                  >
-                    <input
-                      id="verificationUrl"
-                      type="text"
-                      placeholder="linkedin.com/in/username or personal website"
-                      value={formData.verificationUrl}
-                      onChange={(e) => setFormData({ ...formData, verificationUrl: e.target.value })}
-                      aria-invalid={Boolean(errors.verificationUrl)}
-                      className={`w-full px-4 py-2.5 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 ${
-                        errors.verificationUrl ? 'border-red-500' : 'border-border/80'
-                      }`}
-                    />
-                  </FormField>
-
-                  {/* Review Textarea */}
-                  <FormField
-                    id="review"
-                    label="Review / Testimonial"
-                    required
-                    error={errors.review}
-                    counter={
-                      <span className="text-[10px] font-mono text-muted">
-                        {formData.review.length} / 1000 CHARS
-                      </span>
-                    }
-                  >
+                  <div>
+                    <label htmlFor="note_body" className="block text-[11px] font-mono text-muted mb-1 uppercase tracking-wider">
+                      YOUR NOTE <span className="text-red-500">*</span>
+                    </label>
                     <textarea
-                      id="review"
+                      id="note_body"
                       required
-                      rows={5}
+                      rows={4}
                       maxLength={1000}
-                      placeholder="Share your experience regarding code quality, communication, technical execution, and project reliability..."
+                      placeholder="How was the collaboration, engineering quality, or communication?"
                       value={formData.review}
                       onChange={(e) => setFormData({ ...formData, review: e.target.value })}
-                      aria-invalid={Boolean(errors.review)}
-                      aria-describedby={errors.review ? 'review-error' : undefined}
-                      className={`w-full px-4 py-3 text-sm bg-page border rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground focus:ring-1 focus:ring-foreground transition-all duration-150 leading-relaxed ${
-                        errors.review ? 'border-red-500' : 'border-border/80'
-                      }`}
+                      className="w-full px-3.5 py-2.5 text-sm bg-page border border-border/80 rounded-sm text-foreground placeholder:text-muted focus:outline-none focus:border-foreground transition-colors leading-relaxed"
                     />
-                  </FormField>
-
-                  {/* Friendly Consent Checkbox */}
-                  <div className="pt-1">
-                    <label className="flex items-start gap-3 cursor-pointer select-none">
-                      <input
-                        type="checkbox"
-                        checked={formData.consentToPublish}
-                        onChange={(e) => setFormData({ ...formData, consentToPublish: e.target.checked })}
-                        className="mt-0.5 w-4 h-4 rounded-xs border-border text-foreground accent-foreground cursor-pointer"
-                      />
-                      <span className="text-xs text-secondary leading-normal">
-                        I am happy for Ahmed to feature this testimonial on his portfolio.
-                      </span>
-                    </label>
                   </div>
 
-                  {/* Submit Button & Direct Email Fallback */}
-                  <div className="pt-4 border-t border-border/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center justify-between gap-4 pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-foreground text-page text-xs sm:text-sm font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-2xs"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.98] transition-all cursor-pointer disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <>
                           <span className="w-3.5 h-3.5 border-2 border-page border-t-transparent rounded-full animate-spin" aria-hidden="true" />
-                          <span>SENDING TO INBOX...</span>
+                          <span>SENDING...</span>
                         </>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 pixel-icon" aria-hidden="true" />
-                          <span>SUBMIT TESTIMONIAL</span>
+                          <span>SEND NOTE</span>
+                          <Send className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
                         </>
                       )}
                     </button>
 
-                    <a
-                      href={createReviewMailtoUrl(formData)}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-muted hover:text-foreground transition-colors self-center sm:self-auto"
-                      title="Prefill review in your default email client"
-                    >
-                      <Mail className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                      <span>Prefer email? Send directly ↗</span>
-                    </a>
+                    <span className="text-[11px] font-mono text-muted">
+                      Private inbox delivery
+                    </span>
                   </div>
                 </form>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </Container>

@@ -7,7 +7,7 @@
 class SoundEngine {
   private ctx: AudioContext | null = null
   private enabled: boolean = true
-  private volume: number = 0.045 // Whisper-quiet 4.5% volume
+  private volume: number = 0.095 // Tactile volume (9.5%, increased by +5%)
   private lastTapTime: number = 0
 
   constructor() {

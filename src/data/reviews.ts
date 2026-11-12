@@ -53,5 +53,22 @@ export const REVIEWS: Review[] = [
     consentToPublish: true,
     createdAt: '2026-10-08',
   },
+  {
+    id: 'rev-aptech-vision-2025',
+    name: 'Aptech Vision 2025 Jury',
+    role: 'Evaluation Panel',
+    company: 'Aptech Vision 2025',
+    relationship: 'Technical Competition',
+    project: 'Mockrithm',
+    projectSlug: 'mockrithm',
+    verificationType: 'institution',
+    verificationUrl: 'https://mockrithm.me/',
+    highlightMetric: 'Runner-Up Award · 50+ Institutions',
+    review:
+      'Recognized Mockrithm among 50+ competing institutions for intuitive data structure visualization, fluid canvas rendering, and rigorous front-end engineering execution.',
+    status: 'approved',
+    consentToPublish: true,
+    createdAt: '2025-06-20',
+  },
 ]
 

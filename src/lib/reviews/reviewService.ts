@@ -66,13 +66,9 @@ export function validateReviewInput(input: ReviewSubmissionInput): Record<string
     }
   }
 
-  // 4. Relationship validation
-  const trimmedRelationship = input.relationship.trim()
-  if (!trimmedRelationship) {
-    errors.relationship = 'Please describe how we worked together.'
-  } else if (trimmedRelationship.length < 2) {
-    errors.relationship = 'Relationship context is too short.'
-  } else if (trimmedRelationship.length > 100) {
+  // 4. Relationship validation (defaults to Collaborator if omitted)
+  const trimmedRelationship = (input.relationship || 'Collaborator').trim()
+  if (trimmedRelationship.length > 100) {
     errors.relationship = 'Relationship context cannot exceed 100 characters.'
   }
 
@@ -254,7 +250,7 @@ export async function submitReview(input: ReviewSubmissionInput): Promise<Review
     name: input.name.trim(),
     role: input.role?.trim(),
     company: input.company?.trim(),
-    relationship: input.relationship.trim(),
+    relationship: (input.relationship || 'Collaborator').trim(),
     project: input.project?.trim(),
     projectSlug: input.projectSlug?.trim(),
     verificationUrl: normalizedUrl,
