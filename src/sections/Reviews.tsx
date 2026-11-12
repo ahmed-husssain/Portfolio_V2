@@ -110,7 +110,7 @@ export default function Reviews() {
                       {item.company || item.name}
                     </h3>
                     <p className="text-[11px] font-mono text-muted">
-                      Clinical Healthcare Organization
+                      {item.company === 'Shifa Home Health Care' ? 'Clinical Healthcare Organization' : item.role || item.relationship || 'Verified Partner'}
                     </p>
                   </div>
                 </div>
