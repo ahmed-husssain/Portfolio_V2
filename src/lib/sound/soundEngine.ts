@@ -7,7 +7,7 @@
 class SoundEngine {
   private ctx: AudioContext | null = null
   private enabled: boolean = true
-  private volume: number = 0.095 // Tactile volume (9.5%, increased by +5%)
+  private volume: number = 0.195 // Tactile volume (19.5%, increased by +10% from 9.5%)
   private lastTapTime: number = 0
 
   constructor() {
