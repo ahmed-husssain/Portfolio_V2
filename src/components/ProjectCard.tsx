@@ -660,32 +660,36 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
           {/* ── Architecture Specification Table (Proof Points) ── */}
           {project.architecture && project.architecture.length > 0 ? (
-            <div className="rounded-xs border border-border bg-page/50 divide-y divide-border/60 text-xs font-mono overflow-hidden">
-              <div className="p-3 flex items-start gap-3">
+            <div className="rounded-xs border border-border bg-page/50 divide-y divide-border/60 text-xs font-mono overflow-hidden transition-colors duration-200 group-hover:border-border-strong">
+              {/* Primary Anchor: Verified Outcome */}
+              {project.outcome && (
+                <div className="p-3 flex items-start gap-3 bg-surface-subtle/40">
+                  <span className="text-[10px] text-foreground font-bold uppercase tracking-wider shrink-0 w-24 pt-px flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" aria-hidden="true" />
+                    <span>OUTCOME</span>
+                  </span>
+                  <span className="text-foreground font-medium leading-relaxed">
+                    {project.outcome}
+                  </span>
+                </div>
+              )}
+
+              {/* Technical Specifications: subtle at rest, sharpens & highlights on hover */}
+              <div className="p-3 flex items-start gap-3 transition-colors duration-200">
                 <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
                   {getSpecLabel1(project.slug)}
                 </span>
-                <span className="text-secondary leading-relaxed">
+                <span className="text-secondary leading-relaxed group-hover:text-foreground/90 transition-colors duration-150">
                   {project.architecture[0]}
                 </span>
               </div>
               {project.architecture[1] && (
-                <div className="p-3 flex items-start gap-3">
+                <div className="p-3 flex items-start gap-3 transition-colors duration-200">
                   <span className="text-[10px] text-muted uppercase tracking-wider shrink-0 w-24 pt-px">
                     {getSpecLabel2(project.slug)}
                   </span>
-                  <span className="text-secondary leading-relaxed">
+                  <span className="text-secondary leading-relaxed group-hover:text-foreground/90 transition-colors duration-150">
                     {project.architecture[1]}
-                  </span>
-                </div>
-              )}
-              {project.outcome && (
-                <div className="p-3 flex items-start gap-3 bg-surface-subtle/40 border-t border-border">
-                  <span className="text-[10px] text-foreground font-bold uppercase tracking-wider shrink-0 w-24 pt-px">
-                    VERIFIED OUTCOME
-                  </span>
-                  <span className="text-foreground font-medium leading-relaxed">
-                    {project.outcome}
                   </span>
                 </div>
               )}
@@ -709,26 +713,37 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             )
           )}
 
-          {/* ── Footer: Stack Chips + Case Study CTA (Single-Line Disciplined Rhythm) ── */}
-          <div className="pt-2 border-t border-border flex items-center justify-between gap-3 mt-auto text-xs font-mono">
-            {/* Tech chips */}
-            <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-              <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5 shrink-0">
-                STACK:
-              </span>
-              {project.technologies.slice(0, 4).map((tech) => (
-                <span
-                  key={tech}
-                  className="font-mono text-[11px] px-2 py-0.5 rounded-xs bg-surface-subtle text-secondary whitespace-nowrap"
-                >
-                  {tech}
+          {/* ── Footer: Fluid Hover-Revealed Stack Chips + Case Study CTA ── */}
+          <div className="pt-2 border-t border-border flex items-center justify-between gap-3 mt-auto text-xs font-mono min-h-[36px]">
+            {/* Smooth Cross-Fade Container (Zero Layout Shift) */}
+            <div className="relative flex items-center min-w-0 flex-1 overflow-hidden h-7">
+              {/* Quiet idle status at rest */}
+              <div className="absolute inset-0 flex items-center gap-2 text-muted text-[11px] font-mono transition-all duration-200 ease-out group-hover:opacity-0 group-hover:-translate-y-2 pointer-events-none">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500/80 shrink-0" aria-hidden="true" />
+                <span className="truncate">{liveBadgeText}</span>
+                <span className="text-border-strong hidden xl:inline" aria-hidden="true">·</span>
+                <span className="text-muted/60 text-[10px] hidden xl:inline">HOVER TO INSPECT STACK</span>
+              </div>
+
+              {/* Technical Stack chips smoothly glide in on hover */}
+              <div className="flex flex-wrap items-center gap-1.5 min-w-0 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <span className="text-[10px] font-mono text-muted tracking-widest uppercase mr-0.5 shrink-0">
+                  STACK:
                 </span>
-              ))}
-              {project.technologies.length > 4 && (
-                <span className="font-mono text-[10px] text-muted shrink-0">
-                  +{project.technologies.length - 4}
-                </span>
-              )}
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <span
+                    key={tech}
+                    className="font-mono text-[11px] px-2 py-0.5 rounded-xs bg-surface-subtle text-secondary whitespace-nowrap"
+                  >
+                    {tech}
+                  </span>
+                ))}
+                {project.technologies.length > 4 && (
+                  <span className="font-mono text-[10px] text-muted shrink-0">
+                    +{project.technologies.length - 4}
+                  </span>
+                )}
+              </div>
             </div>
 
             {/* Action CTA */}
