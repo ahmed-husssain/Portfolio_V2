@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { ExternalLink } from 'pixelarticons/react'
 import { useMagneticHover } from '../../hooks/useMagneticHover'
+import { sound } from '../../lib/sound/soundEngine'
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'link'
 type ButtonSize = 'sm' | 'md' | 'lg'
@@ -62,8 +63,8 @@ export default function Button({
   const isLink = variant === 'link'
 
   const baseStyles = isLink
-    ? 'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none'
-    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none transition-transform duration-100 ease-out active:scale-[0.97] group whitespace-nowrap'
+    ? 'inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none active:scale-[0.98] transition-transform duration-100 ease-[cubic-bezier(0.16,1,0.3,1)]'
+    : 'relative inline-flex items-center justify-center gap-2 font-mono tracking-wider uppercase font-medium rounded-xs border overflow-hidden cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-none transition-transform duration-100 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.97] group whitespace-nowrap will-change-transform'
 
   const combinedClasses = `${baseStyles} ${
     isLink ? variantStyles.link : `${sizeStyles[size]} ${variantStyles[variant]}`
@@ -127,6 +128,13 @@ export default function Button({
     </>
   )
 
+  const handleClick = (e: React.MouseEvent<any>) => {
+    sound.playTap()
+    if ((props as any).onClick) {
+      ;(props as any).onClick(e)
+    }
+  }
+
   if (href !== undefined) {
     const isInternal = href.startsWith('/') && !href.endsWith('.pdf')
 
@@ -137,6 +145,7 @@ export default function Button({
           ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLAnchorElement>) : undefined}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
           className={combinedClasses}
           {...(props as any)}
         >
@@ -151,6 +160,7 @@ export default function Button({
         ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLAnchorElement>) : undefined}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
         className={combinedClasses}
         {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
@@ -164,6 +174,7 @@ export default function Button({
       ref={magnetic ? (magnetRef as unknown as React.RefObject<HTMLButtonElement>) : undefined}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
       className={combinedClasses}
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >

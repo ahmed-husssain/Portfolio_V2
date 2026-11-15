@@ -165,7 +165,7 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => sound.playTap()}
-            className="group flex items-center gap-1.5 h-8 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none"
+            className="group flex items-center gap-1.5 h-8 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none active:scale-[0.96] transition-transform duration-100 ease-[cubic-bezier(0.16,1,0.3,1)]"
           >
             <span className="text-muted font-normal select-none flex items-center leading-none">©</span>
             <span className="relative inline-flex items-center overflow-hidden h-8 w-[136px]">
@@ -217,7 +217,7 @@ export default function Navbar() {
                     })
                   }
                 }}
-                className={`group relative h-8 flex items-center text-xs sm:text-sm font-medium tracking-normal transition-colors duration-200 select-none cursor-pointer ${
+                className={`group relative h-8 flex items-center text-xs sm:text-sm font-medium tracking-normal transition-all duration-200 select-none cursor-pointer active:scale-[0.96] ${
                   active ? 'text-foreground font-semibold' : 'text-foreground/80 hover:text-foreground'
                 }`}
               >
