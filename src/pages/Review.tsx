@@ -177,7 +177,7 @@ export default function Review() {
                       href={item.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xs border border-blue-500/30 bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-mono font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors shadow-2xs"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xs bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-mono font-medium hover:bg-blue-500/20 transition-colors"
                       title={`Verify ${item.company || item.name}`}
                     >
                       <Check className="w-3 h-3 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
@@ -187,7 +187,7 @@ export default function Review() {
                       <ExternalLink className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
                     </a>
                   ) : item.highlightMetric ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs border border-border/80 bg-page text-[10px] font-mono font-semibold text-foreground">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-surface-subtle text-[10px] font-mono font-semibold text-foreground">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" aria-hidden="true" />
                       <span>{item.highlightMetric}</span>
                     </span>

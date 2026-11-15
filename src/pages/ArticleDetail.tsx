@@ -303,7 +303,7 @@ export default function ArticleDetail() {
                 {article.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2.5 py-0.5 text-xs font-mono bg-surface border border-border text-secondary rounded-sm"
+                    className="px-2.5 py-0.5 text-xs font-mono bg-surface-subtle text-secondary rounded-sm"
                   >
                     {tag}
                   </span>

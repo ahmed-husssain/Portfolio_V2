@@ -97,14 +97,14 @@ export default function About() {
                   <span className="text-border-strong">·</span>
                   <span>CURRENT REMOTE SETUP</span>
                 </div>
-                <span className="text-[10px] font-mono font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-2xs border border-blue-500/20">
+                <span className="text-[10px] font-mono font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-2xs">
                   ● ACTIVE DEV
                 </span>
               </div>
 
               <div className="p-6 sm:p-8 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-                  <div className="p-4 rounded-xs border border-border/80 bg-page/50 space-y-1">
+                  <div className="p-4 rounded-xs bg-page/60 space-y-1">
                     <span className="text-[10px] text-muted uppercase tracking-widest block">
                       CURRENT ROLE
                     </span>
@@ -116,7 +116,7 @@ export default function About() {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xs border border-border/80 bg-page/50 space-y-1">
+                  <div className="p-4 rounded-xs bg-page/60 space-y-1">
                     <span className="text-[10px] text-muted uppercase tracking-widest block">
                       LOCATION & TIMEZONE
                     </span>
@@ -128,7 +128,7 @@ export default function About() {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xs border border-border/80 bg-page/50 space-y-1">
+                  <div className="p-4 rounded-xs bg-page/60 space-y-1">
                     <span className="text-[10px] text-muted uppercase tracking-widest block">
                       CORE SPECIALIZATION
                     </span>
@@ -140,7 +140,7 @@ export default function About() {
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-xs border border-border/80 bg-page/50 space-y-1">
+                  <div className="p-4 rounded-xs bg-page/60 space-y-1">
                     <span className="text-[10px] text-muted uppercase tracking-widest block">
                       EMPLOYMENT AVAILABILITY
                     </span>
@@ -283,7 +283,7 @@ export default function About() {
               <div className="flex items-center gap-2 text-xs font-mono text-muted">
                 <span>📍 {CONTACT_CONFIG.location.city}, {CONTACT_CONFIG.location.country} (PKT / UTC+5)</span>
                 <span className="text-border-strong hidden sm:inline">·</span>
-                <span className="text-blue-600 dark:text-blue-400 font-semibold bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-2xs flex items-center gap-1.5">
+                <span className="text-blue-600 dark:text-blue-400 font-semibold bg-blue-500/10 px-2 py-0.5 rounded-2xs flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" aria-hidden="true" />
                   Active Inbox &lt; 24H
                 </span>

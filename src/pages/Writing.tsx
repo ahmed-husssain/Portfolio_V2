@@ -54,10 +54,10 @@ export default function Writing() {
                     sound.playTap()
                     setSelectedTag(tag)
                   }}
-                  className={`px-3 py-1.5 text-xs font-mono rounded-2xs border transition-[transform,background-color,border-color,color] duration-150 active:scale-[0.97] cursor-pointer ${
+                  className={`px-3 py-1.5 text-xs font-mono rounded-2xs transition-[transform,background-color,color] duration-150 active:scale-[0.97] cursor-pointer ${
                     isActive
-                      ? 'bg-foreground text-page border-foreground font-semibold'
-                      : 'bg-surface text-secondary border-border hover:border-border-strong hover:text-foreground'
+                      ? 'bg-foreground text-page font-semibold'
+                      : 'bg-surface-subtle text-secondary hover:text-foreground hover:bg-surface-hover'
                   }`}
                 >
                   {tag}
@@ -116,7 +116,7 @@ export default function Writing() {
                                 key={tag}
                                 type="button"
                                 onClick={() => setSelectedTag(tag)}
-                                className="px-2 py-0.5 text-micro-caps bg-surface border border-border text-secondary hover:text-foreground hover:border-border-strong rounded-2xs font-mono transition-colors cursor-pointer"
+                                className="px-2 py-0.5 text-micro-caps bg-surface-subtle text-secondary hover:text-foreground hover:bg-surface-hover rounded-2xs font-mono transition-colors cursor-pointer"
                               >
                                 {tag}
                               </button>
