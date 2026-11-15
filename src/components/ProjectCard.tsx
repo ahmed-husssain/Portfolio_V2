@@ -155,8 +155,6 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
   const isFlagship = Boolean(project.featured)
   const [isArchModalOpen, setIsArchModalOpen] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
   const [activeImageIdx, setActiveImageIdx] = useState(0)
 
   const slides = useMemo(() => {
@@ -176,13 +174,12 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     project.lastCommitDate
   )
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
+  const updateMousePosition = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
   }
 
   const handleCardClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -204,25 +201,17 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     <article
       ref={cardRef}
       onClick={handleCardClick}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseMove={updateMousePosition}
+      onMouseEnter={updateMousePosition}
       data-cursor-text="VIEW CASE STUDY ↗"
-      className={`project-card group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row pixel-corners cursor-pointer ${
+      className={`project-card spotlight-card group relative border bg-surface hover:bg-surface-hover hover:border-border-strong hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-[0.99] transition-[transform,background-color,border-color,box-shadow,opacity] duration-250 ease-out rounded-sm overflow-hidden flex flex-col lg:flex-row pixel-corners cursor-pointer ${
         isFlagship ? 'border-border-strong shadow-2xs' : 'border-border'
       } ${className}`}
       style={{ boxShadow: 'var(--hairline-top)' }}
     >
-      {/* ─── Ambient Spotlight Glow (Desktop Hover) ─── */}
-      <div
-        className="pointer-events-none absolute -inset-px rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 hidden lg:block"
-        style={{
-          background: isHovered
-            ? `radial-gradient(350px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.06), transparent 70%)`
-            : '',
-        }}
-        aria-hidden="true"
-      />
+      {/* ─── GPU-Accelerated Mouse Spotlight Glow & Border (Linear / Raycast Style) ─── */}
+      <div className="spotlight-surface" aria-hidden="true" />
+      <div className="spotlight-border" aria-hidden="true" />
 
       {/* ══════════════════════════════════════════════════════════════════
           MOBILE VIEW (<1024px): Apple Design Clean Frame (Zero-Overlap)

@@ -67,6 +67,13 @@ export default function Reviews() {
     setReviewsList(getApprovedReviews())
   }
 
+  const handleCardMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+  }
+
   return (
     <section id="reviews" className="py-12 sm:py-16 md:py-20 border-b border-border">
       <Container>
@@ -83,16 +90,21 @@ export default function Reviews() {
           {reviewsList.map((item) => (
             <article
               key={item.id}
-              className={`border bg-surface hover:border-border-strong hover:shadow-xs transition-[border-color,box-shadow] duration-200 rounded-sm p-6 sm:p-8 pixel-corners ${
+              onMouseMove={handleCardMouseMove}
+              onMouseEnter={handleCardMouseMove}
+              className={`spotlight-card border bg-surface hover:border-border-strong hover:shadow-xs transition-[border-color,box-shadow] duration-200 rounded-sm p-6 sm:p-8 pixel-corners overflow-hidden ${
                 item.isLocalSubmission ? 'border-amber-500/40 shadow-xs' : 'border-border'
               }`}
             >
-              {/* Header: Company Logo + Verified Link */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border">
-                <div className="flex items-center gap-3">
-                  {item.avatar ? (
-                    <img
-                      src={item.avatar}
+              <div className="spotlight-surface" aria-hidden="true" />
+              <div className="spotlight-border" aria-hidden="true" />
+              <div className="relative z-10">
+                {/* Header: Company Logo + Verified Link */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border">
+                  <div className="flex items-center gap-3">
+                    {item.avatar ? (
+                      <img
+                        src={item.avatar}
                       alt={item.company || item.name}
                       width={88}
                       height={40}
@@ -154,8 +166,9 @@ export default function Reviews() {
                   </Link>
                 )}
               </div>
-            </article>
-          ))}
+            </div>
+          </article>
+        ))}
         </div>
 
         {/* ─── Bottom CTA Bar ─── */}

@@ -43,6 +43,13 @@ export default function Review() {
     setReviewsList(getApprovedReviews())
   }
 
+  const handleCardMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setErrorMessage('')
@@ -120,102 +127,108 @@ export default function Review() {
           {reviewsList.map((item) => (
             <article
               key={item.id}
-              className={`relative p-6 sm:p-8 rounded-sm border bg-surface hover:border-border-strong transition-all duration-200 pixel-corners ${
+              onMouseMove={handleCardMouseMove}
+              onMouseEnter={handleCardMouseMove}
+              className={`spotlight-card relative p-6 sm:p-8 rounded-sm border bg-surface hover:border-border-strong transition-all duration-200 pixel-corners overflow-hidden ${
                 item.isLocalSubmission ? 'border-amber-500/40 shadow-xs' : 'border-border/80'
               }`}
             >
-              {/* Top Row: Author & Verification */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/70">
-                <div className="flex items-center gap-3">
-                  {item.avatar ? (
-                    <img
-                      src={item.avatar}
-                      alt={item.company || item.name}
-                      width={88}
-                      height={40}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-9 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
-                    />
-                  ) : (
-                    <div className="w-9 h-9 rounded-xs bg-surface-subtle border border-border flex items-center justify-center font-mono font-bold text-xs text-blue-600 dark:text-blue-400 shrink-0">
-                      {item.name.slice(0, 2).toUpperCase()}
-                    </div>
-                  )}
-
-                  <div>
-                    <div className="font-semibold text-foreground text-sm sm:text-base leading-snug">
-                      {item.name}
-                    </div>
-                    {(item.role || item.company) && (
-                      <div className="text-xs text-muted font-mono mt-0.5">
-                        {[item.role, item.company].filter(Boolean).join(' · ')}
+              <div className="spotlight-surface" aria-hidden="true" />
+              <div className="spotlight-border" aria-hidden="true" />
+              <div className="relative z-10">
+                {/* Top Row: Author & Verification */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border/70">
+                  <div className="flex items-center gap-3">
+                    {item.avatar ? (
+                      <img
+                        src={item.avatar}
+                        alt={item.company || item.name}
+                        width={88}
+                        height={40}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-9 w-auto object-contain bg-white rounded-xs p-1 border border-border shrink-0 shadow-2xs pixel-corners"
+                      />
+                    ) : (
+                      <div className="w-9 h-9 rounded-xs bg-surface-subtle border border-border flex items-center justify-center font-mono font-bold text-xs text-blue-600 dark:text-blue-400 shrink-0">
+                        {item.name.slice(0, 2).toUpperCase()}
                       </div>
                     )}
-                  </div>
-                </div>
 
-                <div className="flex items-center gap-2">
-                  {item.isLocalSubmission ? (
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
-                        <span className="pixel-beacon bg-amber-500" aria-hidden="true" />
-                        <span>LOCAL PREVIEW</span>
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleDeleteLocal(item.id)}
-                        className="p-1 text-muted hover:text-red-500 transition-colors cursor-pointer"
-                        title="Delete this local preview note"
-                        aria-label="Delete local note"
-                      >
-                        <Trash className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-                      </button>
+                    <div>
+                      <div className="font-semibold text-foreground text-sm sm:text-base leading-snug">
+                        {item.name}
+                      </div>
+                      {(item.role || item.company) && (
+                        <div className="text-xs text-muted font-mono mt-0.5">
+                          {[item.role, item.company].filter(Boolean).join(' · ')}
+                        </div>
+                      )}
                     </div>
-                  ) : item.verificationUrl ? (
-                    <a
-                      href={item.verificationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xs bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-mono font-medium hover:bg-blue-500/20 transition-colors"
-                      title={`Verify ${item.company || item.name}`}
-                    >
-                      <Check className="w-3 h-3 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
-                      <span className="truncate max-w-[140px] sm:max-w-none">
-                        {item.verificationUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
-                      </span>
-                      <ExternalLink className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
-                    </a>
-                  ) : item.highlightMetric ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-surface-subtle text-[10px] font-mono font-semibold text-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" aria-hidden="true" />
-                      <span>{item.highlightMetric}</span>
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-
-              {/* Quote Body */}
-              <blockquote className="my-5 sm:my-6 text-foreground text-sm sm:text-base leading-relaxed">
-                &ldquo;{item.review}&rdquo;
-              </blockquote>
-
-              {/* Project Link Footer */}
-              {item.projectSlug && (
-                <div className="pt-3.5 border-t border-border/60 flex items-center justify-between text-xs font-mono text-muted">
-                  <div className="flex items-center gap-2 truncate">
-                    <span className="text-secondary font-semibold shrink-0">CONTEXT:</span>
-                    <span className="truncate">{item.project || 'Production Delivery'}</span>
                   </div>
-                  <Link
-                    to={`/work/${item.projectSlug}`}
-                    className="inline-flex items-center gap-1 font-semibold text-foreground hover:underline active:scale-95 transition-all shrink-0 ml-3"
-                  >
-                    <span>Case Study</span>
-                    <ArrowRight className="w-3 h-3 pixel-icon" aria-hidden="true" />
-                  </Link>
+
+                  <div className="flex items-center gap-2">
+                    {item.isLocalSubmission ? (
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs border border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-mono tracking-wider uppercase font-semibold">
+                          <span className="pixel-beacon bg-amber-500" aria-hidden="true" />
+                          <span>LOCAL PREVIEW</span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteLocal(item.id)}
+                          className="p-1 text-muted hover:text-red-500 transition-colors cursor-pointer"
+                          title="Delete this local preview note"
+                          aria-label="Delete local note"
+                        >
+                          <Trash className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+                        </button>
+                      </div>
+                    ) : item.verificationUrl ? (
+                      <a
+                        href={item.verificationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xs bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-mono font-medium hover:bg-blue-500/20 transition-colors"
+                        title={`Verify ${item.company || item.name}`}
+                      >
+                        <Check className="w-3 h-3 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
+                        <span className="truncate max-w-[140px] sm:max-w-none">
+                          {item.verificationUrl.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                        </span>
+                        <ExternalLink className="w-2.5 h-2.5 text-blue-600 dark:text-blue-400 pixel-icon" aria-hidden="true" />
+                      </a>
+                    ) : item.highlightMetric ? (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xs bg-surface-subtle text-[10px] font-mono font-semibold text-foreground">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400" aria-hidden="true" />
+                        <span>{item.highlightMetric}</span>
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
-              )}
+
+                {/* Quote Body */}
+                <blockquote className="my-5 sm:my-6 text-foreground text-sm sm:text-base leading-relaxed">
+                  &ldquo;{item.review}&rdquo;
+                </blockquote>
+
+                {/* Project Link Footer */}
+                {item.projectSlug && (
+                  <div className="pt-3.5 border-t border-border/60 flex items-center justify-between text-xs font-mono text-muted">
+                    <div className="flex items-center gap-2 truncate">
+                      <span className="text-secondary font-semibold shrink-0">CONTEXT:</span>
+                      <span className="truncate">{item.project || 'Production Delivery'}</span>
+                    </div>
+                    <Link
+                      to={`/work/${item.projectSlug}`}
+                      className="inline-flex items-center gap-1 font-semibold text-foreground hover:underline active:scale-95 transition-all shrink-0 ml-3"
+                    >
+                      <span>Case Study</span>
+                      <ArrowRight className="w-3 h-3 pixel-icon" aria-hidden="true" />
+                    </Link>
+                  </div>
+                )}
+              </div>
             </article>
           ))}
         </div>
