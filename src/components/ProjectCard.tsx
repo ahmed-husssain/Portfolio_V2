@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/react'
 import type { Project } from '../data/projects'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
+import { prefetchRoute } from '../lib/router/prefetch'
 
 // Lazy-load heavy simulation engine only when requested
 const ArchitectureModal = lazy(() => import('./ArchitectureModal'))
@@ -177,6 +178,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
   const updateMousePosition = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current
     if (!card) return
+    prefetchRoute(`/work/${project.slug}`)
     const rect = card.getBoundingClientRect()
     card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
     card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
@@ -188,7 +190,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
     if (target.closest('a, button, input, [role="button"], [data-no-card-click]')) {
       return
     }
-    navigate(`/work/${project.slug}`)
+    navigate(`/work/${project.slug}`, { viewTransition: true })
   }
 
   const editorialSubtitle = getProjectEditorialSubtitle(project.slug)
@@ -248,6 +250,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           {/* Project Title + Editorial Italic Accent */}
           <Link
             to={`/work/${project.slug}`}
+            viewTransition
             className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
           >
             <h3 className="font-bold text-foreground text-xl leading-snug tracking-tight mt-0.5 group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 transition-colors">
@@ -263,6 +266,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
         <div className="px-4 pt-3.5 bg-surface-subtle/30">
           <Link
             to={`/work/${project.slug}`}
+            viewTransition
             className={`relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xs border border-border/80 block overflow-hidden group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
               isShifa ? 'bg-white' : 'bg-page'
             }`}
@@ -418,6 +422,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
             <Link
               to={`/work/${project.slug}`}
+              viewTransition
               data-cursor-text="CASE STUDY ↗"
               className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-bold rounded-xs bg-foreground text-page hover:bg-foreground/90 active:scale-[0.97] transition-all group/cta shadow-xs"
               aria-label={`CASE STUDY: Read case study for ${project.title}`}
@@ -439,6 +444,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div>
             <Link
               to={`/work/${project.slug}`}
+              viewTransition
               className={`relative w-full aspect-[16/10] rounded-xs overflow-hidden border border-border/80 block group/img focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
                 isShifa ? 'bg-white' : 'bg-page'
               }`}
@@ -633,6 +639,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
           <div className="space-y-1.5">
             <Link
               to={`/work/${project.slug}`}
+              viewTransition
               className="group/title inline-block focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
             >
               <h3 className="font-bold text-foreground text-2xl sm:text-3xl tracking-tight leading-tight group-hover/title:text-secondary transition-colors">
@@ -738,6 +745,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Action CTA */}
             <Link
               to={`/work/${project.slug}`}
+              viewTransition
               data-cursor-text="CASE STUDY ↗"
               className="inline-flex items-center gap-1.5 text-foreground font-semibold hover:text-blue-600 dark:hover:text-blue-400 active:scale-[0.96] transition-all group/cta shrink-0 px-2 py-1 rounded-xs hover:bg-surface-subtle"
               aria-label={`CASE STUDY: Read full case study for ${project.title}`}

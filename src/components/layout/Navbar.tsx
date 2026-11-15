@@ -5,6 +5,7 @@ import ThemeToggle from '../ui/ThemeToggle'
 import { sound } from '../../lib/sound/soundEngine'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
+import { prefetchRoute } from '../../lib/router/prefetch'
 
 // Map each nav route to its prefix (word minus last letter) and pixelify icon
 const NAV_ICON_MAP: Record<
@@ -164,6 +165,7 @@ export default function Navbar() {
         <div className="pointer-events-auto flex items-center h-8">
           <Link
             to="/"
+            viewTransition
             onClick={() => sound.playTap()}
             className="group flex items-center gap-1.5 h-8 text-xs sm:text-sm font-medium tracking-tight text-foreground focus-visible:outline-none active:scale-[0.96] transition-transform duration-100 ease-[cubic-bezier(0.16,1,0.3,1)]"
           >
@@ -201,11 +203,13 @@ export default function Navbar() {
                   else linksRef.current.delete(item.href)
                 }}
                 to={item.href}
+                viewTransition
                 onClick={() => {
                   sound.playTap()
                   updateUnderlineToActive()
                 }}
                 onMouseEnter={(e) => {
+                  prefetchRoute(item.href)
                   const container = navContainerRef.current
                   if (container) {
                     const containerRect = container.getBoundingClientRect()
@@ -402,6 +406,7 @@ export default function Navbar() {
               >
                 <Link
                   to="/"
+                  viewTransition
                   onClick={() => {
                     sound.playTap()
                     setMenuOpen(false)
@@ -453,6 +458,8 @@ export default function Navbar() {
               >
                 <Link
                   to={item.href}
+                  viewTransition
+                  onMouseEnter={() => prefetchRoute(item.href)}
                   onClick={() => {
                     sound.playTap()
                     setMenuOpen(false)

@@ -95,6 +95,7 @@ export default function Writing() {
                         <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 leading-snug">
                           <Link
                             to={`/writing/${article.slug}`}
+                            viewTransition
                             className="inline-flex items-center gap-2 hover:text-foreground group-hover:underline underline-offset-4 decoration-border transition-colors"
                           >
                             <span>{article.title}</span>
@@ -125,6 +126,7 @@ export default function Writing() {
 
                           <Link
                             to={`/writing/${article.slug}`}
+                            viewTransition
                             className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-foreground hover:underline transition-colors"
                           >
                             <span>READ ESSAY</span>

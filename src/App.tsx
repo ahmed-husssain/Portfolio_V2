@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './lib/theme'
 import Navbar from './components/layout/Navbar'
@@ -7,6 +7,7 @@ import PageTransition from './components/layout/PageTransition'
 import ScrollProgress from './components/layout/ScrollProgress'
 import SmoothScroll from './components/layout/SmoothScroll'
 import MagneticCursor from './components/motion/MagneticCursor'
+import { preloadPrimaryRoutesOnIdle } from './lib/router/prefetch'
 
 import { SplashProvider } from './components/SplashLoader'
 import { SpeedInsights } from '@vercel/speed-insights/react'
@@ -24,19 +25,27 @@ const ArticleDetail = lazy(() => import('./pages/ArticleDetail'))
 const Review = lazy(() => import('./pages/Review'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
-// Minimal, non-intrusive fallback matching Variant C
+// Layout-preserving non-intrusive fallback with zero-height-jump
 function PageFallback() {
   return (
-    <div className="min-h-[50vh] flex items-center justify-center">
-      <div className="flex items-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
-        <span className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" aria-hidden="true" />
-        <span>LOADING...</span>
+    <div className="min-h-[calc(100vh-160px)] flex flex-col justify-start">
+      {/* Subtle top indeterminate beam (zero layout shift) */}
+      <div className="fixed top-0 left-0 right-0 h-[2px] bg-blue-600 dark:bg-blue-400 z-50 animate-pulse pointer-events-none" />
+      <div className="flex-1 flex items-center justify-center">
+        <div className="flex items-center gap-2 text-xs font-mono text-muted tracking-wider uppercase">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" aria-hidden="true" />
+          <span>LOADING...</span>
+        </div>
       </div>
     </div>
   )
 }
 
 export default function App() {
+  useEffect(() => {
+    preloadPrimaryRoutesOnIdle()
+  }, [])
+
   return (
     <ThemeProvider>
       <BrowserRouter>

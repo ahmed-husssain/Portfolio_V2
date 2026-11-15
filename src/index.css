@@ -215,13 +215,61 @@ html.lenis body {
 /* ─── Motion Design Tokens & Keyframes ─── */
 @keyframes pageFadeIn {
   from {
-    opacity: 0;
-    transform: translateY(6px);
+    opacity: 0.35;
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes pageFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* ─── Native View Transitions (Fluid GPU Cross-Fade) ─── */
+@media (prefers-reduced-motion: no-preference) {
+  nav,
+  header,
+  footer,
+  #scroll-progress {
+    view-transition-name: none;
+  }
+
+  #main-content {
+    view-transition-name: main-viewport;
+  }
+
+  ::view-transition-group(main-viewport) {
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  ::view-transition-old(main-viewport) {
+    animation: pageFadeOut 130ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  ::view-transition-new(main-viewport) {
+    animation: pageFadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Suppress nested CSS animation during native view transition to avoid double-animation */
+  html:has(::view-transition-new(main-viewport)) .animate-page-in {
+    animation: none !important;
+  }
+}
+
+.animate-page-in {
+  animation: pageFadeIn 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
 }
 
 @keyframes heroFadeIn {
@@ -233,10 +281,6 @@ html.lenis body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.animate-page-in {
-  animation: pageFadeIn 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-hero-in {

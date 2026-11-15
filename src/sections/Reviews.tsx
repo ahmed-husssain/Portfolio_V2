@@ -159,6 +159,7 @@ export default function Reviews() {
                 {item.projectSlug && (
                   <Link
                     to={`/work/${item.projectSlug}`}
+                    viewTransition
                     className="inline-flex items-center gap-1.5 font-semibold text-foreground hover:underline active:scale-95 transition-all group shrink-0"
                   >
                     <span>INSPECT CASE STUDY</span>

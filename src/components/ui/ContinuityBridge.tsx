@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'pixelarticons/react'
 import Reveal from '../motion/Reveal'
 import { sound } from '../../lib/sound/soundEngine'
+import { prefetchRoute } from '../../lib/router/prefetch'
 
 export interface ContinuityBridgeProps {
   kicker?: string
@@ -26,6 +27,8 @@ export default function ContinuityBridge({
       <nav aria-label="Next Chapter Navigation">
         <Link
           to={to}
+          viewTransition
+          onMouseEnter={() => prefetchRoute(to)}
           onClick={() => sound.playTap()}
           className="group block p-6 sm:p-8 rounded-xs border border-border bg-surface hover:border-border-strong active:scale-[0.99] transition-[border-color,transform] hairline-card pixel-corners"
         >

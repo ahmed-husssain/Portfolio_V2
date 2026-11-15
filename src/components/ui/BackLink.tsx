@@ -13,6 +13,7 @@ export default function BackLink({ to, label, className = 'mb-6 sm:mb-8' }: Back
     <div className={className}>
       <Link
         to={to}
+        viewTransition
         onClick={() => sound.playTap()}
         className="inline-flex items-center gap-2 text-xs font-mono font-medium text-secondary hover:text-foreground active:scale-[0.97] active:translate-x-[-2px] transition-[color,transform] duration-100 ease-out group select-none"
       >
