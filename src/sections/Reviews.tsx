@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink, Check, Trash } from 'pixelarticons/react'
 import { Link } from 'react-router-dom'
 import Container from '../components/ui/Container'
 import SectionHeading from '../components/ui/SectionHeading'
+import Magnetic from '../components/motion/Magnetic'
 import { getApprovedReviews, deleteLocalReview } from '../lib/reviews/reviewService'
 import type { Review } from '../data/reviews'
 
@@ -183,13 +184,15 @@ export default function Reviews() {
             </p>
           </div>
 
-          <Link
-            to="/review"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-all shrink-0 select-none group"
-          >
-            <span>LEAVE A REVIEW</span>
-            <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
+          <Magnetic strength={0.25} maxDistance={6} className="shrink-0">
+            <Link
+              to="/review"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-foreground text-page text-xs font-mono font-semibold rounded-sm hover:bg-secondary active:scale-[0.97] transition-all select-none group"
+            >
+              <span>LEAVE A REVIEW</span>
+              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-180 ease-out group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </Magnetic>
         </div>
       </Container>
     </section>

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'pixelarticons/react'
 import Reveal from '../motion/Reveal'
+import Magnetic from '../motion/Magnetic'
 import { sound } from '../../lib/sound/soundEngine'
 import { prefetchRoute } from '../../lib/router/prefetch'
 
@@ -45,10 +46,12 @@ export default function ContinuityBridge({
                 {description}
               </p>
             </div>
-            <div className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground group-hover:translate-x-1 transition-transform self-start sm:self-center shrink-0 bg-surface-subtle px-3.5 py-2 rounded-xs">
-              <span>{actionLabel}</span>
-              <ArrowRight className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
-            </div>
+            <Magnetic strength={0.25} maxDistance={6} className="self-start sm:self-center shrink-0">
+              <div className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground group-hover:translate-x-1 transition-transform bg-surface-subtle px-3.5 py-2 rounded-xs">
+                <span>{actionLabel}</span>
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
+              </div>
+            </Magnetic>
           </div>
         </Link>
       </nav>

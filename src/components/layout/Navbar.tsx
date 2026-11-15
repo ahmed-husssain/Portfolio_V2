@@ -6,6 +6,7 @@ import { sound } from '../../lib/sound/soundEngine'
 import { NAV_ITEMS } from '../../data/navigation'
 import { CONTACT_CONFIG } from '../../data/contact'
 import { prefetchRoute } from '../../lib/router/prefetch'
+import Magnetic from '../motion/Magnetic'
 
 // Map each nav route to its prefix (word minus last letter) and pixelify icon
 const NAV_ICON_MAP: Record<
@@ -20,56 +21,6 @@ const NAV_ICON_MAP: Record<
 
 // Stable module-level nav links list to prevent infinite render loops
 const NAV_LINKS = NAV_ITEMS.filter((item) => item.href !== '/')
-
-// Reusable native magnetic wrapper for floating action buttons
-function MagneticItem({
-  children,
-  className = '',
-  strength = 0.35,
-  onClick,
-}: {
-  children: React.ReactNode
-  className?: string
-  strength?: number
-  onClick?: () => void
-}) {
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
-  const isHovered = useRef(false)
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const x = (e.clientX - (rect.left + rect.width / 2)) * strength
-    const y = (e.clientY - (rect.top + rect.height / 2)) * strength
-    setOffset({ x, y })
-  }
-
-  const handleMouseEnter = () => {
-    isHovered.current = true
-  }
-
-  const handleMouseLeave = () => {
-    isHovered.current = false
-    setOffset({ x: 0, y: 0 })
-  }
-
-  return (
-    <div
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      className={`inline-block will-change-transform ${className}`}
-      style={{
-        transform: `translate3d(${offset.x}px, ${offset.y}px, 0)`,
-        transition: isHovered.current
-          ? 'transform 0.1s ease-out'
-          : 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
-      }}
-    >
-      {children}
-    </div>
-  )
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -260,7 +211,9 @@ export default function Navbar() {
           })}
 
           <div className="pl-1 flex items-center h-8">
-            <ThemeToggle />
+            <Magnetic strength={0.25} maxDistance={5}>
+              <ThemeToggle />
+            </Magnetic>
           </div>
 
           {/* Razor-thin kinetic gliding underline (1.5px hairline, aligned to exact bottom of 32px line) */}
@@ -307,7 +260,7 @@ export default function Navbar() {
             : 'scale-0 opacity-0 pointer-events-none'
         }`}
       >
-        <MagneticItem strength={0.35}>
+        <Magnetic strength={0.32} maxDistance={8}>
           <button
             type="button"
             onClick={() => {
@@ -336,7 +289,7 @@ export default function Navbar() {
               />
             </div>
           </button>
-        </MagneticItem>
+        </Magnetic>
       </div>
 
       {/* ─── 3. AMBIENT BACKDROP SCRIM (Frosted White in Light Mode, Deep Black in Dark Mode) ─── */}

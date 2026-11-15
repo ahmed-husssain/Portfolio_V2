@@ -3,6 +3,7 @@ import Container from '../components/ui/Container'
 import Button from '../components/ui/Button'
 import KineticHeadline from '../components/motion/KineticHeadline'
 import KarachiClock from '../components/KarachiClock'
+import Magnetic from '../components/motion/Magnetic'
 import { useSplash } from '../components/SplashLoader'
 
 interface HeroProps {
@@ -35,7 +36,9 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
             <span className="hidden sm:inline">KARACHI, PK (REMOTE & LOCAL)</span>
           </div>
           <div className="hidden md:flex items-center gap-2">
-            <KarachiClock format="compact" />
+            <Magnetic strength={0.2} maxDistance={4}>
+              <KarachiClock format="compact" />
+            </Magnetic>
           </div>
         </div>
 
@@ -63,15 +66,17 @@ export default function Hero({ isRevealed: propIsRevealed }: HeroProps) {
               {
                 text: 'designed to perform.',
                 suffix: (
-                  <a
-                    href="#work"
-                    className="hidden lg:inline-flex editorial-cta text-base sm:text-lg lg:text-xl font-mono font-medium text-foreground hover:text-secondary transition-colors select-none py-1"
-                  >
-                    <span>View Selected Work</span>
-                    <span className="arrow-box" aria-hidden="true">
-                      <span className="arrow-glyph">↗</span>
-                    </span>
-                  </a>
+                  <Magnetic strength={0.25} maxDistance={6} className="hidden lg:inline-flex">
+                    <a
+                      href="#work"
+                      className="inline-flex editorial-cta text-base sm:text-lg lg:text-xl font-mono font-medium text-foreground hover:text-secondary transition-colors select-none py-1"
+                    >
+                      <span>View Selected Work</span>
+                      <span className="arrow-box" aria-hidden="true">
+                        <span className="arrow-glyph">↗</span>
+                      </span>
+                    </a>
+                  </Magnetic>
                 ),
               },
             ]}

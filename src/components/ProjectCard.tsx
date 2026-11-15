@@ -4,6 +4,7 @@ import { ExternalLink, ArrowRight, Cpu, GitCommit, Github } from 'pixelarticons/
 import type { Project } from '../data/projects'
 import { useGitHubCommit } from '../hooks/useGitHubCommit'
 import { prefetchRoute } from '../lib/router/prefetch'
+import Magnetic from './motion/Magnetic'
 
 // Lazy-load heavy simulation engine only when requested
 const ArchitectureModal = lazy(() => import('./ArchitectureModal'))
@@ -608,18 +609,20 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {/* Right Telemetry Badges: System Flow Trigger + Commit */}
             <div className="flex items-center gap-2 shrink-0">
               {hasArchitectureInspector && (
-                <button
-                  type="button"
-                  onClick={() => setIsArchModalOpen(true)}
-                  data-cursor-text="SYSTEM FLOW ⚙"
-                  className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-border-strong bg-surface hover:bg-surface-subtle text-[10px] font-mono text-foreground font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
-                  title="Inspect real sequence and concurrency flow"
-                  aria-label={`SYSTEM FLOW: Inspect real sequence and concurrency flow for ${project.title}`}
-                >
-                  <Cpu className="w-3 h-3 pixel-icon text-foreground shrink-0" />
-                  <span>SYSTEM FLOW</span>
-                  <span className="text-[9px]" aria-hidden="true">↗</span>
-                </button>
+                <Magnetic strength={0.25} maxDistance={5}>
+                  <button
+                    type="button"
+                    onClick={() => setIsArchModalOpen(true)}
+                    data-cursor-text="SYSTEM FLOW ⚙"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-border-strong bg-surface hover:bg-surface-subtle text-[10px] font-mono text-foreground font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
+                    title="Inspect real sequence and concurrency flow"
+                    aria-label={`SYSTEM FLOW: Inspect real sequence and concurrency flow for ${project.title}`}
+                  >
+                    <Cpu className="w-3 h-3 pixel-icon text-foreground shrink-0" />
+                    <span>SYSTEM FLOW</span>
+                    <span className="text-[9px]" aria-hidden="true">↗</span>
+                  </button>
+                </Magnetic>
               )}
 
               {commitLabel && (
@@ -743,16 +746,18 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             </div>
 
             {/* Action CTA */}
-            <Link
-              to={`/work/${project.slug}`}
-              viewTransition
-              data-cursor-text="CASE STUDY ↗"
-              className="inline-flex items-center gap-1.5 text-foreground font-semibold hover:text-blue-600 dark:hover:text-blue-400 active:scale-[0.96] transition-all group/cta shrink-0 px-2 py-1 rounded-xs hover:bg-surface-subtle"
-              aria-label={`CASE STUDY: Read full case study for ${project.title}`}
-            >
-              <span>CASE STUDY</span>
-              <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
-            </Link>
+            <Magnetic strength={0.25} maxDistance={6}>
+              <Link
+                to={`/work/${project.slug}`}
+                viewTransition
+                data-cursor-text="CASE STUDY ↗"
+                className="inline-flex items-center gap-1.5 text-foreground font-semibold hover:text-blue-600 dark:hover:text-blue-400 active:scale-[0.96] transition-all group/cta shrink-0 px-2 py-1 rounded-xs hover:bg-surface-subtle"
+                aria-label={`CASE STUDY: Read full case study for ${project.title}`}
+              >
+                <span>CASE STUDY</span>
+                <ArrowRight className="w-3.5 h-3.5 pixel-icon transition-transform duration-150 ease-out group-hover/cta:translate-x-1" aria-hidden="true" />
+              </Link>
+            </Magnetic>
           </div>
 
         </div>

@@ -10,33 +10,46 @@ import { useEffect, useRef, useCallback } from 'react'
  *
  * Strength (0–1): how strongly the element pulls toward cursor. Default 0.3.
  */
-export function useMagneticHover(strength = 0.3) {
+export function useMagneticHover(strength = 0.28, maxDistance = 6) {
   const ref = useRef<HTMLElement>(null)
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       const el = ref.current
       if (!el) return
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+      if (
+        !window.matchMedia('(hover: hover) and (pointer: fine)').matches ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ) {
+        return
+      }
 
       const rect = el.getBoundingClientRect()
       const cx = rect.left + rect.width / 2
       const cy = rect.top + rect.height / 2
-      const dx = (e.clientX - cx) * strength
-      const dy = (e.clientY - cy) * strength
+      let dx = (e.clientX - cx) * strength
+      let dy = (e.clientY - cy) * strength
 
-      el.style.transition = 'transform 0.15s ease-out'
-      el.style.transform = `translate(${dx}px, ${dy}px)`
+      // Physical distance clamp
+      const dist = Math.hypot(dx, dy)
+      if (dist > maxDistance) {
+        const scale = maxDistance / dist
+        dx *= scale
+        dy *= scale
+      }
+
+      el.style.transition = 'transform 120ms cubic-bezier(0.16, 1, 0.3, 1)'
+      el.style.transform = `translate3d(${dx.toFixed(2)}px, ${dy.toFixed(2)}px, 0)`
     },
-    [strength]
+    [strength, maxDistance]
   )
 
   const handleMouseLeave = useCallback(() => {
     const el = ref.current
     if (!el) return
-    // Spring back with elastic overshoot
-    el.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
-    el.style.transform = 'translate(0px, 0px)'
+    // Damped Apple spring release
+    el.style.transition = 'transform 450ms cubic-bezier(0.16, 1, 0.3, 1)'
+    el.style.transform = 'translate3d(0px, 0px, 0)'
   }, [])
 
   useEffect(() => {
