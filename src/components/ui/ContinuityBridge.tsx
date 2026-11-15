@@ -42,7 +42,7 @@ export default function ContinuityBridge({
                 {description}
               </p>
             </div>
-            <div className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground group-hover:translate-x-1 transition-transform self-start sm:self-center shrink-0 border border-border bg-page px-3.5 py-2 rounded-xs">
+            <div className="inline-flex items-center gap-2 text-micro-caps font-semibold text-foreground group-hover:translate-x-1 transition-transform self-start sm:self-center shrink-0 bg-surface-subtle px-3.5 py-2 rounded-xs">
               <span>{actionLabel}</span>
               <ArrowRight className="w-3.5 h-3.5 pixel-icon" aria-hidden="true" />
             </div>

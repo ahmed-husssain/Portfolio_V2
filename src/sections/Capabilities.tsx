@@ -66,10 +66,10 @@ export default function Capabilities() {
                     {cap.stack.map((tech) => (
                       <span
                         key={tech}
-                        className={`font-mono text-[11px] sm:text-xs px-2.5 py-1 rounded-xs border transition-colors duration-150 ${
+                        className={`font-mono text-[11px] sm:text-xs px-2.5 py-1 rounded-xs transition-colors duration-150 ${
                           isHovered
-                            ? 'border-blue-500/40 bg-blue-500/[0.08] text-foreground font-medium'
-                            : 'border-border bg-surface text-secondary'
+                            ? 'bg-blue-500/10 text-foreground font-medium'
+                            : 'bg-surface-subtle text-secondary'
                         }`}
                       >
                         {tech}

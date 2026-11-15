@@ -384,7 +384,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
             {project.technologies.slice(0, 4).map((tech) => (
               <span
                 key={tech}
-                className="font-mono text-[10px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
+                className="font-mono text-[10px] px-2 py-0.5 rounded-xs bg-surface-subtle text-secondary whitespace-nowrap"
               >
                 {tech}
               </span>
@@ -629,7 +629,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
 
               {commitLabel && (
                 <span
-                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-2xs border border-border/80 bg-surface/90 text-[10px] font-mono text-secondary shrink-0"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-2xs bg-surface-subtle text-[10px] font-mono text-secondary shrink-0"
                   title={`Last commit: ${commitLabel}`}
                 >
                   <GitCommit className="w-3.5 h-3.5 pixel-icon text-muted shrink-0" />
@@ -719,7 +719,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
               {project.technologies.slice(0, 4).map((tech) => (
                 <span
                   key={tech}
-                  className="font-mono text-[11px] px-2 py-0.5 rounded-xs border border-border bg-surface-subtle text-secondary whitespace-nowrap"
+                  className="font-mono text-[11px] px-2 py-0.5 rounded-xs bg-surface-subtle text-secondary whitespace-nowrap"
                 >
                   {tech}
                 </span>
