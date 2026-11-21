@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "ahmedev",
     "public": "dist",
     "ignore": [
       "firebase.json",
