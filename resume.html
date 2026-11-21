@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syed Ahmed Hussain - Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Page Setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #111827;
+      background-color: #f3f4f6;
+      line-height: 1.38;
+      font-size: 9.5pt;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Floating Print Control Banner (Hidden during actual print) */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1e293b;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      font-family: inherit;
+    }
+
+    .toolbar-title {
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-tip {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .print-btn {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease;
+    }
+
+    .print-btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* The Resume Sheet */
+    .page-container {
+      max-width: 8.5in;
+      margin: 24px auto 40px auto;
+      background: #ffffff;
+      padding: 0.6in 0.75in;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 2px;
+      min-height: 11in;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .name {
+      font-size: 20pt;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .contact-line {
+      font-size: 9pt;
+      color: #334155;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .links-line {
+      font-size: 9pt;
+      font-weight: 500;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .links-line a {
+      color: #0f172a;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .divider-dot {
+      color: #94a3b8;
+      font-weight: normal;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 11px;
+    }
+
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0f172a;
+      border-bottom: 1.5px solid #0f172a;
+      padding-bottom: 2px;
+      margin-bottom: 6px;
+    }
+
+    /* Content Typography */
+    .summary-text {
+      font-size: 9.2pt;
+      color: #1e293b;
+      text-align: justify;
+      line-height: 1.4;
+    }
+
+    /* Skills Grid / Rows */
+    .skill-group {
+      font-size: 9.2pt;
+      margin-bottom: 3px;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .skill-label {
+      font-weight: 700;
+      color: #0f172a;
+      display: inline-block;
+      min-width: 115px;
+    }
+
+    .skill-items {
+      color: #334155;
+    }
+
+    /* Item Blocks (Experience & Projects) */
+    .item {
+      margin-bottom: 8px;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1px;
+    }
+
+    .item-title-group {
+      font-size: 9.5pt;
+    }
+
+    .item-title {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .item-role {
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .item-meta {
+      font-size: 8.5pt;
+      color: #475569;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .item-subline {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.5pt;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+
+    .item-subline a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .item-tech {
+      font-style: italic;
+      color: #475569;
+    }
+
+    /* Bullets */
+    ul.bullet-list {
+      list-style-type: disc;
+      padding-left: 16px;
+      margin: 0;
+    }
+
+    ul.bullet-list li {
+      font-size: 9pt;
+      color: #1e293b;
+      margin-bottom: 2.5px;
+      line-height: 1.35;
+      text-align: justify;
+    }
+
+    ul.bullet-list li strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    /* Education & Achievements */
+    .simple-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 9pt;
+      margin-bottom: 3px;
+    }
+
+    .simple-item .title {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .simple-item .subtitle {
+      color: #475569;
+    }
+
+    .simple-item .date {
+      font-size: 8.5pt;
+      color: #475569;
+      white-space: nowrap;
+    }
+
+    .award-item {
+      font-size: 9pt;
+      color: #1e293b;
+      margin-bottom: 2px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .award-item strong {
+      color: #0f172a;
+      min-width: 90px;
+    }
+
+    /* Print Styles (Strict 1-Page Letter / A4 Setup) */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
+      body {
+        background-color: #ffffff;
+        font-size: 8.8pt;
+        color: #000000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      .page-container {
+        margin: 0 auto !important;
+        padding: 0.55in 0.75in !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+      }
+
+      .section {
+        margin-bottom: 8.5px;
+      }
+
+      .section-title {
+        border-bottom-color: #000000;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul.bullet-list li {
+        font-size: 8.6pt;
+        margin-bottom: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Print Bar -->
+  <div class="toolbar no-print">
+    <div class="toolbar-title">
+      <span>📄 Syed Ahmed Hussain — Job Fair Resume Preview</span>
+      <span class="toolbar-tip">• Choice B: Flagship .NET & DevTask API</span>
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ Save as PDF / Print
+    </button>
+  </div>
+
+  <div class="page-container">
+    
+    <!-- ─── HEADER ─── -->
+    <header class="header">
+      <h1 class="name">Syed Ahmed Hussain</h1>
+      <div class="contact-line">
+        <span>Karachi, Pakistan</span>
+        <span class="divider-dot">|</span>
+        <span>+92 310 225 7393</span>
+        <span class="divider-dot">|</span>
+        <a href="mailto:ahmedhusssain117@gmail.com" style="color: inherit; text-decoration: none;">ahmedhusssain117@gmail.com</a>
+      </div>
+      <div class="links-line">
+        <a href="https://www.linkedin.com/in/syed-ahmed-hussain/" target="_blank">LinkedIn</a>
+        <span class="divider-dot">•</span>
+        <a href="https://github.com/ahmed-husssain" target="_blank">GitHub</a>
+        <span class="divider-dot">•</span>
+        <a href="https://ahmedev.web.app" target="_blank">Portfolio Website</a>
+      </div>
+    </header>
+
+    <!-- ─── PROFESSIONAL SUMMARY ─── -->
+    <section class="section">
+      <h2 class="section-title">Professional Summary</h2>
+      <p class="summary-text">
+        Junior Full-Stack Developer with hands-on experience building REST APIs and web interfaces using C#, ASP.NET Core, SQL Server, and React. Delivered production billing and clinical workflows for a healthcare client on Android. Focused on strong fundamentals, continuous learning, and building reliable applications.
+      </p>
+    </section>
+
+    <!-- ─── TECHNICAL SKILLS ─── -->
+    <section class="section">
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skill-group">
+        <span class="skill-label">Backend:</span>
+        <span class="skill-items">C#, ASP.NET Core, EF Core, Web APIs, LINQ, Dependency Injection, Middleware, SOLID</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Frontend:</span>
+        <span class="skill-items">React.js, JavaScript, HTML5, CSS3, Tailwind CSS</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Databases:</span>
+        <span class="skill-items">SQL Server, Stored Procedures, Relational Schema Design, Indexing</span>
+      </div>
+      <div class="skill-group">
+        <span class="skill-label">Tools & Concepts:</span>
+        <span class="skill-items">OOP, Clean Architecture, JWT Authentication, Postman, Git/GitHub, AI-Assisted Workflows</span>
+      </div>
+    </section>
+
+    <!-- ─── FREELANCE EXPERIENCE ─── -->
+    <section class="section">
+      <h2 class="section-title">Freelance Experience</h2>
+      <div class="item">
+        <div class="item-header">
+          <div class="item-title-group">
+            <span class="item-title">Shifa Home Health Care</span>
+            <span class="item-role"> — Software Developer (Contract)</span>
+          </div>
+          <span class="item-meta">Remote | May 2026 – August 2026</span>
+        </div>
+        <div class="item-subline">
+          <a href="https://github.com/ahmed-husssain/ShifaMangementSystem" target="_blank">github.com/ahmed-husssain/ShifaMangementSystem</a>
+          <span class="item-tech">PostgreSQL, Supabase, Stored Procedures, Android App</span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Clinical Operations on Android:</strong> Developed and shipped an Android management application currently in daily production use, digitizing patient records, caregiver scheduling, and dynamic 10-to-30 day care packages.</li>
+          <li><strong>Atomic Invoicing Engine:</strong> Authored concurrency-safe PostgreSQL stored procedures (<code>create_invoice_atomic</code>), guaranteeing strictly sequential invoice numbering without race conditions during billing.</li>
+          <li><strong>Data Security & Automation:</strong> Configured role-based patient data isolation using Row-Level Security (RLS) policies and automated 7-day advance appointment reminder workflows.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ─── PROJECTS ─── -->
+    <section class="section">
+      <h2 class="section-title">Projects</h2>
+
+      <!-- Online Art Gallery -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-title-group">
+            <span class="item-title">Online Art Gallery — Real-Time Auction & Marketplace</span>
+          </div>
+          <span class="item-meta">ASP.NET Core, SignalR, SQL Server, EF Core</span>
+        </div>
+        <div class="item-subline">
+          <span><a href="https://gallrex.runasp.net" target="_blank">gallrex.runasp.net</a> | <a href="https://github.com/ahmed-husssain/Online-Art-Gallery" target="_blank">github.com/ahmed-husssain/Online-Art-Gallery</a></span>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>Real-Time Auction Floor:</strong> Engineered an auction platform in ASP.NET Core; implemented SignalR WebSockets for live bid broadcasting across active users.</li>
+          <li><strong>Concurrency Protection:</strong> Resolved simultaneous bid collisions during live auctions using SQL Server Optimistic Concurrency (<code>RowVersion</code>).</li>
+          <li><strong>Database Performance:</strong> Structured relational SQL Server tables with non-clustered indexes and keyset pagination to maintain fast catalog browsing.</li>
+        </ul>
+      </div>
+
+      <!-- DevTask API -->
+      <div class="item">
+        <div class="item-header">
+          <div class="item-title-group">
+            <span class="item-title">DevTask API — Task Management Web API</span>
+          </div>
+          <span class="item-meta">ASP.NET Core, EF Core, SQL Server, JWT</span>
+        </div>
+        <div class="item-subline">
+          <a href="https://github.com/ahmed-husssain/DevTask.Api" target="_blank">github.com/ahmed-husssain/DevTask.Api</a>
+        </div>
+        <ul class="bullet-list">
+          <li><strong>RESTful Web API:</strong> Engineered a modular ASP.NET Core Web API with stateless JWT Bearer authentication, password hashing, and role-based access control (Admin vs. User).</li>
+          <li><strong>Middleware & Validation:</strong> Implemented custom centralized exception middleware for standardized error responses and structured DTO model validation.</li>
+          <li><strong>Data Modeling:</strong> Structured a relational SQL Server schema using EF Core Code-First migrations, foreign key constraints, and dynamic LINQ queries.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ─── ACHIEVEMENTS ─── -->
+    <section class="section">
+      <h2 class="section-title">Achievements</h2>
+      <div class="award-item">
+        <strong>• Winner:</strong>
+        <span>Aptech Tech Olympics Season 1 (1st Place)</span>
+      </div>
+      <div class="award-item">
+        <strong>• Runner-Up:</strong>
+        <span>Aptech Vision 2025</span>
+      </div>
+      <div class="award-item">
+        <strong>• Participant:</strong>
+        <span>Aptech TechWiz (Project: FurShield)</span>
+      </div>
+    </section>
+
+    <!-- ─── EDUCATION ─── -->
+    <section class="section" style="margin-bottom: 0;">
+      <h2 class="section-title">Education</h2>
+      <div class="simple-item">
+        <div>
+          <span class="title">Bachelor of Science in Software Engineering (BSSE)</span>
+          <span class="subtitle"> — Virtual University of Pakistan</span>
+        </div>
+        <span class="date">Present – 2030</span>
+      </div>
+      <div class="simple-item">
+        <div>
+          <span class="title">Aptech Certified Computer Professional (ACCP)</span>
+          <span class="subtitle"> — Aptech Computer Education</span>
+        </div>
+        <span class="date">Present – August 2027</span>
+      </div>
+      <div class="simple-item">
+        <div>
+          <span class="title">Intermediate in Computer Science (ICS)</span>
+          <span class="subtitle"> — Govt. College For Men, Nazimabad, Karachi</span>
+        </div>
+        <span class="date">Completed 2025</span>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
