@@ -630,10 +630,10 @@ export const BASELINE_COMMITS: Record<string, CommitInfo> = {
     label: 'Jun 20, 2025',
     branch: 'main',
   },
-  'ahmed-husssain/realestate-': {
-    sha: '1b8e4f2',
-    isoDate: '2025-02-20T00:00:00Z',
-    label: 'Feb 20, 2025',
+  'ahmed-husssain/hotelms': {
+    sha: 'cb64aa1',
+    isoDate: '2026-11-20T12:00:00Z',
+    label: 'Nov 20, 2026',
     branch: 'main',
   },
   'ahmed-husssain/e-books': {

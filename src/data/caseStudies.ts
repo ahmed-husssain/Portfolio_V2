@@ -89,29 +89,32 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
     outcome:
       'Deployed an efficient digital library platform with fast page load times and minimal server resource consumption.',
   },
-  'amber-property-corner': {
+  hotelms: {
     overview:
-      'Amber Property Corner is a full-stack real estate web application built for fast property discovery, agent lead routing, and administrative listing management.',
+      'Stayza is a full-stack hotel management system (PMS) and guest reservation portal designed for boutique resorts and luxury suites. It simplifies guest bookings with clear room catalogs, upfront 30% deposit calculation, and dedicated operational views for resort staff.',
     problem:
-      'Prospective buyers and agents needed an intuitive portal for filtering listings by price, location, and property type without sluggish query times.',
+      'Resorts often struggle with disjointed systems: guests want a seamless, visual booking experience without hidden fees, while hotel staff need simple tools to manage rooms, check-ins, and cleaning schedules without complicated enterprise software.',
     solution:
-      'I developed a server-rendered Next.js platform backed by PostgreSQL and Prisma ORM, featuring role-based dashboards and indexed search.',
+      'I built a full-stack web application featuring an intuitive guest booking interface alongside role-based staff workflows. Guests can browse suites with clear amenity breakdowns and transparent 30% deposits, while staff access dedicated views for General Management, Front Desk Reception, and Housekeeping.',
     highlights: [
-      'Fast database query turnaround across large property catalogs',
-      'Server-side role-based access control protecting admin listing workflows',
-      'Responsive listing details with optimized image delivery',
+      'Suite Showcase with Transparent Pricing: Comprehensive room catalog detailing floor plans, amenities (helipad, private spa), and automated 30% deposit calculation',
+      'Multi-Role Operational Portals: Dedicated workspaces for General Manager (Admin), Front Desk Reception, Housekeeping, and Guests with 1-click test authentication',
+      'Slide-Out Guest Concierge: Convenient navigation drawer providing direct access to active reservation dates, digital keys, room service, and estate amenities',
+      'Clean MERN Architecture: Structured RESTful API backend managing room availability, guest bookings, and operational status updates',
+      'Responsive Editorial Design: Polished, modern UI built with React and Tailwind CSS that looks sharp on mobile, tablet, and desktop',
     ],
     architecture: [
-      'Next.js App Router with server-rendered pages for optimal indexing',
-      'PostgreSQL database managed through Prisma ORM migrations and type-safe queries',
-      'Secure session cookies for administrative authentication',
+      'RESTful API endpoints handling room availability, pricing calculations, and reservation records',
+      'Role-based authorization distinguishing administrative reporting from front desk check-ins and housekeeping statuses',
+      'Component-driven frontend with Tailwind CSS and responsive modal drawers for smooth guest navigation',
+      'Schema-backed data models tracking room statuses (Available, Occupied, Maintenance) and reservation lifecycles',
     ],
     challenges: [
-      'Optimizing multi-parameter filter queries without full table scans',
-      'Designing clean image galleries that remain lightweight on mobile devices',
+      'Designing Role-Specific Interfaces: Ensuring staff members only see the operational data relevant to their shift (e.g., Housekeeping sees room cleanliness status, Reception handles check-in/out) without cluttering the screen',
+      'Transparent Booking Calculations: Accurately calculating nightly totals and required 30% advance deposits on the frontend while verifying calculations on the server',
     ],
     outcome:
-      'Shipped a responsive real estate platform achieving fast query speeds and reliable administrative workflows.',
+      'Successfully delivered a responsive, easy-to-use resort management platform that streamlines guest reservations and unifies daily hotel operations across 4 distinct staff roles.',
   },
   shifamanagement: {
     overview:

@@ -13,7 +13,7 @@ export const ALLOWED_REPOSITORIES: readonly ConfiguredRepo[] = [
   { owner: 'ahmed-husssain', repo: 'Online-Art-Gallery', branch: 'main' },
   { owner: 'ahmed-husssain', repo: 'ShifaMangementSystem', branch: 'main' },
   { owner: 'AhapraxAhmed', repo: 'mockrithm', branch: 'main' },
-  { owner: 'ahmed-husssain', repo: 'RealEstate-', branch: 'main' },
+  { owner: 'ahmed-husssain', repo: 'HotelMS', branch: 'main' },
   { owner: 'ahmed-husssain', repo: 'E-books', branch: 'main' },
 ] as const
 

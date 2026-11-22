@@ -51,8 +51,8 @@ function getProjectEditorialSubtitle(slug: string): string {
       return 'Atomic Billing'
     case 'mockrithm':
       return 'Aptech Vision Runner-Up'
-    case 'amber-property-corner':
-      return 'Indexed Queries'
+    case 'hotelms':
+      return 'Multi-Role Portals'
     case 'e-books':
       return 'Relational Library'
     default:
@@ -69,8 +69,8 @@ function getProjectLiveBadge(project: Project): string {
       return 'PostgreSQL Row-Level Security'
     case 'mockrithm':
       return 'Aptech Vision 2025 Runner-Up'
-    case 'amber-property-corner':
-      return 'Indexed PostgreSQL Engine'
+    case 'hotelms':
+      return 'MERN Architecture'
     case 'e-books':
       return 'MySQL Relational Schema'
     default:
@@ -87,8 +87,8 @@ function getProjectCategoryTag(project: Project): string {
       return '// CLINICAL OPERATIONS & RLS'
     case 'mockrithm':
       return '// AI CONVERSATIONAL SIMULATOR'
-    case 'amber-property-corner':
-      return '// INDEXED SEARCH ENGINE'
+    case 'hotelms':
+      return '// HOSPITALITY PMS & RESERVATIONS'
     case 'e-books':
       return '// NORMALIZED RELATIONAL LIBRARY'
     default:
@@ -105,8 +105,8 @@ function getSafeguardLabel(slug: string): string {
       return 'ATOMIC SAFEGUARD'
     case 'mockrithm':
       return 'SYSTEM SPECIFICATION'
-    case 'amber-property-corner':
-      return 'DATABASE TUNING'
+    case 'hotelms':
+      return 'BOOKING & ROLES'
     case 'e-books':
       return 'RELATIONAL ARCHITECTURE'
     default:
@@ -121,8 +121,8 @@ function getSpecLabel1(slug: string): string {
       return 'CONCURRENCY'
     case 'mockrithm':
       return 'AI SIMULATOR'
-    case 'amber-property-corner':
-      return 'DATA MODEL'
+    case 'hotelms':
+      return 'RESERVATIONS'
     case 'e-books':
       return 'AUTH & SESSIONS'
     default:
@@ -137,8 +137,8 @@ function getSpecLabel2(slug: string): string {
       return 'IDEMPOTENCY'
     case 'mockrithm':
       return 'EVALUATION'
-    case 'amber-property-corner':
-      return 'INDEX TUNING'
+    case 'hotelms':
+      return 'STAFF ROLES'
     case 'e-books':
       return 'SCHEMA KERNEL'
     default:

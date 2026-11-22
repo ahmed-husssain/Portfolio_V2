@@ -3,7 +3,7 @@ var ALLOWED_REPOSITORIES = [
   { owner: "ahmed-husssain", repo: "Online-Art-Gallery", branch: "main" },
   { owner: "ahmed-husssain", repo: "ShifaMangementSystem", branch: "main" },
   { owner: "AhapraxAhmed", repo: "mockrithm", branch: "main" },
-  { owner: "ahmed-husssain", repo: "RealEstate-", branch: "main" },
+  { owner: "ahmed-husssain", repo: "HotelMS", branch: "main" },
   { owner: "ahmed-husssain", repo: "E-books", branch: "main" }
 ];
 function parseRepoSlug(url) {
@@ -439,10 +439,10 @@ var BASELINE_COMMITS = {
     label: "Jun 20, 2025",
     branch: "main"
   },
-  "ahmed-husssain/realestate-": {
-    sha: "1b8e4f2",
-    isoDate: "2025-02-20T00:00:00Z",
-    label: "Feb 20, 2025",
+  "ahmed-husssain/hotelms": {
+    sha: "cb64aa1",
+    isoDate: "2026-11-20T12:00:00Z",
+    label: "Nov 20, 2026",
     branch: "main"
   },
   "ahmed-husssain/e-books": {

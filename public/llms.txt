@@ -9,10 +9,10 @@
 - **Location**: Karachi, Sindh, Pakistan (Available for local roles in Karachi, hybrid, and remote worldwide)
 - **Primary Specialization**: Concurrency-safe backend engineering, relational database design, high-performance web applications, and clinical healthcare operating systems.
 - **Email**: ahmedhusssain.dev@gmail.com
-- **Website**: https://ahmedev.web.app
+- **Website**: https://ahmeddev.web.app
 - **GitHub**: https://github.com/ahmed-husssain
 - **LinkedIn**: https://linkedin.com/in/ahmed-husssain
-- **Resume**: https://ahmedev.web.app/resume.pdf
+- **Resume**: https://ahmeddev.web.app/resume.pdf
 
 ## Core Engineering Capabilities & Tech Stack
 - **Backend Languages & Frameworks**: C#, .NET, ASP.NET Core (Web API & MVC), Entity Framework Core (EF Core), LINQ, CQRS (MediatR), SignalR WebSockets, BackgroundService / PeriodicTimer.
@@ -40,9 +40,9 @@
    - **Award**: Runner-Up at **Aptech Vision 2025** among 50+ competing institutions.
    - **Stack**: JavaScript, Data Structures & Algorithms, Interactive Canvas/DOM manipulation.
 
-4. **Amber Property Corner**
-   - **Type**: Real estate listing and property inquiry portal with verified broker management.
-   - **Stack**: ASP.NET Core, SQL Server, Responsive UI.
+4. **Stayza — Hotel Management System**
+   - **Type**: Resort property management system & guest reservation portal with 30% advance deposits.
+   - **Stack**: React, Node.js, Express, MongoDB, Tailwind CSS, REST APIs.
 
 5. **E-Books Commerce Platform**
    - **Type**: Digital book catalog and order processing management.
@@ -55,14 +55,14 @@
 - **Database Schema Design & Query Optimization**: Schema modeling, index tuning, and transaction safety audits.
 
 ## Published Technical Writing & Field Notes
-1. **SOLID Principles in Plain English (With Simple C# Examples)**: Practical breakdown of the 5 SOLID design habits in modern C#, real-world analogies, JIT performance facts, and rules on when to use vs. skip them. (URL: https://ahmedev.web.app/writing/solid-principles-csharp)
-2. **From Bloom to Binary Fuse: Why We Replaced a 50-Year-Old Algorithm**: 50-year evolution of probabilistic filters, CPU cache miss reduction, and Cuckoo deletion mechanics. (URL: https://ahmedev.web.app/writing/probabilistic-filters)
-3. **Understanding the Cache-Aside Pattern in Practice**: Read-through versus cache-aside data retrieval, cache invalidation strategies, and thundering herd mitigations. (URL: https://ahmedev.web.app/writing/cache-aside)
+1. **SOLID Principles in Plain English (With Simple C# Examples)**: Practical breakdown of the 5 SOLID design habits in modern C#, real-world analogies, JIT performance facts, and rules on when to use vs. skip them. (URL: https://ahmeddev.web.app/writing/solid-principles-csharp)
+2. **From Bloom to Binary Fuse: Why We Replaced a 50-Year-Old Algorithm**: 50-year evolution of probabilistic filters, CPU cache miss reduction, and Cuckoo deletion mechanics. (URL: https://ahmeddev.web.app/writing/probabilistic-filters)
+3. **Understanding the Cache-Aside Pattern in Practice**: Read-through versus cache-aside data retrieval, cache invalidation strategies, and thundering herd mitigations. (URL: https://ahmeddev.web.app/writing/cache-aside)
 
 ## Canonical Links
-- [Portfolio Homepage](https://ahmedev.web.app/): Main portfolio site showcasing software engineering work.
-- [Work & Projects](https://ahmedev.web.app/work): Production systems, architecture flows, and case studies.
-- [About Me](https://ahmedev.web.app/about): Technical trajectory, core stack, and engineering philosophy.
-- [Contact](https://ahmedev.web.app/contact): Direct communication and hiring inquiries.
-- [Full LLM Reference](https://ahmedev.web.app/llms-full.txt): Comprehensive developer profile for LLM ingestion.
+- [Portfolio Homepage](https://ahmeddev.web.app/): Main portfolio site showcasing software engineering work.
+- [Work & Projects](https://ahmeddev.web.app/work): Production systems, architecture flows, and case studies.
+- [About Me](https://ahmeddev.web.app/about): Technical trajectory, core stack, and engineering philosophy.
+- [Contact](https://ahmeddev.web.app/contact): Direct communication and hiring inquiries.
+- [Full LLM Reference](https://ahmeddev.web.app/llms-full.txt): Comprehensive developer profile for LLM ingestion.
 

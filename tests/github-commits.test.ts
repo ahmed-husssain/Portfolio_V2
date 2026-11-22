@@ -40,9 +40,9 @@ test('parseRepoSlug: correctly extracts owner and repo across diverse URL format
   })
 
   // URL with .git extension
-  assert.deepEqual(parseRepoSlug('https://github.com/ahmed-husssain/RealEstate-.git'), {
+  assert.deepEqual(parseRepoSlug('https://github.com/ahmed-husssain/HotelMS.git'), {
     owner: 'ahmed-husssain',
-    repo: 'RealEstate-',
+    repo: 'HotelMS',
   })
 
   // Different organization casing
@@ -67,7 +67,7 @@ test('isAllowedRepo: restricts repository access strictly to allowed portfolio r
   assert.equal(isAllowedRepo('ahmed-husssain', 'ShifaMangementSystem'), true)
   assert.equal(isAllowedRepo('AHMED-HUSSSAIN', 'shifamangementsystem'), true)
   assert.equal(isAllowedRepo('AhapraxAhmed', 'mockrithm'), true)
-  assert.equal(isAllowedRepo('ahmed-husssain', 'RealEstate-'), true)
+  assert.equal(isAllowedRepo('ahmed-husssain', 'HotelMS'), true)
   assert.equal(isAllowedRepo('ahmed-husssain', 'E-books'), true)
 
   // Disallowed arbitrary repositories (SSRF prevention)
