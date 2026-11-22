@@ -27,7 +27,7 @@ export default function Home() {
         <ContinuityBridge
           kicker="WORK CATALOG"
           title="Explore All Systems & Case Studies"
-          description="In-depth technical breakdowns of full-stack systems, ASP.NET Core APIs, and production database architectures."
+          description="Case studies of full-stack web applications, ASP.NET Core APIs, and relational database systems."
           to="/work"
           actionLabel="EXPLORE WORK CATALOG"
           className="mt-6 sm:mt-10"

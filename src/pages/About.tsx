@@ -25,7 +25,7 @@ export default function About() {
       points: [
         'Engineering full-stack clinical operations, dynamic fee billing, and 14-day renewal alerts.',
         'Engineered automated WhatsApp invoice PDF generation & verified API dispatch pipeline.',
-        'Architected PostgreSQL Row-Level Security (RLS) & atomic row locking for zero duplicate invoices.',
+        'Built PostgreSQL Row-Level Security (RLS) & row locking for zero duplicate invoices.',
       ],
       tag: 'C# · Flutter · Supabase · PostgreSQL · Riverpod',
     },
@@ -83,19 +83,19 @@ export default function About() {
             </>
           }
           title="Ahmed Hussain"
-          description="Software developer engineering high-integrity backend systems, relational schemas, and full-stack applications. Currently working remotely for Shifa Healthcare Karachi."
+          description="Backend and software developer building dependable APIs, relational databases, and full-stack web applications. Currently working remotely for Shifa Healthcare Karachi."
         />
 
-        {/* ─── 2. Current Status & Vitals HUD (Open & Immediate) ─── */}
+        {/* ─── 2. Current Status & Vitals (Open & Immediate) ─── */}
         <Reveal>
           <section className="mb-14 sm:mb-20">
             <div className="border border-border bg-surface rounded-sm overflow-hidden pixel-corners shadow-sm">
               <div className="flex items-center justify-between border-b border-border bg-surface-subtle/50 px-4 py-2.5">
                 <div className="flex items-center gap-1.5 font-mono text-[10px] text-muted uppercase tracking-wider">
                   <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                  <span className="text-foreground font-semibold">DEVELOPER VITALS</span>
+                  <span className="text-foreground font-semibold">DEVELOPER SUMMARY</span>
                   <span className="text-border-strong">·</span>
-                  <span>CURRENT REMOTE SETUP</span>
+                  <span>CURRENT SETUP</span>
                 </div>
                 <span className="text-[10px] font-mono font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-2xs">
                   ● ACTIVE DEV
@@ -357,7 +357,7 @@ export default function About() {
               >
                 <div>
                   <div className="flex items-center justify-between text-[10px] text-muted uppercase tracking-wider mb-2 font-semibold">
-                    <span className="text-foreground">CODE & ARCHITECTURE</span>
+                    <span className="text-foreground">CODE & REPOSITORIES</span>
                     <Github className="w-3.5 h-3.5 text-foreground pixel-icon" aria-hidden="true" />
                   </div>
                   <h3 className="text-base font-bold text-foreground group-hover:text-blue-500 transition-colors tracking-tight">

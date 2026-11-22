@@ -40,10 +40,10 @@ interface FlowData {
 
 const FLOWS: Record<string, FlowData> = {
   'online-art-gallery': {
-    subtitle: 'Live auction pipeline: request validation, concurrency guard, and real-time push.',
+    subtitle: 'Live auction pipeline: request validation, bid conflict check, and real-time push.',
     tag: '.NET & SQL SERVER',
-    guarantee: 'Bid Concurrency Safety',
-    guaranteeTech: 'In-Memory Cache · RowVersion OCC · SignalR WebSockets',
+    guarantee: 'Bid Conflict Safety',
+    guaranteeTech: 'In-Memory Cache · EF Core RowVersion · SignalR WebSockets',
     steps: [
       {
         id: 'bid',
@@ -52,8 +52,8 @@ const FLOWS: Record<string, FlowData> = {
         title: 'Client Submission',
         layer: 'Client UI',
         action: 'Collector clicks "Place Bid".',
-        protection: 'Attaches unique UUID key to prevent duplicate charges.',
-        metric: 'Idempotency UUID',
+        protection: 'Attaches unique request key to prevent duplicate charges.',
+        metric: 'Request Key',
       },
       {
         id: 'cache',
@@ -79,21 +79,21 @@ const FLOWS: Record<string, FlowData> = {
         id: 'sql',
         number: 4,
         short: 'SQL Guard',
-        title: 'Concurrency Guard',
+        title: 'Bid Conflict Check',
         layer: 'SQL Server & EF Core',
         action: 'Saves bid with RowVersion.',
         protection: 'If 2 bids collide at the same millisecond, 1st commits; 2nd retries safely.',
-        metric: 'OCC RowVersion',
+        metric: 'RowVersion Check',
       },
       {
         id: 'signalr',
         number: 5,
         short: 'Live Push',
         title: 'SignalR WebSockets',
-        layer: 'Real-Time Multicast',
+        layer: 'Real-Time Broadcast',
         action: 'Broadcasts price to all viewers.',
         protection: 'All screens update in under 10ms with zero page reloads.',
-        metric: '< 10ms Multicast',
+        metric: 'Instant Broadcast',
       },
     ],
     simulations: [
@@ -101,7 +101,7 @@ const FLOWS: Record<string, FlowData> = {
         id: 'collision',
         label: '2 Bids at Same Millisecond',
         highlightStep: 4,
-        result: '1st bid commits with RowVersion. 2nd gets instant retry notice with zero deadlocks.',
+        result: '1st bid commits with RowVersion. 2nd gets an instant notice that price changed, without locking the database.',
       },
       {
         id: 'double-click',
@@ -118,10 +118,10 @@ const FLOWS: Record<string, FlowData> = {
     ],
   },
   'shifamanagement': {
-    subtitle: 'Clinical operations & billing: from staff intake to ACID database commit.',
+    subtitle: 'Clinical operations & billing: from staff intake to database commit.',
     tag: 'FLUTTER · SUPABASE · POSTGRES 15',
-    guarantee: 'Strict Sequential Invoice Safety',
-    guaranteeTech: 'PostgreSQL Atomic RPCs · Row-Level Security · Realtime CDC',
+    guarantee: 'Sequential Invoice Safety',
+    guaranteeTech: 'PostgreSQL Stored Procedures · Row-Level Security · Realtime Updates',
     steps: [
       {
         id: 'input',
@@ -130,28 +130,28 @@ const FLOWS: Record<string, FlowData> = {
         title: 'Clinical Action',
         layer: 'Flutter & Riverpod',
         action: 'Staff issues invoice or intake.',
-        protection: 'Attaches UUID idempotency key to prevent double submissions.',
+        protection: 'Attaches unique request key to prevent double submissions.',
         metric: 'Client Validation',
       },
       {
         id: 'gateway',
         number: 2,
         short: 'Fast Gate',
-        title: 'Pre-Lock Idempotency',
+        title: 'Duplicate Check',
         layer: 'Supabase Gateway',
         action: 'Intercepts duplicate network retry.',
         protection: 'Returns existing invoice payload without incrementing database sequence counters.',
-        metric: 'Idempotent Replay',
+        metric: 'Duplicate Filter',
       },
       {
         id: 'rowlock',
         number: 3,
         short: 'Row Lock',
-        title: 'Atomic Counter Lock',
+        title: 'Invoice Counter Lock',
         layer: 'PostgreSQL FOR UPDATE',
         action: 'Locks sequence row exclusively.',
-        protection: 'Guarantees consecutive gapless numbering (SHHC-5001) with zero collisions.',
-        metric: 'Atomic Sequence Lock',
+        protection: 'Guarantees consecutive invoice numbering (SHHC-5001) with zero collisions.',
+        metric: 'Sequence Lock',
       },
       {
         id: 'rls',
@@ -313,7 +313,7 @@ export default function ArchitectureVisualizer({
 
       {/* ─── 2. Kinetic SVG Architectural Data Rail + Pipeline Strip ─── */}
       <div className="p-2 sm:p-2.5 bg-page border border-border rounded-xs flex flex-col gap-1.5 pixel-corners">
-        {/* Real-Time Bus Telemetry Readout */}
+        {/* Interactive Step Details */}
         <div className="flex items-center justify-between text-[10px] font-mono text-muted px-0.5">
           <span className="flex items-center gap-1.5">
             <span
@@ -321,11 +321,11 @@ export default function ArchitectureVisualizer({
                 isSimulating ? 'bg-amber-400 animate-ping' : 'bg-blue-500'
               }`}
             />
-            <span className="text-foreground font-semibold">BUS TELEMETRY</span>
-            <span className="text-secondary hidden xs:inline">· PACKET IN FLIGHT</span>
+            <span className="text-foreground font-semibold">FLOW DETAILS</span>
+            <span className="text-secondary hidden xs:inline">· ACTIVE STEP</span>
           </span>
           <span className="text-blue-500 font-bold">
-            NODE 0{currentStep.number} ACTIVE · {currentStep.metric}
+            STEP 0{currentStep.number} ACTIVE · {currentStep.metric}
           </span>
         </div>
 

@@ -87,14 +87,14 @@ export const PROJECTS: Project[] = [
       },
       {
         image: '/projects/shifamanagement/slide-4.webp',
-        title: 'Atomic Soft-Delete & Audit History',
+        title: 'Soft-Delete & Audit History',
         tag: 'COMPLIANCE & AUDIT',
         description:
           'Row Level Security-governed patient records with immutable audit logs preventing accidental medical data loss.',
       },
       {
         image: '/projects/shifamanagement/slide-5.webp',
-        title: 'Zero-Cost Spark Serverless Architecture',
+        title: 'Cloud Infrastructure & Database',
         tag: 'INFRASTRUCTURE',
         description:
           'High-availability Supabase and PostgreSQL configuration maintaining zero infrastructure operational costs.',
@@ -102,8 +102,8 @@ export const PROJECTS: Project[] = [
     ],
     architecture: [
       'Multi-platform Flutter architecture with Riverpod reactive state management',
-      'ACID-safe atomic invoice generation with PostgreSQL row locking (FOR UPDATE)',
-      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the kernel level',
+      'Database-level invoice generation with PostgreSQL row locking (FOR UPDATE) to prevent duplicates',
+      'Row Level Security (RLS) enforcing strict staff vs admin patient privacy at the database level',
       'Real-time PostgreSQL CDC replication stream for 7-day care plan expiration countdowns',
     ],
     outcome:
@@ -114,9 +114,9 @@ export const PROJECTS: Project[] = [
     title: 'Online Art Gallery',
     category: 'E-Commerce / .NET Full-Stack',
     shortDescription:
-      'Real-time art marketplace with concurrency-safe auction settlement and live bidding.',
+      'Real-time art marketplace with live bidding and automatic auction settlement.',
     description:
-      'High-throughput marketplace engineered with ASP.NET Core and SQL Server. Features optimistic concurrency control (RowVersion), SignalR WebSocket bid streams, and sub-10ms cache idempotency.',
+      'Online art marketplace built with ASP.NET Core and SQL Server. Features optimistic concurrency control (RowVersion), SignalR WebSocket bid streams, and in-memory duplicate submission checks.',
     technologies: [
       'C#',
       '.NET',
@@ -149,14 +149,14 @@ export const PROJECTS: Project[] = [
         title: 'Hero & Curated Artwork Showcase',
         tag: 'VISUAL SHOWCASE',
         description:
-          'Interactive artwork discovery stage built with responsive layouts, high-fidelity image delivery, and sub-millisecond catalog caching.',
+          'Interactive artwork catalog built with responsive layouts and fast database queries.',
       },
       {
         image: '/projects/online-art-gallery/slide-2.webp',
         title: 'Curated Catalog & Live Bidding Arena',
-        tag: 'CONCURRENCY ENGINE',
+        tag: 'LIVE AUCTION FLOOR',
         description:
-          'Real-time WebSocket auction floor powered by ASP.NET Core SignalR and Optimistic Concurrency Control (OCC) preventing bid collisions.',
+          'Live auction floor powered by ASP.NET Core SignalR and EF Core concurrency checks to prevent conflicting bids.',
       },
       {
         image: '/projects/online-art-gallery/slide-3.webp',
@@ -167,13 +167,13 @@ export const PROJECTS: Project[] = [
       },
     ],
     architecture: [
-      'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing live bid collisions',
-      'Rapid-click idempotency layer via IMemoryCache (UUID sliding window) executing in 0.01ms with zero DB load',
-      'Sub-10ms real-time WebSocket push via ASP.NET Core SignalR (AuctionHub) to room auction-{productId}',
-      'Autonomous AuctionEndingWorker (BackgroundService) settling expired auctions via 15-second PeriodicTimer',
+      'Optimistic concurrency control with EF Core RowVersion to prevent simultaneous bid conflicts',
+      'In-memory caching to catch double-clicks and prevent duplicate bid submissions',
+      'Real-time price updates pushed to active rooms via ASP.NET Core SignalR (AuctionHub)',
+      'Background worker (BackgroundService) that checks and closes expired auctions every 15 seconds',
     ],
     outcome:
-      'Zero database deadlocks under concurrent bid spikes with sub-10ms SignalR WebSocket multicast latency.',
+      'Smooth live bidding with instant price updates and reliable conflict resolution.',
   },
   {
     slug: 'mockrithm',
@@ -353,7 +353,7 @@ export const PROJECTS: Project[] = [
       {
         image: '/projects/e-books/slide-5.webp',
         title: 'Relational MySQL Schema & 9-Table Architecture',
-        tag: 'DATABASE KERNEL',
+        tag: 'DATABASE SCHEMA',
         description:
           'Normalized relational schema hosted on InfinityFree MySQL (InnoDB) managing users, books, orders, submissions, categories, and competition winners with zero redundancy.',
       },

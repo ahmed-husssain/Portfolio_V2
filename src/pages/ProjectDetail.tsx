@@ -283,8 +283,8 @@ export default function ProjectDetail() {
                     <span className="text-foreground font-semibold flex items-center gap-2">
                       <span className="pixel-beacon" />
                       {project.slug === 'shifamanagement'
-                        ? 'INTERACTIVE CLINICAL DATA FLOW & BILLING SIMULATOR'
-                        : 'INTERACTIVE BID CONCURRENCY & DATA FLOW SIMULATOR'}
+                        ? 'INTERACTIVE CLINICAL BILLING FLOW'
+                        : 'INTERACTIVE BIDDING DATA FLOW'}
                     </span>
                     <span className="text-muted text-[11px] hidden sm:inline">
                       {project.slug === 'shifamanagement'
@@ -461,7 +461,7 @@ export default function ProjectDetail() {
                   to="/about#contact"
                   className="inline-flex items-center gap-2 px-4 py-2 border border-border bg-page text-foreground text-xs sm:text-sm font-mono font-semibold rounded-sm hover:border-border-strong active:scale-[0.98] transition-all"
                 >
-                  <span>DISCUSS THIS ARCHITECTURE</span>
+                  <span>DISCUSS THIS PROJECT</span>
                   <span aria-hidden="true">↗</span>
                 </Link>
               </div>

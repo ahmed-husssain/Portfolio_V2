@@ -119,7 +119,7 @@ export default function Review() {
             </>
           }
           title="Recommendations"
-          description="Direct notes from clients, product owners, and collaborators on software delivery, backend architecture, and communication."
+          description="Direct notes from clients, product owners, and collaborators on project delivery, code quality, and communication."
         />
 
         {/* ─── Wall of Recommendations ─── */}

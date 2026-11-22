@@ -7,7 +7,7 @@
 - **Known As**: Ahmed Hussain
 - **Professional Title**: Software Developer & Website Developer
 - **Location**: Karachi, Sindh, Pakistan (Available for local roles in Karachi, hybrid, and remote worldwide)
-- **Primary Specialization**: Concurrency-safe backend engineering, relational database design, high-performance web applications, and clinical healthcare operating systems.
+- **Primary Specialization**: Backend API engineering, relational database design, responsive web applications, and clinical healthcare software.
 - **Email**: ahmedhusssain.dev@gmail.com
 - **Website**: https://ahmeddev.web.app
 - **GitHub**: https://github.com/ahmed-husssain
@@ -24,13 +24,13 @@
 
 ## Verified Production Systems & Projects
 1. **Shifa Management System (SMS)**
-   - **Type**: Clinical Operations, Patient Intake & Billing Operating Platform for Shifa Home Health Care.
+   - **Type**: Clinical Operations, Patient Intake & Billing Platform for Shifa Home Health Care.
    - **Stack**: Flutter, Dart, Supabase, PostgreSQL with Row Level Security, Riverpod.
    - **Key Achievements**: Consolidated 14-day dynamic care plan renewals, automated WhatsApp invoice dispatch, zero duplicate financial sequences via PostgreSQL atomic sequence locking (`FOR UPDATE`).
    - **Repository**: https://github.com/ahmed-husssain/ShifaMangementSystem
 
 2. **Gallrax ERP (Online Art Gallery & Real-Time Auction Platform)**
-   - **Type**: High-concurrency artwork auctioning and enterprise back-office management.
+   - **Type**: Online artwork marketplace with live auction bidding.
    - **Stack**: C#, ASP.NET Core, EF Core, SQL Server, SignalR WebSockets, React.
    - **Key Achievements**: Eliminated bid collisions using Optimistic Concurrency Control (`RowVersion`), sub-15s auto-settlement background worker (`PeriodicTimer`), and multi-provider OAuth 2.0 with TOTP 2FA.
    - **Repository**: https://github.com/ahmed-husssain/Online-Art-Gallery-Website
@@ -50,7 +50,7 @@
 
 ## Services Offered in Karachi & Globally
 - **Custom Website Development**: Building fast, SEO-optimized, responsive web applications and corporate websites.
-- **Backend & RESTful API Engineering**: High-throughput, concurrency-safe API development with .NET Core and SQL Server.
+- **Backend & RESTful API Engineering**: Dependable API development with ASP.NET Core and SQL Server.
 - **Healthcare & Business Management Software**: Tailored ERP, clinic management, and operational platforms using Flutter and PostgreSQL.
 - **Database Schema Design & Query Optimization**: Schema modeling, index tuning, and transaction safety audits.
 

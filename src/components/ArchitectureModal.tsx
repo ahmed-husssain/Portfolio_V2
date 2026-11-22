@@ -44,8 +44,8 @@ export default function ArchitectureModal({
   if (!isOpen || typeof document === 'undefined') return null
 
   const isShifa = projectSlug === 'shifamanagement' || initialFlowId === 'shifa-architecture'
-  const title = isShifa ? 'SHIFA HEALTHCARE ARCHITECTURE' : 'GALLREX LIVE ARCHITECTURE'
-  const subtitle = isShifa ? 'ATOMIC BILLING & RLS SECURITY ENGINE' : 'CONCURRENCY & WEBSOCKET ENGINE'
+  const title = isShifa ? 'SHIFA CLINICAL DATA FLOW' : 'GALLREX LIVE AUCTION FLOW'
+  const subtitle = isShifa ? 'INVOICE NUMBERING & PATIENT DATA SECURITY' : 'BID CONFLICT RESOLUTION & LIVE UPDATES'
 
   const handleDismiss = () => {
     sound.playPop()

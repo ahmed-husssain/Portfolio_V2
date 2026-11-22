@@ -9,25 +9,25 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: 'Index',
     href: '/',
-    description: 'Overview & flagship systems',
+    description: 'Selected work & skills',
     index: '01',
   },
   {
     label: 'Work',
     href: '/work',
-    description: 'Case studies & architecture',
+    description: 'Projects & case studies',
     index: '02',
   },
   {
     label: 'About',
     href: '/about',
-    description: 'Engineering background & stack',
+    description: 'Background, stack & contact',
     index: '03',
   },
   {
     label: 'Writing',
     href: '/writing',
-    description: 'Technical notes & breakdowns',
+    description: 'Articles & field notes',
     index: '04',
   },
 ]

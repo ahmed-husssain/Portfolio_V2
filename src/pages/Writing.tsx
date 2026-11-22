@@ -38,7 +38,7 @@ export default function Writing() {
             </>
           }
           title="Field Notes & Technical Opinions"
-          description="Learnings from production systems, backend performance, database architecture, and honest opinions from building software."
+          description="Practical notes on backend engineering, database design, and lessons learned building software."
         />
 
         {/* Clean Topic Pills (High-contrast, readable, no empty (0) buttons) */}

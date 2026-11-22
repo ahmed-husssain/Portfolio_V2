@@ -46,9 +46,9 @@ function formatCompactDate(label?: string): string {
 function getProjectEditorialSubtitle(slug: string): string {
   switch (slug) {
     case 'online-art-gallery':
-      return 'Live Concurrency'
+      return 'Live Bids'
     case 'shifamanagement':
-      return 'Atomic Billing'
+      return 'Clinical ERP'
     case 'mockrithm':
       return 'Aptech Vision Runner-Up'
     case 'hotelms':
@@ -82,9 +82,9 @@ function getProjectLiveBadge(project: Project): string {
 function getProjectCategoryTag(project: Project): string {
   switch (project.slug) {
     case 'online-art-gallery':
-      return '// CONCURRENCY & STREAMING ENGINE'
+      return '// LIVE AUCTIONS & WEBSOCKETS'
     case 'shifamanagement':
-      return '// CLINICAL OPERATIONS & RLS'
+      return '// CLINICAL OPS & SECURITY'
     case 'mockrithm':
       return '// AI CONVERSATIONAL SIMULATOR'
     case 'hotelms':
@@ -100,17 +100,17 @@ function getProjectCategoryTag(project: Project): string {
 function getSafeguardLabel(slug: string): string {
   switch (slug) {
     case 'online-art-gallery':
-      return 'CONCURRENCY SAFEGUARD'
+      return 'BID PROTECTION'
     case 'shifamanagement':
-      return 'ATOMIC SAFEGUARD'
+      return 'BILLING SAFETY'
     case 'mockrithm':
-      return 'SYSTEM SPECIFICATION'
+      return 'SYSTEM OVERVIEW'
     case 'hotelms':
       return 'BOOKING & ROLES'
     case 'e-books':
-      return 'RELATIONAL ARCHITECTURE'
+      return 'DATABASE DESIGN'
     default:
-      return 'CORE SAFEGUARD'
+      return 'KEY HIGHLIGHT'
   }
 }
 
@@ -118,7 +118,7 @@ function getSafeguardLabel(slug: string): string {
 function getSpecLabel1(slug: string): string {
   switch (slug) {
     case 'online-art-gallery':
-      return 'CONCURRENCY'
+      return 'BID CONFLICTS'
     case 'mockrithm':
       return 'AI SIMULATOR'
     case 'hotelms':
@@ -126,7 +126,7 @@ function getSpecLabel1(slug: string): string {
     case 'e-books':
       return 'AUTH & SESSIONS'
     default:
-      return 'SAFEGUARD'
+      return 'FEATURE'
   }
 }
 
@@ -134,15 +134,15 @@ function getSpecLabel1(slug: string): string {
 function getSpecLabel2(slug: string): string {
   switch (slug) {
     case 'online-art-gallery':
-      return 'IDEMPOTENCY'
+      return 'DUPLICATE GUARD'
     case 'mockrithm':
       return 'EVALUATION'
     case 'hotelms':
       return 'STAFF ROLES'
     case 'e-books':
-      return 'SCHEMA KERNEL'
+      return 'DATA MODEL'
     default:
-      return 'ARCHITECTURE'
+      return 'DESIGN'
   }
 }
 
@@ -398,7 +398,7 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                 onClick={() => setIsArchModalOpen(true)}
                 data-cursor-text="SYSTEM FLOW ⚙"
                 className="inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[40px] text-[11px] font-mono font-semibold rounded-xs border border-border bg-page text-foreground hover:bg-surface-subtle hover:border-border-strong active:scale-[0.97] transition-all cursor-pointer select-none"
-                title="Inspect real sequence and concurrency flow"
+                title="Inspect interactive system data flow"
               >
                 <Cpu className="w-3.5 h-3.5 pixel-icon text-blue-600 dark:text-blue-400 shrink-0" />
                 <span>SYSTEM FLOW</span>
@@ -615,8 +615,8 @@ export default function ProjectCard({ project, className = '', index }: ProjectC
                     onClick={() => setIsArchModalOpen(true)}
                     data-cursor-text="SYSTEM FLOW ⚙"
                     className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-2xs border border-border-strong bg-surface hover:bg-surface-subtle text-[10px] font-mono text-foreground font-semibold active:scale-[0.96] transition-all cursor-pointer select-none"
-                    title="Inspect real sequence and concurrency flow"
-                    aria-label={`SYSTEM FLOW: Inspect real sequence and concurrency flow for ${project.title}`}
+                    title="Inspect interactive system data flow"
+                    aria-label={`SYSTEM FLOW: Inspect interactive system data flow for ${project.title}`}
                   >
                     <Cpu className="w-3 h-3 pixel-icon text-foreground shrink-0" />
                     <span>SYSTEM FLOW</span>

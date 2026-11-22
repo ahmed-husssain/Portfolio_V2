@@ -11,33 +11,33 @@ export interface CaseStudyData {
 export const CASE_STUDIES: Record<string, CaseStudyData> = {
   'online-art-gallery': {
     overview:
-      'Gallrex is a high-concurrency art marketplace and live auction platform built on .NET, EF Core, and SQL Server. It features sub-millisecond collision protection via Optimistic Concurrency Control, in-memory network idempotency, live WebSocket multicast, and autonomous background order settlement.',
+      'Gallrex is an online art marketplace and live auction web platform built with ASP.NET Core, EF Core, and SQL Server. It features live bid updates with SignalR WebSockets, conflict protection using optimistic concurrency (RowVersion), in-memory duplicate submission checks, and an automatic background worker to close expired auctions.',
     problem:
-      'Live online auctions suffer from extreme last-second bidding collisions, race conditions, accidental double-clicks, and dormant server issues where expired auctions fail to settle unless a human loads the page.',
+      'Live online auctions face rapid bidding collisions when multiple users bid at the exact same second, accidental double-clicks from impatient buyers, and expired auctions that remain open unless someone manually refreshes the page.',
     solution:
-      'I architected a Strangler Fig hybrid MVC + CQRS system using MediatR. High-risk transaction zones (Live Bidding & Checkout) leverage SQL Server rowversion OCC timestamps, IMemoryCache idempotency deduplication, SignalR WebSocket room multicasting, and a 15-second background heartbeat worker.',
+      'I built a clean ASP.NET Core application using CQRS via MediatR for high-volume actions like bidding and checkout. It uses SQL Server RowVersion timestamps to catch bid conflicts, an in-memory cache to ignore duplicate double-clicks, SignalR rooms for live price updates, and a background service that automatically closes finished auctions.',
     highlights: [
-      'Optimistic Concurrency Control (OCC) with [Timestamp] RowVersion byte[] preventing race conditions during simultaneous microsecond bids without table deadlocks',
-      'Rapid-click idempotency filter using IMemoryCache (UUID sliding window) resolving duplicate clicks in 0.01ms with zero SQL Server load',
-      'Real-time WebSocket multicasting via ASP.NET Core SignalR (AuctionHub) pushing live price updates to auction-{productId} rooms within 10ms',
-      'Autonomous settlement engine (AuctionEndingWorker : BackgroundService) running on a PeriodicTimer(15s) that settles orders independently of human HTTP traffic',
-      'Multi-provider OAuth 2.0 (Google, GitHub, Discord) with local avatar ingestion pipeline (wwwroot/images/avatars) and OtpNet TOTP dual-factor authentication',
-      'Covering Non-Clustered B-Tree Index on (IsApproved, Name) with included price and bid columns for zero-table-scan catalog browsing',
+      'Optimistic Concurrency Control: Uses EF Core [Timestamp] RowVersion to catch and resolve simultaneous bids cleanly without locking database tables',
+      'Double-Click Prevention: In-memory cache filter verifies request keys to ignore accidental duplicate clicks before they hit the database',
+      'Live Room Broadcasting: Real-time price updates pushed to active auction rooms via ASP.NET Core SignalR WebSockets',
+      'Automated Auction Closing: A background worker runs every 15 seconds to safely check and finalize expired auctions without requiring user traffic',
+      'Multi-Provider OAuth 2.0: Supports Google, GitHub, and Discord sign-in alongside two-factor authentication (TOTP) and local avatar storage',
+      'Targeted SQL Indexing: Database index on (IsApproved, Name) with included price columns for fast catalog search queries',
     ],
     architecture: [
-      'Strangler Fig Architecture: Standard CRUD remains clean MVC, while high-risk monetary transaction zones use CQRS via MediatR (PlaceBidCommand, ProcessCheckoutCommand)',
-      'Optimistic Concurrency Control: Catches EF Core DbUpdateConcurrencyException gracefully to prevent corrupt bids without locking reader queries',
-      'In-Memory Guard: Sliding-window IMemoryCache protects SQL Server from connection pool exhaustion during bidding wars and credential brute-force attempts',
-      'Background Service Heartbeat: Uses PeriodicTimer and IServiceScopeFactory to safely query and settle expired auctions without scoped DbContext memory leaks',
-      'Covering SQL Index Tuning: IX_Products_IsApproved_Name satisfies catalog search and sorting directly from index leaf pages with 0 clustered lookups',
+      'CQRS Action Separation: Standard pages use clean MVC controllers, while high-risk monetary actions (bidding, checkout) use MediatR commands',
+      'Conflict Handling: Gracefully catches EF Core DbUpdateConcurrencyException to inform bidders when a higher bid placed first',
+      'Memory Cache Guard: In-memory sliding cache absorbs rapid repeated clicks to protect SQL Server connection pools',
+      'Background Service: Uses ASP.NET Core BackgroundService with IServiceScopeFactory to query and settle expired auctions cleanly',
+      'Covering SQL Index: Satisfies catalog search queries directly from index pages to keep database turnaround fast',
     ],
     challenges: [
-      'Handling simultaneous last-second bids without database deadlocks: Resolved by replacing pessimistic UPDLOCK table locks with an 8-byte rowversion column and optimistic concurrency catching',
-      'Eliminating the "dormant server" auction flaw: Resolved by deploying an autonomous BackgroundService heartbeat that finalizes auctions on a 15-second timer even if zero users are online',
-      'Managing external OAuth avatar volatility: Implemented an HttpClient pipeline to download and mirror external avatars locally in wwwroot/images/avatars/{guid}.png',
+      'Handling simultaneous bids smoothly: Resolved by replacing slow pessimistic table locks with an 8-byte rowversion column and catching concurrency exceptions',
+      'Finalizing auctions when no users are online: Resolved with an ASP.NET Core background service that checks expiration times every 15 seconds',
+      'Managing external OAuth avatars: Built an HttpClient download pipeline to mirror third-party avatars locally so profiles always render reliably',
     ],
     outcome:
-      'Delivered a resilient, production-grade live auction platform that eliminates race conditions and double-charges, operating smoothly with sub-10ms WebSocket price pushes and zero table deadlocks.',
+      'Delivered a stable, production-ready online auction platform that handles simultaneous bids cleanly, prevents duplicate charges, and updates prices live with SignalR.',
   },
   mockrithm: {
     overview:
@@ -118,32 +118,32 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
   },
   shifamanagement: {
     overview:
-      'ShifaManagement (SMS) is an end-to-end clinical-grade operating platform engineered for Shifa Home Health Care to unify patient intake, dynamic plan renewals, consecutive zero-gap invoicing, and clinical staff coordination.',
+      'ShifaManagement (SMS) is a clinical management platform built for Shifa Home Health Care to handle patient intake, care plan renewals, billing, and nursing staff coordination.',
     problem:
-      'Home healthcare coverage is distributed across field caregivers with variable durations (10 to 30 days). Managing these cycles manually caused billing discrepancies, missed renewal dates, duplicate invoices, and sudden care interruptions.',
+      'Home healthcare plans vary in duration (10 to 30 days) across distributed field nurses. Managing patient care manually caused billing discrepancies, missed renewal dates, duplicate invoice numbers, and care plan interruptions.',
     solution:
-      'I engineered a cross-platform operating platform using Flutter, Riverpod, and Supabase PostgreSQL with ACID-safe atomic billing RPCs (create_invoice_atomic), Row Level Security (RLS), dynamic 7-day advance countdown renewals, and isolated dual Staging/Production environments.',
+      'I built a cross-platform application using Flutter, Riverpod, and Supabase PostgreSQL. It features safe database-level invoice numbering, Row Level Security (RLS) for patient data privacy, 7-day advance renewal alerts, and isolated Staging and Production databases.',
     highlights: [
-      'Smart Zero-Gap Continuity: Automatic consecutive date calculation (ToDate_prev + 1 day), completely eliminating coverage gaps and overlaps',
-      'Concurrency-Safe Atomic Counter: High-reliability PostgreSQL Security Definer RPC (create_invoice_atomic) preventing duplicate invoice numbers',
-      'Intelligent Renewal Engine: 7-day calibrated advance countdown with 1-click WhatsApp and telephony dispatch pre-populated with patient diagnosis',
-      'Multi-Tier Role-Based Access Control (RBAC): Row Level Security isolating staff access to assigned patients while giving admins hospital-wide visibility',
-      'Dual-Environment Architecture: Staging and Production database isolation preventing test data leakage into live billing sequences',
-      '93 Passing Automated Tests: End-to-end verification covering dynamic expiration lifecycles, date calculations, and adversarial edge cases',
+      'Consecutive Date Calculations: Automatically calculates renewal dates (Previous End Date + 1 day) to prevent coverage gaps and overlapping schedules',
+      'Duplicate-Free Invoicing: A PostgreSQL stored procedure generates consecutive invoice numbers safely on the database, preventing number collisions',
+      '7-Day Renewal Alerts: Calibrated renewal warnings with 1-click WhatsApp message generation pre-filled with patient details and care summaries',
+      'Role-Based Data Privacy: Row Level Security (RLS) restricts staff to their assigned patients while giving supervisors full clinic visibility',
+      'Dual Database Setup: Separate Staging and Production databases to keep testing data completely isolated from live billing records',
+      '93 Automated Tests: Unit and widget test suite verifying plan expiration logic, date calculations, and common user errors',
     ],
     architecture: [
-      'Multi-platform Flutter with Riverpod reactive dependency injection and stream providers',
-      'Supabase PostgreSQL with Security Definer stored procedures and exclusive row locking (FOR UPDATE)',
-      'Responsive single-row inline service editing without wrapping on mobile viewports (320px - 412px)',
-      'Real-time PostgreSQL Change Data Capture (CDC) streams for active patient rosters and renewal feeds',
+      'Cross-platform Flutter application with Riverpod for state management and stream providers',
+      'Supabase PostgreSQL with stored procedures and database-level row locking (FOR UPDATE)',
+      'Responsive mobile layout designed for single-row service editing on phone screens (320px – 412px)',
+      'Real-time Supabase subscriptions for active patient rosters and renewal lists',
     ],
     challenges: [
-      'Eliminating billing overlaps across variable plan durations (10d acute vs 30d chronic): Resolved by enforcing consecutive start-date computation',
-      'Preventing invoice sequence collisions during simultaneous staff access: Solved via atomic PostgreSQL RPC counter rather than client-side incrementation',
-      'Preventing testing clutter in live medical billing: Solved with dual Staging/Production environment isolation',
+      'Preventing billing date overlaps across different plan lengths: Enforced strict consecutive date formulas on all plan renewals',
+      'Preventing duplicate invoice numbers when multiple staff create bills simultaneously: Solved by generating invoice numbers on the database rather than relying on client state',
+      'Keeping test bills out of live accounting: Set up completely isolated Staging and Production databases',
     ],
     outcome:
-      'Engineered and delivered a production clinical operating system in 3 months, eliminating billing duplications and care gaps across mobile, desktop, and web.',
+      'Delivered a dependable clinical operating app currently used in production, eliminating duplicate billing and care plan gaps across mobile and desktop.',
   },
 }
 
